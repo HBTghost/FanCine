@@ -1,57 +1,24 @@
 {
-  "author": "Group 09",
   "name": "FanCine",
   "version": "1.0.0",
-  "description": "Starter project template boilerplate based on Webpack with SASS/PostCSS and babel ES6/7 support.",
-  "target": "web",
-  "browserslist": [
-    "last 2 versions",
-    "> 5%"
-  ],
-  "scripts": {
-    "build": "webpack --config configuration/webpack.dev.config.js --mode=development",
-    "watch": "webpack --config configuration/webpack.dev.config.js --mode=development --watch",
-    "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
-    "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
-    "lint:sass": "sass-lint 'src/scss/*' -v -q",
-    "lint:js": "eslint --ext .js src/js/"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "ajv": "^6.12.6",
-    "autoprefixer": "^10.0.0",
-    "babel-loader": "^8.1.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^6.2.1",
-    "css-loader": "^5.0.0",
-    "css-minimizer-webpack-plugin": "^1.1.5",
-    "eslint": "^7.12.1",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^4.5.0",
-    "imagemin-webpack-plugin": "^2.4.2",
-    "mini-css-extract-plugin": "^1.2.1",
-    "postcss": "^8.1.4",
-    "postcss-loader": "^4.0.4",
-    "sass": "^1.27.0",
-    "sass-lint": "^1.13.1",
-    "sass-loader": "^10.0.4",
-    "terser-webpack-plugin": "^5.0.3",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.3.1",
-    "webpack-cli": "^4.1.0",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.2.0"
-  },
-  "engines": {
-    "node": "^10 || ^12 || >=14"
-  },
+  "main": "server/index.js",
   "license": "MIT",
-  "private": true
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "source-map-loader": "^1.1.2",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "css-loader": "^5.0.0",
+    "postcss-loader": "^4.0.4",
+    "sass": "^1.28.0",
+    "sass-loader": "^10.0.5",
+    "style-loader": "^2.0.0"
+  }
 }

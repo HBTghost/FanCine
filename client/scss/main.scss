@@ -1,0 +1,30 @@
+@import './variables.scss';
+
+h1 {
+  color: $my-color;
+  text-align: center;
+}
+h2 {
+  color: red;
+}
+h3 {
+  color: blue;
+}
+h4 {
+  color: yellow;
+}
+h5 {
+  color: green;
+}
+
+body {
+  background: linear-gradient(to left, $blue, $pink);
+}
+
+#test-btn {
+  background-color: red;
+  float: right;
+  &:hover {
+    background-color: $my-color;
+  }
+}
