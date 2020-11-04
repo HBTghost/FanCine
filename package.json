@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "client": "webpack serve --hot",
+    "client": "webpack serve --hot --watch",
     "server": "nodemon server.js",
     "serve": "npm-run-all client server",
     "build": "webpack --mode production",
