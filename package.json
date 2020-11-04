@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack serve",
-    "build": "webpack",
     "start": "node index.js"
   },
   "dependencies": {
