@@ -1,7 +1,13 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'client/js/index.js'),
+  entry: [
+    path.resolve(__dirname, 'client/js/index.js'),
+    path.resolve(__dirname, 'client/scss/main.scss'),
+  ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'client'),
@@ -25,6 +31,9 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
           {
             loader: 'css-loader',
             options: {
@@ -50,5 +59,21 @@ module.exports = {
       }
     ]
   },
-  mode: 'development'
+  mode: 'development',
+  plugins: [
+    // Where the compiled SASS is saved to
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+      allChunks: true,
+    })
+  ],
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          safe: true
+        }
+      })
+    ]
+  }
 }

@@ -1,30 +1,49 @@
 @import './variables.scss';
 
-h1 {
-  color: $my-color;
-  text-align: center;
-}
-h2 {
-  color: red;
-}
-h3 {
-  color: blue;
-}
-h4 {
-  color: yellow;
-}
-h5 {
-  color: green;
-}
-
 body {
   background: linear-gradient(to left, $blue, $pink);
 }
 
-#test-btn {
-  background-color: red;
-  float: right;
-  &:hover {
-    background-color: $my-color;
+.container {
+  position: relative;
+  margin: 5%;
+  *:not(section) {
+    display: flex;
+    background-color: #888;
+    align-items: center;
+  }
+  .logo {
+    height: 80px;
+    margin-bottom: 1%;
+    font-size: x-large;
+  }
+  nav, footer {
+    height: 50px;
+    justify-content: center;
+  }
+  header {
+    margin-top: 1%;
+    height: 100px;
+    justify-content: center;
+  }
+  section {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    height: 550px;
+    .side-bar {
+      justify-content: center;
+      width: 30%;
+      height: 550px;
+      margin-right: 2%;
+    }
+    .body-area {
+      justify-content: center;
+      width: 68%;
+      height: 550px;
+    }
   }
 }
