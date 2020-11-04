@@ -1,7 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -10,14 +9,13 @@ module.exports = {
   ],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'client'),
+    path: path.resolve(__dirname, 'public'),
   },
   watch: true,
   devServer: {
     port: 6969,
-    contentBase: path.resolve(__dirname, 'client'),
+    contentBase: path.resolve(__dirname, 'public'),
     watchContentBase: true,
-    hot: true,
     open: true
   },
   module: {
@@ -30,7 +28,6 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          'style-loader',
           {
             loader: MiniCssExtractPlugin.loader
           },
@@ -61,7 +58,6 @@ module.exports = {
   },
   mode: 'development',
   plugins: [
-    // Where the compiled SASS is saved to
     new MiniCssExtractPlugin({
       filename: 'style.css',
       allChunks: true,
