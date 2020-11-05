@@ -8,7 +8,7 @@ module.exports = {
     path.resolve(__dirname, 'client/scss/main.scss'),
   ],
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.min.js',
     path: path.resolve(__dirname, 'public'),
   },
   devServer: {
@@ -58,7 +58,7 @@ module.exports = {
   mode: 'development',
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: 'style.min.css',
       allChunks: true,
     })
   ],

@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "client": "webpack serve --hot --watch",
+    "client": "webpack serve --watch --hot",
     "server": "nodemon server.js",
     "serve": "npm-run-all client server",
     "build": "webpack --mode production",
@@ -32,7 +32,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "browserslist": [
-    "last 2 versions",
+    "last 10 versions",
     "> 5%"
   ]
 }
