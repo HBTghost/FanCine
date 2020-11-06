@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const MinifyPlugin = require('uglifyjs-webpack-plugin');
 require('dotenv').config();
 
 module.exports = {
@@ -14,18 +15,20 @@ module.exports = {
     filename: 'bundle.min.js',
     path: path.resolve(__dirname, 'public'),
   },
+  devtool: 'inline-source-map',
   devServer: {
     port: 6969,
     contentBase: path.resolve(__dirname, 'public'),
     watchContentBase: true,
-    open: true
+    open: true,
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         enforce: 'pre',
-        use: ['source-map-loader'],
+        exclude: /node_modules/,
+        use: ['babel-loader', 'source-map-loader'],
       },
       {
         test: /\.s[ac]ss$/i,
@@ -51,6 +54,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
+              sourceMap: true,
               sassOptions: {outputStyle: 'compressed'}
             }
           }
@@ -60,11 +64,11 @@ module.exports = {
   },
   mode: 'development',
   plugins: [
+    new MinifyPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.min.css',
-      allChunks: true,
-      disable: process.env.NODE_ENV !== 'production'
-    }),
+      allChunks: true
+    })
   ],
   optimization: {
     minimizer: [
