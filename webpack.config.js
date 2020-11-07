@@ -9,18 +9,19 @@ module.exports = {
     path.resolve(__dirname, 'client/js/index.js'),
     path.resolve(__dirname, 'client/scss/main.scss'),
     'webpack-dev-server/client?http://localhost:6969',
-    'webpack/hot/only-dev-server',
+    'webpack/hot/only-dev-server'
   ],
   output: {
     filename: 'bundle.min.js',
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'public')
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
     port: 6969,
     contentBase: path.resolve(__dirname, 'public'),
-    watchContentBase: true,
-    open: true,
+    watchContentBase: this.mode == 'development',
+    open: true
   },
   module: {
     rules: [
@@ -62,7 +63,6 @@ module.exports = {
       }
     ]
   },
-  mode: 'development',
   plugins: [
     new MinifyPlugin(),
     new MiniCssExtractPlugin({
