@@ -28,7 +28,23 @@ module.exports = {
     port: 6969,
     contentBase: path.resolve(__dirname, 'client'),
     watchContentBase: process.env.NODE_ENV == 'development',
-    open: true
+    open: true,
+    stats: {
+      colors: true,
+      hash: false,
+      version: false,
+      timings: false,
+      assets: false,
+      chunks: false,
+      modules: false,
+      reasons: false,
+      children: false,
+      source: false,
+      errors: true,
+      errorDetails: false,
+      warnings: true,
+      publicPath: false
+    }
   },
   module: {
     rules: [
@@ -36,7 +52,7 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        use: ['babel-loader', 'source-map-loader'],
+        use: ['babel-loader', 'eslint-loader', 'source-map-loader'],
       },
       {
         test: /\.hbs$/,
@@ -76,7 +92,7 @@ module.exports = {
           }
         ]
       }
-    ]
+    ],
   },
   plugins: [
     new MinifyPlugin(),
@@ -86,7 +102,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './client/views/index.hbs',
-      minify: false,
+      minify: true,
       inject: true
     }),
     new CopyWebpackPlugin({
@@ -103,5 +119,5 @@ module.exports = {
         }
       })
     ]
-  }
+  },
 }
