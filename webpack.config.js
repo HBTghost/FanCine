@@ -4,13 +4,16 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MinifyPlugin = require('uglifyjs-webpack-plugin');
 require('dotenv').config();
 
+let entries = [
+  path.resolve(__dirname, 'client/js/index.js'),
+  path.resolve(__dirname, 'client/scss/main.scss')
+]
+if (process.env.NODE_ENV === 'development') {
+  entries.push('webpack-dev-server/client?http://localhost:6969', 'webpack/hot/only-dev-server');
+}
+
 module.exports = {
-  entry: [
-    path.resolve(__dirname, 'client/js/index.js'),
-    path.resolve(__dirname, 'client/scss/main.scss'),
-    'webpack-dev-server/client?http://localhost:6969',
-    'webpack/hot/only-dev-server'
-  ],
+  entry: entries,
   output: {
     filename: 'bundle.min.js',
     path: path.resolve(__dirname, 'public')
