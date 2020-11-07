@@ -1,77 +1,10 @@
-@import './variables.scss';
+@import "~bootstrap/scss/bootstrap";
+@import "./variables.scss";
 
-body {
-  // background: linear-gradient(to left, $blue, $pink);
-  background-image: url(../images/deer.jpg);
+.carousel-item {
+  height: 25rem;
 }
 
-.container-fluid {
-  display: flex;
-}
-
-.left-side, .right-side {
-  width: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: x-large;
-  color: #aaa;
-  font-weight: bold;
-
-  span {
-    transform: rotate(-90deg);
-  }
-}
-
-.container {
-  margin: 5% 0;
-  width: 90%;
-  
-  *:not(section) {
-    display: flex;
-    background-color: $my-color;
-    align-items: center;
-  }
-  
-  .logo {
-    height: 80px;
-    margin-bottom: 1%;
-    font-size: x-large;
-    padding: 0 3%;
-  }
-  nav, footer {
-    height: 50px;
-    justify-content: center;
-    font-size: large;
-  }
-  header {
-    margin-top: 1%;
-    height: 100px;
-    justify-content: center;
-    font-size: large;
-  }
-  section {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-    height: 550px;
-    font-size: x-large;
-    font-weight: bold;
-    
-    .side-bar {
-      justify-content: center;
-      width: 30%;
-      height: 550px;
-      margin-right: 2%;
-    }
-    
-    .body-area {
-      justify-content: center;
-      width: 68%;
-      height: 550px;
-    }
-  }
+.logo {
+  color: $my-color !important;
 }

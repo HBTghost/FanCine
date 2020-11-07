@@ -100,7 +100,13 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
-          'url-loader?limit=10000',
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8000,
+              name: 'images/[name].[contenthash].[ext]',
+            }
+          },
           {
             loader: 'img-loader',
             options: {
@@ -119,10 +125,10 @@ module.exports = {
                 require('imagemin-svgo')({
                   plugins: [
                     { removeTitle: true },
-                    { convertPathData: false }
+                    { convertPathData: true }
                   ]
                 })
-              ]
+              ],
             }
           }
         ]
@@ -142,9 +148,9 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: './client/images/favicon.ico', to: 'images/' },
-      ],
-    }),
+        { from: './client/views/favicon.ico' },
+      ]
+    })
   ],
   optimization: {
     minimizer: [

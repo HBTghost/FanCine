@@ -3,25 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="./images/favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>FanCine</title>
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="left-side"><span>Background</span></div>
-    <div class="container">
-      {{> header }}
-      <section>
-        <div class="side-bar">
-          Side Bar
-        </div>
-        <div class="body-area">
-          Body Area
-        </div>
-      </section>
-      {{> footer }}
-    </div>
-    <div class="right-side"><span>Background</span></div>
+  <div class="container">
+    {{> header }}
+    {{> carousel }}
   </div>
 </body>
 </html>

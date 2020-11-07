@@ -1,4 +1,5 @@
-import getLogoText from './utils';
+import 'bootstrap';
+import $ from 'jquery';
 
 const annoyStick = {
   profile: {
@@ -15,7 +16,12 @@ console.log(annoyStick.profile.release ? '17/07/2014' : 18);
 console.log(annoyStick.profile.age ?? 18);
 console.log(annoyStick.profile.release ?? 18);
 
-document.querySelector('.logo').innerHTML = getLogoText();
+$(() => {
+  $('.carousel').carousel({
+    interval: 1000,
+    ride: 'carousel',
+  });
+});
 
 if (module.hot) {
   module.hot.accept();
