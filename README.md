@@ -3,8 +3,8 @@
   A movie ticketing website with [MongoDB](https://www.mongodb.com/), [Express](https://github.com/expressjs/express), [Webpack](https://webpack.js.org/), [Bootstrap](https://getbootstrap.com/) and [NodeJS](https://nodejs.org)
   
 <div align="center">
-  <a href="https://yarnpkg.com/">
-    <img alt="Yarn" src="https://github.com/yarnpkg/assets/blob/master/yarn-kitten-full.png?raw=true" width="280">
+  <a href="https://github.com/webpack/webpack">
+    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
 
 [![Build status][ci-image]][ci-url]
