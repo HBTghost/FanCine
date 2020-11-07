@@ -52,7 +52,12 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader', 'source-map-loader'],
+        use: ['babel-loader', 'source-map-loader',  {
+          loader: 'eslint-loader',
+          options: {
+            fix: true,
+          }
+        }],
       },
       {
         test: /\.hbs$/,
