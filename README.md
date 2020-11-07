@@ -35,18 +35,6 @@
   * [Proposal](https://docs.google.com/document/d/1LCmHC-N9CkWMpLu0BuUbIqHyHsOfPyBb3GwbVM_3A8Y/edit?fbclid=IwAR3kT4l1fPlB80KM858vi3w6Cjkk7x3Wz5C5GDRL7gOn-yQoKwZ3QDN3sYg)
   * [Website repo](https://github.com/HBTghost/FanCine)
   
-  
-## Enable live reload on WSL
-
-  1. Install [Live Reload](https://chrome.google.com/webstore/detail/live-reload/jcejoncdonagmfohjcdgohnmecaipidc/related?hl=vi) on Chrome or (Edge Chromium)
-  2. Click on Live Reload icons -> Create new reload rule... -> Enter these infomation:
-  * Monitor source URLs every **0.5** seconds
-  * Host URL: http://localhost:6969/
-  * Source file URLs: 
-```
-http://localhost:6969/style.min.css
-http://localhost:6969/bundle.min.css
-```
 
 ## Quick Start
 
@@ -69,6 +57,21 @@ $ yarn serve
 ```
 
   App will opened automatically at: http://localhost:6969
+
+## Working Guides
+
+  In folder FanCine, we pull newest commit from remote with:
+
+```bash
+$ git pull
+```
+
+  Then, reinstall dependencies and start the server:
+
+```bash
+$ yarn
+$ yarn serve
+```
 
 ## People
 
