@@ -1,11 +1,14 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+require('dotenv').config();
 
 module.exports = {
   entry: [
     path.resolve(__dirname, 'client/js/index.js'),
     path.resolve(__dirname, 'client/scss/main.scss'),
+    'webpack-dev-server/client?http://localhost:6969',
+    'webpack/hot/only-dev-server',
   ],
   output: {
     filename: 'bundle.min.js',
@@ -60,7 +63,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.min.css',
       allChunks: true,
-    })
+      disable: process.env.NODE_ENV !== 'production'
+    }),
   ],
   optimization: {
     minimizer: [

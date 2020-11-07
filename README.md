@@ -33,7 +33,7 @@
 ## Docs & Community
 
   * [Proposal](https://docs.google.com/document/d/1LCmHC-N9CkWMpLu0BuUbIqHyHsOfPyBb3GwbVM_3A8Y/edit?fbclid=IwAR3kT4l1fPlB80KM858vi3w6Cjkk7x3Wz5C5GDRL7gOn-yQoKwZ3QDN3sYg)
-  * [Website repo](https://github.com/HBTghost/FanCine)]
+  * [Website repo](https://github.com/HBTghost/FanCine)
   
   
 ## Enable live reload on WSL
@@ -68,7 +68,7 @@ $ yarn
 $ yarn serve
 ```
 
-  App will opened automaticly at: http://localhost:6969
+  App will opened automatically at: http://localhost:6969
 
 ## People
 
