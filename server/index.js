@@ -1,12 +1,18 @@
+const ticket = require('./routes/ticket.js');
 const express = require('express');
 const path = require('path');
 const port = process.env.PORT || 8080;
 const app = express();
+
 
 app.use(express.static('./dist'));
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('./dist/index.html'));;
 });
+
+app.get('/api/ticket', (req, res) => {
+  res.json(ticket.movie);
+})
 
 app.listen(port);

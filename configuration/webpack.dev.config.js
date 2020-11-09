@@ -24,8 +24,14 @@ module.exports = merge(webpackConfiguration, {
       poll: 300,
     },
     ...environment.server,
+    proxy: {
+      '/api': {
+          target: 'http://localhost:8080',
+          secure:false,
+          changeOrigin:true
+      },
+    }
   },
-
   /* File watcher options */
   watchOptions: {
     aggregateTimeout: 300,

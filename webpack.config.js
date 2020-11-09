@@ -8,6 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ImageMinPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const environment = require('./configuration/environment');
@@ -92,6 +93,22 @@ module.exports = {
     new CleanWebpackPlugin({
       verbose: true,
     }),
+    new NodemonPlugin({
+      script: './server/index.js',
+   
+      // What to watch.
+      watch: path.resolve('./server'),
+   
+      // Extensions to watch.
+      ext: 'js,json',
+      
+      // Unlike the cli option, delay here is in milliseconds (also note that it's a string).
+      // Here's 1 second delay:
+      delay: "1000",
+   
+      // Detailed log.
+      verbose: true,    
+    }),  
     new CopyWebpackPlugin({
       patterns: [
         {
