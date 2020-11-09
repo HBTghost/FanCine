@@ -1,164 +1,109 @@
+/**
+ * Webpack main configuration file
+ */
+
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const MinifyPlugin = require('uglifyjs-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ImageMinPlugin = require('imagemin-webpack-plugin').default;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-require('dotenv').config();
+const environment = require('./configuration/environment');
 
-let entries = [
-  path.resolve(__dirname, 'client/js/index.js'),
-  path.resolve(__dirname, 'client/scss/main.scss'),
-  path.resolve(__dirname, 'client/views/index.hbs')
-]
-if (process.env.NODE_ENV === 'development') {
-  entries.push('webpack-dev-server/client?http://localhost:6969', 'webpack/hot/only-dev-server');
-}
+const templateFiles = fs.readdirSync(path.resolve(__dirname, environment.paths.source, 'views'));
+const htmlPluginEntries = templateFiles.map((template) => new HTMLWebpackPlugin({
+  inject: true,
+  hash: false,
+  template: path.resolve(environment.paths.source, 'views', 'index.hbs'),
+  favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
+}));
 
 module.exports = {
-  entry: entries,
-  output: {
-    filename: process.env.NODE_ENV === 'development' ? 'bundle.min.js' : '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'public')
+  entry: {
+    app: path.resolve(environment.paths.source, 'js', 'app.js'),
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    port: 6969,
-    contentBase: path.resolve(__dirname, 'client'),
-    watchContentBase: process.env.NODE_ENV == 'development',
-    open: true,
-    stats: {
-      colors: true,
-      hash: false,
-      version: false,
-      timings: false,
-      assets: false,
-      chunks: false,
-      modules: false,
-      reasons: false,
-      children: false,
-      source: false,
-      errors: true,
-      errorDetails: false,
-      warnings: true,
-      publicPath: false
-    }
+  output: {
+    filename: 'js/[name].js',
+    path: environment.paths.output,
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.((c|sa|sc)ss)$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+      },
+      {
         enforce: 'pre',
+        test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'source-map-loader',  {
-          loader: 'eslint-loader',
-          options: {
-            fix: true,
-          }
-        }],
+        loader: 'eslint-loader',
+        options: {
+          fix: true
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
       },
       {
         test: /\.hbs$/,
         loader: "handlebars-loader",
         options: {
           knownHelpersOnly: false,
-          partialDirs: [path.join(__dirname, './client/views/partials')],
-      },
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              postcssOptions: {
-                path: 'postcss.config.js' 
-              }
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sassOptions: {outputStyle: 'compressed'}
-            }
-          }
-        ]
+          partialDirs: [path.resolve(environment.paths.source, 'views', 'partials')],
+        },
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(png|gif|jpg|jpeg)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 8000,
-              name: 'images/[name].[contenthash].[ext]',
-            }
+              name: 'images/design/[name].[hash:6].[ext]',
+              publicPath: '../',
+              limit: environment.limits.images,
+            },
           },
+        ],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
           {
-            loader: 'img-loader',
+            loader: 'url-loader',
             options: {
-              plugins: [
-                require('imagemin-gifsicle')({
-                  interlaced: false
-                }),
-                require('imagemin-mozjpeg')({
-                  progressive: true,
-                  arithmetic: false
-                }),
-                require('imagemin-pngquant')({
-                  floyd: 0.5,
-                  speed: 2
-                }),
-                require('imagemin-svgo')({
-                  plugins: [
-                    { removeTitle: true },
-                    { convertPathData: true }
-                  ]
-                })
-              ],
-            }
-          }
-        ]
-      }
+              name: 'fonts/[name].[hash:6].[ext]',
+              publicPath: '../',
+              limit: environment.limits.fonts,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
-    new MinifyPlugin(),
     new MiniCssExtractPlugin({
-      filename: process.env.NODE_ENV === 'development' ? 'style.min.css' : '[name].[contenthash].css',
-      allChunks: true
+      filename: 'css/[name].css',
     }),
-    new HtmlWebpackPlugin({
-      template: './client/views/index.hbs',
-      minify: true,
-      inject: true
+    new ImageMinPlugin({ test: /\.(jpg|jpeg|png|gif|svg)$/i }),
+    new CleanWebpackPlugin({
+      verbose: true,
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: './client/views/favicon.ico' },
-      ]
-    })
-  ],
-  optimization: {
-    minimizer: [
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          safe: true
-        }
-      })
-    ]
-  },
-}
+        {
+          from: path.resolve(environment.paths.source, 'images', 'content'),
+          to: path.resolve(environment.paths.output, 'images', 'content'),
+          toType: 'dir',
+          globOptions: {
+            ignore: ['*.DS_Store', 'Thumbs.db'],
+          },
+        },
+      ],
+    }),
+  ].concat(htmlPluginEntries),
+  target: 'web',
+};

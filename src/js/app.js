@@ -1,6 +1,8 @@
 import 'bootstrap';
 import $ from 'jquery';
 
+import '../scss/app.scss';
+
 const annoyStick = {
   profile: {
     website: 'annoyStick.com',
