@@ -53,7 +53,7 @@ $ yarn
   Start the server:
 
 ```bash
-$ yarn serve
+$ yarn dev
 ```
 
   App will opened automatically at: http://localhost:6969
@@ -70,7 +70,7 @@ $ git pull
 
 ```bash
 $ yarn
-$ yarn serve
+$ yarn dev
 ```
 
 ## People
