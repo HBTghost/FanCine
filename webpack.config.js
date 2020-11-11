@@ -13,13 +13,16 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const environment = require('./configuration/environment');
 
-const templateFiles = fs.readdirSync(path.resolve(__dirname, environment.paths.source, 'views'));
-const htmlPluginEntries = templateFiles.map((template) => new HTMLWebpackPlugin({
-  inject: true,
-  hash: false,
-  template: path.resolve(environment.paths.source, 'views', 'index.hbs'),
-  favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
-}));
+let htmlPageNames = fs.readdirSync(path.resolve(__dirname, environment.paths.source, 'views/pages/'));
+let multipleHtmlPlugins = htmlPageNames.map(name => {
+  return new HTMLWebpackPlugin({
+    inject: true,
+    hash: false,
+    template: path.resolve(__dirname, environment.paths.source, 'views/pages', name),
+    filename: `pages/${name.substr(0, name.indexOf('.'))}.html`,
+    favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
+  })
+});
 
 module.exports = {
   entry: {
@@ -51,7 +54,7 @@ module.exports = {
       },
       {
         test: /\.hbs$/,
-        loader: "handlebars-loader",
+        loader: 'handlebars-loader',
         options: {
           knownHelpersOnly: false,
           partialDirs: [path.resolve(environment.paths.source, 'views', 'partials')],
@@ -95,18 +98,9 @@ module.exports = {
     }),
     new NodemonPlugin({
       script: './server/index.js',
-   
-      // What to watch.
       watch: path.resolve('./server'),
-   
-      // Extensions to watch.
       ext: 'js,json',
-      
-      // Unlike the cli option, delay here is in milliseconds (also note that it's a string).
-      // Here's 1 second delay:
       delay: "1000",
-   
-      // Detailed log.
       verbose: true,    
     }),  
     new CopyWebpackPlugin({
@@ -121,6 +115,13 @@ module.exports = {
         },
       ],
     }),
-  ].concat(htmlPluginEntries),
+    new HTMLWebpackPlugin({
+      inject: true,
+      hash: false,
+      template: path.resolve(__dirname, environment.paths.source, 'views/index.hbs'),
+      filename: 'index.html',
+      favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
+    })
+  ].concat(multipleHtmlPlugins),
   target: 'web',
 };

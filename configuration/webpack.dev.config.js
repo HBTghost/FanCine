@@ -12,7 +12,7 @@ module.exports = merge(webpackConfiguration, {
 
   /* Development Server Configuration */
   devServer: {
-    contentBase: environment.paths.output,
+    contentBase: environment.paths.source,
     watchContentBase: true,
     publicPath: '/',
     open: true,
