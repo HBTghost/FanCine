@@ -36,7 +36,13 @@ module.exports = {
     rules: [
       {
         test: /\.((c|sa|sc)ss)$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+            sassOptions: {outputStyle: 'compressed'}
+          }
+        }],
       },
       {
         enforce: 'pre',
