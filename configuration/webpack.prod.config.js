@@ -4,6 +4,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const webpackConfiguration = require('../webpack.config');
+const MinifyPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(webpackConfiguration, {
   mode: 'production',
@@ -29,5 +30,5 @@ module.exports = merge(webpackConfiguration, {
   },
 
   /* Additional plugins configuration */
-  plugins: [],
+  plugins: [new MinifyPlugin()],
 });
