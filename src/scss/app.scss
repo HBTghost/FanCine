@@ -1,40 +1,20 @@
 /* By Athlon Front-End Team */
 
 /* Core variables */
-// @import 'base/vars';
+@import 'base/vars';
 
-// /* CSS Reset */
-// @import 'base/reset';
+/* Fonts */
+@import 'base/fonts';
 
-// /* CSS print */
-// @import 'base/print';
+// Library
+@import './base/lib.scss';
 
-// /* Fonts */
-// @import 'base/fonts';
-
-// /* Mixins, helpers and functions */
-// @import 'base/mixins';
-
-// /* Vendor */
-
-// /* Components */
-
-// /* Browser specific styles */
-// @import 'dirty/hacks';
-
-// /* Demo Page styles */
-// @import 'demo';
-
-@import "~bootstrap/scss/bootstrap";
-
-body {
-  background: url('../images/design/deer.jpg');
+.Content-card
+{
+  opacity: 0;
+  transition: 1.5s;
 }
-
-.carousel-item {
-  height: 25rem;
-}
-
-.logo {
-  color: rgb(0, 228, 76) !important;
+.Content-card:hover
+{
+  opacity: 1;
 }

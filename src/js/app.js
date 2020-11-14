@@ -1,5 +1,6 @@
 import 'bootstrap';
-import $ from 'jquery';
+import '@fortawesome/fontawesome-free/js/all';
+
 import axios from 'axios';
 
 import '../scss/app.scss';
@@ -21,13 +22,6 @@ console.log(annoyStick.profile.release ?? 18);
 
 axios.get('/api/ticket').then((a) => {
   console.log(a);
-});
-
-$(() => {
-  $('.carousel').carousel({
-    interval: 1000,
-    ride: 'carousel',
-  });
 });
 
 if (module.hot) {
