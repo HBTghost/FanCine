@@ -4,7 +4,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ImageMinPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -19,7 +18,7 @@ let multipleHtmlPlugins = htmlPageNames.map(name => {
     inject: true,
     hash: false,
     template: path.resolve(__dirname, environment.paths.source, 'views/pages', name),
-    filename: `pages/${name.substr(0, name.indexOf('.'))}.html`,
+    filename: `${name.substr(0, name.indexOf('.'))}.html`,
     favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
   })
 });
@@ -54,11 +53,21 @@ module.exports = {
       },
       {
         test: /\.hbs$/,
-        loader: 'handlebars-loader',
-        options: {
-          knownHelpersOnly: false,
-          partialDirs: [path.resolve(environment.paths.source, 'views', 'partials')],
-        },
+        use: [
+          {
+            loader: 'handlebars-loader',
+            options: {
+              knownHelpersOnly: false,
+              partialDirs: [path.resolve(environment.paths.source, 'views', 'partials')]
+            }
+          },
+          {
+            loader: 'extract-loader'
+          },
+          {
+            loader: 'html-loader'
+          }
+        ]
       },
       {
         test: /\.(png|gif|jpg|jpeg)$/,
@@ -67,7 +76,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: 'images/design/[name].[hash:6].[ext]',
-              publicPath: '../',
+              publicPath: './',
               limit: environment.limits.images,
             },
           },
@@ -102,18 +111,6 @@ module.exports = {
       ext: 'js,json',
       delay: "1000",
       verbose: true,    
-    }),  
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(environment.paths.source, 'images', 'content'),
-          to: path.resolve(environment.paths.output, 'images', 'content'),
-          toType: 'dir',
-          globOptions: {
-            ignore: ['*.DS_Store', 'Thumbs.db'],
-          },
-        },
-      ],
     }),
     new HTMLWebpackPlugin({
       inject: true,
