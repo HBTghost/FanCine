@@ -36,4 +36,4 @@
 - **Ngày chiếu**: Date
 - **Giờ chiếu**: Date
 - Loại (2D, 3D, Phụ đề, v.v.): String
-- Tình trạng ghế ngồi (chỉ làm loại ghế đơn: đang chọn, đã bán, có thể chọn): [[String]]
+- Tình trạng ghế ngồi (chỉ làm loại ghế đơn: đã bán, có thể chọn): [[Boolean]]
