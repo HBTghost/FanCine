@@ -1,11 +1,15 @@
-const ticket = require('./routes/ticket.js');
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import path from 'path';
 
-const mongoose = require('mongoose');
+import movieRouter from './routes/movie.js';
 
-require('dotenv').config();
+// Load environment variables
+dotenv.config();
 
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -16,23 +20,22 @@ const db = mongoose.connection;
 db.on('error', (err) => console.error(err));
 db.once('open', () => console.log('Connected to Database'));
 
+// Create Express app
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
-  const morgan = require('morgan');
-  app.use(morgan('dev'));
-}
-
+// Middleware
+app.use(morgan('dev'));
 app.use(express.static('./dist'));
 
+// API services
+app.use('/api/movies', movieRouter);
+
+// Load homepage
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('./dist/index.html'));;
 });
 
-app.get('/api/ticket', (req, res) => {
-  res.json(ticket.movie);
-});
-
+// Listening
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
