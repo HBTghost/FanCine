@@ -4,7 +4,7 @@
 
 ### Phim
 
-- <u>ID</u>: String
+- **ID**: String
 - Tên phim gốc: String
 - Tên phim tiếng Việt: String
 - Đạo diễn: String
@@ -21,7 +21,7 @@
 
 ### Rạp
 
-- <u>ID</u>: String
+- **ID**: String
 - Tên rạp: String
 - Thành phố: String
 - Địa chỉ: String
@@ -30,10 +30,10 @@
 
 ### Suất chiếu
 
-- <u>ID phim</u>: String
-- <u>ID rạp</u>: String
-- <u>Phòng</u>: String
-- <u>Ngày chiếu</u>: Date
-- <u>Giờ chiếu</u>: Date
+- **ID phim**: String
+- **ID rạp**: String
+- **Phòng**: String
+- **Ngày chiếu**: Date
+- **Giờ chiếu**: Date
 - Loại (2D, 3D, Phụ đề, v.v.): String
 - Tình trạng ghế ngồi (chỉ làm loại ghế đơn: đang chọn, đã bán, có thể chọn): [[String]]
