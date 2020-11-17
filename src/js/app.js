@@ -5,7 +5,11 @@ import '../scss/app.scss';
 
 import axios from 'axios';
 
-axios.get('/api/movies/5fb2b0539ad69859a2e1bb94').then((res) => {
+axios.get('/api/movies').then((res) => {
+  console.log(res.data);
+});
+
+axios.get('/api/theaters').then((res) => {
   console.log(res.data);
 });
 

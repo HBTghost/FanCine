@@ -1,0 +1,16 @@
+GET http://localhost:7070/api/movies/5fb2b0539ad69859a2e1bb94 HTTP/1.1
+
+### 
+GET http://localhost:7070/api/movies HTTP/1.1
+
+###
+GET http://localhost:7070/api/movies/utils/postSampleDatasets HTTP/1.1
+
+###
+GET http://localhost:7070/api/theaters/5fb2b0539ad69859a2e1bb94 HTTP/1.1
+
+### 
+GET http://localhost:7070/api/theaters HTTP/1.1
+
+###
+GET http://localhost:7070/api/theaters/utils/postSampleDatasets HTTP/1.1

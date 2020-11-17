@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import path from 'path';
 
 import movieRouter from './routes/movie.js';
+import theaterRouter from './routes/theater.js';
 
 // Load environment variables
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(express.static('./dist'));
 
 // API services
 app.use('/api/movies', movieRouter);
+app.use('/api/theaters', theaterRouter);
 
 // Load homepage
 app.get('/', (req, res) => {

@@ -9,23 +9,19 @@ const MovieSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  rating: Number,
+  rates: Number,
+  label: {
+    type: String,
+    required: true,
+    enum: ['P', 'C13', 'C16','C18'],
+    default: 'P'
+  },
   time: {
     type: String,
     required: true
   },
-  label: {
-    type: String,
-    required: true,
-    enum: ['P', 'C13', 'C16','C18']
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  producer: {
-    type: String,
-    required: true
-  },
+  producer: String,
   category: {
     type: [String],
     required: true
@@ -43,11 +39,14 @@ const MovieSchema = mongoose.Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true
   },
-  rating: Number,
-  rates: Number
+  description: {
+    type: [String],
+    required: true
+  },
+  trailerEmbedID: String
 });
 
 export default mongoose.model('Movie', MovieSchema);
