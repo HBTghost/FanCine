@@ -11,7 +11,7 @@ movieRouter.get('/', getAllMovies, (req, res) => {
   res.json(res.allMovies);
 });
 
-movieRouter.get('/utils/postSampleDatasets', postSampleMovies, (req, res) => {
+movieRouter.post('/utils/postSampleDatasets', postSampleMovies, (req, res) => {
   res.json(res.movies);
 });
 
