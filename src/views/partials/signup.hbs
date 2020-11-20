@@ -1,31 +1,45 @@
-<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-    <li class="nav-item">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
+<button type="button ml-auto" class="btn btn-outline-success" id="signIn">Đăng nhập</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
+<div class="modal-container" id="modal">
+  <div class="modal-content">
+    <p>Hello this</p><br>
+    <p>Hello this</p><br>
+    <p>Hello this</p><br>
   </div>
 </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Đăng ký</a>
-    </li>
-</ul>
+
+<script type="text/javascript">
+  // -- Modal for sign up --
+  var modalBtn = document.getElementById("signIn");
+  const modal = document.getElementById('modal');
+  var modal_animation_duration = 0.4;
+
+  // Get the button that opens the modal
+
+  // Get the <span> element that closes the modal
+  function popupModal(){
+    modal.style.animationName = "popup";
+    
+  }
+
+  function popdownModal(){
+    modal.style.animationName = "popdown";
+  }
+  // When the user clicks the button, open the modal
+  modalBtn.onclick = function signInClick() {
+    modal.style.display = 'block';
+    popupModal();
+  }
+  // When the user clicks on <span> (x), close the modal
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function windowClickOff(event) {
+    if (event.target === modal) {
+      setTimeout(()=>{
+      modal.style.display = 'none';
+      }, modal_animation_duration * 1000)
+      popdownModal();
+    }
+  }
+  // -- End modal --
+</script>

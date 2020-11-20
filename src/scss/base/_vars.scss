@@ -15,5 +15,17 @@ $foreground-color: #fff;
 $caption-color: #464646;
 $accent-color: #999;
 $link-color: #ec1f1f;
+$bs-success-color: #28a745;
+$gradient-success-color-low: rgba(40, 167, 69, 0.3);
+$gradient-success-color-high: rgba(40, 167, 69, 0.6);
+$modal-animation-duration: 0.4s;
 
+@keyframes popup {
+    from {transform: scaleX(0);}
+    to {transform: scaleX(1);}
+  }
+  @keyframes popdown{
+    from {transform: scaleX(1);}
+    to {transform: scaleX(0);}
+  }
 /* Components */

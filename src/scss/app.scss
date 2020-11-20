@@ -18,3 +18,27 @@
 {
   opacity: 1;
 }
+.modal-container{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left:0;
+  top:0;
+  padding-top: 100px;
+  width:100%;
+  height:100%;
+  overflow: auto;
+  background-image: linear-gradient(to right, $gradient-success-color-high, $gradient-success-color-low, $gradient-success-color-high);
+}
+.modal-content{
+  position: relative;
+  background-color: $white;
+  margin: auto;
+  padding: 0;
+  border: 1px solid $black;
+  width: 60%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: "popup";
+  animation-duration: $modal-animation-duration;
+}
+/* Add Animation */
