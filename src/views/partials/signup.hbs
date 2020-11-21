@@ -1,0 +1,45 @@
+<button type="button ml-auto" class="btn btn-outline-success" id="signIn">Đăng nhập</button>
+
+<div class="modal-container" id="modal">
+  <div class="modal-content">
+    <p>Hello this</p><br>
+    <p>Hello this</p><br>
+    <p>Hello this</p><br>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // -- Modal for sign up --
+  var modalBtn = document.getElementById("signIn");
+  const modal = document.getElementById('modal');
+  var modal_animation_duration = 0.4;
+
+  // Get the button that opens the modal
+
+  // Get the <span> element that closes the modal
+  function popupModal(){
+    modal.style.animationName = "popup";
+    
+  }
+
+  function popdownModal(){
+    modal.style.animationName = "popdown";
+  }
+  // When the user clicks the button, open the modal
+  modalBtn.onclick = function signInClick() {
+    modal.style.display = 'block';
+    popupModal();
+  }
+  // When the user clicks on <span> (x), close the modal
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function windowClickOff(event) {
+    if (event.target === modal) {
+      setTimeout(()=>{
+      modal.style.display = 'none';
+      }, modal_animation_duration * 1000)
+      popdownModal();
+    }
+  }
+  // -- End modal --
+</script>
