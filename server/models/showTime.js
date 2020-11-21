@@ -18,7 +18,7 @@ const ShowTimeSchema = mongoose.Schema({
     required: true
   },
   type: {
-    type: STring,
+    type: String,
     required: true
   },
   state: {

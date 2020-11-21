@@ -4,11 +4,11 @@ import { getTheaterMovie, getAllTheaterMovies, postSampleTheaterMovie } from '..
 const theaterMovieRouter = express.Router();
 
 theaterMovieRouter.get('/:id', getTheaterMovie, (req, res) => {
-  res.json(res.movie);
+  res.json(res.theaterMovie);
 });
 
 theaterMovieRouter.get('/', getAllTheaterMovies, (req, res) => {
-  res.json(res.allMovies);
+  res.json(res.allTheaterMovies);
 });
 
 theaterMovieRouter.post('/utils/postSampleDatasets', postSampleTheaterMovie, (req, res) => {

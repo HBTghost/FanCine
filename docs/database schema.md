@@ -19,6 +19,7 @@
 - Điểm đánh giá (sao): Number (float)
 - Số lượng đánh giá: Number (int)
 - Trailer ID: String
+- Image Source: String
 
 ### Rạp
 
