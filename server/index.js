@@ -7,6 +7,7 @@ import path from 'path';
 import movieRouter from './routes/movie.js';
 import theaterRouter from './routes/theater.js';
 import theaterMovieRouter from './routes/theater_movie.js';
+import showTimeRouter from './routes/showTime.js';
 
 // Load environment variables
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(express.static('./dist'));
 app.use('/api/movies', movieRouter);
 app.use('/api/theaters', theaterRouter);
 app.use('/api/theaters_movies', theaterMovieRouter);
+app.use('/api/showTimes', showTimeRouter);
 
 // Load homepage
 app.get('/', (req, res) => {

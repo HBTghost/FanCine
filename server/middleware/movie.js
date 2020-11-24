@@ -153,6 +153,7 @@ async function postSampleMovies(req, res, next) {
     movie['director'] = 'Chalerm Wongphim';
     movie['date'] = '29/10/2020';
     movie['description'] = ['Sau khi một vụ án xảy ra, Trung Úy Satjathorn buộc phải đi đến ngôi làng kỳ bí TungMhaHon để điều tra phá án. Tại đây, mọi chuyện đều diễn ra bình thường vào ban ngày nhưng khi đêm đến, một bầu không khí rùng rợn lại bao trùm lên tất cả.', 'Liệu rằng anh chàng cảnh sát Satjathorn có tìm ra được sự thật, giải thoát bản thân và ngôi làng khỏi những rắc rối này?','Phim mới Ngạ Quỷ: Tiếng Thét Đồi Gió Hú ra mắt tại các rạp chiếu phim từ ngày 30.10.2020.'];
+    movie['trailerEmbedID'] = 'dPyrBwK0vYg';
     movie['imageSource'] = 'https://galaxycine.vn/media/2020/10/21/ngaquy300x450_1603269432866.jpg';
     movies.push(movie);
 

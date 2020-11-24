@@ -16,4 +16,13 @@ GET http://localhost:7070/api/theaters HTTP/1.1
 POST http://localhost:7070/api/theaters/utils/postSampleDatasets HTTP/1.1
 
 ###
+GET http://localhost:7070/api/theaters_movies HTTP/1.1
+
+###
 POST http://localhost:7070/api/theaters_movies/utils/postSampleDatasets HTTP/1.1
+
+###
+GET http://localhost:7070/api/showTimes/ HTTP/1.1
+
+###
+POST http://localhost:7070/api/showTimes/utils/postSampleDatasets HTTP/1.1
