@@ -43,3 +43,26 @@
   animation-duration: $modal-animation-duration;
 }
 /* Add Animation */
+
+
+
+// information page
+#bg-poster{
+  background-image: url('../images/design/deer.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  }
+
+.cinema-name{
+    display: flex;
+    border-left: 10px solid rgb(48, 23, 7);
+    background-color: rgb(235, 130, 98);
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    width: 250px;
+    height: 50px;
+    padding-left: 10px;
+    font-size: 20px;
+}
