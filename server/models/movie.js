@@ -46,7 +46,8 @@ const MovieSchema = mongoose.Schema({
     type: [String],
     required: true
   },
-  trailerEmbedID: String
+  trailerEmbedID: String,
+  imageSource: String
 });
 
 export default mongoose.model('Movie', MovieSchema);
