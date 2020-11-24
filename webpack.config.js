@@ -121,4 +121,9 @@ module.exports = {
     })
   ].concat(multipleHtmlPlugins),
   target: 'web',
+  resolve: {
+    alias: {
+        'handlebars': 'handlebars/dist/handlebars.js'
+    }
+  }
 };

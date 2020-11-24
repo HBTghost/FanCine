@@ -4,10 +4,24 @@ import '@fortawesome/fontawesome-free/js/all';
 import '../scss/app.scss';
 
 import axios from 'axios';
+import Handlebars from 'handlebars';
 
 axios.get('/api/movies').then((res) => {
   console.log('Movies data:');
   console.log(res.data);
+  const myCats = [
+    { name: 'Fiona', age: 4 },
+    { name: 'Spot', age: 12 },
+    { name: 'Chestnut', age: 4 },
+    { name: 'Frisky', age: false },
+    { name: 'Biscuit', age: 4 },
+  ];
+  const renderCats = Handlebars.compile('    {{#each cats}} <div id="cat-list"> <h1>{{name}}</h1> <p>Age: {{age}}</p> </div> {{/each}}');
+  console.log(renderCats);
+  document.querySelector('.handlebar').innerHTML = renderCats({
+    cats: myCats,
+  });
+  console.log(renderCats({ cats: myCats }));
 });
 
 axios.get('/api/theaters').then((res) => {
