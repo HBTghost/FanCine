@@ -8,20 +8,16 @@ import Handlebars from 'handlebars';
 
 axios.get('/api/movies').then((res) => {
   console.log('Movies data:');
-  console.log(res.data);
-  const myCats = [
-    { name: 'Fiona', age: 4 },
-    { name: 'Spot', age: 12 },
-    { name: 'Chestnut', age: 4 },
-    { name: 'Frisky', age: false },
-    { name: 'Biscuit', age: 4 },
-  ];
-  const renderCats = Handlebars.compile('    {{#each cats}} <div id="cat-list"> <h1>{{name}}</h1> <p>Age: {{age}}</p> </div> {{/each}}');
-  console.log(renderCats);
-  document.querySelector('.handlebar').innerHTML = renderCats({
-    cats: myCats,
+
+  const moviesData = res.data;
+
+  console.log(moviesData);
+
+  const render = Handlebars.compile('    {{#each movies}} <h4>Original Name: {{ originalName }}</h4> <h4>Vietnamese Name: {{ vietnameseName }}</h4> <p>Rating: {{ rating }}</p> <p>Rates: {{ rates }}</p> <p>Label: {{ label }}</p> <p>Time: {{ time }}</p> <p>Producer: {{ producer }}</p> <p>Category: {{ category }}</p> <h3>Cast:</h3> <ul> {{#each cast}} <li>{{ this }}</li> {{/each}} </ul> <p>Nation: {{ nation }}</p> <p>Director: {{ director }}</p> <p>Date: {{ date }}</p> <h3>Description:</h3> <ul> {{#each description}} <li>{{ this }}</li> {{/each}} </ul> <iframe width="420" height="315" src="https://www.youtube.com/embed/{{ trailerEmbedID }}"> </iframe> <img src="{{ imageSource }}" alt=""> {{/each}}');
+
+  document.querySelector('.movie-data-sample').innerHTML = render({
+    movies: moviesData,
   });
-  console.log(renderCats({ cats: myCats }));
 });
 
 axios.get('/api/theaters').then((res) => {
