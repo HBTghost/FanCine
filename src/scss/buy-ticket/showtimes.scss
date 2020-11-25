@@ -1,6 +1,7 @@
 $showtimes-color-white: #FFFFFF;
-$showtimes-color-lightgray: #cfd5dd;
-$showtimes-color-gray: #A0A3A7;
+$showtimes-color-lightgray: #F1F1F1;
+$showtimes-color-gray: #CFD5DD;
+$showtimes-color-darkgray: #A0A3A7;
 $showtimes-color-lightblack: #555555;
 $showtimes-color-orange:  #F26B38;
 
@@ -11,7 +12,7 @@ $showtimes-color-orange:  #F26B38;
     font-family: Arial, Helvetica, sans-serif;
 
     #showtimes-head {
-        border-bottom: 1px solid $showtimes-color-lightgray;
+        border-bottom: 1px solid $showtimes-color-gray;
 
         button {
             outline: none;
@@ -24,11 +25,12 @@ $showtimes-color-orange:  #F26B38;
         #showtimes-controller-film {
             margin-right: 10px;
             border-bottom: 3px solid $showtimes-color-orange;
+            cursor: default;
         }
 
         #showtimes-controller-theater {
             margin-left: 10px;
-            color: $showtimes-color-gray;
+            color: $showtimes-color-darkgray;
         }
     }
 
@@ -54,7 +56,7 @@ $showtimes-color-orange:  #F26B38;
             .showtimes-row-head {
                 text-align: center;
                 padding: 5px 0;
-                border: 1px solid $showtimes-color-lightgray;
+                border: 1px solid $showtimes-color-gray;
                 background-color: $showtimes-color-orange;
                 color: $showtimes-color-white;
                 font-size: 16px;
@@ -64,7 +66,7 @@ $showtimes-color-orange:  #F26B38;
             .showtimes-row-list {
                 .showtimes-row-data {
                     padding: 15px 10px;
-                    border: 1px solid $showtimes-color-lightgray;
+                    border: 1px solid $showtimes-color-gray;
                     border-top: none;
                     color: $showtimes-color-lightblack;
                     font-size: 14px;
@@ -97,7 +99,7 @@ $showtimes-color-orange:  #F26B38;
                         }
 
                         .showtimes-row-data-film-name-vie {
-                            color: $showtimes-color-gray;
+                            color: $showtimes-color-darkgray;
                         }
                     }
             
@@ -115,6 +117,10 @@ $showtimes-color-orange:  #F26B38;
                     overflow: hidden;
                     overflow-wrap: break-word;
                     cursor: pointer;
+                }
+
+                .showtimes-row-data-film:hover, .showtimes-row-data-theater:hover {
+                    background-color: $showtimes-color-lightgray;
                 }
 
                 .showtimes-row-data-showtime {
@@ -138,13 +144,18 @@ $showtimes-color-orange:  #F26B38;
                                 justify-content: flex-start;
 
                                 .showtimes-row-data-showtime-time {
-                                    border: 1px solid $showtimes-color-lightgray;
+                                    border: 1px solid $showtimes-color-gray;
                                     width: fit-content;
                                     padding: 3px 10px;
                                     margin-bottom: 10px;
                                     margin-right: 10px;
                                     cursor: pointer;
                                     font-weight: bolder;
+                                }
+
+                                .showtimes-row-data-showtime-time:hover {
+                                    color: $showtimes-color-orange;
+                                    border: 1px solid $showtimes-color-orange;
                                 }
                             }
                         }
@@ -154,6 +165,7 @@ $showtimes-color-orange:  #F26B38;
         }
     }
 }
+
 
 // Ipad screen
 @media only screen and (max-width: 1100px) {
@@ -167,6 +179,7 @@ $showtimes-color-orange:  #F26B38;
     }
 }
 
+
 // Phone screen
 @media only screen and (max-width: 700px) {
     #showtimes-container {
@@ -175,7 +188,7 @@ $showtimes-color-orange:  #F26B38;
         .showtimes-row-list {
             max-height: 250px;
             overflow-y: auto;
-            border-bottom: 1px solid $showtimes-color-gray;
+            border-bottom: 1px solid $showtimes-color-darkgray;
         }
     }
 }
