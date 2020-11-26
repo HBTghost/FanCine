@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "watch-scss": "gulp watch-scss",
-    "prod": "gulp sass",
+    "scss": "gulp sass",
     "start": "node server.js"
   },
   "dependencies": {
@@ -19,19 +19,24 @@
     "gulp-cli": "^2.3.0",
     "handlebars": "^4.7.6",
     "mongoose": "^5.10.14",
-    "morgan": "^1.10.0",
-    "node-sass": "^5.0.0"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
+    "autoprefixer": "^10.0.2",
+    "cssnano": "^4.1.10",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-eslint": "^6.0.0",
     "gulp-file-cache": "^0.0.1",
+    "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "postcss": "^8.1.10",
+    "prettier": "^2.2.0"
   },
   "engines": {
     "node": "^10 || ^12 || >=14"

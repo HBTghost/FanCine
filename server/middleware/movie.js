@@ -1,4 +1,5 @@
 import Movie from '../models/movie.js';
+
 import mongoose from 'mongoose';
 
 async function getMovie(req, res, next) {
@@ -8,7 +9,7 @@ async function getMovie(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function getAllMovies(req, res, next) {
@@ -18,7 +19,7 @@ async function getAllMovies(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function postSampleMovies(req, res, next) {
@@ -164,7 +165,7 @@ async function postSampleMovies(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 export {

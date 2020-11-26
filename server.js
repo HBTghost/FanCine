@@ -3,13 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import path from 'path';
-
 import expbs from 'express-handlebars';
 
 import handlebarsRouter from './server/routes/handler.js';
 import movieRouter from './server/routes/movie.js';
 import theaterRouter from './server/routes/theater.js';
-import theaterMovieRouter from './server/routes/theater_movie.js';
+import theaterMovieRouter from './server/routes/theaterMovie.js';
 import showTimeRouter from './server/routes/showTime.js';
 
 import { fileURLToPath } from 'url';

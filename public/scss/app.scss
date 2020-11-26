@@ -1,0 +1,15 @@
+@import './base/variable.scss';
+@import './partials/signup.scss';
+
+@keyframes popup {
+  from {transform: scaleX(0);}
+  to {transform: scaleX(1);}
+}
+@keyframes popdown {
+  from {transform: scaleX(1);}
+  to {transform: scaleX(0);}
+}
+
+a {
+  color: #ec1f1f;
+}

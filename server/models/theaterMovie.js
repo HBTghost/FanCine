@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Theater_Movie_Schema = mongoose.Schema({
+const TheaterMovieSchema = mongoose.Schema({
   _idTheater: {
     type: mongoose.Types.ObjectId,
     required: true
@@ -11,4 +11,4 @@ const Theater_Movie_Schema = mongoose.Schema({
   }
 });
 
-export default mongoose.model('TheaterMovie', Theater_Movie_Schema);
+export default mongoose.model('TheaterMovie', TheaterMovieSchema);

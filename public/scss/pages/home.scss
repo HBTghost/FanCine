@@ -1,0 +1,9 @@
+@import '../base/variable.scss';
+
+.Content-card {
+  opacity: 0;
+  transition: 1.5s;
+}
+.Content-card:hover {
+  opacity: 1;
+}

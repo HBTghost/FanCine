@@ -4,6 +4,4 @@ function toDateString(date) {
   return props.join('-');
 }
 
-export {
-  toDateString
-}
+export default toDateString;

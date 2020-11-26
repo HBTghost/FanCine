@@ -1,6 +1,7 @@
-import TheaterMovie from '../models/theater_movie.js';
+import TheaterMovie from '../models/theaterMovie.js';
 import Movie from '../models/movie.js';
 import Theater from '../models/theater.js';
+
 import mongoose from 'mongoose';
 
 async function getTheaterMovie(req, res, next) {
@@ -10,7 +11,7 @@ async function getTheaterMovie(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function getAllTheaterMovies(req, res, next) {
@@ -20,7 +21,7 @@ async function getAllTheaterMovies(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function postSampleTheaterMovie(req, res, next) {
@@ -47,7 +48,7 @@ async function postSampleTheaterMovie(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 export {

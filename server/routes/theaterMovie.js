@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTheaterMovie, getAllTheaterMovies, postSampleTheaterMovie } from '../middleware/theater_movie.js';
+import { getTheaterMovie, getAllTheaterMovies, postSampleTheaterMovie } from '../middleware/theaterMovie.js';
 
 const theaterMovieRouter = express.Router();
 

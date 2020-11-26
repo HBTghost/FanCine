@@ -1,8 +1,10 @@
 import ShowTime from '../models/showTime.js';
 import Theater from '../models/theater.js';
-import TheaterMovie from '../models/theater_movie.js';
+import TheaterMovie from '../models/theaterMovie.js';
+
+import toDateString from '../utils/date.js';
+
 import mongoose from 'mongoose';
-import { toDateString } from '../utils/date.js';
 
 async function getShowTime(req, res, next) {
   try {
@@ -11,7 +13,7 @@ async function getShowTime(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function getAllShowTimes(req, res, next) {
@@ -21,7 +23,7 @@ async function getAllShowTimes(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function postSampleShowTimes(req, res, next) {
@@ -29,15 +31,16 @@ async function postSampleShowTimes(req, res, next) {
     let showTimes = [];
     const times = [ '10:00', '11:20', '13:40', '15:30', '17:40', '18:30', '19:40', '20:30' ];
     const types = [ '2D', '3D', 'Phụ đề' ];
-    const randomInt = (min, max) => parseInt(min + Math.random()*(max - min));
-    let theaters_movies = await TheaterMovie.find();
+    const randomInt = (min, max) => parseInt(min + Math.random() * (max - min), 10);
+    let theaterMovies = await TheaterMovie.find();
 
-    for await (let theater_movie of theaters_movies) {
+    for await (let theaterMovie of theaterMovies) {
       let showTime = new ShowTime();
-      let theater = await Theater.findById(theater_movie['_idTheater']);
-      showTime['_idTheaterMovie'] = theater_movie['_id'];
+      let theater = await Theater.findById(theaterMovie['_idTheater']);
+      showTime['_idTheaterMovie'] = theaterMovie['_id'];
       showTime['room'] = theater['rooms'][randomInt(0, theater['rooms'].length)];
-      showTime['date'] = toDateString(new Date(new Date().getTime() + 24*60*60*1000*randomInt(0, 20)));
+      showTime['date'] = toDateString(
+        new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * randomInt(0, 20)));
       showTime['time'] = times[randomInt(0, times.length)];
       showTime['type'] = types[randomInt(0, types.length)];
       let w = randomInt(10, 14);
@@ -59,7 +62,7 @@ async function postSampleShowTimes(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 export {

@@ -1,4 +1,5 @@
 import Theater from '../models/theater.js';
+
 import mongoose from 'mongoose';
 
 async function getTheater(req, res, next) {
@@ -8,7 +9,7 @@ async function getTheater(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 
@@ -19,7 +20,7 @@ async function getAllTheaters(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 async function postSampleTheaters(req, res, next) {
@@ -68,7 +69,7 @@ async function postSampleTheaters(req, res, next) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
-  next();
+  return next();
 }
 
 export  {

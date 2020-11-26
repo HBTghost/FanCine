@@ -1,9 +1,4 @@
-$showtimes-color-white: #FFFFFF;
-$showtimes-color-lightgray: #F1F1F1;
-$showtimes-color-gray: #CFD5DD;
-$showtimes-color-darkgray: #A0A3A7;
-$showtimes-color-lightblack: #555555;
-$showtimes-color-orange:  #F26B38;
+@import '../base/variable.scss';
 
 #showtimes-container {
     max-width: 1300px;
