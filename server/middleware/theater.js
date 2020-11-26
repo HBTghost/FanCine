@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 async function getTheater(req, res, next) {
   try {
-    res.theater = await Theater.findById(mongoose.Types.ObjectId(req.params.id));
+    res.theater = await Theater.findById(mongoose.Types.ObjectId(req.params.id)).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -14,7 +14,7 @@ async function getTheater(req, res, next) {
 
 async function getAllTheaters(req, res, next) {
   try {
-    res.allTheaters = await Theater.find();
+    res.allTheaters = await Theater.find().lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

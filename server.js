@@ -4,10 +4,19 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import path from 'path';
 
-import movieRouter from './routes/movie.js';
-import theaterRouter from './routes/theater.js';
-import theaterMovieRouter from './routes/theater_movie.js';
-import showTimeRouter from './routes/showTime.js';
+import expbs from 'express-handlebars';
+
+import handlebarsRouter from './server/routes/handler.js';
+import movieRouter from './server/routes/movie.js';
+import theaterRouter from './server/routes/theater.js';
+import theaterMovieRouter from './server/routes/theater_movie.js';
+import showTimeRouter from './server/routes/showTime.js';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Load environment variables
 dotenv.config();
@@ -28,7 +37,10 @@ const app = express();
 
 // Middleware
 app.use(morgan('dev'));
-app.use(express.static('./dist'));
+app.use(express.static('public'));
+
+// Server rendering
+app.use('/', handlebarsRouter);
 
 // API services
 app.use('/api/movies', movieRouter);
@@ -36,10 +48,16 @@ app.use('/api/theaters', theaterRouter);
 app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
 
-// Load homepage
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve('./dist/index.html'));;
+const hbs = expbs.create({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, 'views/mainLayout'), // change layout folder name
+  partialsDir: path.join(__dirname, 'views/partials'), // change partials folder name
 });
+
+// Express Handlebars Configuration
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
 
 // Listening
 const port = process.env.PORT || 8080;

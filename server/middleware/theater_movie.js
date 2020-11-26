@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 async function getTheaterMovie(req, res, next) {
   try {
-    res.theaterMovie = await TheaterMovie.findById(mongoose.Types.ObjectId(req.params.id));
+    res.theaterMovie = await TheaterMovie.findById(mongoose.Types.ObjectId(req.params.id)).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -15,7 +15,7 @@ async function getTheaterMovie(req, res, next) {
 
 async function getAllTheaterMovies(req, res, next) {
   try {
-    res.allTheaterMovies = await TheaterMovie.find();
+    res.allTheaterMovies = await TheaterMovie.find().lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

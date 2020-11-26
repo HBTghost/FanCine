@@ -6,7 +6,7 @@ import { toDateString } from '../utils/date.js';
 
 async function getShowTime(req, res, next) {
   try {
-    res.showTime = await ShowTime.findById(mongoose.Types.ObjectId(req.params.id));
+    res.showTime = await ShowTime.findById(mongoose.Types.ObjectId(req.params.id)).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -16,7 +16,7 @@ async function getShowTime(req, res, next) {
 
 async function getAllShowTimes(req, res, next) {
   try {
-    res.allShowTimes = await ShowTime.find();
+    res.allShowTimes = await ShowTime.find().lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

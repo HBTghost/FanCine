@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 async function getMovie(req, res, next) {
   try {
-    res.movie = await Movie.findById(mongoose.Types.ObjectId(req.params.id));
+    res.movie = await Movie.findById(mongoose.Types.ObjectId(req.params.id)).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -13,7 +13,7 @@ async function getMovie(req, res, next) {
 
 async function getAllMovies(req, res, next) {
   try {
-    res.allMovies = await Movie.find();
+    res.allMovies = await Movie.find().lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

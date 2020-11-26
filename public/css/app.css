@@ -1,0 +1,81 @@
+.Content-card
+{
+  opacity: 0;
+  transition: 1.5s;
+}
+.Content-card:hover
+{
+  opacity: 1;
+}
+.modal-container{
+  display: none;
+  position: fixed;
+  z-index: 3;
+  left:0;
+  top:0;
+  padding-top: 100px;
+  width:100%;
+  height:100%;
+  overflow: auto;
+  background-image: linear-gradient(to right, rgba(40, 167, 69, 0.6),  rgba(40, 167, 69, 0.3), rgba(40, 167, 69, 0.6));
+}
+
+.modal-content{
+  position: relative;
+  background-color: white;
+  margin: auto;
+  padding: 0;
+  border: 1px solid black;
+  width:900px;
+  min-height: 300px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: "popup";
+          animation-name: "popup";
+  -webkit-animation-duration: 0.4s;
+          animation-duration: 0.4s;
+}
+/* Add Animation */
+
+
+
+#bg-poster{
+  background-image: url('../images/design/fate.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  }
+
+.cinema-name{
+  display: flex;
+  border-left: 10px solid rgb(48, 23, 7);
+  background-color: rgb(235, 130, 98);
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  width: 250px;
+  height: 50px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+
+@-webkit-keyframes popup {
+  from {transform: scaleX(0);}
+  to {transform: scaleX(1);}
+}
+@keyframes popup {
+  from {transform: scaleX(0);}
+  to {transform: scaleX(1);}
+}
+@-webkit-keyframes popdown{
+  from {transform: scaleX(1);}
+  to {transform: scaleX(0);}
+}
+@keyframes popdown{
+  from {transform: scaleX(1);}
+  to {transform: scaleX(0);}
+}
+
+a {
+  color: #ec1f1f;
+}
