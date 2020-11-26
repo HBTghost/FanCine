@@ -7,9 +7,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js",
-    "watch-scss": "gulp watch-scss",
-    "scss": "gulp sass",
+    "dev": "gulp serve",
     "start": "node server.js"
   },
   "dependencies": {
@@ -23,6 +21,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.2",
+    "browser-sync": "^2.26.13",
     "cssnano": "^4.1.10",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.15.0",
@@ -32,6 +31,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
     "gulp-file-cache": "^0.0.1",
+    "gulp-nodemon": "^2.5.0",
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
     "nodemon": "^2.0.6",
