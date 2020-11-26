@@ -3,25 +3,25 @@ import mongoose from 'mongoose';
 const TheaterSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
     type: String,
-    required: true
+    required: true,
   },
   rooms: {
     type: [String],
-    required: true
+    required: true,
   },
-  mapEmbedID: String
+  mapEmbedID: String,
 });
 
 export default mongoose.model('Theater', TheaterSchema);

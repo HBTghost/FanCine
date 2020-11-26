@@ -1,6 +1,6 @@
 function toDateString(date) {
-  let dateString = date.toISOString().slice(0, 10);
-  let props = dateString.split('-').reverse();
+  const dateString = date.toISOString().slice(0, 10);
+  const props = dateString.split('-').reverse();
   return props.join('-');
 }
 

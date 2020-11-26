@@ -3,51 +3,51 @@ import mongoose from 'mongoose';
 const MovieSchema = mongoose.Schema({
   originalName: {
     type: String,
-    required: true
+    required: true,
   },
   vietnameseName: {
     type: String,
-    required: true
+    required: true,
   },
   rating: Number,
   rates: Number,
   label: {
     type: String,
     required: true,
-    enum: ['P', 'C13', 'C16','C18'],
-    default: 'P'
+    enum: ['P', 'C13', 'C16', 'C18'],
+    default: 'P',
   },
   time: {
     type: String,
-    required: true
+    required: true,
   },
   producer: String,
   category: {
     type: [String],
-    required: true
+    required: true,
   },
   cast: {
     type: [String],
-    required: true
+    required: true,
   },
   nation: {
     type: String,
-    required: true
+    required: true,
   },
   director: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: [String],
-    required: true
+    required: true,
   },
   trailerEmbedID: String,
-  imageSource: String
+  imageSource: String,
 });
 
 export default mongoose.model('Movie', MovieSchema);

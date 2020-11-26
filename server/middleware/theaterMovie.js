@@ -1,8 +1,7 @@
+import mongoose from 'mongoose';
 import TheaterMovie from '../models/theaterMovie.js';
 import Movie from '../models/movie.js';
 import Theater from '../models/theater.js';
-
-import mongoose from 'mongoose';
 
 async function getTheaterMovie(req, res, next) {
   try {
@@ -26,18 +25,18 @@ async function getAllTheaterMovies(req, res, next) {
 
 async function postSampleTheaterMovie(req, res, next) {
   try {
-    let theaterMovies = [];
+    const theaterMovies = [];
     let theaterMovie;
-    let movies = await Movie.find();
-    let movieIDs = movies.map(movie => movie['_id']);
-    let theaters = await Theater.find();
-    let theaterIDs = theaters.map(theater => theater['_id']);
-    
+    const movies = await Movie.find();
+    const movieIDs = movies.map((movie) => movie._id);
+    const theaters = await Theater.find();
+    const theaterIDs = theaters.map((theater) => theater._id);
+
     for (let i = 0; i < theaterIDs.length; ++i) {
       for (let j = 0; j < movieIDs.length && j < i + 1; ++j) {
         theaterMovie = new TheaterMovie();
-        theaterMovie['_idTheater'] = theaterIDs[i]
-        theaterMovie['_idMovie'] = movieIDs[j];
+        theaterMovie._idTheater = theaterIDs[i];
+        theaterMovie._idMovie = movieIDs[j];
         theaterMovies.push(theaterMovie);
       }
     }
@@ -54,5 +53,5 @@ async function postSampleTheaterMovie(req, res, next) {
 export {
   getTheaterMovie,
   getAllTheaterMovies,
-  postSampleTheaterMovie
-}
+  postSampleTheaterMovie,
+};

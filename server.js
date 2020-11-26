@@ -2,17 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import path from 'path';
+import path, { dirname } from 'path';
 import expbs from 'express-handlebars';
 
+import { fileURLToPath } from 'url';
 import handlebarsRouter from './server/routes/handler.js';
 import movieRouter from './server/routes/movie.js';
 import theaterRouter from './server/routes/theater.js';
 import theaterMovieRouter from './server/routes/theaterMovie.js';
 import showTimeRouter from './server/routes/showTime.js';
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,7 +22,7 @@ dotenv.config();
 mongoose.connect(process.env.MONGODB_URI, {
   useCreateIndex: true,
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;
