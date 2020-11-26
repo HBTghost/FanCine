@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "watch-scss": "gulp watch-scss",
-    "start": "gulp sass && node server.js"
+    "prod": "gulp sass",
+    "start": "node server.js"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
