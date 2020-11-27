@@ -1,1 +1,1 @@
-"use strict";console.log("Showtime page");
+"use strict";var colorWhite="#fff",colorLightgray="#f1f1f1",movieItems=document.getElementsByClassName("showtimes-row-data-film"),curMovieItemIndex=0,curMovieID="";function clickMovieItem(e){movieItems[curMovieItemIndex].style.backgroundColor=colorWhite,movieItems[e].style.backgroundColor=colorLightgray,curMovieItemIndex=e,curMovieID=movieItems[e].firstElementChild.innerHTML,console.log(curMovieID)}for(var _loop=function(e){movieItems[e].addEventListener("click",function(){clickMovieItem(e)})},i=0;i<movieItems.length;++i)_loop(i);

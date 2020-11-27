@@ -23,10 +23,11 @@ handlebarsRouter.get('/info', (req, res) => {
   });
 });
 
-handlebarsRouter.get('/showtimes', (req, res) => {
+handlebarsRouter.get('/showtimes', getAllMovies, async (req, res) => {
   res.render('showtimes', {
     style: 'showtimes',
     script: 'showtimes',
+    movies: await res.allMovies,
   });
 });
 

@@ -7,7 +7,7 @@
   padding: 20px 30px;
 
   #showtimes-head {
-    border-bottom: 1px solid $showtimes-color-gray;
+    border-bottom: 1px solid $color-gray;
 
     button {
       background-color: inherit;
@@ -18,13 +18,13 @@
     }
 
     #showtimes-controller-film {
-      border-bottom: 3px solid $showtimes-color-orange;
+      border-bottom: 3px solid $color-orange;
       cursor: default;
       margin-right: 10px;
     }
 
     #showtimes-controller-theater {
-      color: $showtimes-color-darkgray;
+      color: $color-darkgray;
       margin-left: 10px;
     }
   }
@@ -37,9 +37,9 @@
 
     .showtimes-col {
       .showtimes-row-head {
-        background-color: $showtimes-color-orange;
-        border: 1px solid $showtimes-color-gray;
-        color: $showtimes-color-white;
+        background-color: $color-orange;
+        border: 1px solid $color-gray;
+        color: $color-white;
         font-size: 16px;
         font-weight: 500;
         padding: 5px 0;
@@ -48,9 +48,9 @@
 
       .showtimes-row-list {
         .showtimes-row-data {
-          border: 1px solid $showtimes-color-gray;
+          border: 1px solid $color-gray;
           border-top: none;
-          color: $showtimes-color-lightblack;
+          color: $color-lightblack;
           font-size: 14px;
           font-weight: normal;
           padding: 15px 10px;
@@ -82,14 +82,14 @@
             }
 
             .showtimes-row-data-film-name-vie {
-              color: $showtimes-color-darkgray;
+              color: $color-darkgray;
             }
           }
             
           .showtimes-row-data-film-label {
             div {
-              background-color: $showtimes-color-orange;
-              color: $showtimes-color-white;
+              background-color: $color-orange;
+              color: $color-white;
               text-align: center;
               width: 100%;
             }
@@ -104,7 +104,7 @@
 
         .showtimes-row-data-film:hover,
         .showtimes-row-data-theater:hover {
-          background-color: $showtimes-color-lightgray;
+          background-color: $color-lightgray;
         }
 
         .showtimes-row-data-showtime {
@@ -120,7 +120,7 @@
                 justify-content: flex-start;
 
                 .showtimes-row-data-showtime-time {
-                  border: 1px solid $showtimes-color-gray;
+                  border: 1px solid $color-gray;
                   cursor: pointer;
                   font-weight: bolder;
                   margin-bottom: 10px;
@@ -130,8 +130,8 @@
                 }
 
                 .showtimes-row-data-showtime-time:hover {
-                  border: 1px solid $showtimes-color-orange;
-                  color: $showtimes-color-orange;
+                  border: 1px solid $color-orange;
+                  color: $color-orange;
                 }
               }
             }
@@ -162,7 +162,7 @@
     padding: 20px 10px;
 
     .showtimes-row-list {
-      border-bottom: 1px solid $showtimes-color-darkgray;
+      border-bottom: 1px solid $color-darkgray;
       max-height: 250px;
       overflow-y: auto;
     }
