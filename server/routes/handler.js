@@ -30,6 +30,12 @@ handlebarsRouter.get('/showtimes', (req, res) => {
   });
 });
 
+handlebarsRouter.get('/book-ticket', (req, res) => {
+  res.render('book-ticket', {
+    style: 'book-ticket.css',
+  });
+});
+
 handlebarsRouter.get('/data', getAllMovies, async (req, res) => {
   try {
     res.render('data', {
