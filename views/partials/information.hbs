@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-sm-3">
         <div class="d-flex justify-content-center">
-            <img src="./images/design/fate.jpg" alt="fate image" style="height:200px;width:200px" class="img-fluid">
+            <img src="/images/design/fate.jpg" alt="fate image" style="height:200px;width:200px" class="img-fluid">
         </div>
         <div class="d-flex justify-content-center">
             <div class="text-center my-2 px-4 bg-success text-white" style="width:150px; border:1px solid rgb(63, 58, 58); font-size:larger">
@@ -15,24 +15,24 @@
         <div class="col-lg-9 col-sm-9 text-white">
         <div class="row">
             <div class="col-sm-12">
-            <h1>Fate/Stay night</h1>                
-            <p><b>Thể loại:</b> Hoạt hình</p>
+            <h1>{{ movie.vietnameseName }}</h1>                
+            <p><b>Thể loại:</b>{{#each movie.category }} {{ this }} {{/each}}</p>
             <b>Tóm tắt</b>
             </div>
             <div class="col-sm-9">
-            <p>
-                Các Ma Thuật Sư (Chủ Nhân) và Anh Linh (Người Hầu) hợp tác với nhau trong những Cuộc Chiến Chén Thánh… một cuộc chiến vì một vật chứa có sức mạnh vô hạn thực hiện ước muốn, tên là Chén Thánh. Tuy nhiên, cuộc chiến này đã biến hẳn theo một hướng khác.  
-            </p>
+            {{#each movie.description }}
+                <p>{{ this }}</p>
+            {{/each}}
             <div class="row mb-3">
-                <div class="col-xl-3 col-sm-6">Hài lòng</div>
-                <div class="col-xl-3 col-sm-6">Khởi chiếu</div>
-                <div class="col-xl-3 col-sm-6">Thời lượng</div>
-                <div class="col-xl-3 col-sm-6">Giới hạn tuổi</div>
+                <div class="col-xl-3 col-sm-6">Hài lòng: {{ movie.rating }}</div>
+                <div class="col-xl-3 col-sm-6">Khởi chiếu: {{ movie.date }}</div>
+                <div class="col-xl-3 col-sm-6">Thời lượng: {{ movie.time }}</div>
+                <div class="col-xl-3 col-sm-6">Giới hạn tuổi: {{ movie.label }}</div>
             </div>
             </div>   
             <div class="col-lg-3 col-sm-12">
-            <p><b>Đạo diễn:</b> Tomonori Sudo</p>
-            <p><b>Diên viên:</b> Noriaki Sugiyama, Noriko Shitaya</p>
+            <p><b>Đạo diễn:</b>{{ movie.director }}</p>
+            <p><b>Diên viên:</b>{{#each movie.cast }} {{ this }},{{/each}}...</p>
             </div>
         </div>            
         </div>          

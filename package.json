@@ -43,7 +43,6 @@
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sass-lint": "^1.4.0",
-    "nodemon": "^2.0.6",
     "postcss": "^8.1.10",
     "prettier": "^2.2.0",
     "sass-lint-auto-fix": "^0.21.2"

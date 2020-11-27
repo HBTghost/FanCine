@@ -1,31 +1,39 @@
 import express from 'express';
 
-import { getAllMovies } from '../middleware/movie.js';
+import { getMovie, getAllMovies } from '../middleware/movie.js';
 
 const handlebarsRouter = express.Router();
 
 handlebarsRouter.get('/', (req, res) => {
   res.render('home', {
-    style: 'home.css',
+    style: 'home',
+  });
+});
+
+handlebarsRouter.get('/info/:id', getMovie, async (req, res) => {
+  res.render('info', {
+    style: 'info',
+    movie: await res.movie,
   });
 });
 
 handlebarsRouter.get('/info', (req, res) => {
   res.render('info', {
-    style: 'info.css',
+    style: 'info',
   });
 });
 
 handlebarsRouter.get('/showtimes', (req, res) => {
   res.render('showtimes', {
-    style: 'showtimes.css',
+    style: 'showtimes',
+    script: 'showtimes',
   });
 });
 
 handlebarsRouter.get('/data', getAllMovies, async (req, res) => {
   try {
     res.render('data', {
-      movies: res.allMovies,
+      movies: await res.allMovies,
     });
   } catch (err) {
     console.log(err);
