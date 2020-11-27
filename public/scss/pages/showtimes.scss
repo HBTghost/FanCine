@@ -35,18 +35,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 30px;
 
-    #showtimes-col-film {
-
-    }
-
-    #showtimes-col-theater {
-
-    }
-
-    #showtimes-col-showtime {
-
-    }
-
     .showtimes-col {
       .showtimes-row-head {
         background-color: $showtimes-color-orange;
@@ -120,19 +108,11 @@
         }
 
         .showtimes-row-data-showtime {
-          .showtimes-row-data-showtime-date {
-                        
-          }
-
           .showtimes-row-data-showtime-list {
             .showtimes-row-data-showtime-item {
               display: grid;
               grid-template-columns: 100px auto;
               margin-top: 20px;
-                            
-              .showtimes-row-data-showtime-type {
-
-              }
 
               .showtimes-row-data-showtime-timegrid {
                 display: flex;

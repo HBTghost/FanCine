@@ -1,0 +1,119 @@
+@import '../base/variable';
+
+#book-ticket-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  #book-ticket-main {
+    display: grid;
+    grid-template-columns: auto 300px;
+    column-gap: 20px;
+
+    .book-ticket-select-box {
+      background-color: $book-ticket-color-orange;
+      padding: 10px;
+
+      .book-ticket-box-header {
+        color: $book-ticket-color-white;
+        font-size: 24px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+    }
+
+    #book-ticket-ticketfood-box {
+      .book-ticket-box-section {
+        font-size: 14px;
+
+        .book-ticket-head {
+          background-color: $book-ticket-color-brown;
+          color: $book-ticket-color-white;
+        }
+
+        .book-ticket-list {
+          background-color: $book-ticket-color-white;
+        }
+
+        .book-ticket-row {
+          display: grid;
+          grid-template-columns: 70% 10% 10% 10%;
+          padding: 8px;
+
+          .book-ticket-cell {
+            display: flex;
+            align-items: center;
+          }
+
+          .book-ticket-type-cell {
+            justify-content: flex-start;
+          }
+
+          .book-ticket-quantity-cell {
+            justify-content: center;
+
+            .book-ticket-quantity {
+              display: inline;
+              width: 50px;
+              margin-left: 5px;
+              margin-right: 5px;
+              text-align: center;
+            }
+
+            .book-ticket-quantity-btn {
+              border-radius: 25px;
+            }
+
+            .book-ticket-decrease-btn::before {
+              content: '\2796';
+            }
+
+            .book-ticket-increase-btn::before {
+              content: '\2795';
+            }
+          }
+
+          .book-ticket-unit-price-cell {
+            justify-content: flex-end;
+          }
+
+          .book-ticket-total-price-cell {
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      #book-ticket-food-box {
+        .book-ticket-row {
+          .book-ticket-type-cell {
+            display: grid;
+            grid-template-columns: 100px auto;
+            column-gap: 10px;
+            align-items: flex-start;
+
+            .book-ticket-img {
+              img {
+                width: 100%;
+              }
+            }
+
+            .book-ticket-type {
+              .book-ticket-name {
+                font-weight: bolder;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #book-ticket-seat-box {
+      display: none;
+    }
+
+    #book-ticket-checkout-box {
+      display: none;
+    }
+  }
+}
