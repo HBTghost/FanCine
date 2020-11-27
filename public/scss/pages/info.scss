@@ -1,21 +1,21 @@
-@import '../base/variable.scss';
+@import '../base/variable';
 
 #bg-poster {
+  background-attachment: fixed;
   background-image: url('../../images/design/fate.jpg');
   background-repeat: no-repeat;
-  background-attachment: fixed;
   background-size: cover;
   }
 
 .cinema-name {
-  display: flex;
-  border-left: 10px solid rgb(48, 23, 7);
-  background-color: rgb(235, 130, 98);
   align-items: center;
-  color: white;
+  background-color: $cinema-name-bgc;
+  border-left: 10px solid $cinema-name-border-left-color;
+  color: $white;
+  display: flex;
+  font-size: 20px;
   font-weight: bold;
-  width: 250px;
   height: 50px;
   padding-left: 10px;
-  font-size: 20px;
+  width: 250px;
 }

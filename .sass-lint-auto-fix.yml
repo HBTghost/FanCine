@@ -1,0 +1,29 @@
+files:
+  include: "public/scss/**/*.scss"
+  ignore:
+    - node_modules/**
+syntax:
+    include:
+      - scss
+resolvers:
+  property-sort-order: 1
+  attribute-quotes: 1
+  border-zero: 1
+  no-color-keywords: 1
+  no-css-comments: 0
+  no-important: 0
+  no-trailing-zero: 2
+  space-before-colon: 2
+  space-after-colon: 2
+  space-before-bang: 2
+  space-after-bang: 2
+  space-between-parens: 2
+  hex-length: 1
+  empty-line-between-blocks: 2
+  url-quotes: 1
+  zero-unit: 1
+  hex-notation: 1
+  indentation: 2
+  final-newline: 2
+options:
+  optOut: false

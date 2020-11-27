@@ -1,27 +1,27 @@
-@import '../base/variable.scss';
+@import '../base/variable';
 
 .modal-container {
+  background-image: linear-gradient(to right, $gradient-success-color-high, $gradient-success-color-low, $gradient-success-color-high);
   display: none;
-  position: fixed;
-  z-index: 3;
-  left: 0;
-  top: 0;
-  padding-top: 100px;
-  width: 100%;
   height: 100%;
+  left: 0;
   overflow: auto;
-  background-image: linear-gradient(to right, $gradient-success-color-high, $gradient-success-color-low, $gradient-success-color-high );
+  padding-top: 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
 }
 
 .modal-content {
-  position: relative;
-  background-color: white;
-  margin: auto;
-  padding: 0;
-  border: 1px solid black;
-  width: 900px;
-  min-height: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  animation-name: "popup";
   animation-duration: $modal-animation-duration;
+  animation-name: 'popup';
+  background-color: $white;
+  border: 1px solid $black;
+  box-shadow: 0 4px 8px 0 $box-shadow-login-1-color, 0 6px 20px 0 $box-shadow-login-2-color;
+  margin: auto;
+  min-height: 300px;
+  padding: 0;
+  position: relative;
+  width: 900px;
 }

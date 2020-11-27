@@ -8,7 +8,10 @@
   "type": "module",
   "scripts": {
     "dev": "gulp serve",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint:sass": "gulp lint-sass",
+    "lint:sass-fix": "sass-lint-auto-fix -c .sass-lint-auto-fix.yml",
+    "lint:js": "gulp lint-js"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
@@ -39,9 +42,11 @@
     "gulp-nodemon": "^2.5.0",
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
+    "gulp-sass-lint": "^1.4.0",
     "nodemon": "^2.0.6",
     "postcss": "^8.1.10",
-    "prettier": "^2.2.0"
+    "prettier": "^2.2.0",
+    "sass-lint-auto-fix": "^0.21.2"
   },
   "engines": {
     "node": "^10 || ^12 || >=14"

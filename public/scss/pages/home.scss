@@ -1,9 +1,10 @@
-@import '../base/variable.scss';
+@import '../base/variable';
 
-.Content-card {
+.content-card {
   opacity: 0;
   transition: 1.5s;
 }
-.Content-card:hover {
+
+.content-card:hover {
   opacity: 1;
 }

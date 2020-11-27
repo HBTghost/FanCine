@@ -1,5 +1,5 @@
-@import './base/variable.scss';
-@import './partials/signup.scss';
+@import './base/variable';
+@import './partials/signup';
 
 @keyframes popup {
   from {transform: scaleX(0);}
@@ -11,5 +11,5 @@
 }
 
 a {
-  color: #ec1f1f;
+  color: $link-color;
 }

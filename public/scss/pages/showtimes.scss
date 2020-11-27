@@ -1,189 +1,190 @@
-@import '../base/variable.scss';
+@import '../base/variable';
 
 #showtimes-container {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 20px 30px;
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 auto;
+  max-width: 1300px;
+  padding: 20px 30px;
 
-    #showtimes-head {
-        border-bottom: 1px solid $showtimes-color-gray;
+  #showtimes-head {
+    border-bottom: 1px solid $showtimes-color-gray;
 
-        button {
-            outline: none;
-            border: none;
-            background-color: inherit;
-            font-size: 18px;
-            padding: 10px 0;
-        }
-
-        #showtimes-controller-film {
-            margin-right: 10px;
-            border-bottom: 3px solid $showtimes-color-orange;
-            cursor: default;
-        }
-
-        #showtimes-controller-theater {
-            margin-left: 10px;
-            color: $showtimes-color-darkgray;
-        }
+    button {
+      background-color: inherit;
+      border: none;
+      font-size: 18px;
+      outline: none;
+      padding: 10px 0;
     }
 
-    #showtimes-main {
-        margin-top: 30px;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 30px;
+    #showtimes-controller-film {
+      border-bottom: 3px solid $showtimes-color-orange;
+      cursor: default;
+      margin-right: 10px;
+    }
 
-        #showtimes-col-film {
+    #showtimes-controller-theater {
+      color: $showtimes-color-darkgray;
+      margin-left: 10px;
+    }
+  }
 
+  #showtimes-main {
+    column-gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 30px;
+
+    #showtimes-col-film {
+
+    }
+
+    #showtimes-col-theater {
+
+    }
+
+    #showtimes-col-showtime {
+
+    }
+
+    .showtimes-col {
+      .showtimes-row-head {
+        background-color: $showtimes-color-orange;
+        border: 1px solid $showtimes-color-gray;
+        color: $showtimes-color-white;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 5px 0;
+        text-align: center;
+      }
+
+      .showtimes-row-list {
+        .showtimes-row-data {
+          border: 1px solid $showtimes-color-gray;
+          border-top: none;
+          color: $showtimes-color-lightblack;
+          font-size: 14px;
+          font-weight: normal;
+          padding: 15px 10px;
         }
 
-        #showtimes-col-theater {
+        .showtimes-row-data-film {
+          column-gap: 5px;
+          cursor: pointer;
+          display: grid;
+          grid-template-columns: 60px auto 32px;
 
-        }
-
-        #showtimes-col-showtime {
-
-        }
-
-        .showtimes-col {
-            .showtimes-row-head {
-                text-align: center;
-                padding: 5px 0;
-                border: 1px solid $showtimes-color-gray;
-                background-color: $showtimes-color-orange;
-                color: $showtimes-color-white;
-                font-size: 16px;
-                font-weight: 500;
+          .showtimes-row-data-film-img {
+            img {
+              width: 100%;
             }
-            
-            .showtimes-row-list {
-                .showtimes-row-data {
-                    padding: 15px 10px;
-                    border: 1px solid $showtimes-color-gray;
-                    border-top: none;
-                    color: $showtimes-color-lightblack;
-                    font-size: 14px;
-                    font-weight: normal;
-                }
-            
-                .showtimes-row-data-film {
-                    display: grid;
-                    grid-template-columns: 60px auto 32px;
-                    column-gap: 5px;
-                    cursor: pointer;
-            
-                    .showtimes-row-data-film-img {
-                        img {
-                            width: 100%;
-                        }
-                    }
-            
-                    .showtimes-row-data-film-name {
-                        p {
-                            text-transform: uppercase;
-                            margin: 0;
-                            padding: 0 5px;
-                            overflow: hidden;
-                            overflow-wrap: break-word;
-                        }
+          }
 
-                        .showtimes-row-data-film-name-ori {
-                            color: inherit;
-                        }
+          .showtimes-row-data-film-name {
+            p {
+              margin: 0;
+              overflow: hidden;
+              overflow-wrap: break-word;
+              padding: 0 5px;
+              text-transform: uppercase;
+            }
 
-                        .showtimes-row-data-film-name-vie {
-                            color: $showtimes-color-darkgray;
-                        }
-                    }
+            .showtimes-row-data-film-name-ori {
+              color: inherit;
+            }
+
+            .showtimes-row-data-film-name-vie {
+              color: $showtimes-color-darkgray;
+            }
+          }
             
-                    .showtimes-row-data-film-label {
-                        div {
-                            width: 100%;
-                            background-color: $showtimes-color-orange;
-                            color: $showtimes-color-white;
-                            text-align: center;
-                        }
-                    }
-                }
+          .showtimes-row-data-film-label {
+            div {
+              background-color: $showtimes-color-orange;
+              color: $showtimes-color-white;
+              text-align: center;
+              width: 100%;
+            }
+          }
+        }
             
-                .showtimes-row-data-theater {
-                    overflow: hidden;
-                    overflow-wrap: break-word;
-                    cursor: pointer;
-                }
+        .showtimes-row-data-theater {
+          cursor: pointer;
+          overflow: hidden;
+          overflow-wrap: break-word;
+        }
 
-                .showtimes-row-data-film:hover, .showtimes-row-data-theater:hover {
-                    background-color: $showtimes-color-lightgray;
-                }
+        .showtimes-row-data-film:hover,
+        .showtimes-row-data-theater:hover {
+          background-color: $showtimes-color-lightgray;
+        }
 
-                .showtimes-row-data-showtime {
-                    .showtimes-row-data-showtime-date {
+        .showtimes-row-data-showtime {
+          .showtimes-row-data-showtime-date {
                         
-                    }
+          }
 
-                    .showtimes-row-data-showtime-list {
-                        .showtimes-row-data-showtime-item {
-                            display: grid;
-                            grid-template-columns: 100px auto;
-                            margin-top: 20px;
+          .showtimes-row-data-showtime-list {
+            .showtimes-row-data-showtime-item {
+              display: grid;
+              grid-template-columns: 100px auto;
+              margin-top: 20px;
                             
-                            .showtimes-row-data-showtime-type {
+              .showtimes-row-data-showtime-type {
 
-                            }
+              }
 
-                            .showtimes-row-data-showtime-timegrid {
-                                display: flex;
-                                flex-wrap: wrap;
-                                justify-content: flex-start;
+              .showtimes-row-data-showtime-timegrid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
 
-                                .showtimes-row-data-showtime-time {
-                                    border: 1px solid $showtimes-color-gray;
-                                    width: fit-content;
-                                    padding: 3px 10px;
-                                    margin-bottom: 10px;
-                                    margin-right: 10px;
-                                    cursor: pointer;
-                                    font-weight: bolder;
-                                }
+                .showtimes-row-data-showtime-time {
+                  border: 1px solid $showtimes-color-gray;
+                  cursor: pointer;
+                  font-weight: bolder;
+                  margin-bottom: 10px;
+                  margin-right: 10px;
+                  padding: 3px 10px;
+                  width: fit-content;
+                }
 
-                                .showtimes-row-data-showtime-time:hover {
-                                    color: $showtimes-color-orange;
-                                    border: 1px solid $showtimes-color-orange;
-                                }
-                            }
-                        }
-                    }
-                }    
+                .showtimes-row-data-showtime-time:hover {
+                  border: 1px solid $showtimes-color-orange;
+                  color: $showtimes-color-orange;
+                }
+              }
             }
-        }
+          }
+        }    
+      }
     }
+  }
 }
 
 
 // Ipad screen
 @media only screen and (max-width: 1100px) {
-    #showtimes-container {
-        max-width: 800px;
+  #showtimes-container {
+    max-width: 800px;
 
-        #showtimes-main {
-            grid-template-columns: auto;
-            row-gap: 30px;
-        }
+    #showtimes-main {
+      grid-template-columns: auto;
+      grid-row-gap: 30px;
     }
+  }
 }
 
 
 // Phone screen
 @media only screen and (max-width: 700px) {
-    #showtimes-container {
-        padding: 20px 10px;
+  #showtimes-container {
+    padding: 20px 10px;
 
-        .showtimes-row-list {
-            max-height: 250px;
-            overflow-y: auto;
-            border-bottom: 1px solid $showtimes-color-darkgray;
-        }
+    .showtimes-row-list {
+      border-bottom: 1px solid $showtimes-color-darkgray;
+      max-height: 250px;
+      overflow-y: auto;
     }
+  }
 }
