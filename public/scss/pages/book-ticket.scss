@@ -12,11 +12,11 @@
     column-gap: 20px;
 
     .book-ticket-select-box {
-      background-color: $book-ticket-color-orange;
+      background-color: $color-orange;
       padding: 10px;
 
       .book-ticket-box-header {
-        color: $book-ticket-color-white;
+        color: $color-white;
         font-size: 24px;
         text-transform: uppercase;
         margin-bottom: 20px;
@@ -28,12 +28,12 @@
         font-size: 14px;
 
         .book-ticket-head {
-          background-color: $book-ticket-color-brown;
-          color: $book-ticket-color-white;
+          background-color: $color-brown;
+          color: $color-white;
         }
 
         .book-ticket-list {
-          background-color: $book-ticket-color-white;
+          background-color: $color-white;
         }
 
         .book-ticket-row {
