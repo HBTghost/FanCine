@@ -11,6 +11,7 @@ import movieRouter from './server/routes/movie.js';
 import theaterRouter from './server/routes/theater.js';
 import theaterMovieRouter from './server/routes/theaterMovie.js';
 import showTimeRouter from './server/routes/showTime.js';
+import Helper from './server/utils/handlebarsHelpers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,6 +51,7 @@ const hbs = expbs.create({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views/mainLayout'), // change layout folder name
   partialsDir: path.join(__dirname, 'views/partials'), // change partials folder name
+  helpers: Helper,
 });
 
 // Express Handlebars Configuration
