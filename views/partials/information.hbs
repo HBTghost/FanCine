@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-sm-12">
             <h1>{{ movie.vietnameseName }}</h1>                
-            <p><b>Thể loại:</b> {{#join movie.category ', ' }}{{/join}}</p>
+            <p><b>Thể loại:</b> {{join movie.category ', ' }}<p>
             <b>Tóm tắt</b>
             </div>
             <div class="col-sm-9">
@@ -32,7 +32,7 @@
             </div>   
             <div class="col-lg-3 col-sm-12">
             <p><b>Đạo diễn:</b> {{ movie.director }}</p>
-            <p><b>Diên viên:</b> {{#join movie.cast ', '}}{{/join}}<p>
+            <p><b>Diên viên:</b> {{join movie.cast ', '}}<p>
             </div>
         </div>            
         </div>          

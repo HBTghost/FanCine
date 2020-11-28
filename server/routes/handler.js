@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { getMovie, getAllMovies } from '../middleware/movie.js';
+import { getAllTheaters } from '../middleware/theater.js';
 
 const handlebarsRouter = express.Router();
 
@@ -45,6 +46,14 @@ handlebarsRouter.get('/data', getAllMovies, async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+handlebarsRouter.get('/allTheaters', getAllTheaters, (req, res) => {
+  res.status(200);
+  res.header('Content-Type', 'text/html');
+  res.render('partials/theatersInShowtime', {
+    theaters: res.allTheaters,
+  });
 });
 
 export default handlebarsRouter;
