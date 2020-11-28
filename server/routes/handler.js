@@ -38,6 +38,13 @@ handlebarsRouter.get('/book-ticket', (req, res) => {
   });
 });
 
+handlebarsRouter.get('/theaters', getAllTheaters, (req, res) => {
+  res.render('theaters', {
+    style: 'theaters',
+    theaters: res.allTheaters,
+  });
+});
+
 handlebarsRouter.get('/data', getAllMovies, async (req, res) => {
   try {
     res.render('data', {

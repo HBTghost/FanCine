@@ -5,8 +5,8 @@ const Helper = {
   join(context, del) {
     return context.join(del);
   },
-  clickMe(context) {
-    return `console.log('${context}');`;
+  isZero(context) {
+    return context === 0;
   },
 };
 

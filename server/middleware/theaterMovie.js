@@ -51,7 +51,7 @@ async function postSampleTheaterMovie(req, res, next) {
         theaterMovies.push(theaterMovie);
       }
     }
-    // theaterMovies.forEach(async theaterMovie => await theaterMovie.save());
+    // theaterMovies.forEach(async (_theaterMovie) => { await _theaterMovie.save(); });
 
     res.theaterMovies = theaterMovies;
   } catch (err) {
