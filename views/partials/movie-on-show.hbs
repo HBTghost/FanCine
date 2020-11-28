@@ -11,103 +11,32 @@
         <!-- Movie on show -->
         <div class="tab-pane container active" id="present-mv">
             <div class="row py-4">
-                <div class="col-md-4 col-6 py-2">
-                    <a href="info/5fb775d63a360279a974f5eb">
-                        <figure class="figure">
-                            <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                            <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                            
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <a href="info">
-                        <figure class="figure">
-                            <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                            <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                            
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <a href="info">
-                        <figure class="figure">
-                            <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                            <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                            
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <a href="info">
-                        <figure class="figure">
-                            <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                            <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                            
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <a href="info">
-                        <figure class="figure">
-                            <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                            <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                            
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <a href="info">
-                        <figure class="figure">
-                            <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                            <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                            
-                        </figure>
-                    </a>
-                </div>
+                {{#each movies}}
+                    <div class="col-md-4 col-6 py-2">
+                        <a href="info/{{this._id}}">
+                            <figure class="figure">
+                                <img src="{{imageSource}}" alt="" class="img-thumbnail">
+                                <figcaption class="figure-caption mini-title-movie-1">{{originalName}}</figcaption>   
+                                <figcaption class="figure-caption mini-title-movie-2">{{vietnameseName}}</figcaption>                           
+                            </figure>
+                        </a>
+                    </div>
+                {{/each}}
             </div>
         </div>
         <!-- in future on show -->
         <div class="tab-pane container fade" id="future-mv">
             <div class="row py-4">
-                <!-- (.col-md-4.col-6.py-2>figure.figure>img[src="/images/design/fate.jpg"].img-thumbnail+figcaption.figure-caption{Ahihi Àhíhí Ôhịhị})*6 -->
-                <div class="col-md-4 col-6 py-2">
-                    <figure class="figure">
-                        <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                        <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                    </figure>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <figure class="figure">
-                        <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                        <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                    </figure>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <figure class="figure">
-                        <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                        <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                    </figure>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <figure class="figure">
-                        <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                        <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                    </figure>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <figure class="figure">
-                        <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                        <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                    </figure>
-                </div>
-                <div class="col-md-4 col-6 py-2">
-                    <figure class="figure">
-                        <img src="/images/design/fate.jpg" alt="" class="img-thumbnail">
-                        <figcaption class="figure-caption">Ahihi Àhíhí Ôhịhị</figcaption>
-                    </figure>
-                </div>
-                
+                {{#each movies}}
+                    <div class="col-md-4 col-6 py-2">
+                        <a href="info/{{this._id}}">
+                            <figure class="figure">
+                                <img src="{{imageSource}}" alt="" class="img-thumbnail">
+                                <figcaption class="figure-caption">{{originalName}}</figcaption>                                
+                            </figure>
+                        </a>
+                    </div>
+                {{/each}}              
             </div>
         </div>
     </div>

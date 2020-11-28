@@ -5,9 +5,10 @@ import { getAllTheaters } from '../middleware/theater.js';
 
 const handlebarsRouter = express.Router();
 
-handlebarsRouter.get('/', (req, res) => {
+handlebarsRouter.get('/', getAllMovies, async (req, res) => {
   res.render('home', {
     style: 'home',
+    movies: await res.allMovies,
   });
 });
 

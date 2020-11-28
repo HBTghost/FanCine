@@ -1,3 +1,4 @@
+
 @import '../base/variable';
 
 .content-card {
@@ -7,4 +8,21 @@
 
 .content-card:hover {
   opacity: 1;
+  
+}
+
+.mini-title-movie-1 {
+  font-weight: 600;
+  font-size: 19px;
+  color: $black;
+  opacity: .7;
+  text-transform: uppercase;
+}
+
+.mini-title-movie-2 {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 14px;
+  color: $black;
+  opacity: .6;
 }

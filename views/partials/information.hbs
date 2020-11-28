@@ -1,50 +1,51 @@
 <!-- Information page  -->
-<div class="text-black" id="bg-poster">  <!-- poster, information -->
+<div class="text-black bg-poster" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) ,rgba(0, 0, 0, 0.7)), url('{{movie.imageSource}}');">  <!-- poster, information -->
     <div class="container">
-    <div class="row">
-        <div class="col-sm-3">
-        <div class="d-flex justify-content-center">
-            <img src="/images/design/fate.jpg" alt="fate image" style="height:200px;width:200px" class="img-fluid">
-        </div>
-        <div class="d-flex justify-content-center">
-            <div class="text-center my-2 px-4 bg-success text-white" style="width:150px; border:1px solid rgb(63, 58, 58); font-size:larger">
-            <b>Đặt vé</b>
-            </div>
-        </div>
-        </div>
-        <div class="col-lg-9 col-sm-9 text-white">
         <div class="row">
-            <div class="col-sm-12">
-            <h1>{{ movie.vietnameseName }}</h1>                
-            <p><b>Thể loại:</b> {{join movie.category ', ' }}<p>
-            <b>Tóm tắt</b>
+            <div class="col-sm-3">
+                <figure class="poster">
+                    <img src="{{movie.imageSource}}" alt="" class="img-thumbnail">
+                    <figcaption class="figure-caption text-center my-2 px-4 bg-success text-white infor-book-box">Đặt vé</figcaption>                                
+                </figure>
             </div>
-            <div class="col-sm-9">
-            {{#each movie.description }}
-                <p>{{ this }}</p>
-            {{/each}}
-            <div class="row mb-3">
-                <div class="col-xl-3 col-sm-6">Hài lòng: {{ movie.rating }}</div>
-                <div class="col-xl-3 col-sm-6">Khởi chiếu: {{ movie.date }}</div>
-                <div class="col-xl-3 col-sm-6">Thời lượng: {{ movie.time }}</div>
-                <div class="col-xl-3 col-sm-6">Giới hạn tuổi: {{ movie.label }}</div>
-            </div>
-            </div>   
-            <div class="col-lg-3 col-sm-12">
-            <p><b>Đạo diễn:</b> {{ movie.director }}</p>
-            <p><b>Diên viên:</b> {{join movie.cast ', '}}<p>
-            </div>
-        </div>            
-        </div>          
-    </div>
-    </div>
+            <div class="col-lg-9 col-sm-9 text-white">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>{{ movie.vietnameseName }}</h1>                
+                        <p><b>Thể loại:</b> {{#join movie.category ', ' }}{{/join}}</p>
+                        <b>Tóm tắt</b>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="description">
+                            {{#each movie.description }}
+                                <p>{{ this }}</p>
+                            {{/each}}
+                        </div>               
+
+                        <div class="row mb-3">
+                            <div class="col-xl-3 col-sm-6"><b>Hài lòng: </b>{{ movie.rating }}</div>
+                            <div class="col-xl-3 col-sm-6"><b>Khởi chiếu: </b>{{ movie.date }}</div>
+                            <div class="col-xl-3 col-sm-6"><b>Thời lượng: </b>{{ movie.time }}</div>
+                            <div class="col-xl-3 col-sm-6"><b>Giới hạn tuổi: </b>{{ movie.label }}</div>
+                        </div>
+                    </div>   
+                    <div class="col-lg-3 col-sm-12">
+                    <p><b>Đạo diễn:</b> {{ movie.director }}</p>
+                    <p><b>Diên viên:</b> {{#join movie.cast ', '}}{{/join}}<p>
+                    </div>
+                </div>            
+            </div>          
+        </div>           
+    </div>          
 </div>
+
+
 
 <!-- Nav tabs -->
 <div class="container my-5 bg-light">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-        <a class="nav-link text-success active font-weight-bold" data-toggle="tab" href="#trailer">Thông tin phim</a>
+        <a class="nav-link text-success active font-weight-bold" data-toggle="tab" href="#infor">Thông tin phim</a>
         </li>
         <li class="nav-item">
         <a class="nav-link text-success font-weight-bold" data-toggle="tab" href="#showtime">Lịch chiếu</a>
@@ -52,8 +53,14 @@
     </ul>
     <div class="tab-content my-4">
     <!-- Trailer -->
-    <div class="active tab-pane" id="trailer">
-        <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/PkMkxZd43ec" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="active tab-pane" id="infor">
+        {{#each movie.description }}
+            <p>{{ this }}</p>
+        {{/each}}
+        <br>
+        <iframe width="600" height="400"
+            src="https://www.youtube.com/embed/{{ movie.trailerEmbedID }}">
+        </iframe>
     </div>
     <!-- Show time -->
     <div class="tab-pane" id="showtime">
@@ -596,4 +603,4 @@
         </div>
     </div>
     </div>     
-</div>
+</div> 
