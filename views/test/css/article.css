@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "articleFont";
+    src: url('/font/YanoneKaffeesatz.ttf');
+}
+.article-font{
+    font-family: "articleFont";
+}
+#article-header{
+    height: 40vh;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("/image/kid.jpg");
+    background-attachment: fixed;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: -1;
+}
+.article-header-title {
+    height: 30vh;
+    max-width: 80%;
+    margin: auto;
+    color: white;
+    overflow: hidden;
+    text-shadow: -1px 1px 0 #000, 
+                1px 1px 0 #000, 
+                1px -1px 0 #000, 
+                -1px -1px 0 #000;
+    /* display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center; */
+    /* word-break: break-all; */
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
+@media only screen and (max-width: 768px){
+    .article-header-title {
+        font-size: 24px;
+    }
+}
+@media only screen and (min-width: 768px){
+    .article-header-title {
+        font-size: 48px;
+    }
+}
+@media only screen and (min-width: 1440px){
+    .article-header-title {
+        font-size: 80px;
+    }
+}
+.article-body{
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    border: 0.5px solid lightcyan;
+    border-radius: 0.5rem;
+    position:  relative;
+    top: -10vh;
+    font-size: 17px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 -2px 8px rgba(0, 0, 0, 0.2);
+}
