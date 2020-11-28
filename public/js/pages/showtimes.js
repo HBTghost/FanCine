@@ -12,6 +12,11 @@ function clickMovieItem(newIndex) {
   curMovieItemIndex = newIndex;
   curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
   console.log(curMovieID);
+  fetch("api/theaters_movies/findByMovie/".concat(curMovieID)).then(function (response) {
+    response.json().then(function (json) {
+      console.log(json);
+    });
+  });
 }
 
 var _loop = function _loop(i) {

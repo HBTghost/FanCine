@@ -39,7 +39,7 @@ gulp.task('serve', gulp.series('nodemon', (done) => {
 
   gulp.watch('public/scss/**/*.scss', gulp.series('compileSCSS', 'lint-sass'));
   gulp.watch('public/njs/**/*.js', gulp.series('compileJS'));
-  gulp.watch(['**/*.js', '!node_modules/**', '!public/js/**'], gulp.series('lint-js-fix'));
+  gulp.watch(['**/*.js', '!node_modules/**', '!public/js/**/*.js'], gulp.series('lint-js-fix'));
   done();
 }));
 
@@ -54,7 +54,7 @@ gulp.task('compileSCSS', () => {
     .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('lint-js-fix', () => gulp.src(['./**/*.js', '!node_modules/**', '!public/js/**'])
+gulp.task('lint-js-fix', () => gulp.src(['**/*.js', '!node_modules/**', '!public/js/**/*.js'])
   .pipe(eslint(({ useEslintrc: true, fix: true })))
   .pipe(eslint.format())
   .pipe(eslint.failAfterError())
@@ -65,7 +65,7 @@ gulp.task('compileJS', () => gulp.src('public/njs/**/*.js')
   .pipe(minify())
   .pipe(gulp.dest('public/js')));
 
-gulp.task('lint-js', () => gulp.src(['./**/*.js', '!node_modules/**', '!public/js/**'])
+gulp.task('lint-js', () => gulp.src(['**/*.js', '!node_modules/**', '!public/js/**/*.js'])
   .pipe(eslint(({ useEslintrc: true })))
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()));

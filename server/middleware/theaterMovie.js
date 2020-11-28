@@ -12,6 +12,17 @@ async function getTheaterMovie(req, res, next) {
 
   return next();
 }
+async function getTheaterMovieByMovie(req, res, next) {
+  try {
+    res.theaterMovies = await TheaterMovie.find({
+      _idMovie: mongoose.Types.ObjectId(req.params.id),
+    }).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
 
 async function getAllTheaterMovies(req, res, next) {
   try {
@@ -52,6 +63,7 @@ async function postSampleTheaterMovie(req, res, next) {
 
 export {
   getTheaterMovie,
+  getTheaterMovieByMovie,
   getAllTheaterMovies,
   postSampleTheaterMovie,
 };
