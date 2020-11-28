@@ -17,13 +17,14 @@
       padding: 10px 0;
     }
 
-    #showtimes-controller-film {
+    #showtimes-controller-movie {
       border-bottom: 3px solid $color-orange;
       cursor: default;
       margin-right: 10px;
     }
 
     #showtimes-controller-theater {
+      border-bottom: 3px solid transparent;
       color: $color-darkgray;
       margin-left: 10px;
     }
@@ -56,19 +57,19 @@
           padding: 15px 10px;
         }
 
-        .showtimes-row-data-film {
+        .showtimes-row-data-movie {
           column-gap: 5px;
           cursor: pointer;
           display: grid;
           grid-template-columns: 60px auto 32px;
 
-          .showtimes-row-data-film-img {
+          .showtimes-row-data-movie-img {
             img {
               width: 100%;
             }
           }
 
-          .showtimes-row-data-film-name {
+          .showtimes-row-data-movie-name {
             p {
               margin: 0;
               overflow: hidden;
@@ -77,16 +78,16 @@
               text-transform: uppercase;
             }
 
-            .showtimes-row-data-film-name-ori {
+            .showtimes-row-data-movie-name-ori {
               color: inherit;
             }
 
-            .showtimes-row-data-film-name-vie {
+            .showtimes-row-data-movie-name-vie {
               color: $color-darkgray;
             }
           }
             
-          .showtimes-row-data-film-label {
+          .showtimes-row-data-movie-label {
             div {
               background-color: $color-orange;
               color: $color-white;
@@ -102,7 +103,7 @@
           overflow-wrap: break-word;
         }
 
-        .showtimes-row-data-film:hover,
+        .showtimes-row-data-movie:hover,
         .showtimes-row-data-theater:hover {
           background-color: $color-lightgray;
         }
