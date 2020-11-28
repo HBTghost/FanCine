@@ -11,7 +11,7 @@
 
 #article-header {
   height: 40vh;
-  background-image: linear-gradient(to top, $multi-background, $multi-background), url('image/kid.jpg'); /*<--*/
+  background-image: linear-gradient(to top, $multi-background, $multi-background), url('/image/reviewContentSample/kid.jpg'); /*<--*/
   background-attachment: fixed;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -171,7 +171,7 @@ article h1 {
 .tag-link a {
   border: 1px solid $black; /*<--*/
   border-radius: .5rem;
-  color: $whitec; /*<--*/
+  color: $white; /*<--*/
   background-color: $black; /*<--*/
   padding: 3px;
 }
