@@ -1,0 +1,46 @@
+<div id="showtimes-movies">
+  {{#each movies }}
+  <div class="showtimes-row-data showtimes-row-data-film">
+    <div style="display: none;">{{ _id }}</div>
+    <div class="showtimes-row-data-film-img">
+      <img src="{{ imageSource }}" alt="Poster">
+    </div>
+    <div class="showtimes-row-data-film-name">
+      <p class="showtimes-row-data-film-name-ori">{{ originalName }}</p>
+      <p class="showtimes-row-data-film-name-vie">{{ vietnameseName }}</p>
+    </div>
+    <div class="showtimes-row-data-film-label">
+      <div>{{ label }}</div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+<div id="showtimes-theaters">
+  {{#each theaters }}
+  <div class="showtimes-row-data showtimes-row-data-theater">
+    <div style="display: none;">{{ _id }}</div>
+    <div class="showtimes-row-data-theater-name">{{ name }}</div>
+  </div>
+  {{/each}}
+</div>
+
+<div id="showtimes-showtimes">
+  {{#each dates }}
+  <div class="showtimes-row-data showtimes-row-data-showtime">
+    <div class="showtimes-row-data-showtime-date">{{ date }}</div>
+    <div class="showtimes-row-data-showtime-list">
+      {{#each types }}
+      <div class="showtimes-row-data-showtime-item">
+        <div class="showtimes-row-data-showtime-type">{{ type }}</div>
+        <div class="showtimes-row-data-showtime-timegrid">
+          {{#each showtimes }}
+          <div class="showtimes-row-data-showtime-time">{{ showtime }}</div>
+          {{/each}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/each}}
+</div>

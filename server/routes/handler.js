@@ -58,9 +58,15 @@ handlebarsRouter.get('/data', getAllMovies, async (req, res) => {
 handlebarsRouter.get('/allTheaters', getAllTheaters, (req, res) => {
   res.status(200);
   res.header('Content-Type', 'text/html');
-  res.render('partials/theatersInShowtime', {
+  res.render('partials/renderStructure/selectShowtime', {
     theaters: res.allTheaters,
   });
+});
+
+handlebarsRouter.get('/sample/showtimes', (req, res) => {
+  res.status(200);
+  res.header('Content-Type', 'text/html');
+  res.render('partials/sampleData/selectShowtime');
 });
 
 export default handlebarsRouter;
