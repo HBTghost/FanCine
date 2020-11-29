@@ -40,6 +40,26 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  min-height: 250px;
+  height: 250px;
   line-height: 2; /* Vertically center the text there */
+}
+
+@media only screen and (max-width: 991px) {
+  body {
+    margin-bottom: 500px;
+  }
+
+  .footer {
+    height: 500px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  body {
+    margin-bottom: 750px;
+  }
+  
+  .footer {
+    height: 750px;
+  }
 }
