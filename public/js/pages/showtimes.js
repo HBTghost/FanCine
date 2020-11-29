@@ -30,7 +30,8 @@ var curMovieItemIndex = 0;
 var curMovieID = '';
 var theaterItems;
 var curTheaterItemIndex = 0;
-var curTheaterID = ''; // Spinner
+var curTheaterID = '';
+var curTheaterMovieID = ''; // Spinner
 
 var spinnerModal = document.getElementsByClassName('spinner-modal')[0];
 
@@ -148,12 +149,23 @@ theaterTabBtn.addEventListener('click', function () {
   loadAllTheaters();
 }); // Movie tab
 
+function loadShowtimesByTheaterMovieID(theaterMovieID) {
+  enableSpinner();
+  fetch("/showtimes/allShowtimes/".concat(theaterMovieID)).then(function (partial) {
+    partial.text().then(function (html) {
+      showtimesData = parser.parseFromString(html, 'text/html');
+      showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes').innerHTML;
+      disableSpinner();
+    });
+  });
+}
+
 function clickTheaterItemAtMovieTab(newIndex) {
   theaterItems[curTheaterItemIndex].style.backgroundColor = colorWhite;
   theaterItems[newIndex].style.backgroundColor = colorLightgray;
   curTheaterItemIndex = newIndex;
-  curTheaterID = theaterItems[newIndex].firstElementChild.innerHTML;
-  loadSampleShowtimes(newIndex);
+  curTheaterMovieID = theaterItems[newIndex].firstElementChild.innerHTML;
+  loadShowtimesByTheaterMovieID(curTheaterMovieID);
 }
 
 function loadTheatersByMovieID(movieID) {
