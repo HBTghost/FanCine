@@ -100,6 +100,7 @@ function clickTheaterItemAtTheaterTab(newIndex) {
   theaterItems[newIndex].style.backgroundColor = colorLightgray;
   curTheaterItemIndex = newIndex;
   curTheaterID = theaterItems[newIndex].firstElementChild.innerHTML;
+  curMovieItemIndex = 0;
   loadMoviesByTheaterID(curTheaterID);
 }
 
@@ -154,6 +155,7 @@ function clickMovieItemAtMovieTab(newIndex) {
   movieItems[newIndex].style.backgroundColor = colorLightgray;
   curMovieItemIndex = newIndex;
   curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
+  curTheaterItemIndex = 0;
   loadTheatersByMovieID(curMovieID);
 }
 

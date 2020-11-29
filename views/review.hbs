@@ -1,0 +1,67 @@
+
+{{> sticky-top }}
+
+<div class="container mt-3">
+    <!-- select type nav -->
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-3">
+            <select class="form-control" id="select" onchange="myname()">
+                <option value="newest">Mới nhất</option>
+                <option value="bestRate">Đánh giá cao</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <a href="/review" class="review-title">
+        <h3>
+            Đánh giá phim
+        </h3>
+    </a>
+    <div class="row">
+        <div class="col-12 col-lg-8" style="background-color:;">
+            <div class="container-fuild">
+                <article class="review-list">
+                    <div class="review-item">
+                        <a href="/review/reviewContentSample" class="review-item-img">
+                            <img src="/images/reviewContentSample/kid.jpg" alt="">
+                        </a>
+                        <div>
+                            <a href="/review/reviewContentSample">
+                                <div class="review-item-title">
+                                    <h4>Tổ chức và các chức năng của một bài đánh giá</h4>
+                                </div>
+                            </a>
+                            <div class="review-item-content">Đây là bài viết trình bày các chức năng hiện tại của một bài đánh giá phim.</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col"></div>
+                <div class="col-12 col-lg-8">
+                    <button type="button" class="btn btn-outline-secondary d-flex container d-flex justify-content-center">Xem Thêm</button>
+                </div>
+                <div class="col"></div>
+            </div>
+            <!-- Show more button -->
+            
+        </div>
+
+        <div class="col col-md-4 ">
+            <div class="container">
+                <img src="https://via.placeholder.com/768x1024" alt="" class="img-thumbnail">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    let change = document.getElementById("select")
+
+    function myname() {
+        console.log(change.value)
+    }
+</script>

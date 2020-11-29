@@ -20,6 +20,18 @@ handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   });
 });
 
+handlebarsRouter.get('/review', (req, res) => {
+  res.render('review', {
+    style: 'review',
+  });
+});
+
+handlebarsRouter.get('/review/reviewContentSample', (req, res) => {
+  res.render('partials/reviewContentSample', {
+    style: 'reviewContent',
+  });
+});
+
 handlebarsRouter.get('/info', (req, res) => {
   res.render('info', {
     style: 'info',
