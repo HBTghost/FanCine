@@ -17,8 +17,8 @@ handlebarsRouter.get('/info/:id', getMovie, async (req, res) => {
   });
 });
 
-handlebarsRouter.get('/reviewContentSample', (req, res) => {
-  res.render('reviewContentSample', {
+handlebarsRouter.get('/review', (req, res) => {
+  res.render('partials/reviewContentSample', {
     style: 'reviewContent',
   });
 });
