@@ -1,0 +1,67 @@
+@import '../base/variable';
+
+.review-title {
+  color: $black;
+  margin: 0 20px;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding: 10px 0;
+    border-bottom: 3px solid $link-color;
+  }
+}
+
+.review-title:hover {
+  color: $link-color;
+  text-decoration: none;
+}
+
+.review-item {
+  height: 230px;
+  display: flex;
+
+  .review-item-img {
+    min-width: 40%;
+    max-width: 40%;
+
+    img {
+      width: 100%;
+      padding: 2px;
+      border: 1px solid $thumnail-border;
+    }
+
+    img:hover {
+      opacity: 0.7;
+    }
+  }
+
+  div {
+    margin-left: 10px;
+  }
+
+  .review-item-title {
+    width: 100%;
+    max-height: 30%;
+    overflow: hidden;
+    color: $black;
+    font-weight: bold;
+  }
+  
+  .review-item-title:hover {
+    color: $color-orange;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .review-item-content {
+    height: 70%;
+    overflow: hidden;
+    color: $color-lightblack;
+    font-style: italic;
+  }
+}
