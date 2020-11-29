@@ -24,6 +24,12 @@ $color-darkgray: #a0a3a7;
 $color-lightblack: #555;
 $color-orange:  #f26b38;
 $color-brown: #47251c;
+$color-black: #000;
+$color-transparent-black: rgba(0, 0, 0, .1);
 
 // Animations
 $modal-animation-duration: .4s;
+
+// Z-index
+$spinner-modal-z-index: 5;
+$spinner-modal-content-z-index: 6;
