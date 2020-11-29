@@ -28,4 +28,7 @@ POST http://localhost:7070/api/theaters_movies/utils/postSampleDatasets HTTP/1.1
 GET http://localhost:7070/api/showTimes/ HTTP/1.1
 
 ###
+GET http://localhost:7070/showtimes/find/byTM/5fc25309c45c54ac463d29f8 HTTP/1.1
+
+###
 POST http://localhost:7070/api/showTimes/utils/postSampleDatasets HTTP/1.1

@@ -2,6 +2,7 @@ import express from 'express';
 
 import { getMovie, getAllMovies } from '../middleware/movie.js';
 import { getAllTheaters } from '../middleware/theater.js';
+import { getShowTimesAndPropsByTheaterMovie } from '../middleware/showTime.js';
 
 const handlebarsRouter = express.Router();
 
@@ -68,6 +69,14 @@ handlebarsRouter.get('/sample/showtimes', (req, res) => {
   res.status(200);
   res.header('Content-Type', 'text/html');
   res.render('partials/sampleData/selectShowtime');
+});
+
+handlebarsRouter.get('/showtimes/find/byTM/:id', getShowTimesAndPropsByTheaterMovie, (req, res) => {
+  res.json({
+    showTimes: res.showTimes,
+    dates: res.dates,
+    types: res.types,
+  });
 });
 
 export default handlebarsRouter;

@@ -15,6 +15,37 @@ async function getShowTime(req, res, next) {
   return next();
 }
 
+async function getShowTimesAndPropsByTheaterMovie(req, res, next) {
+  try {
+    const showTimes = ShowTime.find();
+    await showTimes.distinct('date', (error, dates) => {
+      res.dates = dates;
+      console.log(dates);
+    });
+    await showTimes.distinct('type', (error, types) => {
+      res.types = types;
+      console.log(types);
+    });
+    const results = {};
+    for await (const date of res.dates) {
+      const dateObj = {};
+      for await (const type of res.types) {
+        const timeObj = {};
+        const showTime = await showTimes.find({ date, type }).lean();
+        for (const x of showTime) {
+          timeObj[x.time] = x._id;
+        }
+        dateObj[type] = timeObj;
+      }
+      results[date] = dateObj;
+    }
+    res.showTimes = results;
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+  return next();
+}
+
 async function getAllShowTimes(req, res, next) {
   try {
     res.allShowTimes = await ShowTime.find().lean();
@@ -34,27 +65,40 @@ async function postSampleShowTimes(req, res, next) {
     const theaterMovies = await TheaterMovie.find();
 
     for await (const theaterMovie of theaterMovies) {
-      const showTime = new ShowTime();
-      const theater = await Theater.findById(theaterMovie._idTheater);
-      showTime._idTheaterMovie = theaterMovie._id;
-      showTime.room = theater.rooms[randomInt(0, theater.rooms.length)];
-      showTime.date = toDateString(
-        new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * randomInt(0, 20)),
-      );
-      showTime.time = times[randomInt(0, times.length)];
-      showTime.type = types[randomInt(0, types.length)];
-      const w = randomInt(10, 14);
-      const h = randomInt(6, 10);
-      const state = [];
-      for (let i = 0; i < h; ++i) {
-        const row = [];
-        for (let j = 0; j < w; ++j) {
-          row.push(randomInt(0, 2));
+      let mySet = new Set();
+      for (const type of types) {
+        for (const time of times) {
+          mySet.add(JSON.stringify({
+            type,
+            time: times[randomInt(0, types.length)],
+          }));
+          console.log(time);
         }
-        state.push(row);
       }
-      showTime.state = state;
-      showTimes.push(showTime);
+      mySet = [...mySet].map((obj) => JSON.parse(obj));
+      for await (const set of mySet) {
+        const showTime = new ShowTime();
+        const theater = await Theater.findById(theaterMovie._idTheater);
+        showTime._idTheaterMovie = theaterMovie._id;
+        showTime.room = theater.rooms[randomInt(0, theater.rooms.length)];
+        showTime.date = toDateString(
+          new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * randomInt(0, 10)),
+        );
+        showTime.time = set.time;
+        showTime.type = set.type;
+        const w = randomInt(10, 14);
+        const h = randomInt(6, 10);
+        const state = [];
+        for (let i = 0; i < h; ++i) {
+          const row = [];
+          for (let j = 0; j < w; ++j) {
+            row.push(randomInt(0, 2));
+          }
+          state.push(row);
+        }
+        showTime.state = state;
+        showTimes.push(showTime);
+      }
     }
     // showTimes.forEach(async (showTime) => { await showTime.save(); });
     res.showTimes = showTimes;
@@ -67,6 +111,7 @@ async function postSampleShowTimes(req, res, next) {
 
 export {
   getShowTime,
+  getShowTimesAndPropsByTheaterMovie,
   getAllShowTimes,
   postSampleShowTimes,
 };
