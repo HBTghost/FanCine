@@ -15,23 +15,41 @@ async function getShowTime(req, res, next) {
   return next();
 }
 
+async function getDatesByTheaterMovie(req, res, next) {
+  try {
+    await ShowTime.find({ '_idTheaterMovie': mongoose.Types.ObjectId(req.params.id) }).distinct('date', (error, dates) => {
+      res.dates = dates;
+    });
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTypesByTheaterMovie(req, res, next) {
+  try {
+    await ShowTime.find({ '_idTheaterMovie': mongoose.Types.ObjectId(req.params.id) }).distinct('type', (error, types) => {
+      res.types = types;
+    });
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getShowTimesAndPropsByTheaterMovie(req, res, next) {
   try {
-    const showTimes = ShowTime.find();
-    await showTimes.distinct('date', (error, dates) => {
-      res.dates = dates;
-      console.log(dates);
-    });
-    await showTimes.distinct('type', (error, types) => {
-      res.types = types;
-      console.log(types);
-    });
     const results = {};
     for await (const date of res.dates) {
       const dateObj = {};
       for await (const type of res.types) {
         const timeObj = {};
-        const showTime = await showTimes.find({ date, type }).lean();
+        const showTime = await ShowTime.find({
+          'date': date,
+          'type': type,
+        }).lean();
         for (const x of showTime) {
           timeObj[x.time] = x._id;
         }
@@ -43,6 +61,7 @@ async function getShowTimesAndPropsByTheaterMovie(req, res, next) {
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
+  res.status(200);
   return next();
 }
 
@@ -111,6 +130,8 @@ async function postSampleShowTimes(req, res, next) {
 
 export {
   getShowTime,
+  getDatesByTheaterMovie,
+  getTypesByTheaterMovie,
   getShowTimesAndPropsByTheaterMovie,
   getAllShowTimes,
   postSampleShowTimes,

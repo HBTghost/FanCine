@@ -1,14 +1,14 @@
 <div id="showtimes-showtimes">
-  {{#each dates }}
+  {{#each showtimes }}
   <div class="showtimes-row-data showtimes-row-data-showtime">
-    <div class="showtimes-row-data-showtime-date">{{ date }}</div>
+    <div class="showtimes-row-data-showtime-date">{{ @key }}</div>
     <div class="showtimes-row-data-showtime-list">
-      {{#each types }}
+      {{#each this }}
       <div class="showtimes-row-data-showtime-item">
-        <div class="showtimes-row-data-showtime-type">{{ type }}</div>
+        <div class="showtimes-row-data-showtime-type">{{ @key }}</div>
         <div class="showtimes-row-data-showtime-timegrid">
-          {{#each showtimes }}
-          <a><div class="showtimes-row-data-showtime-time">{{ showtime }}</div></a>
+          {{#each this }}
+          <a href="/book-ticket/{{ this }}"><div class="showtimes-row-data-showtime-time">{{ @key }}</div></a>
           {{/each}}
         </div>
       </div>
