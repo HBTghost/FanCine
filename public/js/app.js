@@ -2,15 +2,14 @@
 
 var _, _ref;
 
-// -- Modal for sign up --
+// -- SignIn - Modal initial --
 var modalBtn = document.getElementById('signIn');
 var modal = document.getElementById('modal');
-var closeModal = document.getElementById('close-Modal'); // Get the button that opens the modal
-// Get the <span> element that closes the modal
+var closeModal = document.getElementById('close-Modal'); // Disable sign in modal
 
 function popdownModal() {
   modal.style.display = 'none';
-} // When the user clicks the button, open the modal
+} // When the user clicks the signIn, open the modal
 
 
 modalBtn.onclick = function signInClick() {
