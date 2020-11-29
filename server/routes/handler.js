@@ -21,6 +21,12 @@ handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   });
 });
 
+handlebarsRouter.get('/movie-on-show', (req, res) => {
+  res.render('movieLiveList', {
+    style: 'movie-on-show',
+  });
+});
+
 handlebarsRouter.get('/review', (req, res) => {
   res.render('review', {
     style: 'review',
