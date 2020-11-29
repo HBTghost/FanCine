@@ -48,9 +48,13 @@
       }
 
       .showtimes-row-list {
+        overflow-y: auto;
+        max-height: 450px;
+        border: 1px solid $color-gray;
+        border-top: none;
+
         .showtimes-row-data {
-          border: 1px solid $color-gray;
-          border-top: none;
+          border-top: 1px solid $color-gray;
           color: $color-lightblack;
           font-size: 14px;
           font-weight: normal;
@@ -163,7 +167,6 @@
     padding: 20px 10px;
 
     .showtimes-row-list {
-      border-bottom: 1px solid $color-darkgray;
       max-height: 250px;
       overflow-y: auto;
     }

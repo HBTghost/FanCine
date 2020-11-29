@@ -1,5 +1,6 @@
 @import './base/variable';
-@import './partials/signup';
+@import './partials/signIn';
+@import './partials/spinner';
 
 @keyframes popup {
   from {transform: scaleX(0);}
@@ -18,4 +19,8 @@ a {
   color: $logo-brand-color;
   font: x-large;
   font-weight: bold;
+}
+
+.container {
+  max-width: 1300px;
 }

@@ -12,10 +12,23 @@ async function getTheaterMovie(req, res, next) {
 
   return next();
 }
-async function getTheaterMovieByMovie(req, res, next) {
+
+async function getTheaterMoviesByMovieID(req, res, next) {
   try {
     res.theaterMovies = await TheaterMovie.find({
       _idMovie: mongoose.Types.ObjectId(req.params.id),
+    }).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTheaterMoviesByTheaterID(req, res, next) {
+  try {
+    res.theaterMovies = await TheaterMovie.find({
+      _idTheater: mongoose.Types.ObjectId(req.params.id),
     }).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
@@ -63,7 +76,8 @@ async function postSampleTheaterMovie(req, res, next) {
 
 export {
   getTheaterMovie,
-  getTheaterMovieByMovie,
+  getTheaterMoviesByMovieID,
+  getTheaterMoviesByTheaterID,
   getAllTheaterMovies,
   postSampleTheaterMovie,
 };
