@@ -30,7 +30,18 @@ var curMovieItemIndex = 0;
 var curMovieID = '';
 var theaterItems;
 var curTheaterItemIndex = 0;
-var curTheaterID = ''; // Reused functions
+var curTheaterID = ''; // Spinner
+
+var spinnerModal = document.getElementsByClassName('spinner-modal')[0];
+
+function enableSpinner() {
+  spinnerModal.style.display = 'block';
+}
+
+function disableSpinner() {
+  spinnerModal.style.display = 'none';
+} // Reused functions
+
 
 function addClickEventToTheaterItems(clickEvent) {
   theaterItems = document.getElementsByClassName('showtimes-row-data-theater');
@@ -61,6 +72,7 @@ function addClickEventToMovieItems(clickEvent) {
 }
 
 function loadSampleShowtimes(index) {
+  enableSpinner();
   fetch('/showtimes/sampleData').then(function (partial) {
     partial.text().then(function (html) {
       showtimesData = parser.parseFromString(html, 'text/html');
@@ -70,6 +82,8 @@ function loadSampleShowtimes(index) {
       } else {
         showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes-2').innerHTML;
       }
+
+      disableSpinner();
     });
   });
 } // Theater tab
@@ -84,6 +98,7 @@ function clickMovieItemAtTheaterTab(newIndex) {
 }
 
 function loadMoviesByTheaterID(theaterID) {
+  enableSpinner();
   fetch("/showtimes/allMovies/".concat(theaterID)).then(function (partial) {
     partial.text().then(function (html) {
       moviesData = parser.parseFromString(html, 'text/html');
@@ -91,6 +106,7 @@ function loadMoviesByTheaterID(theaterID) {
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiMovie);
       addClickEventToMovieItems(clickMovieItemAtTheaterTab);
+      disableSpinner();
     });
   });
 }
@@ -105,6 +121,7 @@ function clickTheaterItemAtTheaterTab(newIndex) {
 }
 
 function loadAllTheaters() {
+  enableSpinner();
   fetch('/showtimes/allTheaters').then(function (partial) {
     partial.text().then(function (html) {
       theatersData = parser.parseFromString(html, 'text/html');
@@ -118,6 +135,7 @@ function loadAllTheaters() {
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiMovie);
       addClickEventToTheaterItems(clickTheaterItemAtTheaterTab);
+      disableSpinner();
     });
   });
 }
@@ -139,6 +157,7 @@ function clickTheaterItemAtMovieTab(newIndex) {
 }
 
 function loadTheatersByMovieID(movieID) {
+  enableSpinner();
   fetch("/showtimes/allTheaters/".concat(movieID)).then(function (partial) {
     partial.text().then(function (html) {
       theatersData = parser.parseFromString(html, 'text/html');
@@ -146,6 +165,7 @@ function loadTheatersByMovieID(movieID) {
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiTheater);
       addClickEventToTheaterItems(clickTheaterItemAtMovieTab);
+      disableSpinner();
     });
   });
 }
@@ -160,6 +180,7 @@ function clickMovieItemAtMovieTab(newIndex) {
 }
 
 function loadAllMovies() {
+  enableSpinner();
   fetch('/showtimes/allMovies').then(function (partial) {
     partial.text().then(function (html) {
       moviesData = parser.parseFromString(html, 'text/html');
@@ -173,6 +194,7 @@ function loadAllMovies() {
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiTheater);
       addClickEventToMovieItems(clickMovieItemAtMovieTab);
+      disableSpinner();
     });
   });
 }

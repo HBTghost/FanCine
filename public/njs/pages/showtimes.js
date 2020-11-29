@@ -35,6 +35,17 @@ let theaterItems;
 let curTheaterItemIndex = 0;
 let curTheaterID = '';
 
+// Spinner
+const spinnerModal = document.getElementsByClassName('spinner-modal')[0];
+
+function enableSpinner() {
+  spinnerModal.style.display = 'block';
+}
+
+function disableSpinner() {
+  spinnerModal.style.display = 'none';
+}
+
 // Reused functions
 function addClickEventToTheaterItems(clickEvent) {
   theaterItems = document.getElementsByClassName('showtimes-row-data-theater');
@@ -55,6 +66,7 @@ function addClickEventToMovieItems(clickEvent) {
 }
 
 function loadSampleShowtimes(index) {
+  enableSpinner();
   fetch('/showtimes/sampleData').then((partial) => {
     partial.text().then((html) => {
       showtimesData = parser.parseFromString(html, 'text/html');
@@ -63,6 +75,7 @@ function loadSampleShowtimes(index) {
       } else {
         showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes-2').innerHTML;
       }
+      disableSpinner();
     });
   });
 }
@@ -78,6 +91,7 @@ function clickMovieItemAtTheaterTab(newIndex) {
 }
 
 function loadMoviesByTheaterID(theaterID) {
+  enableSpinner();
   fetch(`/showtimes/allMovies/${theaterID}`).then((partial) => {
     partial.text().then((html) => {
       moviesData = parser.parseFromString(html, 'text/html');
@@ -88,6 +102,7 @@ function loadMoviesByTheaterID(theaterID) {
       showtimesList.appendChild(showtimesListNotiMovie);
 
       addClickEventToMovieItems(clickMovieItemAtTheaterTab);
+      disableSpinner();
     });
   });
 }
@@ -103,6 +118,7 @@ function clickTheaterItemAtTheaterTab(newIndex) {
 }
 
 function loadAllTheaters() {
+  enableSpinner();
   fetch('/showtimes/allTheaters').then((partial) => {
     partial.text().then((html) => {
       theatersData = parser.parseFromString(html, 'text/html');
@@ -121,6 +137,7 @@ function loadAllTheaters() {
       showtimesList.appendChild(showtimesListNotiMovie);
 
       addClickEventToTheaterItems(clickTheaterItemAtTheaterTab);
+      disableSpinner();
     });
   });
 }
@@ -145,6 +162,7 @@ function clickTheaterItemAtMovieTab(newIndex) {
 }
 
 function loadTheatersByMovieID(movieID) {
+  enableSpinner();
   fetch(`/showtimes/allTheaters/${movieID}`).then((partial) => {
     partial.text().then((html) => {
       theatersData = parser.parseFromString(html, 'text/html');
@@ -155,6 +173,7 @@ function loadTheatersByMovieID(movieID) {
       showtimesList.appendChild(showtimesListNotiTheater);
 
       addClickEventToTheaterItems(clickTheaterItemAtMovieTab);
+      disableSpinner();
     });
   });
 }
@@ -170,6 +189,7 @@ function clickMovieItemAtMovieTab(newIndex) {
 }
 
 function loadAllMovies() {
+  enableSpinner();
   fetch('/showtimes/allMovies').then((partial) => {
     partial.text().then((html) => {
       moviesData = parser.parseFromString(html, 'text/html');
@@ -188,6 +208,7 @@ function loadAllMovies() {
       showtimesList.appendChild(showtimesListNotiTheater);
 
       addClickEventToMovieItems(clickMovieItemAtMovieTab);
+      disableSpinner();
     });
   });
 }
