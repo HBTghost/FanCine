@@ -98,6 +98,7 @@ function clickTheaterItemAtTheaterTab(newIndex) {
   curTheaterItemIndex = newIndex;
   curTheaterID = theaterItems[newIndex].firstElementChild.innerHTML;
 
+  curMovieItemIndex = 0;
   loadMoviesByTheaterID(curTheaterID);
 }
 
@@ -164,6 +165,7 @@ function clickMovieItemAtMovieTab(newIndex) {
   curMovieItemIndex = newIndex;
   curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
 
+  curTheaterItemIndex = 0;
   loadTheatersByMovieID(curMovieID);
 }
 
