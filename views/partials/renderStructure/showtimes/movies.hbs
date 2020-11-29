@@ -1,0 +1,17 @@
+<div id="showtimes-movies">
+  {{#each movies }}
+  <div class="showtimes-row-data showtimes-row-data-movie">
+    <div style="display: none;">{{ _id }}</div>
+    <div class="showtimes-row-data-movie-img">
+      <img src="{{ imageSource }}" alt="Poster">
+    </div>
+    <div class="showtimes-row-data-movie-name">
+      <p class="showtimes-row-data-movie-name-ori">{{ originalName }}</p>
+      <p class="showtimes-row-data-movie-name-vie">{{ vietnameseName }}</p>
+    </div>
+    <div class="showtimes-row-data-movie-label">
+      <div>{{ label }}</div>
+    </div>
+  </div>
+  {{/each}}
+</div>

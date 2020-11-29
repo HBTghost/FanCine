@@ -1,0 +1,19 @@
+<div id="showtimes-showtimes">
+  {{#each dates }}
+  <div class="showtimes-row-data showtimes-row-data-showtime">
+    <div class="showtimes-row-data-showtime-date">{{ date }}</div>
+    <div class="showtimes-row-data-showtime-list">
+      {{#each types }}
+      <div class="showtimes-row-data-showtime-item">
+        <div class="showtimes-row-data-showtime-type">{{ type }}</div>
+        <div class="showtimes-row-data-showtime-timegrid">
+          {{#each showtimes }}
+          <a><div class="showtimes-row-data-showtime-time">{{ showtime }}</div></a>
+          {{/each}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/each}}
+</div>
