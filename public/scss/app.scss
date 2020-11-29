@@ -40,6 +40,6 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 250px;
+  min-height: 250px;
   line-height: 2; /* Vertically center the text there */
 }
