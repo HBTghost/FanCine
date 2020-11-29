@@ -21,6 +21,20 @@ async function getAllTheaters(req, res, next) {
   return next();
 }
 
+async function getTheatersByMovieID(req, res, next) {
+  try {
+    res.theaters = [];
+    const theaterIDs = res.theaterMovies.map((obj) => obj._idTheater);
+    for await (const id of theaterIDs) {
+      res.theaters.push(await Theater.findById(mongoose.Types.ObjectId(id)).lean());
+    }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function postSampleTheaters(req, res, next) {
   try {
     const theaters = [];
@@ -81,5 +95,6 @@ async function postSampleTheaters(req, res, next) {
 export {
   getTheater,
   getAllTheaters,
+  getTheatersByMovieID,
   postSampleTheaters,
 };
