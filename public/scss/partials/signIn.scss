@@ -1,0 +1,59 @@
+@import '../base/variable';
+
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  background-color: $multi-background;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+}
+
+.modal-content {
+  width: 100%;
+  margin: auto;
+  animation-duration: $modal-animation-duration;
+  animation-name: 'popup';
+  background-color: $white;
+  border: 1px solid $black;
+  position: relative;
+  padding: 5px;
+
+  .modal-close {
+    position: relative;
+    text-align: right;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .modal-close:hover {
+    color: $link-color;
+    cursor: pointer;
+  }
+
+  .nav-link {
+    color: $black;
+  }
+  .nav-link:hover {
+    color: $link-color;
+  }
+
+  .active {
+    color: $link-color !important;
+    font-weight: bold !important;
+  }
+
+  .form-group {
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .modal-content {
+    max-width: 768px;
+  }
+}

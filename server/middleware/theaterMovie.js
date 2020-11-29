@@ -56,11 +56,11 @@ async function postSampleTheaterMovie(req, res, next) {
     const theaters = await Theater.find();
     const theaterIDs = theaters.map((theater) => theater._id);
 
-    for (let i = 0; i < theaterIDs.length; ++i) {
-      for (let j = 0; j < movieIDs.length && j < i + 1; ++j) {
+    for (let i = 0; i < movieIDs.length; ++i) {
+      for (let j = 0; j < theaterIDs.length && j < i + 2; ++j) {
         theaterMovie = new TheaterMovie();
-        theaterMovie._idTheater = theaterIDs[i];
-        theaterMovie._idMovie = movieIDs[j];
+        theaterMovie._idTheater = theaterIDs[j];
+        theaterMovie._idMovie = movieIDs[i];
         theaterMovies.push(theaterMovie);
       }
     }
