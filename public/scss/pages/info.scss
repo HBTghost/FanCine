@@ -1,11 +1,36 @@
 @import '../base/variable';
 
-#bg-poster {
-  background-attachment: fixed;
-  background-image: url('../../images/design/fate.jpg');
+.bg-poster {
+  //background-image: linear-gradient(to top, $box-shadow-login-1-color , $box-shadow-login-1-color), url('/images/design/fate.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  }
+  background-position: 50% 40%;
+
+}
+
+.poster {
+  position: relative;
+  height: 80%;
+  width: 70%;
+
+}
+
+.infor-book-box {
+  width: 150px;
+  font-size: larger;
+  position: 50% 0%;
+
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 25px;
+}
+
 
 .cinema-name {
   align-items: center;

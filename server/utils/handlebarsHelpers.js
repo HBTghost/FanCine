@@ -5,6 +5,9 @@ const Helper = {
   join(context, del) {
     return context.join(del);
   },
+  isZero(context) {
+    return context === 0;
+  },
 };
 
 export default Helper;

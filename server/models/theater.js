@@ -22,6 +22,8 @@ const TheaterSchema = mongoose.Schema({
     required: true,
   },
   mapEmbedID: String,
+  imagesSource: [String],
+  description: String,
 });
 
 export default mongoose.model('Theater', TheaterSchema);

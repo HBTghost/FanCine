@@ -1,25 +1,207 @@
+// Colors
 const colorWhite = '#fff';
 const colorLightgray = '#f1f1f1';
+const colorDarkgray = '#a0a3a7';
+const colorBlack = '#000';
+const colorOrange = '#f26b38';
 
-const movieItems = document.getElementsByClassName('showtimes-row-data-film');
+const parser = new DOMParser();
+
+// HTML Elements
+const movieTabBtn = document.getElementById('showtimes-controller-movie');
+const theaterTabBtn = document.getElementById('showtimes-controller-theater');
+const mainContainer = document.getElementById('showtimes-main');
+const moviesCol = document.getElementById('showtimes-col-movie');
+const theatersCol = document.getElementById('showtimes-col-theater');
+const showtimesCol = document.getElementById('showtimes-col-showtime');
+const moviesList = document.querySelector('#showtimes-col-movie .showtimes-row-list');
+const theatersList = document.querySelector('#showtimes-col-theater .showtimes-row-list');
+const showtimesList = document.querySelector('#showtimes-col-showtime .showtimes-row-list');
+const moviesListNoti = moviesList.firstElementChild;
+const theatersListNoti = theatersList.firstElementChild;
+const showtimesListNotiTheater = showtimesList.firstElementChild;
+const showtimesListNotiMovie = showtimesList.lastElementChild;
+
+// Variables
+let moviesData;
+let theatersData;
+let showtimesData;
+
+let movieItems;
 let curMovieItemIndex = 0;
 let curMovieID = '';
 
-function clickMovieItem(newIndex) {
-  movieItems[curMovieItemIndex].style.backgroundColor = colorWhite;
-  movieItems[newIndex].style.backgroundColor = colorLightgray;
-  curMovieItemIndex = newIndex;
-  curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
-  console.log(curMovieID);
-  fetch(`api/theaters_movies/findByMovie/${curMovieID}`).then((response) => {
-    response.json().then((json) => {
-      console.log(json);
+let theaterItems;
+let curTheaterItemIndex = 0;
+let curTheaterID = '';
+
+// Reused functions
+function addClickEventToTheaterItems(clickEvent) {
+  theaterItems = document.getElementsByClassName('showtimes-row-data-theater');
+  for (let i = 0; i < theaterItems.length; ++i) {
+    theaterItems[i].addEventListener('click', () => {
+      clickEvent(i);
+    });
+  }
+}
+
+function addClickEventToMovieItems(clickEvent) {
+  movieItems = document.getElementsByClassName('showtimes-row-data-movie');
+  for (let i = 0; i < movieItems.length; ++i) {
+    movieItems[i].addEventListener('click', () => {
+      clickEvent(i);
+    });
+  }
+}
+
+function loadSampleShowtimes(index) {
+  fetch('/showtimes/sampleData').then((partial) => {
+    partial.text().then((html) => {
+      showtimesData = parser.parseFromString(html, 'text/html');
+      if (index % 2 === 0) {
+        showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes-1').innerHTML;
+      } else {
+        showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes-2').innerHTML;
+      }
     });
   });
 }
 
-for (let i = 0; i < movieItems.length; ++i) {
-  movieItems[i].addEventListener('click', () => {
-    clickMovieItem(i);
+// Theater tab
+function clickMovieItemAtTheaterTab(newIndex) {
+  movieItems[curMovieItemIndex].style.backgroundColor = colorWhite;
+  movieItems[newIndex].style.backgroundColor = colorLightgray;
+  curMovieItemIndex = newIndex;
+  curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
+
+  loadSampleShowtimes(newIndex);
+}
+
+function loadMoviesByTheaterID(theaterID) {
+  fetch(`/showtimes/allMovies/${theaterID}`).then((partial) => {
+    partial.text().then((html) => {
+      moviesData = parser.parseFromString(html, 'text/html');
+
+      moviesList.innerHTML = moviesData.getElementById('showtimes-movies').innerHTML;
+
+      showtimesList.innerHTML = '';
+      showtimesList.appendChild(showtimesListNotiMovie);
+
+      addClickEventToMovieItems(clickMovieItemAtTheaterTab);
+    });
   });
 }
+
+function clickTheaterItemAtTheaterTab(newIndex) {
+  theaterItems[curTheaterItemIndex].style.backgroundColor = colorWhite;
+  theaterItems[newIndex].style.backgroundColor = colorLightgray;
+  curTheaterItemIndex = newIndex;
+  curTheaterID = theaterItems[newIndex].firstElementChild.innerHTML;
+
+  loadMoviesByTheaterID(curTheaterID);
+}
+
+function loadAllTheaters() {
+  fetch('/showtimes/allTheaters').then((partial) => {
+    partial.text().then((html) => {
+      theatersData = parser.parseFromString(html, 'text/html');
+
+      mainContainer.innerHTML = '';
+      mainContainer.appendChild(theatersCol);
+      mainContainer.appendChild(moviesCol);
+      mainContainer.appendChild(showtimesCol);
+
+      theatersList.innerHTML = theatersData.getElementById('showtimes-theaters').innerHTML;
+
+      moviesList.innerHTML = '';
+      moviesList.appendChild(moviesListNoti);
+
+      showtimesList.innerHTML = '';
+      showtimesList.appendChild(showtimesListNotiMovie);
+
+      addClickEventToTheaterItems(clickTheaterItemAtTheaterTab);
+    });
+  });
+}
+
+theaterTabBtn.addEventListener('click', () => {
+  movieTabBtn.style.borderBottomColor = 'transparent';
+  movieTabBtn.style.color = colorDarkgray;
+  theaterTabBtn.style.borderBottomColor = colorOrange;
+  theaterTabBtn.style.color = colorBlack;
+
+  loadAllTheaters();
+});
+
+// Movie tab
+function clickTheaterItemAtMovieTab(newIndex) {
+  theaterItems[curTheaterItemIndex].style.backgroundColor = colorWhite;
+  theaterItems[newIndex].style.backgroundColor = colorLightgray;
+  curTheaterItemIndex = newIndex;
+  curTheaterID = theaterItems[newIndex].firstElementChild.innerHTML;
+
+  loadSampleShowtimes(newIndex);
+}
+
+function loadTheatersByMovieID(movieID) {
+  fetch(`/showtimes/allTheaters/${movieID}`).then((partial) => {
+    partial.text().then((html) => {
+      theatersData = parser.parseFromString(html, 'text/html');
+
+      theatersList.innerHTML = theatersData.getElementById('showtimes-theaters').innerHTML;
+
+      showtimesList.innerHTML = '';
+      showtimesList.appendChild(showtimesListNotiTheater);
+
+      addClickEventToTheaterItems(clickTheaterItemAtMovieTab);
+    });
+  });
+}
+
+function clickMovieItemAtMovieTab(newIndex) {
+  movieItems[curMovieItemIndex].style.backgroundColor = colorWhite;
+  movieItems[newIndex].style.backgroundColor = colorLightgray;
+  curMovieItemIndex = newIndex;
+  curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
+
+  loadTheatersByMovieID(curMovieID);
+}
+
+function loadAllMovies() {
+  fetch('/showtimes/allMovies').then((partial) => {
+    partial.text().then((html) => {
+      moviesData = parser.parseFromString(html, 'text/html');
+
+      mainContainer.innerHTML = '';
+      mainContainer.appendChild(moviesCol);
+      mainContainer.appendChild(theatersCol);
+      mainContainer.appendChild(showtimesCol);
+
+      moviesList.innerHTML = moviesData.getElementById('showtimes-movies').innerHTML;
+
+      theatersList.innerHTML = '';
+      theatersList.appendChild(theatersListNoti);
+
+      showtimesList.innerHTML = '';
+      showtimesList.appendChild(showtimesListNotiTheater);
+
+      addClickEventToMovieItems(clickMovieItemAtMovieTab);
+    });
+  });
+}
+
+movieTabBtn.addEventListener('click', () => {
+  theaterTabBtn.style.borderBottomColor = 'transparent';
+  theaterTabBtn.style.color = colorDarkgray;
+  movieTabBtn.style.borderBottomColor = colorOrange;
+  movieTabBtn.style.color = colorBlack;
+
+  loadAllMovies();
+});
+
+// Start here
+function main() {
+  loadAllMovies();
+}
+
+main();

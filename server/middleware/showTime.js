@@ -56,7 +56,7 @@ async function postSampleShowTimes(req, res, next) {
       showTime.state = state;
       showTimes.push(showTime);
     }
-    // showTimes.forEach(async showTime => await showTime.save());
+    // showTimes.forEach(async (showTime) => { await showTime.save(); });
     res.showTimes = showTimes;
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });

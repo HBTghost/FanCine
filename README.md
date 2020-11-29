@@ -1,16 +1,23 @@
 # FanCine
 
-  A movie ticketing website with [MongoDB](https://www.mongodb.com/), [Express](https://github.com/expressjs/express), [Webpack](https://webpack.js.org/), [Bootstrap](https://getbootstrap.com/) and [NodeJS](https://nodejs.org)
+  A movie ticketing website with [NodeJS](https://nodejs.org), [Gulp](https://gulpjs.com/), [Handlebars](https://handlebarsjs.com/), [Express](https://github.com/expressjs/express) and [MongoDB](https://www.mongodb.com/), 
   
 <div align="center">
-  <a href="https://github.com/webpack/webpack">
-    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+<p align="center">
+  <a href="https://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
   </a>
+  <p align="center">The streaming build system</p>
+</p>
 
 [![Build status][ci-image]][ci-url]
 [![semantic-release][semantic-image]][semantic-url]
-[![js-standard-style][standard-image]][standard-url]
-[![renovate-app badge][renovate-badge]][renovate-app]
+[![Node version](https://img.shields.io/badge/node-14.15.1-FF00FF.svg)](https://shields.io/)
+[![Yarn version](https://img.shields.io/badge/yarn-1.22.5-00FFFF.svg)](https://shields.io/)
+[![js-standard-style][eslint-image]][eslint-url]
+[![Contributors](https://img.shields.io/badge/contributors-4-FFFF00.svg)](https://shields.io/)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
 </div>
 
@@ -18,14 +25,17 @@
 [ci-url]: https://travis-ci.org/bahmutov/mocha-banner
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
-[standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
-[standard-url]: http://standardjs.com/
-[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
-[renovate-app]: https://renovateapp.com/
+[eslint-image]: https://badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb
+[eslint-url]: https://eslint.org/
 
 ## Features
 
-  * SCSS, live reload, minimize CSS, JS supported.
+  * Live server, hot reload browser
+  * Minimize CSS, JS supported.
+  * Linter for JS, SCSS
+  * Babel compile for new ES
+  * Autoprefixer CSS
+  * CI/CD with Travis
   * Focus on high performance
   * Responsive design.
   * Security.
@@ -34,6 +44,7 @@
 
   * [Proposal](https://docs.google.com/document/d/1LCmHC-N9CkWMpLu0BuUbIqHyHsOfPyBb3GwbVM_3A8Y/edit?fbclid=IwAR3kT4l1fPlB80KM858vi3w6Cjkk7x3Wz5C5GDRL7gOn-yQoKwZ3QDN3sYg)
   * [Website repo](https://github.com/HBTghost/FanCine)
+  * [Website](https://fancine.herokuapp.com)
   
 
 ## Quick Start

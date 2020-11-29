@@ -1,157 +1,27 @@
 <section>
   <div id="showtimes-container">
     <div id="showtimes-head">
-      <button id="showtimes-controller-film">THEO PHIM</button>
+      <button id="showtimes-controller-movie">THEO PHIM</button>
       <button id="showtimes-controller-theater">THEO RẠP</button>
     </div>
     <div id="showtimes-main">
-      <div id="showtimes-col-film" class="showtimes-col">
+      <div id="showtimes-col-movie" class="showtimes-col">
         <div class="showtimes-row-head">CHỌN PHIM</div>
         <div class="showtimes-row-list">
-          {{#each movies }}
-            <div class="showtimes-row-data showtimes-row-data-film">
-              <div style="display: none;">{{ _id }}</div>
-              <div class="showtimes-row-data-film-img">
-                <img src="{{ imageSource }}" alt="Poster">
-              </div>
-              <div class="showtimes-row-data-film-name">
-                <p class="showtimes-row-data-film-name-ori">{{ originalName }}</p>
-                <p class="showtimes-row-data-film-name-vie">{{ vietnameseName }}</p>
-              </div>
-              <div class="showtimes-row-data-film-label">
-                <div>{{ label }}</div>
-              </div>
-            </div>
-          {{/each}}
+          <div class="showtimes-row-data showtimes-row-data-notif">Vui lòng chọn rạp trước</div>
         </div>
       </div>
       <div id="showtimes-col-theater" class="showtimes-col">
         <div class="showtimes-row-head">CHỌN RẠP</div>
         <div class="showtimes-row-list">
-          <div class="showtimes-row-data">Vui lòng chọn phim trước</div>
-          <!--
-          {{#each theaters }}
-            <div style="display: none;">{{ _id }}</div>
-            <div class="showtimes-row-data showtimes-row-data-theater">{{ name }}</div>
-          {{/each}}
-          -->
+          <div class="showtimes-row-data showtimes-row-data-notif">Vui lòng chọn phim trước</div>
         </div>
-
       </div>
       <div id="showtimes-col-showtime" class="showtimes-col">
         <div class="showtimes-row-head">CHỌN SUẤT</div>
         <div class="showtimes-row-list">
-          <div class="showtimes-row-data">Vui lòng chọn rạp trước</div>
-          <!--
-          <div class="showtimes-row-data showtimes-row-data-showtime">
-            <div class="showtimes-row-data-showtime-date">
-              Thứ bảy, 28/11/2020
-            </div>
-            <div class="showtimes-row-data-showtime-list">
-              <div class="showtimes-row-data-showtime-item">
-                <div class="showtimes-row-data-showtime-type">
-                  2D - L.Tiếng
-                </div>
-                <div class="showtimes-row-data-showtime-timegrid">
-                  <div class="showtimes-row-data-showtime-time">
-                    10:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    12:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    14:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    16:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    18:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    19:45
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    20:30
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    21:45
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    23:00
-                  </div>
-                </div>
-              </div>
-              <div class="showtimes-row-data-showtime-item">
-                <div class="showtimes-row-data-showtime-type">
-                  2D - Phụ đề
-                </div>
-                <div class="showtimes-row-data-showtime-timegrid">
-                  <div class="showtimes-row-data-showtime-time">
-                    13:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    17:00
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="showtimes-row-data showtimes-row-data-showtime">
-            <div class="showtimes-row-data-showtime-date">
-              Chủ nhật, 29/11/2020
-            </div>
-            <div class="showtimes-row-data-showtime-list">
-              <div class="showtimes-row-data-showtime-item">
-                <div class="showtimes-row-data-showtime-type">
-                  2D - L.Tiếng
-                </div>
-                <div class="showtimes-row-data-showtime-timegrid">
-                  <div class="showtimes-row-data-showtime-time">
-                    10:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    12:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    14:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    16:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    18:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    19:45
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    20:30
-                  </div>
-                </div>
-              </div>
-              <div class="showtimes-row-data-showtime-item">
-                <div class="showtimes-row-data-showtime-type">
-                  2D - Phụ đề
-                </div>
-                <div class="showtimes-row-data-showtime-timegrid">
-                  <div class="showtimes-row-data-showtime-time">
-                    13:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    17:00
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    19:15
-                  </div>
-                  <div class="showtimes-row-data-showtime-time">
-                    21:30
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          -->
+          <div class="showtimes-row-data showtimes-row-data-notif">Vui lòng chọn rạp trước</div>
+          <div class="showtimes-row-data showtimes-row-data-notif">Vui lòng chọn phim trước</div>
         </div>
       </div>
     </div>
