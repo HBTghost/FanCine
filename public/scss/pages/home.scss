@@ -40,3 +40,19 @@
   font-size: 40px;
 }
 
+.title-link-review {
+  color: $multi-background;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.title-link-review:hover {
+  color: $color-orange;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brief-content-review {
+  color: $multi-background;
+  font-size: 14px;
+}
