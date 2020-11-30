@@ -21,9 +21,10 @@ handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   });
 });
 
-handlebarsRouter.get('/movie-on-show', (req, res) => {
+handlebarsRouter.get('/movie-on-show', getAllMovies, async (req, res) => {
   res.render('movieLiveList', {
     style: 'movie-on-show',
+    movies: await res.allMovies,
   });
 });
 
