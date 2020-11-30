@@ -24,9 +24,10 @@ async function getAllMovies(req, res, next) {
 async function getMoviesByTheaterID(req, res, next) {
   try {
     res.movies = [];
-    const movieIDs = res.theaterMovies.map((obj) => obj._idMovie);
-    for await (const id of movieIDs) {
-      res.movies.push(await Movie.findById(mongoose.Types.ObjectId(id)).lean());
+    for await (const ids of res.theaterMovies) {
+      const movie = await Movie.findById(mongoose.Types.ObjectId(ids._idMovie)).lean();
+      movie._idTheaterMovie = ids._id;
+      res.movies.push(movie);
     }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
