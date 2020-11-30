@@ -61,11 +61,11 @@ function addClickEventToTheaterItems(clickEvent) {
 
   if (curTab === 0) {
     for (var _i = 0; _i < theaterItems.length; ++_i) {
-      theaterItems[_i].parentElement.setAttribute('href', '#showtimes-col-showtime');
+      theaterItems[_i].parentElement.setAttribute('href', '#showtimes-col-theater');
     }
   } else {
     for (var _i2 = 0; _i2 < theaterItems.length; ++_i2) {
-      theaterItems[_i2].parentElement.setAttribute('href', '#showtimes-col-movie');
+      theaterItems[_i2].parentElement.setAttribute('href', '#showtimes-col-showtime');
     }
   }
 }
@@ -89,7 +89,7 @@ function addClickEventToMovieItems(clickEvent) {
     }
   } else {
     for (var _i4 = 0; _i4 < movieItems.length; ++_i4) {
-      movieItems[_i4].parentElement.setAttribute('href', '#showtimes-col-showtime');
+      movieItems[_i4].parentElement.setAttribute('href', '#showtimes-col-movie');
     }
   }
 }
@@ -244,6 +244,15 @@ movieTabBtn.addEventListener('click', function () {
 }); // Start here
 
 function main() {
+  var headerHeight = document.querySelector('.sticky-top').offsetHeight;
+  var marginTop = "-".concat(headerHeight, "px");
+  var paddingTop = "".concat(headerHeight, "px");
+  document.querySelector('#showtimes-col-theater').style.marginTop = marginTop;
+  document.querySelector('#showtimes-col-theater').style.paddingTop = paddingTop;
+  document.querySelector('#showtimes-col-movie').style.marginTop = marginTop;
+  document.querySelector('#showtimes-col-movie').style.paddingTop = paddingTop;
+  document.querySelector('#showtimes-col-showtime').style.marginTop = marginTop;
+  document.querySelector('#showtimes-col-showtime').style.paddingTop = paddingTop;
   loadAllMovies();
 }
 

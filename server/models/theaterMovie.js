@@ -9,6 +9,7 @@ const TheaterMovieSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true,
   },
+  _idDates: [String],
 });
 
 export default mongoose.model('TheaterMovie', TheaterMovieSchema);
