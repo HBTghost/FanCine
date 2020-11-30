@@ -31,10 +31,10 @@ var curMovieID = '';
 var theaterItems;
 var curTheaterItemIndex = 0;
 var curTheaterID = '';
-
+var curTheaterMovieID = '';
 var curTab = 0; // 0: Movie, 1: Theater
-
 // Spinner
+
 var spinnerModal = document.getElementsByClassName('spinner-modal')[0];
 
 function enableSpinner() {
@@ -43,9 +43,9 @@ function enableSpinner() {
 
 function disableSpinner() {
   spinnerModal.style.display = 'none';
-}
+} // Reused functions
 
-// Reused functions
+
 function addClickEventToTheaterItems(clickEvent) {
   theaterItems = document.getElementsByClassName('showtimes-row-data-theater');
 
