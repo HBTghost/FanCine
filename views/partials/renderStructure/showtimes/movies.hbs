@@ -17,3 +17,23 @@
   </a>
   {{/each}}
 </div>
+
+<div id="showtimes-movies-by-theater-id">
+  {{#each movies }}
+  <a href="#" style="text-decoration: none;">
+    <div class="showtimes-row-data showtimes-row-data-movie">
+      <div style="display: none;">{{ _idTheaterMovie }}</div>
+      <div class="showtimes-row-data-movie-img">
+        <img src="{{ imageSource }}" alt="Poster">
+      </div>
+      <div class="showtimes-row-data-movie-name">
+        <p class="showtimes-row-data-movie-name-ori">{{ originalName }}</p>
+        <p class="showtimes-row-data-movie-name-vie">{{ vietnameseName }}</p>
+      </div>
+      <div class="showtimes-row-data-movie-label">
+        <div>{{ label }}</div>
+      </div>
+    </div>
+  </a>
+  {{/each}}
+</div>

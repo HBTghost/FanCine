@@ -89,6 +89,7 @@ function addClickEventToMovieItems(clickEvent) {
   }
 }
 
+// Discard later (no need anymore)
 function loadSampleShowtimes(index) {
   enableSpinner();
   fetch('/showtimes/sampleData').then((partial) => {
@@ -109,9 +110,9 @@ function clickMovieItemAtTheaterTab(newIndex) {
   movieItems[curMovieItemIndex].style.backgroundColor = colorWhite;
   movieItems[newIndex].style.backgroundColor = colorLightgray;
   curMovieItemIndex = newIndex;
-  curMovieID = movieItems[newIndex].firstElementChild.innerHTML;
+  curTheaterMovieID = movieItems[newIndex].firstElementChild.innerHTML;
 
-  loadSampleShowtimes(newIndex);
+  loadShowtimesByTheaterMovieID(curTheaterMovieID);
 }
 
 function loadMoviesByTheaterID(theaterID) {
@@ -120,7 +121,7 @@ function loadMoviesByTheaterID(theaterID) {
     partial.text().then((html) => {
       moviesData = parser.parseFromString(html, 'text/html');
 
-      moviesList.innerHTML = moviesData.getElementById('showtimes-movies').innerHTML;
+      moviesList.innerHTML = moviesData.getElementById('showtimes-movies-by-theater-id').innerHTML;
 
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiMovie);
@@ -204,7 +205,7 @@ function loadTheatersByMovieID(movieID) {
     partial.text().then((html) => {
       theatersData = parser.parseFromString(html, 'text/html');
 
-      theatersList.innerHTML = theatersData.getElementById('showtimes-theaters').innerHTML;
+      theatersList.innerHTML = theatersData.getElementById('showtimes-theaters-by-movie-id').innerHTML;
 
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiTheater);
