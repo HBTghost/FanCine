@@ -36,7 +36,8 @@ let curTheaterItemIndex = 0;
 let curTheaterID = '';
 let curTheaterMovieID = '';
 
-let curTab = 0; // 0: Movie, 1: Theater
+const tab = Object.freeze({ MOVIE: 0, THEATER: 1 });
+let curTab = tab.MOVIE;
 
 // Spinner
 const spinnerModal = document.getElementsByClassName('spinner-modal')[0];
@@ -58,7 +59,7 @@ function addClickEventToTheaterItems(clickEvent) {
     });
   }
 
-  if (curTab === 0) {
+  if (curTab === tab.MOVIE) {
     for (let i = 0; i < theaterItems.length; ++i) {
       theaterItems[i].parentElement.setAttribute('href', '#showtimes-col-showtime');
     }
@@ -77,7 +78,7 @@ function addClickEventToMovieItems(clickEvent) {
     });
   }
 
-  if (curTab === 0) {
+  if (curTab === tab.MOVIE) {
     for (let i = 0; i < movieItems.length; ++i) {
       movieItems[i].parentElement.setAttribute('href', '#showtimes-col-theater');
     }
@@ -166,7 +167,7 @@ function loadAllTheaters() {
 }
 
 theaterTabBtn.addEventListener('click', () => {
-  curTab = 1;
+  curTab = tab.THEATER;
 
   movieTabBtn.style.borderBottomColor = 'transparent';
   movieTabBtn.style.color = colorDarkgray;
@@ -250,7 +251,7 @@ function loadAllMovies() {
 }
 
 movieTabBtn.addEventListener('click', () => {
-  curTab = 0;
+  curTab = tab.MOVIE;
 
   theaterTabBtn.style.borderBottomColor = 'transparent';
   theaterTabBtn.style.color = colorDarkgray;
