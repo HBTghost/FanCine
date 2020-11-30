@@ -31,3 +31,19 @@
   color: $black;
   opacity: .6;
 }
+
+.title {
+  color: $bs-success-color;
+  margin-bottom: 40px;
+  font-size: 40px;
+  font-weight: 600;
+  display: block;
+}
+
+.title:hover {
+  text-decoration: none;
+  color: $bs-success-color;
+  font-weight: 800;
+  font-size: 40px;
+}
+
