@@ -12,14 +12,22 @@
         <div class="tab-pane container active" id="present-mv">
             <div class="row py-4">
                 {{#each movies}}
-                    <div class="col-md-4 col-6 py-2">
-                        <a href="info/{{this._id}}">
-                            <figure class="figure">
-                                <img src="{{imageSource}}" alt="" class="img-thumbnail">
-                                <figcaption class="figure-caption mini-title-movie-1">{{originalName}}</figcaption>   
-                                <figcaption class="figure-caption mini-title-movie-2">{{vietnameseName}}</figcaption>                           
-                            </figure>
-                        </a>
+                    <div class="col-6 col-md-4 d-flex flex-column justify-content-center p-4">
+                        <!-- image -->
+                        <div class="onshow-banner">
+                            <img src="{{this.imageSource}}" alt="image"> 
+                            <a href="/info/{{this._id}}">
+                                <div class="movie-onshow-content content-hai">
+                                    <div class="btn movie-onshow-btn">Thông tin</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- title -->
+                        <div class="onshow-title">
+                            <div class="movie-name-title">Fate/Stay Night: Heaven's Feel III. Spring Song</div>
+                            <div class="vn movie-name-title">Fate/Stay Night: Heaven's Feel III. Khúc Xuân Ca</div>
+                        </div>
                     </div>
                 {{/each}}
             </div>
