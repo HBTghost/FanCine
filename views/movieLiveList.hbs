@@ -11,119 +11,26 @@
     </a>
     <div class="row">
         {{!-- (.col-6.col-md-3.mt-3>(.onshow-banner(img[src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg"])+.onshow-title(.movie-name-title{Stardog and Turbocat}+.vn.movie-name-title{Liên quân siêu thú})))*6 --}}
-        <div class="col-6 col-md-3 my-2">
-            <!-- image -->
-            <div class="onshow-banner">
-                <img src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg" alt="">
-                <a href="/info/5fb775d63a360279a974f5ef">
-                    <div class="movie-onshow-content content-hai">
-                        <div class="movie-onshow-pg"></div>
-                        <div class="btn movie-onshow-btn">Mua vé</div>
-                    </div>
-                </a>
-            </div>
+        {{#each movies}}
+            <div class="col-6 col-md-3 my-2">
+                <!-- image -->
+                <div class="onshow-banner">
+                    <img src="{{imageSource}}" alt="">
+                    <a href="/info/{{this._id}}">
+                        <div class="movie-onshow-content content-hai">
+                            <div class="movie-onshow-pg">{{ label }}</div>
+                            <div class="btn movie-onshow-btn">Mua vé</div>
+                        </div>
+                    </a>
+                </div>
 
-            <!-- title -->
-            <div class="onshow-title">
-                <div class="movie-name-title">Stardog and Turbocat</div>
-                <div class="vn movie-name-title">Liên quân siêu thú</div>
+                <!-- title -->
+                <div class="onshow-title">
+                    <div class="movie-name-title">{{ originalName }}</div>
+                    <div class="vn movie-name-title">{{ vietnameseName }}</div>
+                </div>
             </div>
-        </div>
-
-        <div class="col-6 col-md-3 my-2">
-            <!-- image -->
-            <div class="onshow-banner">
-                <img src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg" alt="">
-                <a href="/info/5fb775d63a360279a974f5ef">
-                    <div class="movie-onshow-content content-hai">
-                        <div class="movie-onshow-pg"></div>
-                        <div class="btn movie-onshow-btn">Mua vé</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- title -->
-            <div class="onshow-title">
-                <div class="movie-name-title">Stardog and Turbocat</div>
-                <div class="vn movie-name-title">Liên quân siêu thú</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3 my-2">
-            <!-- image -->
-            <div class="onshow-banner">
-                <img src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg" alt="">
-                <a href="/info/5fb775d63a360279a974f5ef">
-                    <div class="movie-onshow-content content-hai">
-                        <div class="movie-onshow-pg"></div>
-                        <div class="btn movie-onshow-btn">Mua vé</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- title -->
-            <div class="onshow-title">
-                <div class="movie-name-title">Stardog and Turbocat</div>
-                <div class="vn movie-name-title">Liên quân siêu thú</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3 my-2">
-            <!-- image -->
-            <div class="onshow-banner">
-                <img src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg" alt="">
-                <a href="/info/5fb775d63a360279a974f5ef">
-                    <div class="movie-onshow-content content-hai">
-                        <div class="movie-onshow-pg"></div>
-                        <div class="btn movie-onshow-btn">Mua vé</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- title -->
-            <div class="onshow-title">
-                <div class="movie-name-title">Stardog and Turbocat</div>
-                <div class="vn movie-name-title">Liên quân siêu thú</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3 my-2">
-            <!-- image -->
-            <div class="onshow-banner">
-                <img src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg" alt="">
-                <a href="/info/5fb775d63a360279a974f5ef">
-                    <div class="movie-onshow-content content-hai">
-                        <div class="movie-onshow-pg"></div>
-                        <div class="btn movie-onshow-btn">Mua vé</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- title -->
-            <div class="onshow-title">
-                <div class="movie-name-title">Stardog and Turbocat</div>
-                <div class="vn movie-name-title">Liên quân siêu thú</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3 my-2">
-            <!-- image -->
-            <div class="onshow-banner">
-                <img src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg" alt="">
-                <a href="/info/5fb775d63a360279a974f5ef">
-                    <div class="movie-onshow-content content-hai">
-                        <div class="movie-onshow-pg"></div>
-                        <div class="btn movie-onshow-btn">Mua vé</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- title -->
-            <div class="onshow-title">
-                <div class="movie-name-title">Stardog and Turbocat</div>
-                <div class="vn movie-name-title">Liên quân siêu thú</div>
-            </div>
-        </div>
+        {{/each}}
 
     </div>
 </div>
