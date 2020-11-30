@@ -1,6 +1,11 @@
 
 @import '../base/variable';
 
+.banner-image {
+  height: 550px;
+  width: 100%;
+}
+
 .content-card {
   opacity: 0;
   transition: 1.5s;
