@@ -1,6 +1,7 @@
 @import '../base/variable';
 
 .review-title {
+  display: inline-block;
   color: $black;
   margin: 0 20px;
   h1,

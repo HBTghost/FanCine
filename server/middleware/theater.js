@@ -24,9 +24,11 @@ async function getAllTheaters(req, res, next) {
 async function getTheatersByMovieID(req, res, next) {
   try {
     res.theaters = [];
-    const theaterIDs = res.theaterMovies.map((obj) => obj._idTheater);
-    for await (const id of theaterIDs) {
-      res.theaters.push(await Theater.findById(mongoose.Types.ObjectId(id)).lean());
+    // const theaterIDs = res.theaterMovies.map((obj) => obj._idTheater);
+    for await (const ids of res.theaterMovies) {
+      const theater = await Theater.findById(mongoose.Types.ObjectId(ids._idTheater)).lean();
+      theater._idTheaterMovie = ids._id;
+      res.theaters.push(theater);
     }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });

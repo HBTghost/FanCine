@@ -16,7 +16,11 @@
   {{/if}}
 </head>
 <body>
+  {{> sticky-top }}
+
   {{{ body }}}
+  
+  {{> footer }}
 
   <script src="/js/app-min.js"></script>
   {{#if script}}

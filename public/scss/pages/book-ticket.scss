@@ -36,10 +36,16 @@
           background-color: $color-white;
         }
 
+        .book-ticket-total-row {
+          color: $color-orange;
+          font-size: larger;
+        }
+
         .book-ticket-row {
           display: grid;
-          grid-template-columns: 70% 10% 10% 10%;
+          grid-template-columns: auto 150px 100px 120px;
           padding: 8px;
+          border-bottom: 1px solid $color-gray;
 
           .book-ticket-cell {
             display: flex;
@@ -55,14 +61,25 @@
 
             .book-ticket-quantity {
               display: inline;
-              width: 50px;
+              width: 60px;
+              padding: 5px;
               margin-left: 5px;
               margin-right: 5px;
               text-align: center;
+              border: 1px solid $color-darkgray;
             }
 
             .book-ticket-quantity-btn {
-              border-radius: 25px;
+              outline: none;
+              border: none;
+              padding: 2px;
+              border-radius: 50%;
+              font-size: 12px;
+              color: $color-orange;
+            }
+
+            .book-ticket-quantity-btn:hover {
+              cursor: pointer;
             }
 
             .book-ticket-decrease-btn::before {
@@ -80,6 +97,26 @@
 
           .book-ticket-total-price-cell {
             justify-content: flex-end;
+          }
+        }
+      }
+
+      #book-ticket-ticket-box {
+        margin-bottom: 10px;
+        .book-ticket-list {
+          .book-ticket-row {
+            .book-ticket-type-cell {
+              flex-wrap: wrap;
+
+              .book-ticket-name {
+                flex: 100%;
+                font-weight: bold;
+              }
+
+              .book-ticket-description {
+                flex: 100%;
+              }
+            }
           }
         }
       }
@@ -114,6 +151,144 @@
 
     #book-ticket-checkout-box {
       display: none;
+    }
+
+    #book-ticket-info-box {
+      background-color: $color-lightgray;
+      height: fit-content;
+      padding: 10px;
+      font-size: 14px;
+
+      .book-ticket-movie-poster {
+        width: 80%;
+        display: block;
+        margin: auto;
+        margin-bottom: 10px;
+      }
+
+      .book-ticket-movie-name {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .vie-name {
+        color: $color-darkgray;
+        margin-bottom: 10px;
+      }
+
+      .book-ticket-showtime-info {
+        border-bottom: 1px dotted $color-darkgray;
+        padding: 10px 0;
+      }
+
+      .book-ticket-total-price {
+        padding: 10px 0;
+        font-size: larger;
+
+        span {
+          font-size: x-large;
+          color: $color-orange;
+        }
+      }
+
+      .book-ticket-continue-btn {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: $color-orange;
+        color: $color-white;
+        border: none;
+        outline: none;
+      }
+
+      .book-ticket-continue-btn:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  #book-ticket-container {
+    #book-ticket-main {
+      #book-ticket-ticketfood-box {
+        .book-ticket-box-section {
+          .book-ticket-row {
+            display: grid;
+            grid-template-columns: auto 100px 80px 100px;
+            padding: 8px;
+            border-bottom: 1px solid $color-gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  #book-ticket-container {
+    #book-ticket-main {
+      grid-template-columns: auto;
+      
+      .book-ticket-select-box {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #book-ticket-container {
+    #book-ticket-main {
+      #book-ticket-ticketfood-box {
+        .book-ticket-box-section {
+          .book-ticket-row {
+            grid-template-columns: auto 80px 80px;
+
+            .book-ticket-total-price-cell {
+              display: none;
+            }
+          }
+
+          .book-ticket-total-row {
+            display: none;
+          }
+        }
+
+        #book-ticket-food-box {
+          .book-ticket-row {
+            .book-ticket-type-cell {
+              grid-template-columns: 60px auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #book-ticket-container {
+    #book-ticket-main {
+      #book-ticket-ticketfood-box {
+        .book-ticket-box-section {
+          .book-ticket-row {
+            grid-template-columns: auto 60px 70px;
+          }
+        }
+
+        #book-ticket-food-box {
+          .book-ticket-row {
+            .book-ticket-type-cell {
+              display: block;
+              .book-ticket-img {
+                display: none;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
