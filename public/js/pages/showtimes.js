@@ -61,11 +61,11 @@ function addClickEventToTheaterItems(clickEvent) {
 
   if (curTab === 0) {
     for (var _i = 0; _i < theaterItems.length; ++_i) {
-      theaterItems[_i].parentElement.setAttribute('href', '#showtimes-col-theater');
+      theaterItems[_i].parentElement.setAttribute('href', '#showtimes-col-showtime');
     }
   } else {
     for (var _i2 = 0; _i2 < theaterItems.length; ++_i2) {
-      theaterItems[_i2].parentElement.setAttribute('href', '#showtimes-col-showtime');
+      theaterItems[_i2].parentElement.setAttribute('href', '#showtimes-col-movie');
     }
   }
 }
@@ -89,7 +89,7 @@ function addClickEventToMovieItems(clickEvent) {
     }
   } else {
     for (var _i4 = 0; _i4 < movieItems.length; ++_i4) {
-      movieItems[_i4].parentElement.setAttribute('href', '#showtimes-col-movie');
+      movieItems[_i4].parentElement.setAttribute('href', '#showtimes-col-showtime');
     }
   }
 }
