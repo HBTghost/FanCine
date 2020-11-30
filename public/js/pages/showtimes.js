@@ -95,21 +95,14 @@ function addClickEventToMovieItems(clickEvent) {
       movieItems[_i4].parentElement.setAttribute('href', '#showtimes-col-showtime');
     }
   }
-} // Discard later (no need anymore)
+}
 
-
-function loadSampleShowtimes(index) {
+function loadShowtimesByTheaterMovieID(theaterMovieID) {
   enableSpinner();
-  fetch('/showtimes/sampleData').then(function (partial) {
+  fetch("/showtimes/allShowtimes/".concat(theaterMovieID)).then(function (partial) {
     partial.text().then(function (html) {
       showtimesData = parser.parseFromString(html, 'text/html');
-
-      if (index % 2 === 0) {
-        showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes-1').innerHTML;
-      } else {
-        showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes-2').innerHTML;
-      }
-
+      showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes').innerHTML;
       disableSpinner();
     });
   });
@@ -175,17 +168,6 @@ theaterTabBtn.addEventListener('click', function () {
   theaterTabBtn.style.color = colorBlack;
   loadAllTheaters();
 }); // Movie tab
-
-function loadShowtimesByTheaterMovieID(theaterMovieID) {
-  enableSpinner();
-  fetch("/showtimes/allShowtimes/".concat(theaterMovieID)).then(function (partial) {
-    partial.text().then(function (html) {
-      showtimesData = parser.parseFromString(html, 'text/html');
-      showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes').innerHTML;
-      disableSpinner();
-    });
-  });
-}
 
 function clickTheaterItemAtMovieTab(newIndex) {
   theaterItems[curTheaterItemIndex].style.backgroundColor = colorWhite;
