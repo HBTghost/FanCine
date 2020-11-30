@@ -35,7 +35,6 @@ rules:
   no-important: 0
   no-invalid-hex: 2
   no-mergeable-selectors: 2
-  no-misspelled-properties: 2
   no-qualifying-elements:
     - 2
     -
@@ -48,6 +47,7 @@ rules:
   no-url-protocols: 1
   no-vendor-prefixes: 0
   no-warn: 2
+  no-misspelled-properties: 0
   property-units: 0
 
   # Nesting

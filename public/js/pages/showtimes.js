@@ -248,14 +248,7 @@ movieTabBtn.addEventListener('click', function () {
 
 function main() {
   var headerHeight = document.querySelector('.sticky-top').offsetHeight;
-  var marginTop = "-".concat(headerHeight, "px");
-  var paddingTop = "".concat(headerHeight, "px");
-  document.querySelector('#showtimes-col-theater').style.marginTop = marginTop;
-  document.querySelector('#showtimes-col-theater').style.paddingTop = paddingTop;
-  document.querySelector('#showtimes-col-movie').style.marginTop = marginTop;
-  document.querySelector('#showtimes-col-movie').style.paddingTop = paddingTop;
-  document.querySelector('#showtimes-col-showtime').style.marginTop = marginTop;
-  document.querySelector('#showtimes-col-showtime').style.paddingTop = paddingTop;
+  document.documentElement.style.setProperty('--stickyHeight', "".concat(headerHeight, "px"));
   loadAllMovies();
 }
 

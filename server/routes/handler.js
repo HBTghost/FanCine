@@ -4,6 +4,7 @@ import { getDatesByTheaterMovie, getTypesByTheaterMovie, getShowTimesAndPropsByT
 import { getMovie, getAllMovies, getMoviesByTheaterID } from '../middleware/movie.js';
 import { getAllTheaters, getTheatersByMovieID } from '../middleware/theater.js';
 import { getTheaterMoviesByMovieID, getTheaterMoviesByTheaterID } from '../middleware/theaterMovie.js';
+import { getDateShowsFromTheaterMovieID } from '../middleware/dateShow.js';
 
 const handlebarsRouter = express.Router();
 
@@ -126,6 +127,11 @@ handlebarsRouter.get('/showtimes/sampleData', (req, res) => {
   res.status(200);
   res.header('Content-Type', 'text/html');
   res.render('partials/sampleData/selectShowtime');
+});
+
+handlebarsRouter.get('/feature/getShowtimesByTheaterMovie/:id', getDateShowsFromTheaterMovieID, (req, res) => {
+  res.status(200);
+  res.json(res.dateShows);
 });
 
 export default handlebarsRouter;

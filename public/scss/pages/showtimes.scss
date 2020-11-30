@@ -172,3 +172,11 @@
     }
   }
 }
+
+.showtimes-col {
+  scroll-margin-top: var(--stickyHeight);
+}
+
+:root {
+  --stickyHeight: 100px;
+}

@@ -32,3 +32,6 @@ GET http://localhost:6969/showtimes/allShowtimes/5fc388cbfb279b6e908d5ac2 HTTP/1
 
 ###
 POST http://localhost:7070/api/showTimes/utils/postSampleDatasets HTTP/1.1
+
+###
+GET http://localhost:6969/feature/getShowtimesByTheaterMovie/5fc388cbfb279b6e908d5ac2 HTTP/1.1

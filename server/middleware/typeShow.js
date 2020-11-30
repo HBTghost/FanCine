@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import TypeShow from '../models/typeShow.js';
 
-async function getType(req, res, next) {
+async function getTypeShow(req, res, next) {
   try {
     res.typeShow = await TypeShow.findById(mongoose.Types.ObjectId(req.params.id)).lean();
   } catch (err) {
@@ -11,12 +11,17 @@ async function getType(req, res, next) {
   return next();
 }
 
-async function getTypesFromDateShows(req, res, next) {
+async function getTypeShowsFromDateShows(req, res, next) {
   try {
     res.typeShows = [];
-    for await (const dateShow of res.dateShows) {
-      res.typeShows.push(await TypeShow.findById(mongoose.Types.ObjectId(dateShow)).lean());
-    }
+    res.dateTypes = {};
+    // for await (const dateShow of res.dateShows) {
+    // const dateTypes = {};
+    // const types = await TypeShow.findById(mongoose.Types.ObjectId(dateShow)).lean();
+    // for (let type of types) {
+    //   dataTypes[type.value] =
+    // }
+    // }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -24,9 +29,9 @@ async function getTypesFromDateShows(req, res, next) {
   return next();
 }
 
-async function getAllDates(req, res, next) {
+async function getAllTypeShows(req, res, next) {
   try {
-    res.allDates = await TypeShow.find().lean();
+    res.allTypes = await TypeShow.find().lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -35,7 +40,7 @@ async function getAllDates(req, res, next) {
 }
 
 export {
-  getType,
-  getTypesFromDateShows,
-  getAllDates,
+  getTypeShow,
+  getTypeShowsFromDateShows,
+  getAllTypeShows,
 };

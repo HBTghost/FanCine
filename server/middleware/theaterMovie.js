@@ -61,6 +61,7 @@ async function postSampleTheaterMovie(req, res, next) {
         theaterMovie = new TheaterMovie();
         theaterMovie._idTheater = theaterIDs[j];
         theaterMovie._idMovie = movieIDs[i];
+        // let dates = [];
         theaterMovies.push(theaterMovie);
       }
     }
