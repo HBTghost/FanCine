@@ -16,6 +16,7 @@
 
 .movie-onshow-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: auto;
@@ -32,6 +33,16 @@
 
 .movie-onshow-content:hover {
   opacity: 1;
+}
+
+.movie-onshow-pg {
+  min-width: 10px;
+  padding: 2px;
+  margin: 5px 0;
+  border: 1px solid $link-color;
+  background-color: $link-color;
+  border-radius: 1rem;
+  color: $white;
 }
 
 .movie-onshow-btn {
