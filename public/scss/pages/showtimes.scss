@@ -109,7 +109,7 @@
 
         .showtimes-row-data-movie:hover,
         .showtimes-row-data-theater:hover {
-          background-color: $color-lightgray;
+          background-color: $color-lightgray !important;
         }
 
         .showtimes-row-data-showtime {
