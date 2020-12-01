@@ -95,6 +95,9 @@ function loadShowtimesByTheaterMovieID(theaterMovieID) {
     partial.text().then((html) => {
       showtimesData = parser.parseFromString(html, 'text/html');
       showtimesList.innerHTML = showtimesData.getElementById('showtimes-showtimes').innerHTML;
+
+      showtimesList.scrollTop = 0;
+
       disableSpinner();
     });
   });
@@ -120,6 +123,8 @@ function loadMoviesByTheaterID(theaterID) {
 
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiMovie);
+
+      moviesList.scrollTop = 0;
 
       addClickEventToMovieItems(clickMovieItemAtTheaterTab);
       disableSpinner();
@@ -193,6 +198,8 @@ function loadTheatersByMovieID(movieID) {
 
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiTheater);
+
+      theatersList.scrollTop = 0;
 
       addClickEventToTheaterItems(clickTheaterItemAtMovieTab);
       disableSpinner();
