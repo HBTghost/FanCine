@@ -3,15 +3,17 @@
   <div class="showtimes-row-data showtimes-row-data-showtime">
     <div class="showtimes-row-data-showtime-date">{{ value }}</div>
     <div class="showtimes-row-data-showtime-list">
-      {{#each typeShows }}
+      {{#each typeShows.[0] }}
+      {{#if value }}
       <div class="showtimes-row-data-showtime-item">
         <div class="showtimes-row-data-showtime-type">{{ value }}</div>
         <div class="showtimes-row-data-showtime-timegrid">
           {{#each timeShows }}
-          <a href="/book-ticket/{{ _idShowTime }}" style="text-decoration: none; color: inherit"><div class="showtimes-row-data-showtime-time">{{ value }}</div></a>
+          <a href="/book-ticket/{{ ../../../theaterMovieRecursively._id }}/{{ ../../_id }}/{{ ../_id }}/{{ this }}" style="text-decoration: none; color: inherit"><div class="showtimes-row-data-showtime-time">{{ this }}</div></a>
           {{/each}}
         </div>
       </div>
+      {{/if}}
       {{/each}}
     </div>
   </div>

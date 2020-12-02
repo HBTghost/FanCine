@@ -17,6 +17,22 @@ async function getShowTime(req, res, next) {
   return next();
 }
 
+async function getShowTimeByOtherKey(req, res, next) {
+  try {
+    const showTime = await ShowTime.findOne({
+      '_idTheaterMovie': req.params._idTheaterMovie,
+      '_idDateShow': req.params._idDateShow,
+      '_idTypeShow': req.params._idTypeShow,
+      'time': req.params.time,
+    }).lean();
+    res.showTime = showTime;
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getDatesByTheaterMovie(req, res, next) {
   try {
     await ShowTime.find({
@@ -125,6 +141,7 @@ async function postSampleShowTimes(req, res, next) {
 
 export {
   getShowTime,
+  getShowTimeByOtherKey,
   getDatesByTheaterMovie,
   getTypesByTheaterMovie,
   getShowTimesAndPropsByTheaterMovie,

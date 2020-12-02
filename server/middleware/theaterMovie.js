@@ -6,7 +6,6 @@ import toDateString from '../utils/date.js';
 import { randomIntMinMax } from '../utils/tools.js';
 import DateShow from '../models/dateShow.js';
 import TypeShow from '../models/typeShow.js';
-import ShowTime from '../models/showTime.js';
 
 async function getTheaterMovie(req, res, next) {
   try {
@@ -26,20 +25,7 @@ async function getTheaterMovieRecursively(req, res, next) {
       const dateShow = await DateShow.findById(_idDateShow);
       const resultDateShow = { _id: dateShow._id, value: dateShow.value, typeShows: [] };
       for await (const _idTypeShow of dateShow._idTypeShows) {
-        const typeShow = await TypeShow.findById(_idTypeShow);
-        const resultTypeShow = { _id: typeShow._id, value: typeShow.value, timeShows: [] };
-        for await (const time of typeShow.timeShows) {
-          const showTime = await ShowTime.findOne({
-            '_idTheaterMovie': theaterMovie._id,
-            '_idDateShow': _idDateShow,
-            '_idTypeShow': _idTypeShow,
-            'time': time,
-          });
-          if (showTime !== undefined) {
-            const resultTimeShow = { value: time, _idShowTime: showTime._id };
-            resultTypeShow.timeShows.push(resultTimeShow);
-          }
-        }
+        const resultTypeShow = await TypeShow.findById(_idTypeShow);
         resultDateShow.typeShows.push(resultTypeShow);
       }
       resultTheaterMovie.dateShows.push(resultDateShow);

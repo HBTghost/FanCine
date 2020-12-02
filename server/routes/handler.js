@@ -8,6 +8,7 @@ import {
   getTheaterMovieRecursively,
 } from '../middleware/theaterMovie.js';
 import { getDateShowsFromTheaterMovieID } from '../middleware/dateShow.js';
+import { getShowTimeByOtherKey } from '../middleware/showTime.js';
 
 const handlebarsRouter = express.Router();
 
@@ -50,6 +51,21 @@ handlebarsRouter.get('/info', (req, res) => {
   });
 });
 
+handlebarsRouter.get('/book-ticket', (req, res) => {
+  res.render('book-ticket', {
+    style: 'book-ticket',
+  });
+});
+handlebarsRouter.get(
+  '/book-ticket/:_idTheaterMovie/:_idDateShow/:_idTypeShow/:time/',
+  getShowTimeByOtherKey,
+  (req, res) => {
+    // res.render('book-ticket', {
+    //   style: 'book-ticket',
+    // });
+    res.redirect(`/book-ticket/${res.showTime._id}`);
+  },
+);
 handlebarsRouter.get('/book-ticket', (req, res) => {
   res.render('book-ticket', {
     style: 'book-ticket',
