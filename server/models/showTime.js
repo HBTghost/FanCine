@@ -5,19 +5,19 @@ const ShowTimeSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  room: {
-    type: String,
+  _idDateShow: {
+    type: mongoose.Types.ObjectId,
     required: true,
   },
-  date: {
-    type: String,
+  _idTypeShow: {
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   time: {
     type: String,
     required: true,
   },
-  type: {
+  room: {
     type: String,
     required: true,
   },

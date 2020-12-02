@@ -12,7 +12,7 @@ showTimeRouter.get('/', getAllShowTimes, (req, res) => {
 });
 
 showTimeRouter.post('/utils/postSampleDatasets', postSampleShowTimes, (req, res) => {
-  res.json(res.showTimes);
+  res.send('Done');
 });
 
 export default showTimeRouter;

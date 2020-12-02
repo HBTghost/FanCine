@@ -5,7 +5,7 @@ const DateShowSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  _idTypeShows: [String],
+  _idTypeShows: [mongoose.Types.ObjectId],
 });
 
 export default mongoose.model('DateShow', DateShowSchema);

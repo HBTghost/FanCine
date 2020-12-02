@@ -1,9 +1,12 @@
 import express from 'express';
 
-import { getDatesByTheaterMovie, getTypesByTheaterMovie, getShowTimesAndPropsByTheaterMovie } from '../middleware/showTime.js';
 import { getMovie, getAllMovies, getMoviesByTheaterID } from '../middleware/movie.js';
 import { getAllTheaters, getTheatersByMovieID } from '../middleware/theater.js';
-import { getTheaterMoviesByMovieID, getTheaterMoviesByTheaterID } from '../middleware/theaterMovie.js';
+import {
+  getTheaterMoviesByMovieID,
+  getTheaterMoviesByTheaterID,
+  getTheaterMovieRecursively,
+} from '../middleware/theaterMovie.js';
 import { getDateShowsFromTheaterMovieID } from '../middleware/dateShow.js';
 
 const handlebarsRouter = express.Router();
@@ -116,13 +119,6 @@ handlebarsRouter.get('/showtimes/allTheaters/:id', getTheaterMoviesByMovieID, ge
   });
 });
 
-handlebarsRouter.get('/showtimes/allShowtimes/:id', getDatesByTheaterMovie, getTypesByTheaterMovie, getShowTimesAndPropsByTheaterMovie, (req, res) => {
-  res.header('Content-Type', 'text/html');
-  res.render('partials/renderStructure/showtimes/showtimes', {
-    showtimes: res.showTimes,
-  });
-});
-
 handlebarsRouter.get('/showtimes/sampleData', (req, res) => {
   res.status(200);
   res.header('Content-Type', 'text/html');
@@ -132,6 +128,14 @@ handlebarsRouter.get('/showtimes/sampleData', (req, res) => {
 handlebarsRouter.get('/feature/getShowtimesByTheaterMovie/:id', getDateShowsFromTheaterMovieID, (req, res) => {
   res.status(200);
   res.json(res.dateShows);
+});
+
+handlebarsRouter.get('/showtimes/allShowTimes/:id', getTheaterMovieRecursively, (req, res) => {
+  res.status(200);
+  res.header('Content-Type', 'text/html');
+  res.render('partials/renderStructure/showtimes/showtimes', {
+    theaterMovieRecursively: res.theaterMovie,
+  });
 });
 
 export default handlebarsRouter;

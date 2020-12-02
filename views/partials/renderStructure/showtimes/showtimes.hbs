@@ -1,14 +1,14 @@
 <div id="showtimes-showtimes">
-  {{#each showtimes }}
+  {{#each theaterMovieRecursively.dateShows }}
   <div class="showtimes-row-data showtimes-row-data-showtime">
-    <div class="showtimes-row-data-showtime-date">{{ @key }}</div>
+    <div class="showtimes-row-data-showtime-date">{{ value }}</div>
     <div class="showtimes-row-data-showtime-list">
-      {{#each this }}
+      {{#each typeShows }}
       <div class="showtimes-row-data-showtime-item">
-        <div class="showtimes-row-data-showtime-type">{{ @key }}</div>
+        <div class="showtimes-row-data-showtime-type">{{ value }}</div>
         <div class="showtimes-row-data-showtime-timegrid">
-          {{#each this }}
-          <a href="/book-ticket/{{ this }}" style="text-decoration: none; color: inherit"><div class="showtimes-row-data-showtime-time">{{ @key }}</div></a>
+          {{#each timeShows }}
+          <a href="/book-ticket/{{ _idShowTime }}" style="text-decoration: none; color: inherit"><div class="showtimes-row-data-showtime-time">{{ value }}</div></a>
           {{/each}}
         </div>
       </div>

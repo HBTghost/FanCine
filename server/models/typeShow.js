@@ -5,7 +5,7 @@ const TypeShowSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  _idTimeShows: [String],
+  timeShows: [String],
 });
 
 export default mongoose.model('TypeShow', TypeShowSchema);

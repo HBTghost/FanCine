@@ -22,6 +22,9 @@ GET http://localhost:7070/api/theaters_movies HTTP/1.1
 GET http://localhost:6969/api/theaters_movies/findByMovie/5fb775d63a360279a974f5eb HTTP/1.1
 
 ###
+GET http://localhost:6969/api/theaters_movies/findRecursively/5fc732357d9b6de99302e7ba HTTP/1.1
+
+###
 POST http://localhost:7070/api/theaters_movies/utils/postSampleDatasets HTTP/1.1
 
 ###
