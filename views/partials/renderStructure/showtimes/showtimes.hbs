@@ -1,16 +1,18 @@
 <div id="showtimes-showtimes">
+  <div style="display: none;" id="_idTheaterMovie">{{ theaterMovieRecursively._id }}</div>
   {{#each theaterMovieRecursively.dateShows }}
   <div class="showtimes-row-data showtimes-row-data-showtime">
     <div class="showtimes-row-data-showtime-date">{{ value }}</div>
     <div class="showtimes-row-data-showtime-list">
+      <div style="display: none;" id="_idDateShow">{{ _id }}</div>
       {{#each typeShows }}
       {{#each .}}
       {{#if value }}
-      <div class="showtimes-row-data-showtime-item">
+      <div class="showtimes-row-data-showtime-item" id="{{ _id }}">
         <div class="showtimes-row-data-showtime-type">{{ value }}</div>
         <div class="showtimes-row-data-showtime-timegrid">
           {{#each timeShows }}
-          <a href="/book-ticket/{{ ../../../theaterMovieRecursively._id }}/{{ ../../_id }}/{{ ../_id }}/{{ this }}" style="text-decoration: none; color: inherit"><div class="showtimes-row-data-showtime-time">{{ this }}</div></a>
+          <a href="book-ticket" onclick="RedirectURL('{{ ../_id }}', '{{ this }}'); return false;" style="text-decoration: none; color: inherit"><div class="showtimes-row-data-showtime-time">{{ this }}</div></a>
           {{/each}}
         </div>
       </div>

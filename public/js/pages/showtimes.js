@@ -252,4 +252,10 @@ function main() {
   loadAllMovies();
 }
 
+function RedirectURL(_idTypeShow, time) {
+  var _idTheaterMovie = document.querySelector('#_idTheaterMovie').innerHTML;
+  var _idDateShow = document.getElementById(_idTypeShow).parentElement.firstElementChild.innerHTML;
+  window.location = "book-ticket/".concat(_idTheaterMovie, "/").concat(_idDateShow, "/").concat(_idTypeShow, "/").concat(time);
+}
+
 main();
