@@ -3,7 +3,8 @@
   <div class="showtimes-row-data showtimes-row-data-showtime">
     <div class="showtimes-row-data-showtime-date">{{ value }}</div>
     <div class="showtimes-row-data-showtime-list">
-      {{#each typeShows.[0] }}
+      {{#each typeShows }}
+      {{#each .}}
       {{#if value }}
       <div class="showtimes-row-data-showtime-item">
         <div class="showtimes-row-data-showtime-type">{{ value }}</div>
@@ -14,6 +15,7 @@
         </div>
       </div>
       {{/if}}
+      {{/each}}
       {{/each}}
     </div>
   </div>
