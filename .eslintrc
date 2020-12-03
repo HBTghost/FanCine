@@ -17,6 +17,8 @@
     "import/extensions": 0,
     "import/no-unresolved": 0,
     "quote-props": 0,
-    "no-await-in-loop": 0
+    "no-await-in-loop": 0,
+    "no-unused-vars": 0,
+    "max-len": 1
   }
 }
