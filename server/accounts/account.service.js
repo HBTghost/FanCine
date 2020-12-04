@@ -73,6 +73,18 @@ async function sendVerificationEmail(account, origin) {
   });
 }
 
+async function sendDeleteEmail(account) {
+  const message = `<p>Your account is <span style="color: red">DELETED</span> by admin.</p>
+  <p>If you have any questions, you can email ${config.emailFrom} to get feedback as soon as possible. Best regards`;
+
+  await sendEmail({
+    to: account.email,
+    subject: 'Delete Alert API - Delete Account',
+    html: `<h4>Alert</h4>
+                 ${message}`,
+  });
+}
+
 async function sendAlreadyRegisteredEmail(email, origin) {
   let message;
   if (origin) {
@@ -296,6 +308,7 @@ async function update(id, params) {
 
 async function _delete(id) {
   const account = await getAccount(id);
+  await sendDeleteEmail(account);
   await account.remove();
 }
 

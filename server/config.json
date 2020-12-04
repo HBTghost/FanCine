@@ -1,13 +1,14 @@
 ﻿{
     "connectionString": "mongodb+srv://FanCineAdmin:QkkaIk0xTON0UeQu@cluster.1b7lf.mongodb.net/fancine?retryWrites=true&w=majority",
     "secret": "Yin2ig5LNkmsRFJ4PuxCiw0BKnF6e-q02Tji_fdPLOQAkt5BQ1sf2USgCpiw1yQcpACJfrr9C2k0ifIrnsyKlFKQ6Obzkafe-kOJJQeKfwvPpwUle_9j6BUU-49lGWwXPnlAu1MbHPDfrESv0F7HIGP2CAxyWrMORZQ02NC2ISIrekRAi9MdtzYmSky6wWcM4zKRagUC8Pf1D5c0atlhGgyP6IzQYOILgqSKekyS05HvZ1XfwApOmrjs1cYUunpFMKzZxciAv8LpDZeDfUaegSI29dVPiQwBvOYox5KUak10BK4N_R0gaeZJMmcA0Ee4MaiSQVip4QTZ8WMTEK6kuK2XB8kABM4gikqFeClk002rJRH4WwXGfwk_4UDTNRYk21Cq9JMylOYQuT1izBATx0OfzFad54-8aQxiIRyxLTeE2OiIhdmiGnrwWIALDeJQvk6Wo-NVbGQG8Ax2BK6ISRGECCe1LGfX1-CAKsm6E7SjEEad4vTkjoGtIQQKVVx_gMXEqAJEqJIaxn_gLjb9Hg0y4kiUXdHBS0bbOgpXa5o61qLUSAnZ3vPimJPwUfxSqUxVg0qhv0gVWmvzOAGmog88K5MUu4A4SVOUMR7AaU8HxB6boEepfNa480D9hApQDhVUq-KkGX0hEN4TJNEwkgAyeUKKhEOS-E3xKSofSgEz_dAg3f306EYS7NPvDjwAvkxUluHO3EawC4389Eqm6AY--y-IVmik2WmavKMZR1jwzB2ux5wjyEaOxhJjxaIP6QQ2k2ShEqmU-ecWCPaOKDUwf8gnx6853EKpcqhuewaS6QjB0dVVlMQkiyMsik_FCevQXj2Rk685A0KGG52rvx0JnQBZgOw9tOK0qn2kslZ9Mpcwf6b6n1MOJkmBn2c3DhpV7Af5rFEMbmFEOqo0tUJAH0PQLIuVOm0A20-MuwMqXPp0ngkOzg2s8lwkykvYhnxW3IVgt0v68GF8JEm96ooEMuxIqwv2xzS_qg8kaW0uqR66mWGAEa1l_peEeEmdt2U19whBtw1a7BlVJY7U68d381bMh2DgxSBJnHAmcEqTUGT2C7K-qQpqkMspB2l0yKHulSn0sCtgmiSbdn7G3k-lEmP8ku-IwANXV2eMYLwU6g8vaaajQUUAA9wskrb_MUGLQ1gB8YiUCgRsCaHGgbeUSuYNJUcTfLSQv5BRk9y9vEuHXTlNbz_HzAwslH2eaIVUKxbuqCiMSvAAotqzKMuit0SNQ5xwGjQajgOjHDyfGsEUCbYsTRUj7uPQOcj5hwwBh06AfDLeabA5OgWmzoMHBoOk-8RlFBwp2gpgKq7IR2TMAkqf1Ez4JBE1sAoenK1DKWcU20eeodqfvuOA0mW1-HITXki98nhqrt_YeQj0tj5LfwO0Klv1x_Esx-pA",
-    "emailFrom": "info@FanCine.herokuapp.com",
+    "emailFrom": "fancine.herokuapp@gmail.com",
     "smtpOptions": {
-        "host": "Gmail",
+        "service": "gmail",
+        "host": "smtp.gmail.com",
         "port": 587,
         "auth": {
             "user": "fancine.herokuapp@gmail.com",
-            "pass": "FanCine_Group09"
+            "pass": "wisfesqvfwkovxrf"
         }
     }
 }
