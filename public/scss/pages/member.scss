@@ -1,0 +1,165 @@
+@import '../base/variable';
+
+#mem-body {
+  font-size: 15px;
+
+  .mem-pointer {
+    cursor: pointer;
+  }
+
+  #mem-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    #mem-nav {
+      border-bottom: 1px solid $color-gray;
+
+      .mem-nav-btn {
+        border: none;
+        outline: none;
+        padding: 10px 0;
+        background-color: inherit;
+        font-size: 18px;
+      }
+
+      #mem-info-btn {
+        margin-right: 20px;
+        border-bottom: 3px solid $color-orange;
+      }
+
+      #mem-history-btn {
+        border-bottom: 3px solid transparent;
+        color: $color-darkgray;
+      }
+    }
+
+    #mem-info-tab {
+      #mem-info-content {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 80px;
+        margin-top: 30px;
+
+        .mem-info-row {
+          display: grid;
+          column-gap: 30px;
+          margin-bottom: 20px;
+
+          .mem-info-item {
+            .mem-info-label {
+              display: block;
+              padding-left: 10px;
+            }
+
+            .mem-info-field {
+              width: 100%;
+              height: 40px;
+              outline: none;
+              border: 1px solid $color-gray;
+              border-radius: 5px;
+              padding-left: 10px;
+              background-color: $color-white;
+            }
+
+            .mem-info-field[readonly] {
+              background-color: $color-lightgray;
+            }
+          }
+        }
+
+        .mem-info-row-6-4 {
+          grid-template-columns: 60% auto;
+        }
+
+        .mem-info-row-4-6 {
+          grid-template-columns: auto 60%;
+        }
+      }
+
+      #mem-info-save {
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+
+        #mem-info-save-btn {
+          outline: none;
+          border: none;
+          border-radius: 5px;
+          padding: 10px 20px;
+          background-color: $color-orange;
+          color: $color-white;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #mem-body {
+    #mem-container {
+      #mem-info-tab {
+        #mem-info-content {
+          column-gap: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  #mem-body {
+    #mem-container {
+      #mem-info-tab {
+        #mem-info-content {
+          grid-template-columns: auto;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #mem-body {
+    #mem-container {
+      padding: 10px;
+      #mem-info-tab {
+        #mem-info-content {
+          .mem-info-row-6-4,
+          .mem-info-row-6-4 {
+            grid-template-columns: auto auto;
+          }
+
+          .mem-info-row-6-4-sm {
+            grid-template-columns: 55% auto;
+          }
+
+          .mem-info-row {
+            column-gap: 10px;
+            .mem-info-item {
+              .mem-info-label {
+                padding-left: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  #mem-body {
+    #mem-container {
+      #mem-info-tab {
+        #mem-info-content {
+          .mem-info-row {
+            grid-template-columns: auto;
+            row-gap: 20px;
+          }
+        }
+      }
+    }
+  }
+}

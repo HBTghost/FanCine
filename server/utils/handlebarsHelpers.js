@@ -8,6 +8,9 @@ const Helper = {
   isZero(context) {
     return context === 0;
   },
+  formatPrice(price) {
+    return price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+  },
 };
 
 export default Helper;
