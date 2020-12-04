@@ -42,7 +42,9 @@ db.once('open', () => console.log('Connected to Database'));
 const app = express();
 
 // Middleware
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
