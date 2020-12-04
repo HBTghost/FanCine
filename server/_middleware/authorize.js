@@ -1,5 +1,5 @@
 import jwt from 'express-jwt';
-import secret from '../config.json';
+import config from '../config.json';
 import db from '../_helpers/db.js';
 
 function authorize(roles = []) {
@@ -8,6 +8,8 @@ function authorize(roles = []) {
   if (typeof roles === 'string') {
     roles = [roles];
   }
+
+  const { secret } = config;
 
   return [
     // authenticate JWT token and attach user to request object (req.user)
@@ -26,7 +28,7 @@ function authorize(roles = []) {
       // authentication and authorization successful
       req.user.role = account.role;
       req.user.ownsToken = (token) => !!refreshTokens.find((x) => x.token === token);
-      return next();
+      next();
     },
   ];
 }

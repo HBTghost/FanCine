@@ -11,6 +11,7 @@ function errorHandler(err, req, res, next) {
       // mongoose validation error
       return res.status(400).json({ message: err.message });
     case err.name === 'UnauthorizedError':
+      // console.log('error');
       // jwt authentication error
       return res.status(401).json({ message: 'Unauthorized' });
     default:

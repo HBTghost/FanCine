@@ -127,7 +127,7 @@ async function authenticate({ email, password, ipAddress }) {
   return {
     ...basicDetails(account),
     jwtToken,
-    refreshToken: _refreshToken.token,
+    _refreshToken: _refreshToken.token,
   };
 }
 
@@ -150,7 +150,7 @@ async function refreshToken({ token, ipAddress }) {
   return {
     ...basicDetails(account),
     jwtToken,
-    refreshToken: newRefreshToken.token,
+    _refreshToken: newRefreshToken.token,
   };
 }
 

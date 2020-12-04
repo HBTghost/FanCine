@@ -15,7 +15,7 @@ function setTokenCookie(res, token) {
     httpOnly: true,
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   };
-  res.cookie('refreshToken', token, cookieOptions);
+  res.cookie('_refreshToken', token, cookieOptions);
 }
 
 function authenticateSchema(req, res, next) {
@@ -38,7 +38,7 @@ function authenticate(req, res, next) {
 }
 
 function refreshToken(req, res, next) {
-  const token = req.cookies.refreshToken;
+  const token = req.cookies._refreshToken;
   const ipAddress = req.ip;
   accountService.refreshToken({ token, ipAddress })
     .then(({ _refreshToken, ...account }) => {
@@ -57,7 +57,7 @@ function revokeTokenSchema(req, res, next) {
 
 function revokeToken(req, res, next) {
   // accept token from request body or cookie
-  const token = req.body.token || req.cookies.refreshToken;
+  const token = req.body.token || req.cookies._refreshToken;
   const ipAddress = req.ip;
 
   if (!token) return res.status(400).json({ message: 'Token is required' });
@@ -70,8 +70,6 @@ function revokeToken(req, res, next) {
   accountService.revokeToken({ token, ipAddress })
     .then(() => res.json({ message: 'Token revoked' }))
     .catch(next);
-
-  return next();
 }
 
 function registerSchema(req, res, next) {
@@ -213,7 +211,6 @@ function update(req, res, next) {
   accountService.update(req.params.id, req.body)
     .then((account) => res.json(account))
     .catch(next);
-  return next();
 }
 
 function _delete(req, res, next) {
@@ -222,10 +219,9 @@ function _delete(req, res, next) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  accountService.delete(req.params.id)
+  accountService._delete(req.params.id)
     .then(() => res.json({ message: 'Account deleted successfully' }))
     .catch(next);
-  return next();
 }
 
 // routes
