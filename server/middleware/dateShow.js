@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import DateShow from '../models/dateShow.js';
-import TheaterMovie from '../models/theaterMovie.js';
+import { DateShow, TheaterMovie } from '../models/index.js';
 
 async function getDateShow(req, res, next) {
   try {

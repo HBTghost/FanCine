@@ -9,17 +9,18 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import handlebarsRouter from './server/routes/handler.js';
-import movieRouter from './server/routes/movie.js';
-import theaterRouter from './server/routes/theater.js';
-import theaterMovieRouter from './server/routes/theaterMovie.js';
-import showTimeRouter from './server/routes/showTime.js';
-import Helper from './server/utils/handlebarsHelpers.js';
+import HandlebarsHelper from './server/helpers/handlebars.js';
+import errorHandler from './server/middleware/error-handler.js';
 
-import errorHandler from './server/_middleware/error-handler.js';
-
-import accountRouter from './server/accounts/accounts.controller.js';
-import swaggerRouter from './server/_helpers/swagger.js';
+import {
+  handlebarsRouter,
+  movieRouter,
+  theaterRouter,
+  theaterMovieRouter,
+  showTimeRouter,
+  accountRouter,
+  swaggerRouter,
+} from './server/routes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -75,7 +76,7 @@ const hbs = expbs.create({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views/mainLayout'), // change layout folder name
   partialsDir: path.join(__dirname, 'views/partials'), // change partials folder name
-  helpers: Helper,
+  helpers: HandlebarsHelper,
 });
 
 // Express Handlebars Configuration

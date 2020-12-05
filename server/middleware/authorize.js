@@ -1,6 +1,6 @@
 import jwt from 'express-jwt';
 import config from '../config.json';
-import db from '../_helpers/db.js';
+import { Account, RefreshToken } from '../models/index.js';
 
 function authorize(roles = []) {
   // roles param can be a single role string (e.g. Role.User or 'User')
@@ -17,8 +17,8 @@ function authorize(roles = []) {
 
     // authorize based on user role
     async (req, res, next) => {
-      const account = await db.Account.findById(req.user.id);
-      const refreshTokens = await db.RefreshToken.find({ account: account.id });
+      const account = await Account.findById(req.user.id);
+      const refreshTokens = await RefreshToken.find({ account: account.id });
 
       if (!account || (roles.length && !roles.includes(account.role))) {
         // account no longer exists or role not authorized

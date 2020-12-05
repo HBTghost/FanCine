@@ -1,11 +1,9 @@
 import mongoose from 'mongoose';
-import TheaterMovie from '../models/theaterMovie.js';
-import Movie from '../models/movie.js';
-import Theater from '../models/theater.js';
-import toDateString from '../utils/date.js';
-import { randomIntMinMax } from '../utils/tools.js';
-import DateShow from '../models/dateShow.js';
-import TypeShow from '../models/typeShow.js';
+import {
+  Movie, Theater, TheaterMovie, DateShow, TypeShow,
+} from '../models/index.js';
+import toDateString from '../helpers/date.js';
+import { randomIntMinMax } from '../helpers/tools.js';
 
 async function getTheaterMovie(req, res, next) {
   try {

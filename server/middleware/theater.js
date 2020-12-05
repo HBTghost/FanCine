@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Theater from '../models/theater.js';
+import { Theater } from '../models/index.js';
 
 async function getTheater(req, res, next) {
   try {

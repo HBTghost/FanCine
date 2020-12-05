@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import TypeShow from '../models/typeShow.js';
+import { TypeShow } from '../models/index.js';
 
 async function getTypeShow(req, res, next) {
   try {
