@@ -1,59 +1,56 @@
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body text-center">
-      <h1 class="mb-3">
-        <img src="/images/design/secure-icon.png" alt="icon" width="20%" />
-      </h1>
       <h2>
-        Register New User
+        Đăng ký tài khoản mới
       </h2>
       {{> message }}
       <form action="/register" method="POST">
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">Họ tên</label>
           {{#if name}}
-          <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
+          <input type="name" id="name" name="name" class="form-control" placeholder="Nhập họ tên của bạn"
             value="{{ name }}" />
           {{else}}
-          <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
+          <input type="name" id="name" name="name" class="form-control" placeholder="Nhập họ tên của bạn"
             value="" />
           {{/if}}
         </div>
         <div class="form-group">
           <label for="email">Email</label>
           {{#if email }}
-          <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email"
+          <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email"
             value="{{ email }}" />
           {{else}}
-          <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email"
+          <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email"
             value="" />
           {{/if}}
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Mật khẩu</label>
           {{#if password }}
-          <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"
+          <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
             value="{{ password }}" />
           {{else}}
-          <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"
+          <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
             value="" />
           {{/if}}
         </div>
         <div class="form-group">
-          <label for="password2">Confirm Password</label>
+          <label for="password2">Nhập lại mật khẩu</label>
           {{#if password2 }}
-          <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
+          <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu"
             value="{{ password2 }}" />
           {{else}}
-          <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
+          <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu"
             value="" />
           {{/if}}
         </div>
         <button type="submit" class="btn btn-primary btn-block">
-          Register
+          Đăng ký
         </button>
       </form>
-      <p class="mt-4">Already have an account? <a href="/login">Login</a></p>
+      <p class="mt-4">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
     </div>
   </div>
 </div>

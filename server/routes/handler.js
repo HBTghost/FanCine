@@ -172,10 +172,6 @@ handlebarsRouter.get('/showtimes/allShowTimes/:id', getTheaterMovieRecursively, 
   });
 });
 
-handlebarsRouter.get('/authenticate', forwardAuthenticated, (req, res) => {
-  res.render('authenticate');
-});
-
 // Member
 handlebarsRouter.all('/member', ensureAuthenticated, (req, res) => {
   res.render('member', {

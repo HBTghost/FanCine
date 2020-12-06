@@ -3,7 +3,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  req.flash('error_msg', 'Please log in first!');
+  req.flash('error_msg', 'Vui lòng đăng nhập trước!');
   res.redirect('/login');
 }
 function forwardAuthenticated(req, res, next) {

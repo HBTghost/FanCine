@@ -1,38 +1,35 @@
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
         <div class="card card-body text-center">
-            <h1 class="mb-3">
-                <img src="/images/design/secure-icon.png" alt="icon" width="20%" />
-            </h1>
             <h2>
-                Reset Password
+                Cài lại mật khẩu mới
             </h2>
             {{> message }}
             <form action="/reset/{{ id }}"  method="POST">
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Mật khẩu mới</label>
                     {{#if password }}
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới"
                         value="{{ password }}" />
                     {{else}}
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu "
                         value="" />
                     {{/if}}
                   </div>
                   <div class="form-group">
-                    <label for="password2">Confirm Password</label>
+                    <label for="password2">Nhập lại mật khẩu mới</label>
                     {{#if password2 }}
-                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
+                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu mới"
                         value="{{ password2 }}" />
                     {{else}}
-                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
+                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu mới"
                         value="" />
                     {{/if}}
                   </div>
-                <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                <button type="submit" class="btn btn-primary btn-block">Cài đặt lại</button>
             </form>
             <p class="mt-4">
-                Remember your password? <a href="/login">Login</a>
+                Đã nhớ mật khẩu? <a href="/login">Đăng nhập</a>
             </p>
         </div>
     </div>
