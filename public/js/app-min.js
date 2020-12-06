@@ -1,1 +1,1 @@
-"use strict";var _,_ref,modalBtn=document.getElementById("signIn"),modal=document.getElementById("modal"),closeModal=document.getElementById("close-Modal");function popdownModal(){modal.style.display="none"}modalBtn.onclick=function(){modal.style.display="block"},closeModal.onclick=function(){popdownModal()},window.onclick=function(o){o.target===modal&&popdownModal()},console.log(null!==(_=0)&&void 0!==_?_:"babel compile fail"),console.log(null!==(_ref=null)&&void 0!==_ref?_ref:"babel compile successfully");
+"use strict";

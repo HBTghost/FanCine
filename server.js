@@ -5,12 +5,16 @@ import morgan from 'morgan';
 import path, { dirname } from 'path';
 import expbs from 'express-handlebars';
 
+import flash from 'connect-flash';
+import session from 'express-session';
+import passport from 'passport';
+
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import configPassport from './server/config/passport.js';
 import HandlebarsHelper from './server/helpers/handlebars.js';
-import errorHandler from './server/middleware/error-handler.js';
 
 import {
   handlebarsRouter,
@@ -18,9 +22,12 @@ import {
   theaterRouter,
   theaterMovieRouter,
   showTimeRouter,
-  accountRouter,
   swaggerRouter,
 } from './server/routes/index.js';
+
+import authRouter from './server/routes/auth.js';
+
+configPassport(passport);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -54,8 +61,34 @@ app.use(cookieParser());
 
 app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: true }));
 
+// ------------ Express session Configuration ------------//
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+
+// ------------ Passport Middlewares ------------//
+app.use(passport.initialize());
+app.use(passport.session());
+
+// ------------ Connecting flash ------------//
+app.use(flash());
+
+// ------------ Global variables ------------//
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
 // Server rendering
 app.use('/', handlebarsRouter);
+
+app.use('/', authRouter);
 
 // API services
 app.use('/api/movies', movieRouter);
@@ -63,13 +96,8 @@ app.use('/api/theaters', theaterRouter);
 app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
 
-app.use('/accounts', accountRouter);
-
 // swagger docs route
 app.use('/api-docs', swaggerRouter);
-
-// global error handler
-app.use(errorHandler);
 
 const hbs = expbs.create({
   extname: 'hbs',
