@@ -1,0 +1,91 @@
+<div id="mem-body">
+  <div id="mem-container">
+    <div id="mem-nav">
+      <button class="mem-nav-btn mem-pointer" id="mem-info-btn">THÔNG TIN THÀNH VIÊN</button>
+      <button class="mem-nav-btn mem-pointer" id="mem-history-btn">LỊCH SỬ GIAO DỊCH</button>
+    </div>
+
+    <form id="mem-info-tab" method="POST">
+      <div id="mem-info-content">
+        {{#with userInfo}}
+        <div id="mem-info-personal-info-sec">
+          <div class="mem-info-row mem-info-row-6-4 mem-info-row-6-4-sm">
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-full-name">Họ &amp; tên</label>
+              <input class="mem-info-field" name="fullName" id="mem-info-full-name" type="text" value="{{fullName}}" required>
+            </div>
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-phone-number">Số điện thoại</label>
+              <input class="mem-info-field" name="phoneNumber" id="mem-info-phone-number" type="tel" pattern="[0-9]{8,10}"
+                value="{{phoneNumber}}" required>
+            </div>
+          </div>
+
+          <div class="mem-info-row mem-info-row-6-4">
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-birthdate">Ngày sinh</label>
+              <input class="mem-info-field" name="birthdate" id="mem-info-birthdate" type="date" value="{{birthdate}}" required>
+            </div>
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-gender">Giới tính</label>
+              <select class="mem-info-field" name="gender" id="mem-info-gender" required>
+                <option value="2">Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mem-info-row">
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-address">Địa chỉ</label>
+              <input class="mem-info-field" name="address" id="mem-info-address" type="text" value="{{address}}">
+            </div>
+          </div>
+
+          <div class="mem-info-row mem-info-row-6-4">
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-province">Tỉnh/Thành phố</label>
+              <select class="mem-info-field" name="province" id="mem-info-province">
+                <option value="0">TP Hồ Chí Minh</option>
+              </select>
+            </div>
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-district">Quận/Huyện</label>
+              <select class="mem-info-field" name="district" id="mem-info-district">
+                <option value="0">Quận 5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="mem-info-account-info-sec">
+          <div class="mem-info-row mem-info-row-4-6">
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-star">Sao tích lũy</label>
+              <input class="mem-info-field" name="star" id="mem-info-star" type="number" value="{{star}}" readonly>
+            </div>
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-expense">Chi tiêu {{curYear}}</label>
+              <input class="mem-info-field" name="expense" id="mem-info-expense" type="text" value="{{formatPrice expense}}" readonly>
+            </div>
+          </div>
+
+          <div class="mem-info-row">
+            <div class="mem-info-item">
+              <label class="mem-info-label" for="mem-info-email">Email</label>
+              <input class="mem-info-field" name="email" id="mem-info-email" type="email" value="{{email}}" readonly>
+            </div>
+          </div>
+        </div>
+        {{/with}}
+      </div>
+
+      <div id="mem-info-save">
+        <input class="mem-pointer" id="mem-info-save-btn" type="submit" value="LƯU LẠI">
+      </div>
+    </form>
+
+    <div id="mem-history-tab" style="display: none;">
+      Lich su giao dich
+    </div>
+  </div>
+</div>

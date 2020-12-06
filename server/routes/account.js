@@ -1,9 +1,9 @@
 import express from 'express';
 import Joi from 'joi';
-import validateRequest from '../_middleware/validate-request.js';
-import authorize from '../_middleware/authorize.js';
-import Role from '../_helpers/role.js';
-import accountService from './account.service.js';
+import validateRequest from '../middleware/validate-request.js';
+import authorize from '../middleware/authorize.js';
+import Role from '../helpers/role.js';
+import accountService from '../services/account.js';
 
 const accountRouter = express.Router();
 

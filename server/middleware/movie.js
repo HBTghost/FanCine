@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Movie from '../models/movie.js';
+import { Movie } from '../models/index.js';
 
 async function getMovie(req, res, next) {
   try {

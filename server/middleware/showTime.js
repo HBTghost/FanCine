@@ -2,10 +2,9 @@ import mongoose from 'mongoose';
 import ShowTime from '../models/showTime.js';
 import Theater from '../models/theater.js';
 import TheaterMovie from '../models/theaterMovie.js';
-import DateShow from '../models/dateShow.js';
-import TypeShow from '../models/typeShow.js';
+import { DateShow, TypeShow } from '../models/index.js';
 
-import { randomIntMinMax } from '../utils/tools.js';
+import { randomIntMinMax } from '../helpers/tools.js';
 
 async function getShowTime(req, res, next) {
   try {
