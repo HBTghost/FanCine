@@ -67,7 +67,7 @@ function registerHandle(req, res) {
         const accessToken = oauth2Client.getAccessToken();
 
         const token = jwt.sign({ name, email, password }, JWT_KEY, { expiresIn: '30m' });
-        const CLIENT_URL = `http://${req.headers.host}`;
+        const CLIENT_URL = `https://${req.headers.host}`;
 
         const output = `
                 <h2>Please click on below link to activate your account</h2>
