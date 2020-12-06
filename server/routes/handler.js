@@ -96,17 +96,6 @@ handlebarsRouter.get('/theaters', getAllTheaters, (req, res) => {
   });
 });
 
-handlebarsRouter.get('/data', getAllMovies, (req, res) => {
-  try {
-    res.render('data', {
-      movies: res.allMovies,
-      username: req.user ? req.user.name : undefined,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 // Showtimes
 handlebarsRouter.get('/showtimes', async (req, res) => {
   res.render('showtimes', {
