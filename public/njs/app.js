@@ -1,24 +1,23 @@
 // -- SignIn - Modal initial --
-const modalBtn = document.getElementById('signIn');
 const modal = document.getElementById('modal');
-const closeModal = document.getElementById('close-Modal');
+const parser = new DOMParser();
 let redirectURL = '';
+let forceLogin = false;
 
 // Disable sign in modal
 function popdownModal() {
   modal.style.display = 'none';
+  fetch('/isLogin').then((res) => {
+    res.text().then((val) => {
+      if (forceLogin && val === 'false') {
+        window.location = '/';
+      }
+    });
+  });
 }
 function popupModal() {
   modal.style.display = 'block';
 }
-// When the user clicks the signIn, open the modal
-modalBtn.onclick = function signInClick() {
-  popupModal();
-};
-// When the user clicks on <span> (x), close the modal
-closeModal.onclick = function closeModalClick() {
-  popdownModal();
-};
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function windowClickOff(event) {
@@ -28,14 +27,12 @@ window.onclick = function windowClickOff(event) {
 };
 // -- End modal --
 
-const parser = new DOMParser();
-
-function renderHeader() {
+function renderUsernameToggle() {
   fetch('/render/header').then((partial) => {
     partial.text().then((html) => {
       const headerData = parser.parseFromString(html, 'text/html');
-      const header = document.querySelector('.sticky-top');
-      header.innerHTML = headerData.querySelector('.sticky-top').innerHTML;
+      const header = document.querySelector('#usernameToggle');
+      header.innerHTML = headerData.querySelector('#usernameToggle').innerHTML;
     });
   });
 }
@@ -55,7 +52,23 @@ function login(event) {
       redirectURL = '';
     }
     popdownModal();
-    renderHeader();
+    renderUsernameToggle();
+  });
+}
+
+function logout(event) {
+  event.preventDefault();
+  fetch('/logout').then(() => {
+    renderUsernameToggle();
+    fetch('#').then((partial) => {
+      partial.text().then((text) => {
+        console.log(text);
+        if (text === 'false') {
+          popupModal();
+          forceLogin = true;
+        }
+      });
+    });
   });
 }
 

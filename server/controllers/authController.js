@@ -194,14 +194,13 @@ function forgotPassword(req, res) {
                 'success_msg',
                 'Link cài đặt lại mật khẩu đã được gởi đến email của bạn. Vui lòng kiểm tra hòm thư và làm theo hướng dẫn. (Chú ý: Link cài đặt lại mật khẩu sẽ hết hạn trong 30 phút)',
               );
-              res.redirect('/login');
             } catch (error) {
               req.flash(
                 'error_msg',
                 'Một số lỗi không mong muốn đã xảy ra. Vui lòng thử lại vào lúc khác.',
               );
-              res.redirect('/forgot');
             }
+            res.redirect('/forgot');
           }
         });
       }
@@ -296,7 +295,6 @@ function resetPassword(req, res) {
 
 // ------------ Login Handle ------------//
 function loginHandle(req, res, next) {
-  console.log(req.body);
   passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
     if (!user) { return res.redirect('/login'); }
@@ -311,7 +309,7 @@ function loginHandle(req, res, next) {
 function logoutHandle(req, res) {
   req.logout();
   req.flash('success_msg', 'Đăng xuất thành công');
-  res.redirect('/login');
+  res.redirect('/');
 }
 
 export default {

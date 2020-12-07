@@ -1,6 +1,6 @@
 <div class="modal-container" id="modal">
     <div class="modal-content p-3">
-        <span class="modal-close" id="close-Modal">X</span>
+        <span class="modal-close" onclick="popdownModal()">X</span>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-sign-in" role="tab" aria-controls="nav-home" aria-selected="true">Đăng nhập</a>
@@ -19,12 +19,8 @@
                         <input name="password" type="password" class="form-control" id="passwordLogin" placeholder="Password">
                     </div>
                     <small id="emailHelp" class="form-text text-muted text-right">
-                        <a  href="#">Quên mật khẩu</a>
+                        <a  href="/forgot">Quên mật khẩu</a>
                     </small>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Duy trì đăng nhập</label>
-                    </div>
                     <button type="submit" class="btn btn-outline-success">Đăng nhập!</button>
                 </form>
             </div>

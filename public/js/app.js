@@ -1,28 +1,25 @@
 "use strict";
 
 // -- SignIn - Modal initial --
-var modalBtn = document.getElementById('signIn');
 var modal = document.getElementById('modal');
-var closeModal = document.getElementById('close-Modal');
-var redirectURL = ''; // Disable sign in modal
+var parser = new DOMParser();
+var redirectURL = '';
+var forceLogin = false; // Disable sign in modal
 
 function popdownModal() {
   modal.style.display = 'none';
+  fetch('/isLogin').then(function (res) {
+    res.text().then(function (val) {
+      if (forceLogin && val === 'false') {
+        window.location = '/';
+      }
+    });
+  });
 }
 
 function popupModal() {
   modal.style.display = 'block';
-} // When the user clicks the signIn, open the modal
-
-
-modalBtn.onclick = function signInClick() {
-  popupModal();
-}; // When the user clicks on <span> (x), close the modal
-
-
-closeModal.onclick = function closeModalClick() {
-  popdownModal();
-}; // When the user clicks anywhere outside of the modal, close it
+} // When the user clicks anywhere outside of the modal, close it
 
 
 window.onclick = function windowClickOff(event) {
@@ -32,14 +29,12 @@ window.onclick = function windowClickOff(event) {
 }; // -- End modal --
 
 
-var parser = new DOMParser();
-
-function renderHeader() {
+function renderUsernameToggle() {
   fetch('/render/header').then(function (partial) {
     partial.text().then(function (html) {
       var headerData = parser.parseFromString(html, 'text/html');
-      var header = document.querySelector('.sticky-top');
-      header.innerHTML = headerData.querySelector('.sticky-top').innerHTML;
+      var header = document.querySelector('#usernameToggle');
+      header.innerHTML = headerData.querySelector('#usernameToggle').innerHTML;
     });
   });
 }
@@ -62,7 +57,24 @@ function login(event) {
     }
 
     popdownModal();
-    renderHeader();
+    renderUsernameToggle();
+  });
+}
+
+function logout(event) {
+  event.preventDefault();
+  fetch('/logout').then(function () {
+    renderUsernameToggle();
+    fetch('#').then(function (partial) {
+      partial.text().then(function (text) {
+        console.log(text);
+
+        if (text === 'false') {
+          popupModal();
+          forceLogin = true;
+        }
+      });
+    });
   });
 }
 

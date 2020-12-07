@@ -73,7 +73,7 @@ handlebarsRouter.get('/book-ticket', (req, res) => {
   });
 });
 
-handlebarsRouter.get('/book-ticket/:id', (req, res) => {
+handlebarsRouter.get('/book-ticket/:id', ensureAuthenticated, (req, res) => {
   res.render('book-ticket', {
     style: 'book-ticket',
   });

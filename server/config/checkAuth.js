@@ -4,7 +4,8 @@ function ensureAuthenticated(req, res, next) {
     return next();
   }
   req.flash('error_msg', 'Vui lòng đăng nhập trước!');
-  res.redirect('/login');
+  // res.redirect('/login');
+  res.send('false');
 }
 function forwardAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
