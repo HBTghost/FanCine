@@ -296,11 +296,15 @@ function resetPassword(req, res) {
 // ------------ Login Handle ------------//
 function loginHandle(req, res, next) {
   passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
+    if (err) {
+      return res.json(info);
+    }
+    if (!user) { return res.json(info); }
     req.logIn(user, (err1) => {
-      if (err1) { return next(err1); }
-      return res.redirect('/');
+      if (err1) {
+        return res.json(info);
+      }
+      return res.json({});
     });
   })(req, res, next);
 }

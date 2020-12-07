@@ -10,7 +10,9 @@ function popdownModal() {
   modal.style.display = 'none';
   fetch('/isLogin').then(function (res) {
     res.text().then(function (val) {
-      if (forceLogin && val === 'false') {
+      if (forceLogin && val === 'true') {
+        window.location.reload();
+      } else if (forceLogin) {
         window.location = '/';
       }
     });
@@ -50,14 +52,20 @@ function login(event) {
       'email': document.querySelector('#emailLogin').value,
       'password': document.querySelector('#passwordLogin').value
     })
-  }).then(function () {
-    if (redirectURL.length > 0) {
-      window.location = redirectURL;
-      redirectURL = '';
-    }
+  }).then(function (res) {
+    res.json().then(function (data) {
+      if (data.message) {
+        alert(data.message);
+      } else {
+        if (redirectURL.length > 0) {
+          window.location = redirectURL;
+          redirectURL = '';
+        }
 
-    popdownModal();
-    renderUsernameToggle();
+        popdownModal();
+        renderUsernameToggle();
+      }
+    });
   });
 }
 
@@ -67,9 +75,7 @@ function logout(event) {
     renderUsernameToggle();
     fetch('#').then(function (partial) {
       partial.text().then(function (text) {
-        console.log(text);
-
-        if (text === 'false') {
+        if (text === 'notAuth') {
           popupModal();
           forceLogin = true;
         }
