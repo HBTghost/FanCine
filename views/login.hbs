@@ -1,31 +1,30 @@
+<div class="container my-3" id="forceLogin">
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
         <div class="card card-body text-center">
-            <h1 class="mb-3">
-                <img src="/images/design/secure-icon.png" alt="icon" width="20%" />
-            </h1>
             <h2>
-                Login
+                Đăng nhập
             </h2>
             {{> message }}
             <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email" />
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Mật khẩu</label>
                     <input type="password" id="password" name="password" class="form-control"
-                        placeholder="Enter Password" />
+                        placeholder="Nhập mật khẩu" />
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
             </form>
             <p class="mt-4">
-                New User? <a href="/register">Register</a>
+                Thành viên mới? <a href="#" onclick="popupModal()">Đăng ký</a>
             </p>
             <p>
-                Forgot Password? <a href="/forgot">Reset</a>
+                Quên mật khẩu? <a href="/forgot">Cài lại mật khẩu mới</a>
             </p>
         </div>
     </div>
+</div>
 </div>

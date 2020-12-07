@@ -1,23 +1,21 @@
+<div class="conainter my-3">
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
         <div class="card card-body text-center">
-            <h1 class="mb-3">
-                <img src="/images/design/secure-icon.png" alt="icon" width="20%" />
-            </h1>
             <h2>
-                Forgot Password
+                Quên mật khẩu
             </h2>
             {{> message }}
             <form action="/forgot" method="POST">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email bạn đã dùng để đăng ký" required/>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Send me a password reset link</button>
+                <button type="submit" class="btn btn-primary btn-block">Gửi link cài lại mật khẩu mới vào email cho tôi</button>
             </form>
             <p class="mt-4">
-                Remember your password? <a href="/login">Login</a>
+                Đã nhớ mật khẩu? <a href="#" onclick="popupModal()">Đăng nhập</a>
             </p>
         </div>
     </div>
+</div>
 </div>

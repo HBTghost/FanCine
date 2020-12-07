@@ -281,7 +281,9 @@ function RedirectURL(_idTypeShow, time) {
   const _idTheaterMovie = document.querySelector('#_idTheaterMovie').innerHTML;
   const _idDateShow = document.getElementById(_idTypeShow).parentElement
     .firstElementChild.innerHTML;
-  window.location = `book-ticket/${_idTheaterMovie}/${_idDateShow}/${_idTypeShow}/${time}`;
+  const url = `book-ticket/${_idTheaterMovie}/${_idDateShow}/${_idTypeShow}/${time}`;
+
+  forceLoginAndRedirect(url);
 }
 
 main();

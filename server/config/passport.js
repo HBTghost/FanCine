@@ -12,7 +12,7 @@ export default function (passport) {
         email,
       }).then((user) => {
         if (!user) {
-          return done(null, false, { message: 'This email ID is not registered' });
+          return done(null, false, { message: 'Địa chỉ email này chưa được đăng ký' });
         }
 
         // ------------ Password Matching ------------//
@@ -21,7 +21,7 @@ export default function (passport) {
           if (isMatch) {
             return done(null, user);
           }
-          return done(null, false, { message: 'Password incorrect! Please try again.' });
+          return done(null, false, { message: 'Mật khẩu không đúng. Vui lòng thử lại.' });
         });
       });
     }),
