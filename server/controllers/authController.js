@@ -52,8 +52,7 @@ function registerHandle(req, res) {
         });
       } else {
         const token = jwt.sign({ name, email, password }, config.secret, { expiresIn: '30m' });
-        const protocol = process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
-        const CLIENT_URL = protocol + req.headers.host;
+        const CLIENT_URL = req.headers.origin;
 
         const output = `
                 <h2>Vui lòng nhấn vào link bên dưới để kích hoạt tài khoản.</h2>
@@ -167,8 +166,7 @@ function forgotPassword(req, res) {
         });
       } else {
         const token = jwt.sign({ _id: user._id }, config.secret, { expiresIn: '30m' });
-        const protocol = process.env.NODE_ENV === 'development' ? 'http://' : 'https://';
-        const CLIENT_URL = protocol + req.headers.host;
+        const CLIENT_URL = req.headers.origin;
 
         const output = `
                 <h2>Vui lòng nhấn vào link bên dưới để cài lại mật khẩu mới cho tài khoản của bạn</h2>
@@ -298,11 +296,14 @@ function resetPassword(req, res) {
 
 // ------------ Login Handle ------------//
 function loginHandle(req, res, next) {
-  console.log(req.headers);
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true,
+  console.log(req.body);
+  passport.authenticate('local', (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/login'); }
+    req.logIn(user, (err1) => {
+      if (err1) { return next(err1); }
+      return res.redirect('/');
+    });
   })(req, res, next);
 }
 
