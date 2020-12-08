@@ -211,7 +211,9 @@ function loadTheatersByMovieID(movieID) {
     partial.text().then((html) => {
       theatersData = parser.parseFromString(html, 'text/html');
 
-      theatersList.innerHTML = theatersData.getElementById('showtimes-theaters-by-movie-id').innerHTML;
+      theatersList.innerHTML = theatersData.getElementById(
+        'showtimes-theaters-by-movie-id',
+      ).innerHTML;
 
       showtimesList.innerHTML = '';
       showtimesList.appendChild(showtimesListNotiTheater);
@@ -279,8 +281,8 @@ function main() {
 
 function RedirectURL(_idTypeShow, time) {
   const _idTheaterMovie = document.querySelector('#_idTheaterMovie').innerHTML;
-  const _idDateShow = document.getElementById(_idTypeShow).parentElement
-    .firstElementChild.innerHTML;
+  const _idDateShow = document.getElementById(_idTypeShow).parentElement.firstElementChild
+    .innerHTML;
   const url = `book-ticket/${_idTheaterMovie}/${_idDateShow}/${_idTypeShow}/${time}`;
 
   forceLoginAndRedirect(url);

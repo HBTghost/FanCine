@@ -9,9 +9,7 @@ import User from '../models/User.js';
 
 // ------------ Register Handle ------------//
 function registerHandle(req, res) {
-  const {
-    name, email, password, password2,
-  } = req.body;
+  const { name, email, password, password2 } = req.body;
   const errors = [];
 
   // ------------ Checking required fields ------------//
@@ -74,10 +72,7 @@ function registerHandle(req, res) {
             'Link kích hoạt tài khoản đã được gởi đến email của bạn. Vui lòng kiểm tra hòm thư và kích hoạt tài khoản để đăng nhập. (Chú ý: Link kích hoạt sẽ hết hạn trong 30 phút)',
           );
         } catch (error) {
-          req.flash(
-            'error_msg',
-            'Một số lỗi không mong muốn đã xảy ra. Vui lòng đăng ký lại.',
-          );
+          req.flash('error_msg', 'Một số lỗi không mong muốn đã xảy ra. Vui lòng đăng ký lại.');
         }
         res.redirect('/login');
       }
@@ -102,10 +97,7 @@ function activateHandle(req, res) {
         User.findOne({ email }).then((user) => {
           if (user) {
             // ------------ User already exists ------------//
-            req.flash(
-              'error_msg',
-              'Địa chỉ email đã tồn đại. Vui lòng đăng nhập.',
-            );
+            req.flash('error_msg', 'Địa chỉ email đã tồn đại. Vui lòng đăng nhập.');
             res.redirect('/login');
           } else {
             const newUser = new User({
@@ -224,10 +216,7 @@ function gotoReset(req, res) {
         const { _id } = decodedToken;
         User.findById(_id, (err1, user) => {
           if (err1) {
-            req.flash(
-              'error_msg',
-              'Không tìm thấy tài khoản ứng với email này. Vui lòng thử lại',
-            );
+            req.flash('error_msg', 'Không tìm thấy tài khoản ứng với email này. Vui lòng thử lại');
             res.redirect('/login');
           } else {
             res.redirect(`/reset/${_id}`);
@@ -246,22 +235,13 @@ function resetPassword(req, res) {
 
   // ------------ Checking required fields ------------//
   if (!password || !password2) {
-    req.flash(
-      'error_msg',
-      'Vui lòng điền đầy đủ tất cả các trường.',
-    );
+    req.flash('error_msg', 'Vui lòng điền đầy đủ tất cả các trường.');
     res.redirect(`/reset/${id}`);
   } else if (password.length < 8) {
-    req.flash(
-      'error_msg',
-      'Mật khẩu phải có ít nhất 8 kí tự.',
-    );
+    req.flash('error_msg', 'Mật khẩu phải có ít nhất 8 kí tự.');
     res.redirect(`/reset/${id}`);
   } else if (password !== password2) {
-    req.flash(
-      'error_msg',
-      'Mật khẩu không trùng khớp.',
-    );
+    req.flash('error_msg', 'Mật khẩu không trùng khớp.');
     res.redirect(`/reset/${id}`);
   } else {
     bcryptjs.genSalt(10, (err, salt) => {
@@ -269,25 +249,18 @@ function resetPassword(req, res) {
         if (err1) throw err1;
         password = hash;
 
-        User.findByIdAndUpdate(
-          { _id: id },
-          { password },
-          (err2, result) => {
-            if (err2) {
-              req.flash(
-                'error_msg',
-                'Lỗi khi cài đặt lại mật khẩu!',
-              );
-              res.redirect(`/reset/${id}`);
-            } else {
-              req.flash(
-                'success_msg',
-                'Cài đặt lại mật khẩu thành công! Vui lòng đăng nhập với mật khẩu mới',
-              );
-              res.redirect('/login');
-            }
-          },
-        );
+        User.findByIdAndUpdate({ _id: id }, { password }, (err2, result) => {
+          if (err2) {
+            req.flash('error_msg', 'Lỗi khi cài đặt lại mật khẩu!');
+            res.redirect(`/reset/${id}`);
+          } else {
+            req.flash(
+              'success_msg',
+              'Cài đặt lại mật khẩu thành công! Vui lòng đăng nhập với mật khẩu mới',
+            );
+            res.redirect('/login');
+          }
+        });
       });
     });
   }
@@ -299,7 +272,9 @@ function loginHandle(req, res, next) {
     if (err) {
       return res.json(info);
     }
-    if (!user) { return res.json(info); }
+    if (!user) {
+      return res.json(info);
+    }
     req.logIn(user, (err1) => {
       if (err1) {
         return res.json(info);

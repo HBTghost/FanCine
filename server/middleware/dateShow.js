@@ -37,8 +37,4 @@ async function getAllDateShows(req, res, next) {
   return next();
 }
 
-export {
-  getDateShow,
-  getDateShowsFromTheaterMovieID,
-  getAllDateShows,
-};
+export { getDateShow, getDateShowsFromTheaterMovieID, getAllDateShows };

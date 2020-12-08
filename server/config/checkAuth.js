@@ -14,7 +14,4 @@ function forwardAuthenticated(req, res, next) {
   res.redirect('/');
 }
 
-export {
-  ensureAuthenticated,
-  forwardAuthenticated,
-};
+export { ensureAuthenticated, forwardAuthenticated };

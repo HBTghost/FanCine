@@ -8,10 +8,27 @@
   "type": "module",
   "scripts": {
     "dev": "gulp serve",
-    "start": "node --experimental-modules  --experimental-json-modules server.js",
-    "lint:sass": "gulp lint-sass",
-    "lint:sass-fix": "sass-lint-auto-fix -c .sass-lint-auto-fix.yml",
-    "lint:js": "gulp lint-js"
+    "start": "node --experimental-modules  --experimental-json-modules server.js"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix server public/njs",
+      "eslint server public/njs",
+      "prettier --write server public/njs"
+    ],
+    "*.scss": [
+      "sass-lint-auto-fix -c .sass-lint-auto-fix.yml",
+      "sass-lint -c .sass-lint.yml -v -q"
+    ],
+    "*": [
+      "git add ."
+    ]
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -41,6 +58,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "autoprefixer": "^10.0.2",
     "babel-eslint": "^10.1.0",
     "browser-sync": "^2.26.13",
@@ -59,6 +78,8 @@
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sass-lint": "^1.4.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
     "postcss": "^8.1.10",
     "prettier": "^2.2.0",
     "sass-lint-auto-fix": "^0.21.2"
