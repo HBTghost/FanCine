@@ -8,7 +8,12 @@
   "type": "module",
   "scripts": {
     "dev": "gulp serve",
-    "start": "node --experimental-modules  --experimental-json-modules server.js"
+    "start": "node --experimental-modules  --experimental-json-modules server.js",
+    "lint:sass-fix": "sass-lint-auto-fix -c .sass-lint-auto-fix.yml",
+    "lint:sass": "sass-lint -c .sass-lint.yml -v -q",
+    "lint:js-fix": "eslint --fix server public/njs",
+    "lint:js": "eslint server public/njs",
+    "prettier": "prettier --write server public/njs"
   },
   "husky": {
     "hooks": {
@@ -18,13 +23,13 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix server public/njs",
-      "eslint server public/njs",
-      "prettier --write server public/njs"
+      "yarn lint:js-fix",
+      "yarn lint:js",
+      "yarn prettier"
     ],
     "*.scss": [
-      "sass-lint-auto-fix -c .sass-lint-auto-fix.yml",
-      "sass-lint -c .sass-lint.yml -v -q"
+      "yarn lint:sass-fix",
+      "yarn lint:sass"
     ],
     "*": [
       "git add ."
@@ -60,6 +65,7 @@
     "@babel/preset-env": "^7.12.1",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/travis-cli": "^11.0.0",
     "autoprefixer": "^10.0.2",
     "babel-eslint": "^10.1.0",
     "browser-sync": "^2.26.13",

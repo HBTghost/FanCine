@@ -7,9 +7,12 @@ node_js:
 install:
   - rm -rf node_modules && yarn install --frozen-lockfile
 script:
+  - yarn lint:js-fix
+  - yarn lint:js
+  - yarn prettier
   - yarn lint:sass-fix
   - yarn lint:sass
-  - yarn lint:js
+  - yarn commitlint-travis
 deploy:
   strategy: git
   provider: pages
