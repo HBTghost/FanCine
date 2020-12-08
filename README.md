@@ -32,13 +32,16 @@
 
   * Live server, hot reload browser
   * Minimize CSS, JS supported.
-  * Linter for JS, SCSS
-  * Babel compile for new ES
   * Autoprefixer CSS
-  * CI/CD with Travis
-  * Focus on high performance
+  * Prettier for JS.
+  * Linter for JS, SCSS and Commit.
+  * Lint-staged for optimize linter process.
+  * Husky for pre-commit check (run all linter in lint-staged).
+  * Babel compile for new ES
+  * CI with Travis
   * Responsive design.
-  * Security.
+  * Security sign in / sign out with Passport / Session / JWT / Bcrypt
+  * Auto send mail for register / reset passport process (with Nodemailer / Google SMTP / JWT)
 
 ## Docs & Community
 

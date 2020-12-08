@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
-import {
-  Movie, Theater, TheaterMovie, DateShow, TypeShow,
-} from '../models/index.js';
+import { Movie, Theater, TheaterMovie, DateShow, TypeShow } from '../models/index.js';
 import toDateString from '../helpers/date.js';
 import { randomIntMinMax } from '../helpers/tools.js';
 
@@ -89,16 +87,29 @@ async function postSampleTheaterMovie(req, res, next) {
         const aDay = 24 * 60 * 60 * 1000;
         const numberOfDates = randomIntMinMax(0, 10);
         for (let k = 0; k < numberOfDates; ++k) {
-          dates.add(toDateString(
-            new Date(new Date().getTime() + aDay * (k + 30)),
-          ));
+          dates.add(toDateString(new Date(new Date().getTime() + aDay * (k + 30))));
         }
 
         for await (const date of [...dates]) {
           const dateShow = new DateShow();
           dateShow.value = date;
 
-          const times = ['10:00', '11:20', '12:10', '13:40', '14:00', '14:50', '15:30', '16:20', '17:00', '17:40', '18:30', '19:40', '20:30', '21:00'];
+          const times = [
+            '10:00',
+            '11:20',
+            '12:10',
+            '13:40',
+            '14:00',
+            '14:50',
+            '15:30',
+            '16:20',
+            '17:00',
+            '17:40',
+            '18:30',
+            '19:40',
+            '20:30',
+            '21:00',
+          ];
           const types = ['2D - Phụ đề', '2D - Lồng tiếng', '3D - Phụ đề', '3D - Lồng tiếng'];
           const timeShows = [[], [], [], []];
 

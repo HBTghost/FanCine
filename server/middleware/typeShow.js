@@ -21,7 +21,4 @@ async function getAllTypeShows(req, res, next) {
   return next();
 }
 
-export {
-  getTypeShow,
-  getAllTypeShows,
-};
+export { getTypeShow, getAllTypeShows };

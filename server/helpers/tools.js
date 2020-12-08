@@ -6,7 +6,4 @@ function randomIntMax(max) {
   return randomIntMinMax(0, max);
 }
 
-export {
-  randomIntMinMax,
-  randomIntMax,
-};
+export { randomIntMinMax, randomIntMax };

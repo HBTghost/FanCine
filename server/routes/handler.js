@@ -58,7 +58,8 @@ handlebarsRouter.get('/book-ticket', ensureAuthenticated, (req, res) => {
   });
 });
 handlebarsRouter.get(
-  '/book-ticket/:_idTheaterMovie/:_idDateShow/:_idTypeShow/:time/', ensureAuthenticated,
+  '/book-ticket/:_idTheaterMovie/:_idDateShow/:_idTypeShow/:time/',
+  ensureAuthenticated,
   getShowTimeByOtherKey,
   (req, res) => {
     // res.render('book-ticket', {
@@ -102,13 +103,18 @@ handlebarsRouter.get('/showtimes/allMovies', getAllMovies, (req, res) => {
   });
 });
 
-handlebarsRouter.get('/showtimes/allMovies/:id', getTheaterMoviesByTheaterID, getMoviesByTheaterID, (req, res) => {
-  res.status(200);
-  res.header('Content-Type', 'text/html');
-  res.render('partials/renderStructure/showtimes/movies', {
-    movies: res.movies,
-  });
-});
+handlebarsRouter.get(
+  '/showtimes/allMovies/:id',
+  getTheaterMoviesByTheaterID,
+  getMoviesByTheaterID,
+  (req, res) => {
+    res.status(200);
+    res.header('Content-Type', 'text/html');
+    res.render('partials/renderStructure/showtimes/movies', {
+      movies: res.movies,
+    });
+  },
+);
 
 handlebarsRouter.get('/showtimes/allTheaters', getAllTheaters, (req, res) => {
   res.status(200);
@@ -118,13 +124,18 @@ handlebarsRouter.get('/showtimes/allTheaters', getAllTheaters, (req, res) => {
   });
 });
 
-handlebarsRouter.get('/showtimes/allTheaters/:id', getTheaterMoviesByMovieID, getTheatersByMovieID, (req, res) => {
-  res.status(200);
-  res.header('Content-Type', 'text/html');
-  res.render('partials/renderStructure/showtimes/theaters', {
-    theaters: res.theaters,
-  });
-});
+handlebarsRouter.get(
+  '/showtimes/allTheaters/:id',
+  getTheaterMoviesByMovieID,
+  getTheatersByMovieID,
+  (req, res) => {
+    res.status(200);
+    res.header('Content-Type', 'text/html');
+    res.render('partials/renderStructure/showtimes/theaters', {
+      theaters: res.theaters,
+    });
+  },
+);
 
 handlebarsRouter.get('/showtimes/sampleData', (req, res) => {
   res.status(200);
@@ -132,10 +143,14 @@ handlebarsRouter.get('/showtimes/sampleData', (req, res) => {
   res.render('partials/sampleData/selectShowtime');
 });
 
-handlebarsRouter.get('/feature/getShowtimesByTheaterMovie/:id', getDateShowsFromTheaterMovieID, (req, res) => {
-  res.status(200);
-  res.json(res.dateShows);
-});
+handlebarsRouter.get(
+  '/feature/getShowtimesByTheaterMovie/:id',
+  getDateShowsFromTheaterMovieID,
+  (req, res) => {
+    res.status(200);
+    res.json(res.dateShows);
+  },
+);
 
 handlebarsRouter.get('/showtimes/allShowTimes/:id', getTheaterMovieRecursively, (req, res) => {
   res.status(200);
