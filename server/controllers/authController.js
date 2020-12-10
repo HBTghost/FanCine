@@ -5,16 +5,16 @@ import sendEmail from '../helpers/sendEmail.js';
 import config from '../config.json';
 
 // ------------ User Model ------------//
-import User from '../models/User.js';
+import User from '../models/user.js';
 
 // ------------ Register Handle ------------//
 function registerHandle(req, res) {
-  const { name, email, password, password2 } = req.body;
+  const { name, email, password, password2, phone, DoB, sex, address, city, town } = req.body;
   const errors = [];
 
   // ------------ Checking required fields ------------//
-  if (!name || !email || !password || !password2) {
-    errors.push({ msg: 'Vui lòng điền tất cả các trường.' });
+  if (!name || !email || !password || !password2 || !phone) {
+    errors.push({ msg: 'Vui lòng điền tất cả các trường bắt buộc.' });
   }
 
   // ------------ Checking password mismatch ------------//
@@ -34,6 +34,7 @@ function registerHandle(req, res) {
       email,
       password,
       password2,
+      phone,
     });
   } else {
     // ------------ Validation passed ------------//
@@ -47,9 +48,14 @@ function registerHandle(req, res) {
           email,
           password,
           password2,
+          phone,
         });
       } else {
-        const token = jwt.sign({ name, email, password }, config.secret, { expiresIn: '30m' });
+        const token = jwt.sign(
+          { name, email, password, phone, DoB, sex, address, city, town },
+          config.secret,
+          { expiresIn: '30m' },
+        );
         const CLIENT_URL = req.headers.origin;
 
         const output = `
@@ -93,7 +99,7 @@ function activateHandle(req, res) {
         );
         res.redirect('/register');
       } else {
-        const { name, email, password } = decodedToken;
+        const { name, email, password, phone, DoB, sex, address, city, town } = decodedToken;
         User.findOne({ email }).then((user) => {
           if (user) {
             // ------------ User already exists ------------//
@@ -104,6 +110,12 @@ function activateHandle(req, res) {
               name,
               email,
               password,
+              phone,
+              DoB,
+              sex,
+              address,
+              city,
+              town,
             });
 
             bcryptjs.genSalt(10, (err1, salt) => {
