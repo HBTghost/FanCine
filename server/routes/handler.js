@@ -175,13 +175,13 @@ handlebarsRouter.all('/member', ensureAuthenticated, (req, res) => {
   res.render('member', {
     style: 'member',
     userInfo: {
-      fullName: 'Đinh Trần Văn Anh',
-      phoneNumber: '0123456789',
-      birthdate: '2000-01-25',
-      address: '235 Nguyễn Văn Cừ',
-      star: 10,
-      expense: 1255000,
-      email: 'dinhtranvana2000@gmail.com',
+      fullName: req.user.name,
+      phoneNumber: req.user.phone,
+      birthdate: req.user.DoB,
+      address: req.user.address,
+      star: req.user.point,
+      expense: req.user.spending,
+      email: req.user.email,
       curYear: '2020',
     },
   });

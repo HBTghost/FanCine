@@ -7,7 +7,6 @@ var redirectURL = '';
 var forceLogin = false; // Disable sign in modal
 
 function popdownModal() {
-  modal.style.display = 'none';
   fetch('/isLogin').then(function (res) {
     res.text().then(function (val) {
       if (forceLogin && val === 'true') {
@@ -17,6 +16,7 @@ function popdownModal() {
       }
     });
   });
+  modal.style.display = 'none';
 }
 
 function popupModal() {
@@ -62,8 +62,8 @@ function login(event) {
           redirectURL = '';
         }
 
-        popdownModal();
         renderUsernameToggle();
+        popdownModal();
       }
     });
   });
