@@ -10,8 +10,11 @@ $bg-available-tickets-row: #28a745;
   font-family: Arial, Helvetica, sans-serif;
 
   #book-ticket-available-tickets {
+    display: inline;
+    float: right;
     margin-bottom: 10px;
     font-size: 14px;
+    text-transform: none;
 
     p {
       display: inline;
@@ -312,6 +315,11 @@ $bg-available-tickets-row: #28a745;
 @media only screen and (max-width: 500px) {
   #book-ticket-container {
     #book-ticket-main {
+      #book-ticket-available-tickets {
+        display: block;
+        float: none;
+      }
+      
       #book-ticket-ticketfood-box {
         .book-ticket-box-section {
           .book-ticket-row {

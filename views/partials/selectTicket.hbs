@@ -1,13 +1,14 @@
 <section>
   <div id="book-ticket-container">
     {{#with showtime}}
-    <div id="book-ticket-available-tickets">
-      <p>Số lượng vé còn lại:&ensp;<span id="book-ticket-available-tickets-num">{{availableTicketsNum}}</span></p>
-    </div>
-
     <div id="book-ticket-main">
       <div id="book-ticket-ticketfood-box" class="book-ticket-select-box">
-        <div class="book-ticket-box-header">CHỌN VÉ / COMBO</div>
+        <div class="book-ticket-box-header">
+          <span>CHỌN VÉ / COMBO</span>
+          <div id="book-ticket-available-tickets">
+            <p>Số lượng vé còn lại:&ensp;<span id="book-ticket-available-tickets-num">{{availableTicketsNum}}</span></p>
+          </div>
+        </div>
 
         <div class="book-ticket-box-section">
           <div id="book-ticket-ticket-box">
@@ -33,14 +34,14 @@
                   <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">{{formatPrice totalPrice}}</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
               {{/each}}
               <div class="book-ticket-row book-ticket-total-row">
                 <div class="book-ticket-type-cell book-ticket-cell">Tổng</div>
                 <div class="book-ticket-quantity-cell book-ticket-cell"></div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell"></div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
             </div>
           </div>
@@ -73,7 +74,7 @@
                   <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">{{formatPrice totalPrice}}</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
               {{/each}}
 
@@ -81,7 +82,7 @@
                 <div class="book-ticket-type-cell book-ticket-cell">Tổng</div>
                 <div class="book-ticket-quantity-cell book-ticket-cell"></div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell"></div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
             </div>
           </div>
@@ -116,7 +117,7 @@
         <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b></div>
         <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b></div>
         <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b></div>
-        <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span>0 VNĐ</span></div>
+        <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span></span></div>
         <button class="book-ticket-continue-btn">TIẾP TỤC</button>
       </div>
       {{/with}}
