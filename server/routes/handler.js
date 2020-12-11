@@ -1,9 +1,5 @@
 import express from 'express';
-
 import { ensureAuthenticated, ensureAuthenticatedOrRedirect } from '../config/checkAuth.js';
-import { getMovie, getAllMovies, getMoviesByTheaterID } from '../middleware/movie.js';
-import { getAllTheaters, getTheatersByMovieID } from '../middleware/theater.js';
-
 import {
   getMovie,
   getMovieFromTheaterMovie,
