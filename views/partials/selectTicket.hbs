@@ -23,14 +23,14 @@
 
             <div class="book-ticket-list">
               {{#each tickets}}
-              <div class="book-ticket-row">
+              <div class="book-ticket-row book-ticket-data-row">
                 <div class="book-ticket-type-cell book-ticket-cell">
                   <div class="book-ticket-name">{{name}}</div>
                   <div class="book-ticket-description">{{description}}</div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
                   <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
+                  <div class="book-ticket-quantity"></div>
                   <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
@@ -58,7 +58,7 @@
 
             <div class="book-ticket-list">
               {{#each combos}}
-              <div class="book-ticket-row">
+              <div class="book-ticket-row book-ticket-data-row">
                 <div class="book-ticket-type-cell book-ticket-cell">
                   <div class="book-ticket-img">
                     <img src="{{image}}" alt="Combo">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
                   <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
+                  <div class="book-ticket-quantity"></div>
                   <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
