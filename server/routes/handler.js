@@ -137,13 +137,22 @@ handlebarsRouter.get(
       },
     ];
 
+    let availableTicketsNum = 0;
+    for (let i = 0; i < res.showTime.state.length; ++i) {
+      for (let j = 0; j < res.showTime.state[0].length; ++j) {
+        if (!res.showTime.state[i][j]) {
+          availableTicketsNum += 1;
+        }
+      }
+    }
+
     res.render('book-ticket', {
       style: 'book-ticket',
-      info: {
-        type: res.typeShow.value,
+      showtime: {
+        availableTicketsNum,
         tickets,
         combos,
-        movie: {
+        info: {
           image: res.movie.imageSource,
           oriName: res.movie.originalName,
           vieName: res.movie.vietnameseName,
@@ -155,6 +164,7 @@ handlebarsRouter.get(
             value: res.movie.label,
             description: labelDescriptions[res.movie.label],
           },
+          type: res.typeShow.value,
         },
       },
     });

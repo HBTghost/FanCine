@@ -1,12 +1,29 @@
 @import '../base/variable';
 
-$label-description: #f03;
+$txt-label-description: #f03;
+$bg-available-tickets-row: #28a745;
 
 #book-ticket-container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
+
+  #book-ticket-available-tickets {
+    margin-bottom: 10px;
+    font-size: 14px;
+
+    p {
+      display: inline;
+      padding: 10px;
+      background-color: $bg-available-tickets-row;
+      color: $color-white;
+
+      #book-ticket-available-tickets-num {
+        font-size: 20px;
+      }
+    }
+  }
 
   #book-ticket-main {
     display: grid;
@@ -196,7 +213,7 @@ $label-description: #f03;
         .book-ticket-movie-label-description {
           font-size: small;
           font-style: italic;
-          color: $label-description;
+          color: $txt-label-description;
         }
       }
 
@@ -298,7 +315,7 @@ $label-description: #f03;
       #book-ticket-ticketfood-box {
         .book-ticket-box-section {
           .book-ticket-row {
-            grid-template-columns: auto 60px 70px;
+            grid-template-columns: auto 80px 70px;
           }
         }
 

@@ -1,6 +1,10 @@
 <section>
   <div id="book-ticket-container">
-    {{#with info}}
+    {{#with showtime}}
+    <div id="book-ticket-available-tickets">
+      <p>Số lượng vé còn lại:&ensp;<span id="book-ticket-available-tickets-num">{{availableTicketsNum}}</span></p>
+    </div>
+
     <div id="book-ticket-main">
       <div id="book-ticket-ticketfood-box" class="book-ticket-select-box">
         <div class="book-ticket-box-header">CHỌN VÉ / COMBO</div>
@@ -95,7 +99,7 @@
       </div>
 
       <div id="book-ticket-info-box">
-        {{#with movie}}
+        {{#with info}}
         <img class="book-ticket-movie-poster" src="{{image}}" alt="Movie Poster">
         <div class="book-ticket-movie-name ori-name">{{oriName}}</div>
         <div class="book-ticket-movie-name vie-name">{{vieName}}</div>
@@ -107,8 +111,8 @@
         {{/with}}
         <div class="book-ticket-showtime-info"><b>Rạp:&ensp;</b>{{theaterName}}&ensp;|&ensp;{{roomName}}</div>
         <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b>{{time}}&ensp;|&ensp;{{date}}</div>
+        <div class="book-ticket-showtime-info"><b>Hình thức:&ensp;</b>{{type}}</div>
         {{/with}}
-
         <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b></div>
         <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b></div>
         <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b></div>
