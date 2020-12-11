@@ -37,8 +37,17 @@ var totalPriceElement = document.querySelector('#book-ticket-info-box .book-tick
 var ticketDecBtnElements = document.querySelectorAll('#book-ticket-ticket-box .book-ticket-list .book-ticket-decrease-btn');
 var ticketIncBtnElements = document.querySelectorAll('#book-ticket-ticket-box .book-ticket-list .book-ticket-increase-btn');
 var comboDecBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-decrease-btn');
-var comboIncBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn'); // Info
+var comboIncBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn');
+var infoTicketElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-ticket');
+var infoComboElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-combo');
+var infoSeatElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-seat'); // Info
 
+var ticketNames = tickets.map(function (ticket) {
+  return ticket.name;
+});
+var comboNames = combos.map(function (combo) {
+  return combo.name;
+});
 var ticketUnitPrices = tickets.map(function (ticket) {
   return ticket.unitPrice;
 });
@@ -77,6 +86,30 @@ function init() {
   });
   comboTotalPriceElement.innerHTML = formatPriceVND(0);
   totalPriceElement.innerHTML = formatPriceVND(0);
+}
+
+function getTicketInfo() {
+  var str = '';
+
+  for (var i = 0; i < ticketRowNums.length; ++i) {
+    if (ticketRowNums[i] > 0) {
+      str += "".concat(ticketNames[i], " (").concat(ticketRowNums[i], "), ");
+    }
+  }
+
+  return str;
+}
+
+function getComboInfo() {
+  var str = '';
+
+  for (var i = 0; i < comboRowNums.length; ++i) {
+    if (comboRowNums[i] > 0) {
+      str += "".concat(comboNames[i], " (").concat(comboRowNums[i], "), ");
+    }
+  }
+
+  return str;
 } // Events
 
 
@@ -93,6 +126,7 @@ ticketIncBtnElements.forEach(function (e, i) {
       ticketTotalPriceElement.innerHTML = formatPriceVND(ticketTotalPrice);
       totalPriceElement.innerHTML = formatPriceVND(totalPrice);
       availableTicketsNumElement.innerHTML = availableTicketsNum;
+      infoTicketElement.innerHTML = getTicketInfo();
     }
   });
 });
@@ -106,6 +140,7 @@ comboIncBtnElements.forEach(function (e, i) {
     comboRowTotalPriceElements[i].innerHTML = formatPriceVND(comboRowTotalPrices[i]);
     comboTotalPriceElement.innerHTML = formatPriceVND(comboTotalPrice);
     totalPriceElement.innerHTML = formatPriceVND(totalPrice);
+    infoComboElement.innerHTML = getComboInfo();
   });
 });
 ticketDecBtnElements.forEach(function (e, i) {
@@ -121,6 +156,7 @@ ticketDecBtnElements.forEach(function (e, i) {
       ticketTotalPriceElement.innerHTML = formatPriceVND(ticketTotalPrice);
       totalPriceElement.innerHTML = formatPriceVND(totalPrice);
       availableTicketsNumElement.innerHTML = availableTicketsNum;
+      infoTicketElement.innerHTML = getTicketInfo();
     }
   });
 });
@@ -135,6 +171,7 @@ comboDecBtnElements.forEach(function (e, i) {
       comboRowTotalPriceElements[i].innerHTML = formatPriceVND(comboRowTotalPrices[i]);
       comboTotalPriceElement.innerHTML = formatPriceVND(comboTotalPrice);
       totalPriceElement.innerHTML = formatPriceVND(totalPrice);
+      infoComboElement.innerHTML = getComboInfo();
     }
   });
 });

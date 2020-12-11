@@ -73,7 +73,19 @@ const comboIncBtnElements = document.querySelectorAll(
   '#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn',
 );
 
+const infoTicketElement = document.querySelector(
+  '#book-ticket-info-box .book-ticket-showtime-info-ticket',
+);
+const infoComboElement = document.querySelector(
+  '#book-ticket-info-box .book-ticket-showtime-info-combo',
+);
+const infoSeatElement = document.querySelector(
+  '#book-ticket-info-box .book-ticket-showtime-info-seat',
+);
+
 // Info
+const ticketNames = tickets.map((ticket) => ticket.name);
+const comboNames = combos.map((combo) => combo.name);
 const ticketUnitPrices = tickets.map((ticket) => ticket.unitPrice);
 const comboUnitPrices = combos.map((combo) => combo.unitPrice);
 
@@ -113,6 +125,26 @@ function init() {
   totalPriceElement.innerHTML = formatPriceVND(0);
 }
 
+function getTicketInfo() {
+  let str = '';
+  for (let i = 0; i < ticketRowNums.length; ++i) {
+    if (ticketRowNums[i] > 0) {
+      str += `${ticketNames[i]} (${ticketRowNums[i]}), `;
+    }
+  }
+  return str;
+}
+
+function getComboInfo() {
+  let str = '';
+  for (let i = 0; i < comboRowNums.length; ++i) {
+    if (comboRowNums[i] > 0) {
+      str += `${comboNames[i]} (${comboRowNums[i]}), `;
+    }
+  }
+  return str;
+}
+
 // Events
 ticketIncBtnElements.forEach((e, i) => {
   e.addEventListener('click', () => {
@@ -128,6 +160,7 @@ ticketIncBtnElements.forEach((e, i) => {
       ticketTotalPriceElement.innerHTML = formatPriceVND(ticketTotalPrice);
       totalPriceElement.innerHTML = formatPriceVND(totalPrice);
       availableTicketsNumElement.innerHTML = availableTicketsNum;
+      infoTicketElement.innerHTML = getTicketInfo();
     }
   });
 });
@@ -143,6 +176,7 @@ comboIncBtnElements.forEach((e, i) => {
     comboRowTotalPriceElements[i].innerHTML = formatPriceVND(comboRowTotalPrices[i]);
     comboTotalPriceElement.innerHTML = formatPriceVND(comboTotalPrice);
     totalPriceElement.innerHTML = formatPriceVND(totalPrice);
+    infoComboElement.innerHTML = getComboInfo();
   });
 });
 
@@ -160,6 +194,7 @@ ticketDecBtnElements.forEach((e, i) => {
       ticketTotalPriceElement.innerHTML = formatPriceVND(ticketTotalPrice);
       totalPriceElement.innerHTML = formatPriceVND(totalPrice);
       availableTicketsNumElement.innerHTML = availableTicketsNum;
+      infoTicketElement.innerHTML = getTicketInfo();
     }
   });
 });
@@ -176,6 +211,7 @@ comboDecBtnElements.forEach((e, i) => {
       comboRowTotalPriceElements[i].innerHTML = formatPriceVND(comboRowTotalPrices[i]);
       comboTotalPriceElement.innerHTML = formatPriceVND(comboTotalPrice);
       totalPriceElement.innerHTML = formatPriceVND(totalPrice);
+      infoComboElement.innerHTML = getComboInfo();
     }
   });
 });
