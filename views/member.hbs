@@ -29,7 +29,9 @@
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-gender">Giới tính</label>
               <select class="mem-info-field" name="gender" id="mem-info-gender" required>
-                <option value="2">Khác</option>
+                <option value="Nam" {{#if (equal sex 'Nam')}}selected{{/if}}>Nam</option>
+                <option value="Nữ" {{#if (equal sex 'Nữ')}}selected{{/if}}>Nữ</option>
+                <option value="Khác" {{#if (equal sex 'Khác')}}selected{{/if}}>Khác</option>
               </select>
             </div>
           </div>

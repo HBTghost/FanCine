@@ -249,7 +249,8 @@ function loginHandle(req, res, next) {
 function logoutHandle(req, res) {
   req.logout();
   req.flash('success_msg', 'Đăng xuất thành công');
-  res.redirect('/');
+  const url = new URL(req.headers.referer);
+  res.json({ curTab: url.pathname });
 }
 
 export default {

@@ -33,9 +33,11 @@ gulp.task(
   'serve',
   gulp.series('nodemon', (done) => {
     browser.init({
+      injectChanges: false,
       port: 6969,
       files: './**/*',
       proxy: 'http://localhost:7070',
+      // server: 'dist',
       watchOptions: {
         ignored: 'node_modules/**',
         ignoreInitial: true,
@@ -64,11 +66,17 @@ gulp.task('lint-js-fix', () =>
     .pipe(eslint({ useEslintrc: true, fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-    .pipe(eslintIfFixed('./')),
+    .pipe(eslintIfFixed('./'))
+    .on('finish', browser.reload),
 );
 
 gulp.task('compileJS', () =>
-  gulp.src('public/njs/**/*.js').pipe(babel()).pipe(minify()).pipe(gulp.dest('public/js')),
+  gulp
+    .src('public/njs/**/*.js')
+    .pipe(babel())
+    .pipe(minify())
+    .pipe(gulp.dest('public/js'))
+    .pipe(browserSync.stream()),
 );
 
 gulp.task('lint-js', () =>
@@ -84,5 +92,6 @@ gulp.task('lint-sass', () =>
     .src('public/scss/**/*.scss')
     .pipe(sassLint({ configFile: '.sass-lint.yml' }))
     .pipe(sassLint.format())
-    .pipe(sassLint.failOnError()),
+    .pipe(sassLint.failOnError())
+    .on('finish', browser.reload),
 );

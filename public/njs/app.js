@@ -113,14 +113,16 @@ function register(event) {
 
 function logout(event) {
   event.preventDefault();
-  fetch('/logout').then(() => {
-    renderUsernameToggle();
-    fetch('#').then((partial) => {
-      partial.text().then((text) => {
-        if (text === 'notAuth') {
-          popupModal();
-          forceLogin = true;
-        }
+  fetch('/logout').then((res) => {
+    res.json().then((data) => {
+      renderUsernameToggle();
+      fetch(`${data.curTab}/checkAuth`).then((partial) => {
+        partial.text().then((text) => {
+          if (text === 'notAuth') {
+            popupModal();
+            forceLogin = true;
+          }
+        });
       });
     });
   });
