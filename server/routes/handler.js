@@ -1,15 +1,26 @@
 import express from 'express';
 
 import { ensureAuthenticated, forwardAuthenticated } from '../config/checkAuth.js';
-import { getMovie, getAllMovies, getMoviesByTheaterID } from '../middleware/movie.js';
-import { getAllTheaters, getTheatersByMovieID } from '../middleware/theater.js';
 import {
+  getMovie,
+  getMovieFromTheaterMovie,
+  getAllMovies,
+  getMoviesByTheaterID,
+} from '../middleware/movie.js';
+import {
+  getTheaterFromTheaterMovie,
+  getAllTheaters,
+  getTheatersByMovieID,
+} from '../middleware/theater.js';
+import {
+  getTheaterMovieFromShowtime,
   getTheaterMoviesByMovieID,
   getTheaterMoviesByTheaterID,
   getTheaterMovieRecursively,
 } from '../middleware/theaterMovie.js';
-import { getDateShowsFromTheaterMovieID } from '../middleware/dateShow.js';
-import { getShowTimeByOtherKey } from '../middleware/showTime.js';
+import { getDateShowsFromTheaterMovieID, getDateShowFromShowtime } from '../middleware/dateShow.js';
+import { getTypeShowFromShowtime } from '../middleware/typeShow.js';
+import { getShowTime, getShowTimeByOtherKey } from '../middleware/showTime.js';
 
 const handlebarsRouter = express.Router();
 
@@ -62,9 +73,6 @@ handlebarsRouter.get(
   ensureAuthenticated,
   getShowTimeByOtherKey,
   (req, res) => {
-    // res.render('book-ticket', {
-    //   style: 'book-ticket',
-    // });
     res.redirect(`/book-ticket/${res.showTime._id}`);
   },
 );
@@ -74,11 +82,84 @@ handlebarsRouter.get('/book-ticket', (req, res) => {
   });
 });
 
-handlebarsRouter.get('/book-ticket/:id', ensureAuthenticated, (req, res) => {
-  res.render('book-ticket', {
-    style: 'book-ticket',
-  });
-});
+// handlebarsRouter.get('/book-ticket/:id', ensureAuthenticated, (req, res) => {
+handlebarsRouter.get(
+  '/book-ticket/:id',
+  getShowTime,
+  getTheaterMovieFromShowtime,
+  getTheaterFromTheaterMovie,
+  getMovieFromTheaterMovie,
+  getDateShowFromShowtime,
+  getTypeShowFromShowtime,
+  (req, res) => {
+    const labelDescriptions = {
+      'P': 'Không giới hạn độ tuổi',
+      'C13': 'Phim chỉ dành cho khán giả từ 13 tuổi trở lên',
+      'C16': 'Phim chỉ dành cho khán giả từ 16 tuổi trở lên',
+      'C18': 'Phim chỉ dành cho khán giả từ 18 tuổi trở lên',
+    };
+
+    const tickets = [
+      {
+        name: 'Phổ thông',
+        description: 'Dành cho mọi đối tượng.',
+        unitPrice: 80000,
+        totalPrice: 0,
+      },
+      {
+        name: 'Học sinh/Sinh viên',
+        description: 'Chỉ dành cho học sinh và sinh viên.',
+        unitPrice: 75000,
+        totalPrice: 0,
+      },
+      {
+        name: 'VIP',
+        description: 'Chỉ dành cho thành viên VIP.',
+        unitPrice: 70000,
+        totalPrice: 0,
+      },
+    ];
+
+    const combos = [
+      {
+        image: 'https://www.galaxycine.vn/media/2020/5/19/combo-1_1589871759174.jpg',
+        name: 'Combo 1 Large',
+        description: '1 Bắp + 1 Nước ngọt 32 Oz',
+        unitPrice: 72000,
+        totalPrice: 0,
+      },
+      {
+        image: 'https://www.galaxycine.vn/media/2020/5/19/combo-2_1589871763789.jpg',
+        name: 'Combo 2 Small',
+        description: '1 Bắp + 2 Nước ngọt 22 Oz',
+        unitPrice: 81000,
+        totalPrice: 0,
+      },
+    ];
+
+    res.render('book-ticket', {
+      style: 'book-ticket',
+      info: {
+        type: res.typeShow.value,
+        tickets,
+        combos,
+        movie: {
+          image: res.movie.imageSource,
+          oriName: res.movie.originalName,
+          vieName: res.movie.vietnameseName,
+          theaterName: res.theater.name,
+          roomName: res.showTime.room,
+          time: res.showTime.time,
+          date: res.dateShow.value,
+          label: {
+            value: res.movie.label,
+            description: labelDescriptions[res.movie.label],
+          },
+        },
+      },
+    });
+  },
+);
 
 handlebarsRouter.get('/theaters', getAllTheaters, (req, res) => {
   res.render('theaters', {

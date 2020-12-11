@@ -11,6 +11,18 @@ async function getTypeShow(req, res, next) {
   return next();
 }
 
+async function getTypeShowFromShowtime(req, res, next) {
+  try {
+    res.typeShow = await TypeShow.findById(
+      mongoose.Types.ObjectId(res.showTime._idTypeShow),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getAllTypeShows(req, res, next) {
   try {
     res.allTypes = await TypeShow.find().lean();
@@ -21,4 +33,4 @@ async function getAllTypeShows(req, res, next) {
   return next();
 }
 
-export { getTypeShow, getAllTypeShows };
+export { getTypeShow, getTypeShowFromShowtime, getAllTypeShows };
