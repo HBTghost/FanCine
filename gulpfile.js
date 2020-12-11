@@ -79,13 +79,11 @@ gulp.task('compileJS', () =>
     .pipe(browserSync.stream()),
 );
 
-gulp.task('lint-js', () =>
-  gulp
-    .src(['**/*.js', '!node_modules/**', '!public/js/**/*.js'])
-    .pipe(eslint({ useEslintrc: true }))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError()),
-);
+gulp.task('lint-js', () => gulp
+  .src(['**/*.js', '!node_modules/**', '!public/js/**/*.js'])
+  .pipe(eslint({ useEslintrc: true }))
+  .pipe(eslint.format())
+  .pipe(eslint.failAfterError()));
 
 gulp.task('lint-sass', () =>
   gulp

@@ -13,6 +13,18 @@ async function getTheaterMovie(req, res, next) {
   return next();
 }
 
+async function getTheaterMovieFromShowtime(req, res, next) {
+  try {
+    res.theaterMovie = await TheaterMovie.findById(
+      mongoose.Types.ObjectId(res.showTime._idTheaterMovie),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getTheaterMovieRecursively(req, res, next) {
   try {
     const theaterMovie = await TheaterMovie.findById(mongoose.Types.ObjectId(req.params.id));
@@ -149,6 +161,7 @@ async function postSampleTheaterMovie(req, res, next) {
 
 export {
   getTheaterMovie,
+  getTheaterMovieFromShowtime,
   getTheaterMovieRecursively,
   getTheaterMoviesByMovieID,
   getTheaterMoviesByTheaterID,

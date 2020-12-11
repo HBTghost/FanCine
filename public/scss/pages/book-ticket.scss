@@ -1,10 +1,32 @@
 @import '../base/variable';
 
+$txt-label-description: #f03;
+$bg-available-tickets-row: #28a745;
+
 #book-ticket-container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
+
+  #book-ticket-available-tickets {
+    display: inline;
+    float: right;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-transform: none;
+
+    p {
+      display: inline;
+      padding: 10px;
+      background-color: $bg-available-tickets-row;
+      color: $color-white;
+
+      #book-ticket-available-tickets-num {
+        font-size: 20px;
+      }
+    }
+  }
 
   #book-ticket-main {
     display: grid;
@@ -14,12 +36,13 @@
     .book-ticket-select-box {
       background-color: $color-orange;
       padding: 10px;
+      height: fit-content;
 
       .book-ticket-box-header {
         color: $color-white;
         font-size: 24px;
         text-transform: uppercase;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
       }
     }
 
@@ -68,6 +91,7 @@
               margin-right: 5px;
               text-align: center;
               border: 1px solid $color-darkgray;
+              outline-color: $color-brown;
             }
 
             .book-ticket-quantity-btn {
@@ -103,7 +127,8 @@
       }
 
       #book-ticket-ticket-box {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+
         .book-ticket-list {
           .book-ticket-row {
             .book-ticket-type-cell {
@@ -123,6 +148,8 @@
       }
 
       #book-ticket-food-box {
+        margin-bottom: 10px;
+
         .book-ticket-row {
           .book-ticket-type-cell {
             display: grid;
@@ -175,6 +202,22 @@
       .vie-name {
         color: $color-darkgray;
         margin-bottom: 10px;
+      }
+
+      .book-ticket-movie-label {
+        .book-ticket-movie-label-value {
+          display: inline;
+          background-color: $color-orange;
+          color: $color-white;
+          text-align: center;
+          padding: 5px;
+        }
+
+        .book-ticket-movie-label-description {
+          font-size: small;
+          font-style: italic;
+          color: $txt-label-description;
+        }
       }
 
       .book-ticket-showtime-info {
@@ -272,10 +315,15 @@
 @media only screen and (max-width: 500px) {
   #book-ticket-container {
     #book-ticket-main {
+      #book-ticket-available-tickets {
+        display: block;
+        float: none;
+      }
+      
       #book-ticket-ticketfood-box {
         .book-ticket-box-section {
           .book-ticket-row {
-            grid-template-columns: auto 60px 70px;
+            grid-template-columns: auto 80px 70px;
           }
         }
 
