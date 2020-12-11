@@ -26,6 +26,7 @@ import {
 } from './server/routes/index.js';
 
 import authRouter from './server/routes/auth.js';
+import renderAuthRouter from './server/routes/renderAuth.js';
 
 configPassport(passport);
 
@@ -90,6 +91,7 @@ app.use((req, res, next) => {
 app.use('/', handlebarsRouter);
 
 app.use('/', authRouter);
+app.use('/render', renderAuthRouter);
 
 // API services
 app.use('/api/movies', movieRouter);

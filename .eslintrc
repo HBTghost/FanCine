@@ -27,6 +27,7 @@
     "prefer-const": 1,
     "no-undef": 1,
     "object-curly-newline": 0,
-    "operator-linebreak": 0
+    "operator-linebreak": 0,
+    "no-alert": 0
   }
 }

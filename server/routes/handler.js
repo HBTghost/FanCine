@@ -1,6 +1,9 @@
 import express from 'express';
 
-import { ensureAuthenticated, forwardAuthenticated } from '../config/checkAuth.js';
+import { ensureAuthenticated, ensureAuthenticatedOrRedirect } from '../config/checkAuth.js';
+import { getMovie, getAllMovies, getMoviesByTheaterID } from '../middleware/movie.js';
+import { getAllTheaters, getTheatersByMovieID } from '../middleware/theater.js';
+
 import {
   getMovie,
   getMovieFromTheaterMovie,
@@ -21,6 +24,8 @@ import {
 import { getDateShowsFromTheaterMovieID, getDateShowFromShowtime } from '../middleware/dateShow.js';
 import { getTypeShowFromShowtime } from '../middleware/typeShow.js';
 import { getShowTime, getShowTimeByOtherKey } from '../middleware/showTime.js';
+
+import { toBirthDate } from '../helpers/date.js';
 
 const handlebarsRouter = express.Router();
 
@@ -63,14 +68,14 @@ handlebarsRouter.get('/info', (req, res) => {
   });
 });
 
-handlebarsRouter.get('/book-ticket', ensureAuthenticated, (req, res) => {
+handlebarsRouter.get('/book-ticket', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('book-ticket', {
     style: 'book-ticket',
   });
 });
 handlebarsRouter.get(
   '/book-ticket/:_idTheaterMovie/:_idDateShow/:_idTypeShow/:time/',
-  ensureAuthenticated,
+  ensureAuthenticatedOrRedirect,
   getShowTimeByOtherKey,
   (req, res) => {
     res.redirect(`/book-ticket/${res.showTime._id}`);
@@ -82,10 +87,9 @@ handlebarsRouter.get('/book-ticket', (req, res) => {
   });
 });
 
-// handlebarsRouter.get('/book-ticket/:id', ensureAuthenticated, (req, res) => {
 handlebarsRouter.get(
   '/book-ticket/:id',
-  ensureAuthenticated,
+  ensureAuthenticatedOrRedirect,
   getShowTime,
   getTheaterMovieFromShowtime,
   getTheaterFromTheaterMovie,
@@ -259,13 +263,14 @@ handlebarsRouter.get('/isLogin', (req, res) => {
 });
 
 // Member
-handlebarsRouter.all('/member', ensureAuthenticated, (req, res) => {
+handlebarsRouter.all('/member', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('member', {
     style: 'member',
     userInfo: {
       fullName: req.user.name,
       phoneNumber: req.user.phone,
-      birthdate: req.user.DoB,
+      birthdate: toBirthDate(req.user.DoB),
+      sex: req.user.sex,
       address: req.user.address,
       star: req.user.point,
       expense: req.user.spending,
@@ -274,5 +279,7 @@ handlebarsRouter.all('/member', ensureAuthenticated, (req, res) => {
     },
   });
 });
+
+handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
 
 export default handlebarsRouter;
