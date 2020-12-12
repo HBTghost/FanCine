@@ -24,10 +24,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Commit Linter
-      uses: wagoid/commitlint-github-action@v2.0.3
-      with:
-        configFile: .commitlintrc
     - run: rm -rf node_modules && yarn install --frozen-lockfile
     - run: yarn lint:js-fix
     - run: yarn lint:js
