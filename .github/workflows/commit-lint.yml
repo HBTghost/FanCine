@@ -1,4 +1,4 @@
-name: Commit lint
+name: Commitsar
 
 on: [pull_request]
 
