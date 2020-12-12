@@ -10,7 +10,8 @@
   <p align="center">The streaming build system</p>
 </p>
 
-[![Build status][ci-image]][ci-url]
+![Lint Commit Messages](https://github.com/HBTghost/FanCine/workflows/Lint%20Commit%20Messages/badge.svg?branch=main)
+![Lint Source Files](https://github.com/HBTghost/FanCine/workflows/Lint%20Source%20Files/badge.svg?branch=main)
 [![semantic-release][semantic-image]][semantic-url]
 [![Node version](https://img.shields.io/badge/node-14.15.1-FF00FF.svg)](https://shields.io/)
 [![Yarn version](https://img.shields.io/badge/yarn-1.22.5-00FFFF.svg)](https://shields.io/)
@@ -21,8 +22,6 @@
 
 </div>
 
-[ci-image]: https://travis-ci.org/bahmutov/mocha-banner.svg?branch=master
-[ci-url]: https://travis-ci.org/bahmutov/mocha-banner
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
 [eslint-image]: https://badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb
