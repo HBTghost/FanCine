@@ -149,7 +149,7 @@ handlebarsRouter.get(
         tickets,
         combos,
         info: {
-          image: res.movie.imageSource,
+          image: res.movie.horizontalImageSource,
           oriName: res.movie.originalName,
           vieName: res.movie.vietnameseName,
           theaterName: res.theater.name,
