@@ -40,7 +40,19 @@ var comboDecBtnElements = document.querySelectorAll('#book-ticket-food-box .book
 var comboIncBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn');
 var infoTicketElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-ticket');
 var infoComboElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-combo');
-var infoSeatElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-seat'); // Info
+var infoSeatElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-seat');
+var ticketfoodBoxElement = document.querySelector('#book-ticket-ticketfood-box');
+var seatBoxElement = document.querySelector('#book-ticket-seat-box');
+var checkoutBoxElement = document.querySelector('#book-ticket-checkout-box');
+var infoBackBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-back-btn');
+var infoContinueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn'); // Global
+
+var myScreen = Object.freeze({
+  TICKETFOOD: 0,
+  SEAT: 1,
+  CHECKOUT: 2
+});
+var curScreen = myScreen.TICKETFOOD; // Info
 
 var ticketNames = tickets.map(function (ticket) {
   return ticket.name;
@@ -61,7 +73,8 @@ var comboRowNums = Array(combos.length).fill(0);
 var comboRowTotalPrices = Array(combos.length).fill(0);
 var comboTotalPrice = 0;
 var availableTicketsNum = availableTicketsNumElement.innerHTML;
-var totalPrice = 0; // Functions
+var totalPrice = 0;
+var mandatorySeatsNum = 0; // Functions
 
 function formatPriceVND(priceInt) {
   return priceInt.toLocaleString('it-IT', {
@@ -174,6 +187,49 @@ comboDecBtnElements.forEach(function (e, i) {
       infoComboElement.innerHTML = getComboInfo();
     }
   });
+});
+infoContinueBtnElement.addEventListener('click', function () {
+  switch (curScreen) {
+    case myScreen.TICKETFOOD:
+      if (ticketRowNums.reduce(function (a, b) {
+        return a + b;
+      }, 0) > 0) {
+        curScreen = myScreen.SEAT;
+        ticketfoodBoxElement.style.display = 'none';
+        seatBoxElement.style.display = 'block';
+        infoBackBtnElement.style.display = 'block';
+      } else {
+        // !!! Thông báo phải chọn số lượng vé
+        console.log('Phải chọn số lượng vé');
+      }
+
+      break;
+
+    case myScreen.SEAT:
+      if (mandatorySeatsNum === 0) {
+        curScreen = myScreen.CHECKOUT;
+        seatBoxElement.style.display = 'none';
+        checkoutBoxElement.style.display = 'block';
+        infoBackBtnElement.style.display = 'none';
+        infoContinueBtnElement.style.display = 'none';
+      } else {
+        // !!! Thông báo phải chọn đủ số ghế
+        console.log('Phải chọn đủ số ghế');
+      }
+
+      break;
+
+    default:
+      document.body.innerHTML = 'book-ticket.js - infoContinueBtnElement\'s click event';
+  }
+});
+infoBackBtnElement.addEventListener('click', function () {
+  if (curScreen === myScreen.SEAT) {
+    curScreen = myScreen.TICKETFOOD;
+    ticketfoodBoxElement.style.display = 'block';
+    seatBoxElement.style.display = 'none';
+    infoBackBtnElement.style.display = 'none';
+  }
 });
 
 (function main() {
