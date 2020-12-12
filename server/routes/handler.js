@@ -64,11 +64,13 @@ handlebarsRouter.get('/info', (req, res) => {
   });
 });
 
+handlebarsRouter.all('/book-ticket/checkAuth', ensureAuthenticated);
 handlebarsRouter.get('/book-ticket', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('book-ticket', {
     style: 'book-ticket',
   });
 });
+
 handlebarsRouter.get(
   '/book-ticket/:_idTheaterMovie/:_idDateShow/:_idTypeShow/:time/',
   ensureAuthenticatedOrRedirect,
@@ -77,11 +79,8 @@ handlebarsRouter.get(
     res.redirect(`/book-ticket/${res.showTime._id}`);
   },
 );
-handlebarsRouter.get('/book-ticket', (req, res) => {
-  res.render('book-ticket', {
-    style: 'book-ticket',
-  });
-});
+
+handlebarsRouter.all('/book-ticket/:id/checkAuth', ensureAuthenticated);
 
 handlebarsRouter.get(
   '/book-ticket/:id',
