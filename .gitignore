@@ -6,6 +6,7 @@
 ._*
 
 # Ignore local editor
+.yarn-error.log
 .project
 .settings
 .idea
