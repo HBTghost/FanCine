@@ -40,7 +40,10 @@ var comboDecBtnElements = document.querySelectorAll('#book-ticket-food-box .book
 var comboIncBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn');
 var infoTicketElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-ticket');
 var infoComboElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-combo');
-var infoSeatElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-seat'); // Info
+var infoSeatElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-seat');
+var ticketfoodBoxElement = document.querySelector('#book-ticket-ticketfood-box');
+var seatBoxElement = document.querySelector('#book-ticket-seat-box');
+var continueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-continue-btn'); // Info
 
 var ticketNames = tickets.map(function (ticket) {
   return ticket.name;
@@ -61,7 +64,8 @@ var comboRowNums = Array(combos.length).fill(0);
 var comboRowTotalPrices = Array(combos.length).fill(0);
 var comboTotalPrice = 0;
 var availableTicketsNum = availableTicketsNumElement.innerHTML;
-var totalPrice = 0; // Functions
+var totalPrice = 0;
+var mandatorySeatsNum; // Functions
 
 function formatPriceVND(priceInt) {
   return priceInt.toLocaleString('it-IT', {
@@ -174,6 +178,18 @@ comboDecBtnElements.forEach(function (e, i) {
       infoComboElement.innerHTML = getComboInfo();
     }
   });
+});
+continueBtnElement.addEventListener('click', function () {
+  var allTicketsNum = ticketRowNums.reduce(function (a, b) {
+    return a + b;
+  }, 0);
+
+  if (allTicketsNum > 0) {
+    mandatorySeatsNum = allTicketsNum;
+    ticketfoodBoxElement.style.display = 'none';
+    seatBoxElement.style.display = 'block';
+    console.log(mandatorySeatsNum);
+  }
 });
 
 (function main() {

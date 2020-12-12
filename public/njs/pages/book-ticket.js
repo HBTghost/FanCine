@@ -83,6 +83,11 @@ const infoSeatElement = document.querySelector(
   '#book-ticket-info-box .book-ticket-showtime-info-seat',
 );
 
+const ticketfoodBoxElement = document.querySelector('#book-ticket-ticketfood-box');
+const seatBoxElement = document.querySelector('#book-ticket-seat-box');
+
+const continueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-continue-btn');
+
 // Info
 const ticketNames = tickets.map((ticket) => ticket.name);
 const comboNames = combos.map((combo) => combo.name);
@@ -99,6 +104,7 @@ let comboTotalPrice = 0;
 
 let availableTicketsNum = availableTicketsNumElement.innerHTML;
 let totalPrice = 0;
+let mandatorySeatsNum;
 
 // Functions
 function formatPriceVND(priceInt) {
@@ -216,6 +222,16 @@ comboDecBtnElements.forEach((e, i) => {
   });
 });
 
+continueBtnElement.addEventListener('click', () => {
+  const allTicketsNum = ticketRowNums.reduce((a, b) => a + b, 0);
+  if (allTicketsNum > 0) {
+    mandatorySeatsNum = allTicketsNum;
+    ticketfoodBoxElement.style.display = 'none';
+    seatBoxElement.style.display = 'block';
+    console.log(mandatorySeatsNum);
+  }
+});
+
 (function main() {
   init();
-})();
+}());
