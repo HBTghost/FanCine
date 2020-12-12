@@ -25,5 +25,5 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
           
-      - name: Commit Linter
-        uses: wagoid/commitlint-github-action@v2.0.3
+      - name: Commitsar Action
+        uses: aevea/commitsar@v0.15.0
