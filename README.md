@@ -87,6 +87,9 @@ $ yarn
 $ yarn dev
 ```
 
+## Issues:
+  If ```yarn``` frozen then run ```npm install``` instead, then remove package-lock.json file
+
 ## People
 
 The current lead maintainer is [Ngô Thanh Phương Thái](https://github.com/HBTghost)
