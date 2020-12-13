@@ -82,9 +82,9 @@ handlebarsRouter.get(
 
 handlebarsRouter.all('/book-ticket/:id/checkAuth', ensureAuthenticated);
 
-// ensureAuthenticatedOrRedirect,
 handlebarsRouter.get(
   '/book-ticket/:id',
+  ensureAuthenticatedOrRedirect,
   getShowTime,
   getTheaterMovieFromShowtime,
   getTheaterFromTheaterMovie,
