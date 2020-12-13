@@ -275,4 +275,4 @@ infoBackBtnElement.addEventListener('click', () => {
 
 (function main() {
   init();
-})();
+}());
