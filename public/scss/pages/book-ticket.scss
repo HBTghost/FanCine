@@ -194,10 +194,22 @@ $bg-screen: #43464b;
         background-color: $bg-seat-box;
 
         #book-ticket-seat-room-sec {
+          .book-ticket-seat-stage {
+            display: flex;
+            justify-content: center;
+
+            .book-ticket-seat-screen {
+              display: inline-block;
+              padding: 5px 100px 0;
+              border-top: 3px solid $bg-screen;  
+            }
+          }
+
           .book-ticket-seat-auditorium {
             display: flex;
             column-gap: 50px;
             justify-content: center;
+            margin: 30px 0 50px;
 
             .book-ticket-seat-panel {
               display: grid;
@@ -228,20 +240,9 @@ $bg-screen: #43464b;
                   line-height: 25px; 
                   text-align: center;
                   background-color: $bg-available-seat;
+                  cursor: pointer;
                 }
               }
-            }
-          }
-
-          .book-ticket-seat-stage {
-            display: flex;
-            justify-content: center;
-            margin: 30px auto;
-
-            .book-ticket-seat-screen {
-              display: inline-block;
-              padding: 0 100px 5px;
-              border-bottom: 3px solid $bg-screen;  
             }
           }
         }
