@@ -32,7 +32,8 @@ const combos = [
   },
 ];
 
-// HTML Elements
+// HTML elements
+// Ticket Food section
 const availableTicketsNumElement = document.getElementById('book-ticket-available-tickets-num');
 
 const ticketRowNumElements = document.querySelectorAll(
@@ -73,6 +74,14 @@ const comboIncBtnElements = document.querySelectorAll(
   '#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn',
 );
 
+// Seat seaction
+const mandatorySeatsNumElement = document.querySelector('#book-ticket-mandatory-seats-num');
+
+const seatItemElements = document.querySelectorAll(
+  '#book-ticket-seat-room-sec .book-ticket-seat-auditorium .book-ticket-seat-area .book-ticket-seat-row .book-ticket-seat-item',
+);
+
+// Info section
 const infoTicketElement = document.querySelector(
   '#book-ticket-info-box .book-ticket-showtime-info-ticket',
 );
@@ -94,11 +103,10 @@ const infoContinueBtnElement = document.querySelector(
   '#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn',
 );
 
-// Global
+// Global variables
 const myScreen = Object.freeze({ TICKETFOOD: 0, SEAT: 1, CHECKOUT: 2 });
 let curScreen = myScreen.TICKETFOOD;
 
-// Info
 const ticketNames = tickets.map((ticket) => ticket.name);
 const comboNames = combos.map((combo) => combo.name);
 const ticketUnitPrices = tickets.map((ticket) => ticket.unitPrice);
@@ -114,7 +122,15 @@ let comboTotalPrice = 0;
 
 let availableTicketsNum = availableTicketsNumElement.innerHTML;
 let totalPrice = 0;
-const mandatorySeatsNum = 0;
+
+let mandatorySeatsNum = 0;
+let selectedSeats = [];
+
+const seatStateClassName = Object.freeze({
+  SELECTED: 'book-ticket-seat-selected',
+  SOLD: 'book-ticket-seat-sold',
+  AVAILABLE: 'book-ticket-seat-available',
+});
 
 // Functions
 function formatPriceVND(priceInt) {
@@ -161,7 +177,21 @@ function getComboInfo() {
   return str;
 }
 
+function getSeatInfo() {
+  selectedSeats.sort();
+  let str = '';
+  for (let i = 0; i < selectedSeats.length; ++i) {
+    str += `${selectedSeats[i]}, `;
+  }
+  return str;
+}
+
+function getNameOfSeatItemElement(e) {
+  return e.firstElementChild.innerHTML + e.lastElementChild.innerHTML;
+}
+
 // Events
+// Ticket Food section
 ticketIncBtnElements.forEach((e, i) => {
   e.addEventListener('click', () => {
     if (availableTicketsNum > 0) {
@@ -232,14 +262,44 @@ comboDecBtnElements.forEach((e, i) => {
   });
 });
 
+// Seat section
+seatItemElements.forEach((e) => {
+  e.addEventListener('click', () => {
+    if (e.classList.contains(seatStateClassName.AVAILABLE)) {
+      if (mandatorySeatsNum > 0) {
+        mandatorySeatsNum -= 1;
+        e.classList.remove(seatStateClassName.AVAILABLE);
+        e.classList.add(seatStateClassName.SELECTED);
+        mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
+        selectedSeats.push(getNameOfSeatItemElement(e));
+        infoSeatElement.innerHTML = getSeatInfo();
+      } else {
+        // !!! Thông báo hết số lượng ghế được phép chọn.
+        console.log('Đã hết số lượng vé!');
+      }
+    } else if (e.classList.contains(seatStateClassName.SELECTED)) {
+      mandatorySeatsNum += 1;
+      e.classList.add(seatStateClassName.AVAILABLE);
+      e.classList.remove(seatStateClassName.SELECTED);
+      mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
+      selectedSeats.splice(selectedSeats.indexOf(getNameOfSeatItemElement(e)), 1);
+      infoSeatElement.innerHTML = getSeatInfo();
+    }
+  });
+});
+
+// Info section
 infoContinueBtnElement.addEventListener('click', () => {
   switch (curScreen) {
     case myScreen.TICKETFOOD:
-      if (ticketRowNums.reduce((a, b) => a + b, 0) > 0) {
+      mandatorySeatsNum = ticketRowNums.reduce((a, b) => a + b, 0);
+
+      if (mandatorySeatsNum > 0) {
         curScreen = myScreen.SEAT;
         ticketfoodBoxElement.style.display = 'none';
         seatBoxElement.style.display = 'block';
         infoBackBtnElement.style.display = 'block';
+        mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
       } else {
         // !!! Thông báo phải chọn số lượng vé
         console.log('Phải chọn số lượng vé');
@@ -270,9 +330,22 @@ infoBackBtnElement.addEventListener('click', () => {
     ticketfoodBoxElement.style.display = 'block';
     seatBoxElement.style.display = 'none';
     infoBackBtnElement.style.display = 'none';
+
+    // Reset the class name for all of seat items
+    seatItemElements.forEach((e) => {
+      if (e.classList.contains(seatStateClassName.SELECTED)) {
+        e.classList.remove(seatStateClassName.SELECTED);
+        e.classList.add(seatStateClassName.AVAILABLE);
+      }
+    });
+
+    // Reset the selected seat info
+    selectedSeats = [];
+    infoSeatElement.innerHTML = '';
   }
 });
 
+// Start here
 (function main() {
   init();
 }());

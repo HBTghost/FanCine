@@ -96,7 +96,58 @@
             <p>Số lượng ghế còn lại phải chọn:&ensp;<span id="book-ticket-mandatory-seats-num"></span></p>
           </div>
         </div>
-        <div class="book-ticket-box-section"></div>
+
+        <div class="book-ticket-box-section">
+          <div id="book-ticket-seat-room-sec">
+            <div class="book-ticket-seat-stage">
+              <div class="book-ticket-seat-screen">Màn hình</div>
+            </div>
+
+            {{#with auditorium}}
+            <div class="book-ticket-seat-auditorium">
+              <div class="book-ticket-seat-panel">
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
+              </div>
+
+              <div class="book-ticket-seat-area">
+                {{#each seatStates}}
+                <div class="book-ticket-seat-row">
+                  {{#each row}}
+                  <div class="book-ticket-seat-item {{getClassNameOfSeatState this}}">
+                    <span style="display: none;">{{../label}}</span>
+                    <span>{{@index}}</span>
+                  </div>
+                  {{/each}}
+                </div>
+                {{/each}}
+              </div>
+
+              <div class="book-ticket-seat-panel">
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
+              </div>
+            </div>
+            {{/with}}
+          </div>
+
+          <div id="book-ticket-seat-note-sec">
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-selected"></div>
+              <span>Ghế đang chọn</span>
+            </div>
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-sold"></div>
+              <span>Ghế đã chọn</span>
+            </div>
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-available"></div>
+              <span>Ghế có thể chọn</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="book-ticket-checkout-box" class="book-ticket-select-box">
@@ -119,9 +170,12 @@
         <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b>{{time}}&ensp;|&ensp;{{date}}</div>
         <div class="book-ticket-showtime-info"><b>Hình thức:&ensp;</b>{{type}}</div>
         {{/with}}
-        <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b><span class="book-ticket-showtime-info-ticket"></span></div>
-        <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b><span class="book-ticket-showtime-info-combo"></span></div>
-        <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b><span class="book-ticket-showtime-info-seat"></span></div>
+        <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b><span class="book-ticket-showtime-info-ticket"></span>
+        </div>
+        <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b><span class="book-ticket-showtime-info-combo"></span>
+        </div>
+        <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b><span class="book-ticket-showtime-info-seat"></span>
+        </div>
         <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span></span></div>
         <div class="book-ticket-info-btn-row">
           <button class="book-ticket-info-back-btn book-ticket-info-btn">QUAY LẠI</button>

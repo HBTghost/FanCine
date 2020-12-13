@@ -14,6 +14,9 @@ const HandlebarsHelper = {
   formatPrice(price) {
     return price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   },
+  getClassNameOfSeatState(state) {
+    return state ? 'book-ticket-seat-sold' : 'book-ticket-seat-available';
+  },
 };
 
 export default HandlebarsHelper;

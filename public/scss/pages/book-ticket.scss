@@ -3,30 +3,20 @@
 $txt-label-description: #f03;
 $bg-available-tickets-row: #28a745;
 
+$bg-seat-box: #fff;
+
+$bg-selected-seat: #61b15a;
+$bg-sold-seat: #ff8585;
+$bg-available-seat: #dbdee1;
+
+$bd-seat-row-label: #000;
+$bg-screen: #43464b;
+
 #book-ticket-container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
-
-  #book-ticket-available-tickets {
-    display: inline;
-    float: right;
-    margin-bottom: 10px;
-    font-size: 14px;
-    text-transform: none;
-
-    p {
-      display: inline;
-      padding: 10px;
-      background-color: $bg-available-tickets-row;
-      color: $color-white;
-
-      #book-ticket-available-tickets-num {
-        font-size: 20px;
-      }
-    }
-  }
 
   #book-ticket-main {
     display: grid;
@@ -43,10 +33,31 @@ $bg-available-tickets-row: #28a745;
         font-size: 24px;
         text-transform: uppercase;
         margin-bottom: 10px;
+
+        div {
+          display: inline;
+          float: right;
+          margin-bottom: 10px;
+          font-size: 14px;
+          text-transform: none;
+      
+          p {
+            display: inline;
+            padding: 10px;
+            background-color: $bg-available-tickets-row;
+            color: $color-white;
+      
+            span {
+              font-size: 20px;
+            }
+          }
+        }
       }
     }
 
     #book-ticket-ticketfood-box {
+      //display: none;
+
       .book-ticket-box-section {
         font-size: 14px;
 
@@ -175,6 +186,97 @@ $bg-available-tickets-row: #28a745;
 
     #book-ticket-seat-box {
       display: none;
+      overflow-x: auto;
+
+      .book-ticket-box-section {
+        font-size: 14px;
+        padding: 30px 0;
+        overflow-x: auto;
+        min-width: 600px;
+        background-color: $bg-seat-box;
+
+        .book-ticket-seat-selected {
+          background-color: $bg-selected-seat;
+          cursor: pointer;
+        }
+        .book-ticket-seat-sold {
+          background-color: $bg-sold-seat;
+          cursor: no-drop;
+        }
+        .book-ticket-seat-available {
+          background-color: $bg-available-seat;
+          cursor: pointer;
+        }
+
+        #book-ticket-seat-room-sec {
+          .book-ticket-seat-stage {
+            display: flex;
+            justify-content: center;
+
+            .book-ticket-seat-screen {
+              display: inline-block;
+              padding: 5px 100px 0;
+              border-top: 3px solid $bg-screen;  
+            }
+          }
+
+          .book-ticket-seat-auditorium {
+            display: flex;
+            column-gap: 50px;
+            justify-content: center;
+            margin: 30px 0 50px;
+
+            .book-ticket-seat-panel {
+              display: grid;
+              grid-template-columns: auto;
+
+              .book-ticket-seat-row-label {
+                width: 25px;
+                height: 25px;
+                line-height: 25px; 
+                text-align: center;
+                border: 1px solid $bd-seat-row-label;
+              }
+            }
+
+            .book-ticket-seat-area {
+              display: grid;
+              grid-template-columns: auto;
+              row-gap: 5px;
+
+              .book-ticket-seat-row {
+                display: flex;
+                justify-content: center;
+                column-gap: 5px;
+
+                .book-ticket-seat-item {
+                  width: 25px;
+                  height: 25px;
+                  line-height: 25px; 
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+
+        #book-ticket-seat-note-sec {
+          display: flex;
+          justify-content: center;
+          column-gap: 40px;
+
+          .book-ticket-seat-note {
+            display: flex;
+            column-gap: 10px;
+            
+            div {
+              width: 14px;
+              height: 14px;
+              align-self: center;
+            }
+          }
+        }
+      }
     }
 
     #book-ticket-checkout-box {
@@ -320,9 +422,13 @@ $bg-available-tickets-row: #28a745;
 @media only screen and (max-width: 500px) {
   #book-ticket-container {
     #book-ticket-main {
-      #book-ticket-available-tickets {
-        display: block;
-        float: none;
+      .book-ticket-select-box {
+        .book-ticket-box-header {
+          div {
+            display: block;
+            float: none;
+          }
+        }
       }
       
       #book-ticket-ticketfood-box {
@@ -343,6 +449,16 @@ $bg-available-tickets-row: #28a745;
           }
         }
       }
+
+      // #book-ticket-seat-box {
+      //   .book-ticket-box-section {
+      //     #book-ticket-seat-note-sec {
+      //       display: grid;
+      //       grid-template-columns: auto;
+      //       row-gap: 5px;
+      //     }
+      //   }
+      // }
     }
   }
 }

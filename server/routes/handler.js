@@ -132,14 +132,54 @@ handlebarsRouter.get(
       },
     ];
 
+    const rowLabels = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+      'P',
+      'Q',
+      'R',
+      'S',
+      'T',
+      'U',
+      'V',
+      'W',
+      'X',
+      'Y',
+      'Z',
+    ];
+
+    const seats = {
+      state: res.showTime.state,
+      rowNum: res.showTime.state.length,
+      colNum: res.showTime.state[0].length,
+    };
+
     let availableTicketsNum = 0;
-    for (let i = 0; i < res.showTime.state.length; ++i) {
-      for (let j = 0; j < res.showTime.state[0].length; ++j) {
-        if (!res.showTime.state[i][j]) {
+    for (let i = 0; i < seats.rowNum; ++i) {
+      for (let j = 0; j < seats.colNum; ++j) {
+        if (!seats.state[i][j]) {
           availableTicketsNum += 1;
         }
       }
     }
+
+    const auditorium = {
+      rowSeatLabels: rowLabels.slice(0, seats.rowNum),
+      seatStates: seats.state.map((row, i) => ({ label: rowLabels[i], row })),
+    };
 
     res.render('book-ticket', {
       style: 'book-ticket',
@@ -148,6 +188,7 @@ handlebarsRouter.get(
         availableTicketsNum,
         tickets,
         combos,
+        auditorium,
         info: {
           image: res.movie.horizontalImageSource,
           oriName: res.movie.originalName,
