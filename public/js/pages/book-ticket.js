@@ -226,8 +226,7 @@ seatItemElements.forEach(function (e) {
         selectedSeats.push(getNameOfSeatItemElement(e));
         infoSeatElement.innerHTML = getSeatInfo();
       } else {
-        // !!! Thông báo hết số lượng ghế được phép chọn.
-        console.log('Đã hết số lượng vé!');
+        alert('Đã hết số lượng vé!\nVui lòng quay lại để đặt thêm vé, hoặc tiếp tục để xác nhận thanh toán.');
       }
     } else if (e.classList.contains(seatStateClassName.SELECTED)) {
       mandatorySeatsNum += 1;
@@ -254,8 +253,7 @@ infoContinueBtnElement.addEventListener('click', function () {
         infoBackBtnElement.style.display = 'block';
         mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
       } else {
-        // !!! Thông báo phải chọn số lượng vé
-        console.log('Phải chọn số lượng vé');
+        alert('Phải chọn số lượng vé để tiếp tục.');
       }
 
       break;
@@ -268,8 +266,7 @@ infoContinueBtnElement.addEventListener('click', function () {
         infoBackBtnElement.style.display = 'none';
         infoContinueBtnElement.style.display = 'none';
       } else {
-        // !!! Thông báo phải chọn đủ số ghế
-        console.log('Phải chọn đủ số ghế');
+        alert("Ph\u1EA3i ch\u1ECDn \u0111\u1EE7 s\u1ED1 gh\u1EBF \u0111\xE3 \u0111\u1EB7t \u0111\u1EC3 ti\u1EBFp t\u1EE5c.\nVui l\xF2ng ch\u1ECDn th\xEAm ".concat(mandatorySeatsNum, " v\u1ECB tr\xED n\u1EEFa."));
       }
 
       break;
