@@ -50,7 +50,11 @@ var ticketfoodBoxElement = document.querySelector('#book-ticket-ticketfood-box')
 var seatBoxElement = document.querySelector('#book-ticket-seat-box');
 var checkoutBoxElement = document.querySelector('#book-ticket-checkout-box');
 var infoBackBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-back-btn');
-var infoContinueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn'); // Global variables
+var infoContinueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn'); // Checkout section
+
+var checkoutBackBthElement = document.querySelector('#book-ticket-checkout-back-btn');
+var checkoutPayBthElement = document.querySelector('#book-ticket-checkout-pay-btn');
+var checkoutTotalPriceFieldElement = document.querySelector('#book-ticket-checkout-total-price'); // Global variables
 
 var myScreen = Object.freeze({
   TICKETFOOD: 0,
@@ -84,6 +88,10 @@ var seatStateClassName = Object.freeze({
   SELECTED: 'book-ticket-seat-selected',
   SOLD: 'book-ticket-seat-sold',
   AVAILABLE: 'book-ticket-seat-available'
+});
+var btnCursorClassName = Object.freeze({
+  POINTER: 'book-ticket-btn-pointer',
+  DROP_ON: 'book-ticket-btn-drop-on'
 }); // Functions
 
 function formatPriceVND(priceInt) {
@@ -265,6 +273,7 @@ infoContinueBtnElement.addEventListener('click', function () {
         checkoutBoxElement.style.display = 'block';
         infoBackBtnElement.style.display = 'none';
         infoContinueBtnElement.style.display = 'none';
+        checkoutTotalPriceFieldElement.value = formatPriceVND(totalPrice);
       } else {
         alert("Ph\u1EA3i ch\u1ECDn \u0111\u1EE7 s\u1ED1 gh\u1EBF \u0111\xE3 \u0111\u1EB7t \u0111\u1EC3 ti\u1EBFp t\u1EE5c.\nVui l\xF2ng ch\u1ECDn th\xEAm ".concat(mandatorySeatsNum, " v\u1ECB tr\xED n\u1EEFa."));
       }
@@ -292,8 +301,25 @@ infoBackBtnElement.addEventListener('click', function () {
     selectedSeats = [];
     infoSeatElement.innerHTML = '';
   }
-}); // Start here
+}); // Checkout section
 
-(function main() {
+checkoutBackBthElement.addEventListener('click', function () {
+  curScreen = myScreen.SEAT;
+  checkoutBoxElement.style.display = 'none';
+  seatBoxElement.style.display = 'block';
+  infoBackBtnElement.style.display = 'block';
+  infoContinueBtnElement.style.display = 'block';
+});
+checkoutPayBthElement.addEventListener('click', function () {
+  // !!! Post this session's data to the server
+  // Alert
+  alert('Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".'); // Redirect to "Lịch sử giao dịch"
+
+  forceLoginAndRedirect('/member');
+});
+
+function main() {
   init();
-})();
+}
+
+main();

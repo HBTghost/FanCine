@@ -203,6 +203,11 @@ handlebarsRouter.get(
           },
           type: res.typeShow.value,
         },
+        user: {
+          fullName: req.user.name,
+          phoneNumber: req.user.phone,
+          email: req.user.email,
+        },
       },
     });
   },
@@ -311,7 +316,7 @@ handlebarsRouter.all('/member', ensureAuthenticatedOrRedirect, (req, res) => {
       star: req.user.point,
       expense: req.user.spending,
       email: req.user.email,
-      curYear: '2020',
+      curYear: new Date().getFullYear(),
     },
   });
 });
