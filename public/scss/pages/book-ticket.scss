@@ -5,8 +5,8 @@ $bg-available-tickets-row: #28a745;
 
 $bg-seat-box: #fff;
 
-$bg-selected-seat: #28a745;
-$bg-sold-seat: #f03;
+$bg-selected-seat: #61b15a;
+$bg-sold-seat: #ff8585;
 $bg-available-seat: #dbdee1;
 
 $bd-seat-row-label: #000;
@@ -56,6 +56,8 @@ $bg-screen: #43464b;
     }
 
     #book-ticket-ticketfood-box {
+      //display: none;
+
       .book-ticket-box-section {
         font-size: 14px;
 
@@ -193,6 +195,19 @@ $bg-screen: #43464b;
         min-width: 600px;
         background-color: $bg-seat-box;
 
+        .book-ticket-seat-selected {
+          background-color: $bg-selected-seat;
+          cursor: pointer;
+        }
+        .book-ticket-seat-sold {
+          background-color: $bg-sold-seat;
+          cursor: no-drop;
+        }
+        .book-ticket-seat-available {
+          background-color: $bg-available-seat;
+          cursor: pointer;
+        }
+
         #book-ticket-seat-room-sec {
           .book-ticket-seat-stage {
             display: flex;
@@ -239,8 +254,6 @@ $bg-screen: #43464b;
                   height: 25px;
                   line-height: 25px; 
                   text-align: center;
-                  background-color: $bg-available-seat;
-                  cursor: pointer;
                 }
               }
             }
@@ -260,16 +273,6 @@ $bg-screen: #43464b;
               width: 14px;
               height: 14px;
               align-self: center;
-            }
-
-            .book-ticket-seat-selected {
-              background-color: $bg-selected-seat;
-            }
-            .book-ticket-seat-sold {
-              background-color: $bg-sold-seat;
-            }
-            .book-ticket-seat-available {
-              background-color: $bg-available-seat;
             }
           }
         }

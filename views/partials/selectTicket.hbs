@@ -93,7 +93,7 @@
         <div class="book-ticket-box-header">
           <span>CHỌN GHẾ</span>
           <div id="book-ticket-mandatory-seats">
-            <p>Số lượng ghế còn lại phải chọn:&ensp;<span id="book-ticket-mandatory-seats-num">0</span></p>
+            <p>Số lượng ghế còn lại phải chọn:&ensp;<span id="book-ticket-mandatory-seats-num"></span></p>
           </div>
         </div>
 
@@ -103,133 +103,34 @@
               <div class="book-ticket-seat-screen">Màn hình</div>
             </div>
 
+            {{#with auditorium}}
             <div class="book-ticket-seat-auditorium">
               <div class="book-ticket-seat-panel">
-                <div class="book-ticket-seat-row-label">A</div>
-                <div class="book-ticket-seat-row-label">B</div>
-                <div class="book-ticket-seat-row-label">C</div>
-                <div class="book-ticket-seat-row-label">D</div>
-                <div class="book-ticket-seat-row-label">E</div>
-                <div class="book-ticket-seat-row-label">F</div>
-                <div class="book-ticket-seat-row-label">G</div>
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
               </div>
+
               <div class="book-ticket-seat-area">
+                {{#each seatStates}}
                 <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
+                  {{#each row}}
+                  <div class="book-ticket-seat-item {{getClassNameOfSeatState this}}">
+                    <span style="display: none;">{{../label}}</span>
+                    <span>{{@index}}</span>
+                  </div>
+                  {{/each}}
                 </div>
-                <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
-                </div>
-                <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
-                </div>
-                <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
-                </div>
-                <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
-                </div>
-                <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
-                </div>
-                <div class="book-ticket-seat-row">
-                  <div class="book-ticket-seat-item">1</div>
-                  <div class="book-ticket-seat-item">2</div>
-                  <div class="book-ticket-seat-item">3</div>
-                  <div class="book-ticket-seat-item">4</div>
-                  <div class="book-ticket-seat-item">5</div>
-                  <div class="book-ticket-seat-item">6</div>
-                  <div class="book-ticket-seat-item">7</div>
-                  <div class="book-ticket-seat-item">8</div>
-                  <div class="book-ticket-seat-item">9</div>
-                  <div class="book-ticket-seat-item">10</div>
-                  <div class="book-ticket-seat-item">11</div>
-                  <div class="book-ticket-seat-item">12</div>
-                  <div class="book-ticket-seat-item">13</div>
-                </div>
+                {{/each}}
               </div>
+
               <div class="book-ticket-seat-panel">
-                <div class="book-ticket-seat-row-label">A</div>
-                <div class="book-ticket-seat-row-label">B</div>
-                <div class="book-ticket-seat-row-label">C</div>
-                <div class="book-ticket-seat-row-label">D</div>
-                <div class="book-ticket-seat-row-label">E</div>
-                <div class="book-ticket-seat-row-label">F</div>
-                <div class="book-ticket-seat-row-label">G</div>
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
               </div>
             </div>
+            {{/with}}
           </div>
 
           <div id="book-ticket-seat-note-sec">
