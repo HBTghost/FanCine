@@ -103,6 +103,11 @@ const infoContinueBtnElement = document.querySelector(
   '#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn',
 );
 
+// Checkout section
+const checkoutBackBthElement = document.querySelector('#book-ticket-checkout-back-btn');
+const checkoutPayBthElement = document.querySelector('#book-ticket-checkout-pay-btn');
+const checkoutTotalPriceFieldElement = document.querySelector('#book-ticket-checkout-total-price');
+
 // Global variables
 const myScreen = Object.freeze({ TICKETFOOD: 0, SEAT: 1, CHECKOUT: 2 });
 let curScreen = myScreen.TICKETFOOD;
@@ -130,6 +135,11 @@ const seatStateClassName = Object.freeze({
   SELECTED: 'book-ticket-seat-selected',
   SOLD: 'book-ticket-seat-sold',
   AVAILABLE: 'book-ticket-seat-available',
+});
+
+const btnCursorClassName = Object.freeze({
+  POINTER: 'book-ticket-btn-pointer',
+  DROP_ON: 'book-ticket-btn-drop-on',
 });
 
 // Functions
@@ -309,10 +319,13 @@ infoContinueBtnElement.addEventListener('click', () => {
     case myScreen.SEAT:
       if (mandatorySeatsNum === 0) {
         curScreen = myScreen.CHECKOUT;
+
         seatBoxElement.style.display = 'none';
         checkoutBoxElement.style.display = 'block';
         infoBackBtnElement.style.display = 'none';
         infoContinueBtnElement.style.display = 'none';
+
+        checkoutTotalPriceFieldElement.value = formatPriceVND(totalPrice);
       } else {
         alert(
           `Phải chọn đủ số ghế đã đặt để tiếp tục.\nVui lòng chọn thêm ${mandatorySeatsNum} vị trí nữa.`,
@@ -328,6 +341,7 @@ infoContinueBtnElement.addEventListener('click', () => {
 infoBackBtnElement.addEventListener('click', () => {
   if (curScreen === myScreen.SEAT) {
     curScreen = myScreen.TICKETFOOD;
+
     ticketfoodBoxElement.style.display = 'block';
     seatBoxElement.style.display = 'none';
     infoBackBtnElement.style.display = 'none';
@@ -346,7 +360,30 @@ infoBackBtnElement.addEventListener('click', () => {
   }
 });
 
-// Start here
-(function main() {
+// Checkout section
+checkoutBackBthElement.addEventListener('click', () => {
+  curScreen = myScreen.SEAT;
+
+  checkoutBoxElement.style.display = 'none';
+  seatBoxElement.style.display = 'block';
+  infoBackBtnElement.style.display = 'block';
+  infoContinueBtnElement.style.display = 'block';
+});
+
+checkoutPayBthElement.addEventListener('click', () => {
+  // !!! Post this session's data to the server
+
+  // Alert
+  alert(
+    'Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".',
+  );
+
+  // Redirect to "Lịch sử giao dịch"
+  forceLoginAndRedirect('/member');
+});
+
+function main() {
   init();
-})();
+}
+
+main();
