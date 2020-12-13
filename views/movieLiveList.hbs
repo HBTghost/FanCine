@@ -1,14 +1,10 @@
 <div class="container">
-    <a href="/movie-on-show" class="review-title">
-        <h3>
-            Phim Đang chiếu
-        </h3>
-    </a>
-    <a href="/movie-on-show" class="review-title">
-        <h3>
-            Phim Sắp Chiếu
-        </h3>
-    </a>
+    <div id="showtimes-container">
+        <div id="showtimes-head">
+        <button id="showtimes-controller-movie">Đang Chiếu</button>
+        <button id="showtimes-controller-theater">Sắp Chiếu</button>
+        </div>
+    </div>
     <div class="row">
         {{!-- (.col-6.col-md-3.mt-3>(.onshow-banner(img[src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg"])+.onshow-title(.movie-name-title{Stardog and Turbocat}+.vn.movie-name-title{Liên quân siêu thú})))*6 --}}
         {{#each movies}}
