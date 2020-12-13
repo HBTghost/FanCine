@@ -246,6 +246,8 @@ function districtLoad() {
   const provincesHTML = document.getElementById('regCity');
   const districtHTML = document.getElementById('regTown');
 
+  districtHTML.innerHTML = '';
+
   arr[provincesHTML.value].forEach((district, index) => {
     const pID = index;
     const pName = district;
@@ -253,7 +255,7 @@ function districtLoad() {
     const innerDistrict = `<option value="${pID}">${pName}</option>`;
 
     // const provinceElement = document.createElement(innerProvince);
-    provincesHTML.insertAdjacentHTML('beforeend', innerDistrict);
+    districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
   });
 
   districtHTML.disabled = false;

@@ -256,12 +256,13 @@ function provincesDisplay() {
 function districtLoad() {
   var provincesHTML = document.getElementById('regCity');
   var districtHTML = document.getElementById('regTown');
+  districtHTML.innerHTML = '';
   arr[provincesHTML.value].forEach(function (district, index) {
     var pID = index;
     var pName = district;
     var innerDistrict = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
 
-    provincesHTML.insertAdjacentHTML('beforeend', innerDistrict);
+    districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
   });
   districtHTML.disabled = false;
 }
