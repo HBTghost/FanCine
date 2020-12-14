@@ -1,4 +1,4 @@
-<div class="modal-container" id="modal">
+<div class="modal-container" id="modal" >
     <div class="modal-content p-3">
         <span class="modal-close" onclick="popdownModal()">X</span>
         <nav>
@@ -83,29 +83,17 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <select class="form-control" id="regCity" name="city" required>
+                                <select class="form-control" id="regCity" name="city" onchange="districtLoad()" required>
                                     <option value="" disabled selected hidden>Khu vực của bạn</option>
-                                    <option value="HCM">TP.HCM</option>
-                                    <option value="others">Khác...</option>
+                                    {{!-- <option value="others">Khác...</option> --}}
                                 </select>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <select class="form-control" id="regTown" name="district" required>
                                     <option value="" disabled selected hidden>Quận</option>
-                                    <option value="1">Quận 1</option>
-                                    <option value="2">Quận 2</option>
-                                    <option value="3">Quận 3</option>
-                                    <option value="4">Quận 4</option>
-                                    <option value="5">Quận 5</option>
-                                    <option value="6">Quận 6</option>
-                                    <option value="7">Quận 7</option>
-                                    <option value="8">Quận 8</option>
-                                    <option value="9">Quận 9</option>
-                                    <option value="10">Quận 10</option>
-                                    <option value="11">Quận 11</option>
-                                    <option value="12">Quận 12</option>
+                                    {{!-- <option value="nhabe">Nhà bè</option> --}}
                                 </select>
                             </div>
                         </div>

@@ -29,9 +29,9 @@
                   <div class="book-ticket-description">{{description}}</div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
+                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
                   <div class="book-ticket-quantity"></div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
+                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
                 <div class="book-ticket-total-price-cell book-ticket-cell"></div>
@@ -69,9 +69,9 @@
                   </div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
+                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
                   <div class="book-ticket-quantity"></div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
+                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
                 <div class="book-ticket-total-price-cell book-ticket-cell"></div>
@@ -96,12 +96,107 @@
             <p>Số lượng ghế còn lại phải chọn:&ensp;<span id="book-ticket-mandatory-seats-num"></span></p>
           </div>
         </div>
-        <div class="book-ticket-box-section"></div>
+
+        <div class="book-ticket-box-section">
+          <div id="book-ticket-seat-room-sec">
+            <div class="book-ticket-seat-stage">
+              <div class="book-ticket-seat-screen">Màn hình</div>
+            </div>
+
+            {{#with auditorium}}
+            <div class="book-ticket-seat-auditorium">
+              <div class="book-ticket-seat-panel">
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
+              </div>
+
+              <div class="book-ticket-seat-area">
+                {{#each seatStates}}
+                <div class="book-ticket-seat-row">
+                  {{#each row}}
+                  <div class="book-ticket-seat-item {{getClassNameOfSeatState this}}">
+                    <span style="display: none;">{{../label}}</span>
+                    <span>{{@index}}</span>
+                  </div>
+                  {{/each}}
+                </div>
+                {{/each}}
+              </div>
+
+              <div class="book-ticket-seat-panel">
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
+              </div>
+            </div>
+            {{/with}}
+          </div>
+
+          <div id="book-ticket-seat-note-sec">
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-selected"></div>
+              <span>Ghế đang chọn</span>
+            </div>
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-sold"></div>
+              <span>Ghế đã bán</span>
+            </div>
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-available"></div>
+              <span>Ghế còn trống</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="book-ticket-checkout-box" class="book-ticket-select-box">
-        <div class="book-ticket-box-header">VUI LÒNG THANH TOÁN</div>
-        <div class="book-ticket-box-section"></div>
+        <div class="book-ticket-box-header">
+          <span>VUI LÒNG THANH TOÁN</span>
+          <div id="book-ticket-remaining-time">
+            <p>Thời gian còn lại:&ensp;<span id="book-ticket-remaining-time-value"></span></p>
+          </div>
+        </div>
+
+        <div class="book-ticket-box-section">
+          <div id="book-ticket-checkout-form">
+            <div class="book-ticket-checkout-fields">
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-payment-method">Hình thức thanh toán</label>
+                <select name="paymentMethod" id="book-ticket-checkout-payment-method" class="book-ticket-btn-pointer">
+                  <option value="0">Ví điện tử Zalo Pay</option>
+                  <option value="1">Ví điện tử Momo</option>
+                  <option value="2">Ví điện tử Viettel Pay</option>
+                </select>
+              </div>
+
+              {{#with user}}
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-full-name">Họ và tên</label>
+                <input id="book-ticket-checkout-full-name" class="book-ticket-btn-no-drop" type="text" value="{{fullName}}" readonly>
+              </div>
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-email">Email</label>
+                <input id="book-ticket-checkout-email" class="book-ticket-btn-no-drop" type="email" value="{{email}}" readonly>
+              </div>
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-phone-number">Số điện thoại</label>
+                <input id="book-ticket-checkout-phone-number" class="book-ticket-btn-no-drop" type="tel" value="{{phoneNumber}}" readonly>
+              </div>
+              {{/with}}
+
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-total-price">Tổng số tiền cần thanh toán</label>
+                <input id="book-ticket-checkout-total-price" class="book-ticket-btn-no-drop" type="text" readonly>
+              </div>
+            </div>
+
+            <div class="book-ticket-checkout-btns">
+              <button id="book-ticket-checkout-pay-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer">THANH TOÁN</button>
+              <button id="book-ticket-checkout-back-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer">QUAY LẠI</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="book-ticket-info-box">
@@ -119,9 +214,12 @@
         <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b>{{time}}&ensp;|&ensp;{{date}}</div>
         <div class="book-ticket-showtime-info"><b>Hình thức:&ensp;</b>{{type}}</div>
         {{/with}}
-        <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b><span class="book-ticket-showtime-info-ticket"></span></div>
-        <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b><span class="book-ticket-showtime-info-combo"></span></div>
-        <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b><span class="book-ticket-showtime-info-seat"></span></div>
+        <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b><span class="book-ticket-showtime-info-ticket"></span>
+        </div>
+        <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b><span class="book-ticket-showtime-info-combo"></span>
+        </div>
+        <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b><span class="book-ticket-showtime-info-seat"></span>
+        </div>
         <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span></span></div>
         <div class="book-ticket-info-btn-row">
           <button class="book-ticket-info-back-btn book-ticket-info-btn">QUAY LẠI</button>

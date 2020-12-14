@@ -224,3 +224,39 @@ function forceLoginAndRedirect(url) {
     });
   });
 }
+
+// Province - city register
+function provincesDisplay() {
+  const provincesHTML = document.getElementById('regCity');
+  const districtHTML = document.getElementById('regTown');
+  districtHTML.disabled = true;
+
+  c.forEach((provin, index) => {
+    const pID = index;
+    const pName = provin;
+
+    const innerProvince = `<option value="${pID}">${pName}</option>`;
+
+    // const provinceElement = document.createElement(innerProvince);
+    provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
+  });
+}
+
+function districtLoad() {
+  const provincesHTML = document.getElementById('regCity');
+  const districtHTML = document.getElementById('regTown');
+
+  districtHTML.innerHTML = '';
+
+  arr[provincesHTML.value].forEach((district, index) => {
+    const pID = index;
+    const pName = district;
+
+    const innerDistrict = `<option value="${pID}">${pName}</option>`;
+
+    // const provinceElement = document.createElement(innerProvince);
+    districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
+  });
+
+  districtHTML.disabled = false;
+}

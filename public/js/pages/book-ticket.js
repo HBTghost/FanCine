@@ -24,7 +24,8 @@ var combos = [{
   name: 'Combo 2 Small',
   description: '1 Bắp + 2 Nước ngọt 22 Oz',
   unitPrice: 81000
-}]; // HTML Elements
+}]; // HTML elements
+// Ticket Food section
 
 var availableTicketsNumElement = document.getElementById('book-ticket-available-tickets-num');
 var ticketRowNumElements = document.querySelectorAll('#book-ticket-ticket-box .book-ticket-list .book-ticket-data-row .book-ticket-quantity');
@@ -37,7 +38,11 @@ var totalPriceElement = document.querySelector('#book-ticket-info-box .book-tick
 var ticketDecBtnElements = document.querySelectorAll('#book-ticket-ticket-box .book-ticket-list .book-ticket-decrease-btn');
 var ticketIncBtnElements = document.querySelectorAll('#book-ticket-ticket-box .book-ticket-list .book-ticket-increase-btn');
 var comboDecBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-decrease-btn');
-var comboIncBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn');
+var comboIncBtnElements = document.querySelectorAll('#book-ticket-food-box .book-ticket-list .book-ticket-increase-btn'); // Seat seaction
+
+var mandatorySeatsNumElement = document.querySelector('#book-ticket-mandatory-seats-num');
+var seatItemElements = document.querySelectorAll('#book-ticket-seat-room-sec .book-ticket-seat-auditorium .book-ticket-seat-area .book-ticket-seat-row .book-ticket-seat-item'); // Info section
+
 var infoTicketElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-ticket');
 var infoComboElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-combo');
 var infoSeatElement = document.querySelector('#book-ticket-info-box .book-ticket-showtime-info-seat');
@@ -45,15 +50,18 @@ var ticketfoodBoxElement = document.querySelector('#book-ticket-ticketfood-box')
 var seatBoxElement = document.querySelector('#book-ticket-seat-box');
 var checkoutBoxElement = document.querySelector('#book-ticket-checkout-box');
 var infoBackBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-back-btn');
-var infoContinueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn'); // Global
+var infoContinueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn'); // Checkout section
+
+var checkoutBackBthElement = document.querySelector('#book-ticket-checkout-back-btn');
+var checkoutPayBthElement = document.querySelector('#book-ticket-checkout-pay-btn');
+var checkoutTotalPriceFieldElement = document.querySelector('#book-ticket-checkout-total-price'); // Global variables
 
 var myScreen = Object.freeze({
   TICKETFOOD: 0,
   SEAT: 1,
   CHECKOUT: 2
 });
-var curScreen = myScreen.TICKETFOOD; // Info
-
+var curScreen = myScreen.TICKETFOOD;
 var ticketNames = tickets.map(function (ticket) {
   return ticket.name;
 });
@@ -74,7 +82,17 @@ var comboRowTotalPrices = Array(combos.length).fill(0);
 var comboTotalPrice = 0;
 var availableTicketsNum = availableTicketsNumElement.innerHTML;
 var totalPrice = 0;
-var mandatorySeatsNum = 0; // Functions
+var mandatorySeatsNum = 0;
+var selectedSeats = [];
+var seatStateClassName = Object.freeze({
+  SELECTED: 'book-ticket-seat-selected',
+  SOLD: 'book-ticket-seat-sold',
+  AVAILABLE: 'book-ticket-seat-available'
+});
+var btnCursorClassName = Object.freeze({
+  POINTER: 'book-ticket-btn-pointer',
+  DROP_ON: 'book-ticket-btn-drop-on'
+}); // Functions
 
 function formatPriceVND(priceInt) {
   return priceInt.toLocaleString('it-IT', {
@@ -123,7 +141,23 @@ function getComboInfo() {
   }
 
   return str;
+}
+
+function getSeatInfo() {
+  selectedSeats.sort();
+  var str = '';
+
+  for (var i = 0; i < selectedSeats.length; ++i) {
+    str += "".concat(selectedSeats[i], ", ");
+  }
+
+  return str;
+}
+
+function getNameOfSeatItemElement(e) {
+  return e.firstElementChild.innerHTML + e.lastElementChild.innerHTML;
 } // Events
+// Ticket Food section
 
 
 ticketIncBtnElements.forEach(function (e, i) {
@@ -187,20 +221,47 @@ comboDecBtnElements.forEach(function (e, i) {
       infoComboElement.innerHTML = getComboInfo();
     }
   });
-});
+}); // Seat section
+
+seatItemElements.forEach(function (e) {
+  e.addEventListener('click', function () {
+    if (e.classList.contains(seatStateClassName.AVAILABLE)) {
+      if (mandatorySeatsNum > 0) {
+        mandatorySeatsNum -= 1;
+        e.classList.remove(seatStateClassName.AVAILABLE);
+        e.classList.add(seatStateClassName.SELECTED);
+        mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
+        selectedSeats.push(getNameOfSeatItemElement(e));
+        infoSeatElement.innerHTML = getSeatInfo();
+      } else {
+        alert('Đã hết số lượng vé!\nVui lòng quay lại để đặt thêm vé, hoặc tiếp tục để xác nhận thanh toán.');
+      }
+    } else if (e.classList.contains(seatStateClassName.SELECTED)) {
+      mandatorySeatsNum += 1;
+      e.classList.add(seatStateClassName.AVAILABLE);
+      e.classList.remove(seatStateClassName.SELECTED);
+      mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
+      selectedSeats.splice(selectedSeats.indexOf(getNameOfSeatItemElement(e)), 1);
+      infoSeatElement.innerHTML = getSeatInfo();
+    }
+  });
+}); // Info section
+
 infoContinueBtnElement.addEventListener('click', function () {
   switch (curScreen) {
     case myScreen.TICKETFOOD:
-      if (ticketRowNums.reduce(function (a, b) {
+      mandatorySeatsNum = ticketRowNums.reduce(function (a, b) {
         return a + b;
-      }, 0) > 0) {
+      }, 0);
+
+      if (mandatorySeatsNum > 0) {
         curScreen = myScreen.SEAT;
         ticketfoodBoxElement.style.display = 'none';
         seatBoxElement.style.display = 'block';
         infoBackBtnElement.style.display = 'block';
+        mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
       } else {
-        // !!! Thông báo phải chọn số lượng vé
-        console.log('Phải chọn số lượng vé');
+        alert('Phải chọn số lượng vé để tiếp tục.');
       }
 
       break;
@@ -212,9 +273,9 @@ infoContinueBtnElement.addEventListener('click', function () {
         checkoutBoxElement.style.display = 'block';
         infoBackBtnElement.style.display = 'none';
         infoContinueBtnElement.style.display = 'none';
+        checkoutTotalPriceFieldElement.value = formatPriceVND(totalPrice);
       } else {
-        // !!! Thông báo phải chọn đủ số ghế
-        console.log('Phải chọn đủ số ghế');
+        alert("Ph\u1EA3i ch\u1ECDn \u0111\u1EE7 s\u1ED1 gh\u1EBF \u0111\xE3 \u0111\u1EB7t \u0111\u1EC3 ti\u1EBFp t\u1EE5c.\nVui l\xF2ng ch\u1ECDn th\xEAm ".concat(mandatorySeatsNum, " v\u1ECB tr\xED n\u1EEFa."));
       }
 
       break;
@@ -228,10 +289,37 @@ infoBackBtnElement.addEventListener('click', function () {
     curScreen = myScreen.TICKETFOOD;
     ticketfoodBoxElement.style.display = 'block';
     seatBoxElement.style.display = 'none';
-    infoBackBtnElement.style.display = 'none';
+    infoBackBtnElement.style.display = 'none'; // Reset the class name for all of seat items
+
+    seatItemElements.forEach(function (e) {
+      if (e.classList.contains(seatStateClassName.SELECTED)) {
+        e.classList.remove(seatStateClassName.SELECTED);
+        e.classList.add(seatStateClassName.AVAILABLE);
+      }
+    }); // Reset the selected seat info
+
+    selectedSeats = [];
+    infoSeatElement.innerHTML = '';
   }
+}); // Checkout section
+
+checkoutBackBthElement.addEventListener('click', function () {
+  curScreen = myScreen.SEAT;
+  checkoutBoxElement.style.display = 'none';
+  seatBoxElement.style.display = 'block';
+  infoBackBtnElement.style.display = 'block';
+  infoContinueBtnElement.style.display = 'block';
+});
+checkoutPayBthElement.addEventListener('click', function () {
+  // !!! Post this session's data to the server
+  // Alert
+  alert('Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".'); // Redirect to "Lịch sử giao dịch"
+
+  forceLoginAndRedirect('/member');
 });
 
-(function main() {
+function main() {
   init();
-})();
+}
+
+main();
