@@ -23,6 +23,8 @@ import { getShowTime, getShowTimeByOtherKey } from '../middleware/showTime.js';
 
 import { toBirthDate } from '../helpers/date.js';
 
+import { Movie } from '../models/index.js';
+
 const handlebarsRouter = express.Router();
 
 handlebarsRouter.get('/', getAllMovies, async (req, res) => {
@@ -276,5 +278,31 @@ handlebarsRouter.all('/member', ensureAuthenticatedOrRedirect, (req, res) => {
 });
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
+
+handlebarsRouter.get('/admin/login', (req, res) => {
+  res.render('adminLogin');
+});
+
+handlebarsRouter.get('/admin', (req, res) => {
+  res.render('admin', {
+    layout: 'admin',
+  });
+});
+
+handlebarsRouter.get('/manage/login', (req, res) => {
+  res.render('managerLogin');
+});
+
+handlebarsRouter.get('/manage', (req, res) => {
+  res.render('manage', {});
+});
+
+handlebarsRouter.get('/manage/postMovie', (req, res) => {
+  res.render('postMovie', {
+    labels: Movie.schema.path('label').enumValues,
+    style: 'postMovie',
+    script: 'postMovie',
+  });
+});
 
 export default handlebarsRouter;

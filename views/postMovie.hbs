@@ -1,0 +1,53 @@
+
+{{> manageNav }}
+
+<div class="container py-3">
+<form action="/api/movies/simple" method="POST">
+  <div class="form-group">
+    <label for="originalName">Tên phim gốc</label>
+    <input type="text" name="originalName" id="originalName" class="form-control" value="Tên phim gốc">
+    <label for="vietnameseName">Tên phim tiếng Việt</label>
+    <input type="text" name="vietnameseName" id="vietnameseName" class="form-control" value="Tên phim tiếng Việt">
+    <label for="nation">Quốc gia</label>
+    <input type="text" name="nation" id="nation" class="form-control" value="Quốc gia">
+    <label for="director">Đạo diễn</label>
+    <input type="text" name="director" id="director" class="form-control" value="Đạo diễn" data-role="tagsinput">
+    <label for="cast">Diễn viên</label>
+    <input type="text" name="cast" id="cast" class="form-control" value="Diễn viên" data-role="tagsinput">
+    <label for="producer">Nhà sản xuất</label>
+    <input type="text" name="producer" id="producer" class="form-control" value="Nhà sản xuất">
+    <div class="form-group pt-2">
+      <label for="date">Ngày ra rạp</label>
+      <input value="2021-01-01" type="date" id="date" name="date">
+    </div>
+    <label for="label">Nhãn</label>
+    <select class="form-control" id="regGender" name="gender" required>
+      {{#each labels}}
+      {{#if (isZero @key)}}
+        <option value="{{this}}" selected>{{this}}</option>
+      {{else}}
+        <option value="{{this}}">{{this}}</option>
+      {{/if}}
+      {{/each}}
+    </select>
+    <label for="category">Thể loại</label>
+    <input type="text" name="category" id="category" class="form-control" value="Thể loại" data-role="tagsinput">
+    <label for="time">Thời gian</label>
+    <input type="text" name="time" id="time" class="form-control" value="120 phút">
+    <label for="description">Mô tả</label>
+    {{!-- <input type="text" name="description" id="description" class="form-control" value="Mô tả"> --}}
+    <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+    <label for="trailerEmbedID">Video trailer ID (Youtube)</label>
+    <input type="text" name="trailerEmbedID" id="trailerEmbedID" class="form-control" value="bkY8ntjoQsg">
+    <label for="verticalImage">Poster dọc</label>
+    {{!-- <input type="file" name="verticalImage" id="verticalImage" class="form-control" value="Poster dọc" accept="image/*"> --}}
+    <input type="url" name="verticalImage" id="verticalImage" class="form-control" value="https://i.loli.net/2020/12/13/IhYtEybi7c8wl2q.jpg">
+    <label for="horizontalImage">Poster ngang</label>
+    {{!-- <input type="file" name="horizontalImage" id="horizontalImage" class="form-control" placeholder="Poster ngang" accept="image/*"> --}}
+    <input type="url" name="horizontalImage" id="horizontalImage" class="form-control" value="https://i.loli.net/2020/12/13/5pvWebtuZ6CId1a.jpg">
+  </div>
+  <div class="row justify-content-center">
+    <button type="submit" class="btn btn-outline-success ">Đăng!</button>
+  </div>
+</form> 
+</div>

@@ -220,7 +220,7 @@ infoContinueBtnElement.addEventListener('click', function () {
       break;
 
     default:
-      document.body.innerHTML = 'book-ticket.js - infoContinueBtnElement\'s click event';
+      document.body.innerHTML = "book-ticket.js - infoContinueBtnElement's click event";
   }
 });
 infoBackBtnElement.addEventListener('click', function () {

@@ -46,6 +46,31 @@ async function getMoviesByTheaterID(req, res, next) {
   return next();
 }
 
+async function createMovieByForm(req, res, next) {
+  try {
+    const data = req.body;
+    res.movie = await new Movie({
+      originalName: data.originalName,
+      vietnameseName: data.vietnameseName,
+      label: data.label,
+      time: data.time,
+      producer: data.producer,
+      category: data.category,
+      cast: data.cast[1].trim().split(','),
+      nation: data.nation,
+      director: data.director,
+      date: data.date,
+      description: data.description,
+      trailerEmbedID: data.trailerEmbedID,
+      imageSource: data.imageSource,
+      horizontalImageSource: data.horizontalImageSource,
+    });
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+  return next();
+}
+
 async function postSampleMovies(req, res, next) {
   try {
     const movies = [];
@@ -221,4 +246,11 @@ async function postSampleMovies(req, res, next) {
   return next();
 }
 
-export { getMovie, getMovieFromTheaterMovie, getAllMovies, getMoviesByTheaterID, postSampleMovies };
+export {
+  getMovie,
+  getMovieFromTheaterMovie,
+  getAllMovies,
+  getMoviesByTheaterID,
+  createMovieByForm,
+  postSampleMovies,
+};
