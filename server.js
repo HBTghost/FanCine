@@ -85,7 +85,6 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.username = req.user ? req.user.name : undefined;
-  res.locals._idUser = req.user ? req.user._id : undefined;
   next();
 });
 

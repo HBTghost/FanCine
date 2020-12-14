@@ -16,7 +16,7 @@ async function insertSession(req, res, next) {
     console.log('Hello');
     console.log(req.body);
     const session = new Session();
-    session._idUser = mongoose.Types.ObjectId(res.locals._idUser);
+    session._idUser = mongoose.Types.ObjectId(req.user._id);
     session._idShowtime = mongoose.Types.ObjectId(req.body._idShowtime);
     session.ticketInfo = req.body.ticketInfo;
     session.comboInfo = req.body.comboInfo;
