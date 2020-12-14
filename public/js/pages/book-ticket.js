@@ -119,6 +119,10 @@ function init() {
   totalPriceElement.innerHTML = formatPriceVND(0);
 }
 
+function getPrettierInfoStr(infoStr) {
+  return infoStr.slice(0, infoStr.lastIndexOf(','));
+}
+
 function getTicketInfo() {
   var str = '';
 
@@ -128,7 +132,7 @@ function getTicketInfo() {
     }
   }
 
-  return str;
+  return getPrettierInfoStr(str);
 }
 
 function getComboInfo() {
@@ -140,7 +144,7 @@ function getComboInfo() {
     }
   }
 
-  return str;
+  return getPrettierInfoStr(str);
 }
 
 function getSeatInfo() {
@@ -151,7 +155,7 @@ function getSeatInfo() {
     str += "".concat(selectedSeats[i], ", ");
   }
 
-  return str;
+  return getPrettierInfoStr(str);
 }
 
 function getNameOfSeatItemElement(e) {
@@ -311,10 +315,21 @@ checkoutBackBthElement.addEventListener('click', function () {
   infoContinueBtnElement.style.display = 'block';
 });
 checkoutPayBthElement.addEventListener('click', function () {
-  // !!! Post this session's data to the server
-  // Alert
-  alert('Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".'); // Redirect to "Lịch sử giao dịch"
-
+  fetch('/api/sessions/insertOne', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8'
+    },
+    body: JSON.stringify({
+      _idShowtime: window.location.href.slice(window.location.href.lastIndexOf('/') + 1),
+      ticketInfo: getTicketInfo(),
+      comboInfo: getComboInfo(),
+      seatInfo: getSeatInfo(),
+      totalPrice: totalPrice,
+      paymentMethod: document.querySelector('#book-ticket-checkout-payment-method').children[parseInt(document.querySelector('#book-ticket-checkout-payment-method').value, 10)].innerHTML
+    })
+  });
+  alert('Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".');
   forceLoginAndRedirect('/member');
 });
 

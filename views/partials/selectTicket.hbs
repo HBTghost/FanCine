@@ -29,9 +29,9 @@
                   <div class="book-ticket-description">{{description}}</div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
+                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
                   <div class="book-ticket-quantity"></div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
+                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
                 <div class="book-ticket-total-price-cell book-ticket-cell"></div>
@@ -69,9 +69,9 @@
                   </div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
+                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
                   <div class="book-ticket-quantity"></div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer"></button>
+                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
                 </div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
                 <div class="book-ticket-total-price-cell book-ticket-cell"></div>
@@ -159,7 +159,7 @@
         </div>
 
         <div class="book-ticket-box-section">
-          <div id="book-ticket-checkout-form">
+          <form id="book-ticket-checkout-form" method="POST">
             <div class="book-ticket-checkout-fields">
               <div class="book-ticket-checkout-field">
                 <label for="book-ticket-checkout-payment-method">Hình thức thanh toán</label>
@@ -192,10 +192,10 @@
             </div>
 
             <div class="book-ticket-checkout-btns">
-              <button id="book-ticket-checkout-pay-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer">THANH TOÁN</button>
-              <button id="book-ticket-checkout-back-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer">QUAY LẠI</button>
+              <button id="book-ticket-checkout-pay-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer" type="button">THANH TOÁN</button>
+              <button id="book-ticket-checkout-back-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer" type="button">QUAY LẠI</button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
 
@@ -210,9 +210,9 @@
           <span class="book-ticket-movie-label-description">{{description}}</span>
         </div>
         {{/with}}
-        <div class="book-ticket-showtime-info"><b>Rạp:&ensp;</b>{{theaterName}}&ensp;|&ensp;{{roomName}}</div>
-        <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b>{{time}}&ensp;|&ensp;{{date}}</div>
-        <div class="book-ticket-showtime-info"><b>Hình thức:&ensp;</b>{{type}}</div>
+        <div class="book-ticket-showtime-info"><b>Rạp:&ensp;</b><span id="book-ticket-showtime-info-theater-name">{{theaterName}}</span>&ensp;|&ensp;<span id="book-ticket-showtime-info-room-name">{{roomName}}</span></div>
+        <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b><span id="book-ticket-showtime-info-time">{{time}}</span>&ensp;|&ensp;<span id="book-ticket-showtime-info-date">{{date}}</span></div>
+        <div class="book-ticket-showtime-info"><b>Hình thức:&ensp;</b><span id="book-ticket-showtime-info-type">{{type}}</span></div>
         {{/with}}
         <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b><span class="book-ticket-showtime-info-ticket"></span>
         </div>
@@ -220,10 +220,10 @@
         </div>
         <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b><span class="book-ticket-showtime-info-seat"></span>
         </div>
-        <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span></span></div>
+        <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span id="book-ticket-showtime-info-total-price"></span></div>
         <div class="book-ticket-info-btn-row">
-          <button class="book-ticket-info-back-btn book-ticket-info-btn">QUAY LẠI</button>
-          <button class="book-ticket-info-continue-btn book-ticket-info-btn">TIẾP TỤC</button>
+          <button class="book-ticket-info-back-btn book-ticket-info-btn" type="button">QUAY LẠI</button>
+          <button class="book-ticket-info-continue-btn book-ticket-info-btn" type="button">TIẾP TỤC</button>
         </div>
       </div>
       {{/with}}

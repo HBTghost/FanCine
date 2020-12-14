@@ -23,6 +23,7 @@ import {
   theaterMovieRouter,
   showTimeRouter,
   swaggerRouter,
+  sessionRouter,
 } from './server/routes/index.js';
 
 import authRouter from './server/routes/auth.js';
@@ -84,6 +85,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.username = req.user ? req.user.name : undefined;
+  res.locals._idUser = req.user ? req.user._id : undefined;
   next();
 });
 
@@ -98,6 +100,7 @@ app.use('/api/movies', movieRouter);
 app.use('/api/theaters', theaterRouter);
 app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
+app.use('/api/sessions', sessionRouter);
 
 // swagger docs route
 app.use('/api-docs', swaggerRouter);
