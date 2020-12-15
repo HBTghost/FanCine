@@ -13,8 +13,8 @@ async function getSessionByID(req, res, next) {
 
 async function insertSession(req, res, next) {
   try {
-    console.log('Hello');
-    console.log(req.body);
+    res.totalPrice = req.body.totalPrice;
+
     const session = new Session();
     session._idUser = mongoose.Types.ObjectId(req.user._id);
     session._idShowtime = mongoose.Types.ObjectId(req.body._idShowtime);
