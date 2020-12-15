@@ -243,19 +243,51 @@ function forceLoginAndRedirect(url) {
 function provincesDisplay() {
   var provincesHTML = document.getElementById('regCity');
   var districtHTML = document.getElementById('regTown');
-  districtHTML.disabled = true;
-  c.forEach(function (provin, index) {
-    var pID = index;
-    var pName = provin;
-    var innerProvince = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
+  var provincesProfileHTML = document.getElementById('mem-info-province');
+  var districtProfileHTML = document.getElementById('mem-info-district');
 
-    provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
-  });
+  if (provincesHTML) {
+    console.log('OK - UNlogin');
+    districtHTML.disabled = true;
+    c.forEach(function (provin, index) {
+      var pID = index;
+      var pName = provin;
+      var innerProvince = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
+
+      provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
+    });
+  }
+
+  if (provincesProfileHTML) {
+    console.log('OK - login');
+    districtProfileHTML.disabled = false;
+    c.forEach(function (provin, index) {
+      var pID = index;
+      var pName = provin;
+      var innerProvince = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
+
+      provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
+    });
+  }
 }
 
 function districtLoad() {
   var provincesHTML = document.getElementById('regCity');
   var districtHTML = document.getElementById('regTown');
+  districtHTML.innerHTML = '';
+  arr[provincesHTML.value].forEach(function (district, index) {
+    var pID = index;
+    var pName = district;
+    var innerDistrict = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
+
+    districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
+  });
+  districtHTML.disabled = false;
+}
+
+function districtLoadProfile() {
+  var provincesHTML = document.getElementById('mem-info-province');
+  var districtHTML = document.getElementById('mem-info-district');
   districtHTML.innerHTML = '';
   arr[provincesHTML.value].forEach(function (district, index) {
     var pID = index;
