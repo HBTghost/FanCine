@@ -320,12 +320,10 @@ handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async
 });
 
 handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
-  // res.render('searchResult', {
-  //   style: 'review',
-  // });
-  res.json(
-    await res.result,
-  );
+  res.render('searchResult', {
+    style: 'review',
+    result: await res.result
+  });
 });
 
 // Member
