@@ -4,21 +4,22 @@
         <div class="review-title-new"><a href="/search?q={{ searchQuery }}">Từ khóa: {{ searchQuery }}</a></div>
     </div>
     <div class="row">
+        {{#if result}}
         {{#each result}}
         <div class="col-12 col-lg-8" style="background-color:;">
             <div class="container-fuild">
                 <article class="review-list">
                     <div class="review-item">
-                        <a href="/review/reviewContentSample" class="review-item-img">
-                            <img src="/images/reviewContentSample/kid.jpg" alt="">
+                        <a href="/info/{{_id}}" class="review-item-img">
+                            <img src="{{ horizontalImageSource }}" alt="">
                         </a>
                         <div>
-                            <a href="/info/{{id}}">
+                            <a href="/info/{{_id}}">
                                 <div class="review-item-title">
                                     <h4>{{ vietnameseName }}</h4>
                                 </div>
                             </a>
-                            <div class="review-item-content">{{ description }}</div>
+                            <div class="review-item-content">{{ description.0 }}</div>
                         </div>
                     </div>
                 </article>
@@ -31,6 +32,8 @@
                 </div>
                 <div class="col"></div>
             </div>
+
+        {{/if}}
             <!-- Show more button -->
         <div class="col col-md-4 ">
             <div class="container">
