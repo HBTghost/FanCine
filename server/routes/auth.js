@@ -37,6 +37,7 @@ authRouter.get('/forgot/:token', forwardAuthenticated, authController.gotoReset)
 
 // ------------ Login POST Handle ------------//
 authRouter.post('/login', authController.loginHandle);
+authRouter.post('/loginAdmin', authController.loginHandle);
 
 // ------------ Logout GET Handle ------------//
 authRouter.get('/logout', ensureAuthenticated, authController.logoutHandle);

@@ -24,6 +24,7 @@ import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
 
 import { toBirthDate } from '../helpers/date.js';
 
+import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
 
 const handlebarsRouter = express.Router();
@@ -307,15 +308,11 @@ handlebarsRouter.get('/isLogin', (req, res) => {
 });
 
 handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
-  res.json(
-    await res.fullProvinces,
-  );
+  res.json(await res.fullProvinces);
 });
 
 handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async (req, res) => {
-  res.json(
-    await res.districts,
-  );
+  res.json(await res.districts);
 });
 
 // Member
@@ -354,5 +351,44 @@ handlebarsRouter.post('/member', ensureAuthenticatedOrRedirect, updateUserInfor,
 });
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
+
+handlebarsRouter.get('/admin/login', (req, res) => {
+  res.render('adminLogin');
+});
+
+handlebarsRouter.get('/admin', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('admin', {
+    layout: 'admin',
+  });
+});
+
+handlebarsRouter.get('/manage/login', (req, res) => {
+  res.render('managerLogin');
+});
+
+handlebarsRouter.get('/manage', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('manage', {});
+});
+
+handlebarsRouter.get('/manage/postMovie', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('postMovie', {
+    labels: Movie.schema.path('label').enumValues,
+    style: 'postMovie',
+    script: 'postMovie',
+  });
+});
+
+handlebarsRouter.get(
+  '/manage/deleteMovie',
+  ensureAuthenticatedOrRedirect,
+  getAllMovies,
+  (req, res) => {
+    res.render('deleteMovie', {
+      movies: res.allMovies,
+      style: 'deleteMovie',
+      script: 'deleteMovie',
+    });
+  },
+);
 
 export default handlebarsRouter;

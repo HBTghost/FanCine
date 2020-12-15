@@ -28,6 +28,7 @@
     "no-undef": 1,
     "object-curly-newline": 0,
     "operator-linebreak": 0,
-    "no-alert": 0
+    "no-alert": 0,
+    "no-restricted-globals": 1
   }
 }
