@@ -3,8 +3,6 @@ import User from '../models/user.js';
 
 async function updateUserInfor(req, res, next) {
   try {
-    console.log(req.body);
-    console.log(req.body.email);
     await User.findOneAndUpdate(
       { email: req.body.email },
       {
@@ -17,10 +15,6 @@ async function updateUserInfor(req, res, next) {
         town: req.body.district,
       },
     );
-    User.findOne({ email: req.body.email }, (err, result) => {
-      console.log('This is result');
-      console.log(result);
-    });
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
