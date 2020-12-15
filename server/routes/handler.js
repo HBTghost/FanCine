@@ -305,7 +305,7 @@ handlebarsRouter.get('/isLogin', (req, res) => {
 });
 
 handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
-  res.send(
+  res.json(
     await res.fullProvinces,
   );
 });

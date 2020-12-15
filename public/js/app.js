@@ -237,10 +237,10 @@ function forceLoginAndRedirect(url) {
       }
     });
   });
-} // Province - city register
+} // Province - city register - client self handler
 
 
-function provincesDisplay() {
+function provincesDisplay1() {
   var provincesHTML = document.getElementById('regCity');
   var districtHTML = document.getElementById('regTown');
   var provincesProfileHTML = document.getElementById('mem-info-province');
@@ -297,4 +297,41 @@ function districtLoadProfile() {
     districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
   });
   districtHTML.disabled = false;
+} // --- Server side provinces Handler ---
+
+
+function provincesDisplay() {
+  var provincesHTML = document.getElementById('regCity');
+  var districtHTML = document.getElementById('regTown');
+  var provincesProfileHTML = document.getElementById('mem-info-province');
+  var districtProfileHTML = document.getElementById('mem-info-district');
+  fetch('getProvinces', {
+    method: 'POST'
+  }).then(function (resp) {
+    return resp.json();
+  }).then(function (data) {
+    if (provincesHTML) {
+      console.log('OK - UNlogin');
+      districtHTML.disabled = true;
+      data.forEach(function (provin) {
+        var pID = provin.ID;
+        var pName = provin.Title;
+        var innerProvince = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
+
+        provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
+      });
+    }
+
+    if (provincesProfileHTML) {
+      console.log('OK - login');
+      districtProfileHTML.disabled = false;
+      data.forEach(function (provin) {
+        var pID = provin.ID;
+        var pName = provin.Title;
+        var innerProvince = "<option value=\"".concat(pID, "\">").concat(pName, "</option>"); // const provinceElement = document.createElement(innerProvince);
+
+        provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
+      });
+    }
+  });
 }
