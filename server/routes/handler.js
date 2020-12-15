@@ -307,6 +307,7 @@ handlebarsRouter.get('/isLogin', (req, res) => {
 handlebarsRouter.all('/member', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('member', {
     style: 'member',
+    script: 'member',
     userInfo: {
       fullName: req.user.name,
       phoneNumber: req.user.phone,
