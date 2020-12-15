@@ -1,7 +1,7 @@
 <div id="mem-body">
   <div id="mem-container">
     <div id="mem-nav">
-      <button class="mem-nav-btn mem-pointer" id="mem-info-btn">THÔNG TIN THÀNH VIÊN</button>
+      <button class="mem-nav-btn mem-pointer mem-nav-btn-selected" id="mem-info-btn">THÔNG TIN THÀNH VIÊN</button>
       <button class="mem-nav-btn mem-pointer" id="mem-history-btn">LỊCH SỬ GIAO DỊCH</button>
     </div>
 
@@ -12,26 +12,28 @@
           <div class="mem-info-row mem-info-row-6-4 mem-info-row-6-4-sm">
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-full-name">Họ &amp; tên</label>
-              <input class="mem-info-field" name="fullName" id="mem-info-full-name" type="text" value="{{fullName}}" required>
+              <input class="mem-info-field" name="fullName" id="mem-info-full-name" type="text" value="{{fullName}}"
+                required>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-phone-number">Số điện thoại</label>
-              <input class="mem-info-field" name="phoneNumber" id="mem-info-phone-number" type="tel" pattern="[0-9]{8,10}"
-                value="{{phoneNumber}}" required>
+              <input class="mem-info-field" name="phoneNumber" id="mem-info-phone-number" type="tel"
+                pattern="[0-9]{8,10}" value="{{phoneNumber}}" required>
             </div>
           </div>
 
           <div class="mem-info-row mem-info-row-6-4">
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-birthdate">Ngày sinh</label>
-              <input class="mem-info-field" name="birthdate" id="mem-info-birthdate" type="date" value="{{birthdate}}" required>
+              <input class="mem-info-field" name="birthdate" id="mem-info-birthdate" type="date" value="{{birthdate}}"
+                required>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-gender">Giới tính</label>
               <select class="mem-info-field" name="gender" id="mem-info-gender" required>
-                <option value="Nam" {{#if (equal sex 'Nam')}}selected{{/if}}>Nam</option>
-                <option value="Nữ" {{#if (equal sex 'Nữ')}}selected{{/if}}>Nữ</option>
-                <option value="Khác" {{#if (equal sex 'Khác')}}selected{{/if}}>Khác</option>
+                <option value="Nam" {{#if (equal sex 'Nam' )}}selected{{/if}}>Nam</option>
+                <option value="Nữ" {{#if (equal sex 'Nữ' )}}selected{{/if}}>Nữ</option>
+                <option value="Khác" {{#if (equal sex 'Khác' )}}selected{{/if}}>Khác</option>
               </select>
             </div>
           </div>
@@ -47,13 +49,13 @@
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-province">Tỉnh/Thành phố</label>
               <select class="mem-info-field" name="province" id="mem-info-province" onchange="districtLoadProfile()">
-                <option value="0">TP Hồ Chí Minh</option>
+                <option value="{{ city }}"></option>
               </select>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-district">Quận/Huyện</label>
               <select class="mem-info-field" name="district" id="mem-info-district">
-                <option value="0">Quận 5</option>
+                <option value="{{ town }}"></option>
               </select>
             </div>
           </div>
@@ -67,7 +69,8 @@
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-expense">Chi tiêu {{curYear}}</label>
-              <input class="mem-info-field" name="expense" id="mem-info-expense" type="text" value="{{formatPrice expense}}" readonly>
+              <input class="mem-info-field" name="expense" id="mem-info-expense" type="text"
+                value="{{formatPrice expense}}" readonly>
             </div>
           </div>
 
@@ -86,8 +89,48 @@
       </div>
     </form>
 
-    <div id="mem-history-tab" style="display: none;">
-      Lich su giao dich
+    <div id="mem-history-tab">
+      <div class="mem-history-tab-empty">Hiện tại bạn chưa thực hiện giao dịch nào!</div>
+      <div class="mem-history-tab-not-empty">
+        <div class="mem-history-head">
+          <div class="mem-history-head-item">
+            <label for="mem-history-head-item-start">Từ</label>
+            <input type="date" id="mem-history-head-item-start">
+          </div>
+
+          <div class="mem-history-head-item">
+            <label for="mem-history-head-item-end">Đến</label>
+            <input type="date" id="mem-history-head-item-end">
+          </div>
+
+          <div class="mem-history-head-item">
+            <label for="mem-history-head-item-end">Thứ tự</label>
+            <select id="mem-history-head-item-order">
+              <option value="0">Ngày tăng dần</option>
+              <option value="1">Ngày giảm dần</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mem-history-section">
+          {{#each sessions}}
+          <div class="mem-history-item">
+            <p style="display: none;">{{_id}}</p>
+            <div class="mem-history-item-img-sec">
+              <img src="{{imagePath}}" alt="Poster">
+            </div>
+            <div class="mem-history-item-info-sec">
+              <p class="mem-history-item-info mem-history-item-info-viename">{{movieVieName}}</p>
+              <p class="mem-history-item-info mem-history-item-info-date"><b>Ngày:</b>{{date}}</p>
+              <p class="mem-history-item-info mem-history-item-info-time"><b>Giờ:</b>{{time}}</p>
+              <p class="mem-history-item-info mem-history-item-info-price"><b>Tổng:</b>{{price}}</p>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 </div>
