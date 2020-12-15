@@ -13,6 +13,8 @@ async function updateUserInfor(req, res, next) {
         DoB: req.body.birthdate,
         sex: req.body.gender,
         address: req.body.address,
+        city: req.body.province,
+        town: req.body.district,
       },
     );
     User.findOne({ email: req.body.email }, (err, result) => {
