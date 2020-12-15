@@ -24,6 +24,8 @@ import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
 
 import { toBirthDate } from '../helpers/date.js';
 
+import updateUserInfor from '../middleware/updateInfor.js';
+
 const handlebarsRouter = express.Router();
 
 handlebarsRouter.get('/', getAllMovies, async (req, res) => {
@@ -317,7 +319,7 @@ handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async
 });
 
 // Member
-handlebarsRouter.all('/member', ensureAuthenticatedOrRedirect, (req, res) => {
+handlebarsRouter.get('/member', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('member', {
     style: 'member',
     userInfo: {
@@ -329,6 +331,23 @@ handlebarsRouter.all('/member', ensureAuthenticatedOrRedirect, (req, res) => {
       star: req.user.point,
       expense: req.user.spending,
       email: req.user.email,
+      curYear: new Date().getFullYear(),
+    },
+  });
+});
+
+handlebarsRouter.post('/member', ensureAuthenticatedOrRedirect, updateUserInfor, (req, res) => {
+  res.render('member', {
+    style: 'member',
+    userInfo: {
+      fullName: req.body.fullName,
+      phoneNumber: req.body.phoneNumber,
+      birthdate: req.body.birthdate,
+      sex: req.body.gender,
+      address: req.body.address,
+      star: req.body.star,
+      expense: req.body.expense,
+      email: req.body.email,
       curYear: new Date().getFullYear(),
     },
   });
