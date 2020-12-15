@@ -48,19 +48,24 @@ async function getMoviesByTheaterID(req, res, next) {
 
 async function getMoviesByKeyword(req, res, next) {
   try {
-    res.result = await Movie.find({
-      $or: [
-        { 'label': { $regex: req.query.q, $options: 'i' } },
-        { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-        { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-        { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-        { 'originalName': { $regex: req.query.q, $options: 'i' } },
-        { 'producer': { $regex: req.query.q, $options: 'i' } },
-        { 'nation': { $regex: req.query.q, $options: 'i' } },
-        { 'director': { $regex: req.query.q, $options: 'i' } },
-      ],
-    },
-    { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 }).lean();
+    if (req.query.q === '') {
+      res.result = null;
+    } else {
+      res.result = await Movie.find({
+        $or: [
+          { 'label': { $regex: req.query.q, $options: 'i' } },
+          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'originalName': { $regex: req.query.q, $options: 'i' } },
+          { 'producer': { $regex: req.query.q, $options: 'i' } },
+          { 'nation': { $regex: req.query.q, $options: 'i' } },
+          { 'director': { $regex: req.query.q, $options: 'i' } },
+        ],
+      },
+      { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
+      { skip: (Number(req.query.page) > 0) ? Number(req.query.page) - 1 : 0 || 0, limit: 2 }).lean();
+    }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
