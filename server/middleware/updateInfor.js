@@ -5,7 +5,7 @@ async function updateUserInfor(req, res, next) {
   try {
     // console.log(req.body);
     // console.log(req.body.email);
-    await User.findOneAndUpdate({ email: req.body.email }, { name: req.body.fullName });
+    await User.findOneAndUpdate({ email: req.body.email }, { name: req.body.fullName, phone: req.body.phoneNumber });
     // User.findOne({ email: req.body.email }, (err, result) => {
     //   console.log('This is result');
     //   console.log(result);
