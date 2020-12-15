@@ -360,6 +360,13 @@ handlebarsRouter.post(
   },
 );
 
+// Detailed session
+handlebarsRouter.get('/session/:id', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('detailedSession', {
+    style: 'detailedSession',
+  });
+});
+
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
 
 handlebarsRouter.get('/admin/login', (req, res) => {
