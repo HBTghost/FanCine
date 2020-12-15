@@ -2,6 +2,8 @@ import express from 'express';
 import axios from 'axios';
 import FormData from 'form-data';
 import { File } from 'file-api';
+import mongoose from 'mongoose';
+import { Movie } from '../models/index.js';
 import {
   getMovie,
   getAllMovies,
@@ -36,6 +38,7 @@ movieRouter.post('/', async (req, res) => {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': 'XBIMYfKCfBIyCMxLeACvEYEDvdyVuQuT',
+        'User-Agent': 'Mozilla/5.0',
       },
     })
     .then((response) => console.log(response.data))
@@ -45,11 +48,20 @@ movieRouter.post('/', async (req, res) => {
 });
 
 movieRouter.post('/simple', createMovieByForm, (req, res) => {
-  res.json(res.movie);
+  res.redirect('/manage');
 });
 
 movieRouter.post('/utils/postSampleDatasets', postSampleMovies, (req, res) => {
   res.json(res.movies);
+});
+
+movieRouter.delete('/:id', async (req, res) => {
+  try {
+    // await Movie.findById(mongoose.Types.ObjectId(req.params.id));
+    await Movie.findByIdAndDelete(mongoose.Types.ObjectId(req.params.id));
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 export default movieRouter;

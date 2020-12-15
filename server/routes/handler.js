@@ -329,7 +329,7 @@ handlebarsRouter.get('/admin/login', (req, res) => {
   res.render('adminLogin');
 });
 
-handlebarsRouter.get('/admin', (req, res) => {
+handlebarsRouter.get('/admin', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('admin', {
     layout: 'admin',
   });
@@ -339,16 +339,29 @@ handlebarsRouter.get('/manage/login', (req, res) => {
   res.render('managerLogin');
 });
 
-handlebarsRouter.get('/manage', (req, res) => {
+handlebarsRouter.get('/manage', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('manage', {});
 });
 
-handlebarsRouter.get('/manage/postMovie', (req, res) => {
+handlebarsRouter.get('/manage/postMovie', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('postMovie', {
     labels: Movie.schema.path('label').enumValues,
     style: 'postMovie',
     script: 'postMovie',
   });
 });
+
+handlebarsRouter.get(
+  '/manage/deleteMovie',
+  ensureAuthenticatedOrRedirect,
+  getAllMovies,
+  (req, res) => {
+    res.render('deleteMovie', {
+      movies: res.allMovies,
+      style: 'deleteMovie',
+      script: 'deleteMovie',
+    });
+  },
+);
 
 export default handlebarsRouter;

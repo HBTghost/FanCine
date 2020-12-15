@@ -49,13 +49,13 @@ async function getMoviesByTheaterID(req, res, next) {
 async function createMovieByForm(req, res, next) {
   try {
     const data = req.body;
-    res.movie = await new Movie({
+    const movie = new Movie({
       originalName: data.originalName,
       vietnameseName: data.vietnameseName,
       label: data.label,
       time: data.time,
       producer: data.producer,
-      category: data.category,
+      category: data.category[1].trim().split(','),
       cast: data.cast[1].trim().split(','),
       nation: data.nation,
       director: data.director,
@@ -65,6 +65,8 @@ async function createMovieByForm(req, res, next) {
       imageSource: data.imageSource,
       horizontalImageSource: data.horizontalImageSource,
     });
+    await movie.save();
+    res.movie = movie;
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

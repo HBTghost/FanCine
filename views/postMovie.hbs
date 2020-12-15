@@ -2,6 +2,7 @@
 {{> manageNav }}
 
 <div class="container py-3">
+<h1 class="text-center">Đăng tải phim</h1>
 <form action="/api/movies/simple" method="POST">
   <div class="form-group">
     <label for="originalName">Tên phim gốc</label>
@@ -11,7 +12,7 @@
     <label for="nation">Quốc gia</label>
     <input type="text" name="nation" id="nation" class="form-control" value="Quốc gia">
     <label for="director">Đạo diễn</label>
-    <input type="text" name="director" id="director" class="form-control" value="Đạo diễn" data-role="tagsinput">
+    <input type="text" name="director" id="director" class="form-control" value="Đạo diễn">
     <label for="cast">Diễn viên</label>
     <input type="text" name="cast" id="cast" class="form-control" value="Diễn viên" data-role="tagsinput">
     <label for="producer">Nhà sản xuất</label>
