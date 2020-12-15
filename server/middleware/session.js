@@ -11,6 +11,28 @@ async function getSessionByID(req, res, next) {
   return next();
 }
 
+async function getSessionsByUser(req, res, next) {
+  try {
+    res.sessions = await Session.find({ _idUser: mongoose.Types.ObjectId(req.user._id) }).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getSessionsByUserOrderByCreatedAtDesc(req, res, next) {
+  try {
+    res.sessions = await Session.find({ _idUser: mongoose.Types.ObjectId(req.user._id) })
+      .sort({ createdAt: 'desc' })
+      .lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function insertSession(req, res, next) {
   try {
     res.totalPrice = req.body.totalPrice;
@@ -32,4 +54,4 @@ async function insertSession(req, res, next) {
   return next();
 }
 
-export { getSessionByID, insertSession };
+export { getSessionByID, getSessionsByUser, getSessionsByUserOrderByCreatedAtDesc, insertSession };

@@ -106,8 +106,8 @@
           <div class="mem-history-head-item">
             <label for="mem-history-head-item-end">Thứ tự</label>
             <select id="mem-history-head-item-order">
-              <option value="0">Ngày tăng dần</option>
-              <option value="1">Ngày giảm dần</option>
+              <option value="0">Gần đây nhất</option>
+              <option value="1">Xa đây nhất</option>
             </select>
           </div>
         </div>
@@ -117,13 +117,12 @@
           <div class="mem-history-item">
             <p style="display: none;">{{_id}}</p>
             <div class="mem-history-item-img-sec">
-              <img src="{{imagePath}}" alt="Poster">
+              <img src="{{movie.imageSource}}" alt="Poster">
             </div>
             <div class="mem-history-item-info-sec">
-              <p class="mem-history-item-info mem-history-item-info-viename">{{movieVieName}}</p>
-              <p class="mem-history-item-info mem-history-item-info-date"><b>Ngày:</b>{{date}}</p>
-              <p class="mem-history-item-info mem-history-item-info-time"><b>Giờ:</b>{{time}}</p>
-              <p class="mem-history-item-info mem-history-item-info-price"><b>Tổng:</b>{{price}}</p>
+              <p class="mem-history-item-info mem-history-item-info-viename">{{movie.vietnameseName}}</p>
+              <p class="mem-history-item-info mem-history-item-info-time"><b>Thời điểm thanh toán:&ensp;</b>{{createdAt}}</p>
+              <p class="mem-history-item-info mem-history-item-info-price"><b>Tổng tiền:&ensp;</b>{{formatPrice totalPrice}}</p>
             </div>
           </div>
           {{/each}}

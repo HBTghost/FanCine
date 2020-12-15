@@ -2,6 +2,7 @@ import express from 'express';
 import { ensureAuthenticated, ensureAuthenticatedOrRedirect } from '../config/checkAuth.js';
 import {
   getMovie,
+  getMoviesFromSessions,
   getMovieFromTheaterMovie,
   getAllMovies,
   getMoviesByTheaterID,
@@ -13,19 +14,23 @@ import {
 } from '../middleware/theater.js';
 import {
   getTheaterMovieFromShowtime,
+  getTheaterMoviesFromSessions,
   getTheaterMoviesByMovieID,
   getTheaterMoviesByTheaterID,
   getTheaterMovieRecursively,
 } from '../middleware/theaterMovie.js';
 import { getDateShowsFromTheaterMovieID, getDateShowFromShowtime } from '../middleware/dateShow.js';
 import { getTypeShowFromShowtime } from '../middleware/typeShow.js';
-import { getShowTime, getShowTimeByOtherKey } from '../middleware/showTime.js';
+import {
+  getShowTime,
+  getShowTimeByOtherKey,
+  getShowtimesBySessions,
+} from '../middleware/showTime.js';
 import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
-
 import { toBirthDate } from '../helpers/date.js';
-
 import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
+import { getSessionsByUserOrderByCreatedAtDesc } from '../middleware/session.js';
 
 const handlebarsRouter = express.Router();
 
@@ -317,25 +322,34 @@ handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async
 });
 
 // Member
-handlebarsRouter.get('/member', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('member', {
-    style: 'member',
-    script: 'member',
-    userInfo: {
-      fullName: req.user.name,
-      phoneNumber: req.user.phone,
-      birthdate: toBirthDate(req.user.DoB),
-      sex: req.user.sex,
-      address: req.user.address,
-      star: req.user.point,
-      expense: req.user.spending,
-      email: req.user.email,
-      city: req.user.city,
-      town: req.user.town,
-      curYear: new Date().getFullYear(),
-    },
-  });
-});
+handlebarsRouter.get(
+  '/member',
+  ensureAuthenticatedOrRedirect,
+  getSessionsByUserOrderByCreatedAtDesc,
+  getShowtimesBySessions,
+  getTheaterMoviesFromSessions,
+  getMoviesFromSessions,
+  (req, res) => {
+    res.render('member', {
+      style: 'member',
+      script: 'member',
+      userInfo: {
+        fullName: req.user.name,
+        phoneNumber: req.user.phone,
+        birthdate: toBirthDate(req.user.DoB),
+        sex: req.user.sex,
+        address: req.user.address,
+        star: req.user.point,
+        expense: req.user.spending,
+        email: req.user.email,
+        city: req.user.city,
+        town: req.user.town,
+        curYear: new Date().getFullYear(),
+      },
+      sessions: res.sessions,
+    });
+  },
+);
 
 handlebarsRouter.post(
   '/member/update',

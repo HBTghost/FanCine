@@ -156,7 +156,7 @@ $txt-alert: #fff;
 
         .mem-history-item {
           display: grid;
-          grid-template-columns: 70px auto;
+          grid-template-columns: 80px auto;
           gap: 10px;
           border: 1px solid $bd-session-item;
           border-radius: 5px;
@@ -172,16 +172,12 @@ $txt-alert: #fff;
           .mem-history-item-info-sec {
             .mem-history-item-info {
               margin: 0;
-
-              b {
-                display: inline-block;
-                width: 45px;
-              }
             }
 
             .mem-history-item-info-viename {
               text-transform: uppercase;
               font-weight: bold;
+              margin-bottom: 10px;
             }
           }
         }
