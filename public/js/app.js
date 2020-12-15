@@ -311,6 +311,7 @@ function provincesDisplay() {
       districtProfileHTML.disabled = false;
       data.forEach(function (provin) {
         if ("".concat(provin.ID) === document.querySelector('#mem-info-province option:first-child').value) {
+          document.querySelector('#mem-info-province option:first-child').label = provin.Title;
           districtLoadProfile();
           return;
         }

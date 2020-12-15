@@ -318,6 +318,7 @@ function provincesDisplay() {
 
         data.forEach((provin) => {
           if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
+            document.querySelector('#mem-info-province option:first-child').label = provin.Title;
             districtLoadProfile();
             return;
           }
