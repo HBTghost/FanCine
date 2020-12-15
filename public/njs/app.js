@@ -226,49 +226,6 @@ function forceLoginAndRedirect(url) {
 }
 
 // --- Server side provinces Handler ---
-function provincesDisplay() {
-  const provincesHTML = document.getElementById('regCity');
-  const districtHTML = document.getElementById('regTown');
-
-  const provincesProfileHTML = document.getElementById('mem-info-province');
-  const districtProfileHTML = document.getElementById('mem-info-district');
-
-  fetch('getProvinces', {
-    method: 'POST',
-  })
-    .then((resp) => resp.json())
-    .then((data) => {
-      if (provincesHTML) {
-        console.log('OK - UNlogin');
-        districtHTML.disabled = true;
-
-        data.forEach((provin) => {
-          const pID = provin.ID;
-          const pName = provin.Title;
-
-          const innerProvince = `<option value="${pID}">${pName}</option>`;
-
-          // const provinceElement = document.createElement(innerProvince);
-          provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
-        });
-      }
-
-      if (provincesProfileHTML) {
-        console.log('OK - login');
-        districtProfileHTML.disabled = false;
-
-        data.forEach((provin) => {
-          const pID = provin.ID;
-          const pName = provin.Title;
-
-          const innerProvince = `<option value="${pID}">${pName}</option>`;
-
-          // const provinceElement = document.createElement(innerProvince);
-          provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
-        });
-      }
-    });
-}
 
 function districtLoad() {
   const provincesHTML = document.getElementById('regCity');
@@ -322,4 +279,56 @@ function districtLoadProfile() {
         districtHTML.disabled = false;
       },
     );
+}
+
+function provincesDisplay() {
+  const provincesHTML = document.getElementById('regCity');
+  const districtHTML = document.getElementById('regTown');
+
+  const provincesProfileHTML = document.getElementById('mem-info-province');
+  const districtProfileHTML = document.getElementById('mem-info-district');
+
+  fetch('getProvinces', {
+    method: 'POST',
+  })
+    .then((resp) => resp.json())
+    .then((data) => {
+      fetch('isLogin')
+        .then((islogRes) => islogRes.json())
+        .then((islogin) => {
+          if (!islogin) {
+            if (provincesHTML) {
+              districtHTML.disabled = true;
+
+              data.forEach((provin) => {
+                const pID = provin.ID;
+                const pName = provin.Title;
+
+                const innerProvince = `<option value="${pID}">${pName}</option>`;
+
+                // const provinceElement = document.createElement(innerProvince);
+                provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
+              });
+            }
+          }
+        });
+
+      if (provincesProfileHTML) {
+        districtProfileHTML.disabled = false;
+
+        data.forEach((provin) => {
+          if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
+            districtLoadProfile();
+            return;
+          }
+          const pID = provin.ID;
+          const pName = provin.Title;
+
+          const innerProvince = `<option value="${pID}">${pName}</option>`;
+
+          // const provinceElement = document.createElement(innerProvince);
+          provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
+        });
+      }
+    });
 }
