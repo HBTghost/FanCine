@@ -331,6 +331,8 @@ handlebarsRouter.get('/member', ensureAuthenticatedOrRedirect, (req, res) => {
       star: req.user.point,
       expense: req.user.spending,
       email: req.user.email,
+      city: req.user.city,
+      town: req.user.town,
       curYear: new Date().getFullYear(),
     },
   });
@@ -348,6 +350,8 @@ handlebarsRouter.post('/member', ensureAuthenticatedOrRedirect, updateUserInfor,
       star: req.body.star,
       expense: req.body.expense,
       email: req.body.email,
+      city: req.body.province,
+      town: req.body.district,
       curYear: new Date().getFullYear(),
     },
   });

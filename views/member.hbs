@@ -47,13 +47,13 @@
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-province">Tỉnh/Thành phố</label>
               <select class="mem-info-field" name="province" id="mem-info-province" onchange="districtLoadProfile()">
-                <option value="0">TP Hồ Chí Minh</option>
+                <option value="{{ city }}"></option>
               </select>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-district">Quận/Huyện</label>
               <select class="mem-info-field" name="district" id="mem-info-district">
-                <option value="0">Quận 5</option>
+                <option value="{{ town }}"></option>
               </select>
             </div>
           </div>
