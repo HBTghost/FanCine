@@ -225,63 +225,46 @@ function forceLoginAndRedirect(url) {
   });
 }
 
-// --- Server side provinces Handler ---
-
+// --- Client side provinces Handler --
 function districtLoad() {
   const provincesHTML = document.getElementById('regCity');
   const districtHTML = document.getElementById('regTown');
 
-  fetch(`getProvince/${provincesHTML.value}/District`, {
-    method: 'POST',
-  })
-    .then((resp) => resp.json())
-    .then(
-      (data) => {
-        districtHTML.innerHTML = '';
+  districtHTML.innerHTML = '';
 
-        data.forEach((district) => {
-          const pID = district.ID;
-          const pName = district.Title;
+  arr[provincesHTML.value].forEach((district, index) => {
+    const pID = index;
+    const pName = district;
 
-          const innerDistrict = `<option value="${pID}">${pName}</option>`;
+    const innerDistrict = `<option value="${pID}">${pName}</option>`;
 
-          // const provinceElement = document.createElement(innerProvince);
-          districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
-        });
+    // const provinceElement = document.createElement(innerProvince);
+    districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
+  });
 
-        districtHTML.disabled = false;
-      },
-    );
+  districtHTML.disabled = false;
 }
 
 function districtLoadProfile() {
   const provincesHTML = document.getElementById('mem-info-province');
   const districtHTML = document.getElementById('mem-info-district');
 
-  fetch(`getProvince/${provincesHTML.value}/District`, {
-    method: 'POST',
-  })
-    .then((resp) => resp.json())
-    .then(
-      (data) => {
-        const currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
-        districtHTML.innerHTML = '';
+  const currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
+  districtHTML.innerHTML = '';
 
-        data.forEach((district) => {
-          const pID = district.ID;
-          const pName = district.Title;
+  arr[provincesHTML.value].forEach((district, index) => {
+    const pID = index;
+    const pName = district;
 
-          const innerDistrict = `<option value="${pID}">${pName}</option>`;
+    const innerDistrict = `<option value="${pID}">${pName}</option>`;
 
-          // const provinceElement = document.createElement(innerProvince);
-          districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
-        });
+    // const provinceElement = document.createElement(innerProvince);
+    districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
+  });
 
-        const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
-        if (selectUserCurrent) { selectUserCurrent.selected = true; }
-        districtHTML.disabled = false;
-      },
-    );
+  const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
+  if (selectUserCurrent) { selectUserCurrent.selected = true; }
+  districtHTML.disabled = false;
 }
 
 function provincesDisplay() {
@@ -291,50 +274,158 @@ function provincesDisplay() {
   const provincesProfileHTML = document.getElementById('mem-info-province');
   const districtProfileHTML = document.getElementById('mem-info-district');
 
-  fetch('getProvinces', {
-    method: 'POST',
-  })
-    .then((resp) => resp.json())
-    .then((data) => {
-      fetch('isLogin')
-        .then((islogRes) => islogRes.json())
-        .then((islogin) => {
-          if (!islogin) {
-            if (provincesHTML) {
-              districtHTML.disabled = true;
+  fetch('isLogin')
+    .then((islogRes) => islogRes.json())
+    .then((islogin) => {
+      if (!islogin) {
+        if (provincesHTML) {
+          districtHTML.disabled = true;
 
-              data.forEach((provin) => {
-                const pID = provin.ID;
-                const pName = provin.Title;
+          c.forEach((provin, ID) => {
+            const pID = ID;
+            const pName = provin;
 
-                const innerProvince = `<option value="${pID}">${pName}</option>`;
+            const innerProvince = `<option value="${pID}">${pName}</option>`;
 
-                // const provinceElement = document.createElement(innerProvince);
-                provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
-              });
-            }
-          }
-        });
-
-      if (provincesProfileHTML) {
-        districtProfileHTML.disabled = false;
-
-        data.forEach((provin) => {
-          if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
-            document.querySelector('#mem-info-province option:first-child').label = provin.Title;
-
-            districtLoadProfile();
-
-            return;
-          }
-          const pID = provin.ID;
-          const pName = provin.Title;
-
-          const innerProvince = `<option value="${pID}">${pName}</option>`;
-
-          // const provinceElement = document.createElement(innerProvince);
-          provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
-        });
+            // const provinceElement = document.createElement(innerProvince);
+            provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
+          });
+        }
       }
     });
+
+  if (provincesProfileHTML) {
+    districtProfileHTML.disabled = false;
+
+    c.forEach((provin, ID) => {
+      if (`${ID}` === document.querySelector('#mem-info-province option:first-child').value) {
+        document.querySelector('#mem-info-province option:first-child').label = provin;
+
+        districtLoadProfile();
+
+        return;
+      }
+      const pID = ID;
+      const pName = provin;
+
+      const innerProvince = `<option value="${pID}">${pName}</option>`;
+
+      // const provinceElement = document.createElement(innerProvince);
+      provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
+    });
+  }
 }
+
+// --- Server side provinces Handler ---
+
+// function districtLoad() {
+//   const provincesHTML = document.getElementById('regCity');
+//   const districtHTML = document.getElementById('regTown');
+
+//   fetch(`getProvince/${provincesHTML.value}/District`, {
+//     method: 'POST',
+//   })
+//     .then((resp) => resp.json())
+//     .then(
+//       (data) => {
+//         districtHTML.innerHTML = '';
+
+//         data.forEach((district) => {
+//           const pID = district.ID;
+//           const pName = district.Title;
+
+//           const innerDistrict = `<option value="${pID}">${pName}</option>`;
+
+//           // const provinceElement = document.createElement(innerProvince);
+//           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
+//         });
+
+//         districtHTML.disabled = false;
+//       },
+//     );
+// }
+
+// function districtLoadProfile() {
+//   const provincesHTML = document.getElementById('mem-info-province');
+//   const districtHTML = document.getElementById('mem-info-district');
+
+//   fetch(`getProvince/${provincesHTML.value}/District`, {
+//     method: 'POST',
+//   })
+//     .then((resp) => resp.json())
+//     .then(
+//       (data) => {
+//         const currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
+//         districtHTML.innerHTML = '';
+
+//         data.forEach((district) => {
+//           const pID = district.ID;
+//           const pName = district.Title;
+
+//           const innerDistrict = `<option value="${pID}">${pName}</option>`;
+
+//           // const provinceElement = document.createElement(innerProvince);
+//           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
+//         });
+
+//         const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
+//         if (selectUserCurrent) { selectUserCurrent.selected = true; }
+//         districtHTML.disabled = false;
+//       },
+//     );
+// }
+
+// function provincesDisplay() {
+//   const provincesHTML = document.getElementById('regCity');
+//   const districtHTML = document.getElementById('regTown');
+
+//   const provincesProfileHTML = document.getElementById('mem-info-province');
+//   const districtProfileHTML = document.getElementById('mem-info-district');
+
+//   fetch('getProvinces', {
+//     method: 'POST',
+//   })
+//     .then((resp) => resp.json())
+//     .then((data) => {
+//       fetch('isLogin')
+//         .then((islogRes) => islogRes.json())
+//         .then((islogin) => {
+//           if (!islogin) {
+//             if (provincesHTML) {
+//               districtHTML.disabled = true;
+
+//               data.forEach((provin) => {
+//                 const pID = provin.ID;
+//                 const pName = provin.Title;
+
+//                 const innerProvince = `<option value="${pID}">${pName}</option>`;
+
+//                 // const provinceElement = document.createElement(innerProvince);
+//                 provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
+//               });
+//             }
+//           }
+//         });
+
+//       if (provincesProfileHTML) {
+//         districtProfileHTML.disabled = false;
+
+//         data.forEach((provin) => {
+//           if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
+//             document.querySelector('#mem-info-province option:first-child').label = provin.Title;
+
+//             districtLoadProfile();
+
+//             return;
+//           }
+//           const pID = provin.ID;
+//           const pName = provin.Title;
+
+//           const innerProvince = `<option value="${pID}">${pName}</option>`;
+
+//           // const provinceElement = document.createElement(innerProvince);
+//           provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
+//         });
+//       }
+//     });
+// }
