@@ -268,6 +268,7 @@ function districtLoadProfile() {
   }).then(function (resp) {
     return resp.json();
   }).then(function (data) {
+    var currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
     districtHTML.innerHTML = '';
     data.forEach(function (district) {
       var pID = district.ID;
@@ -276,6 +277,12 @@ function districtLoadProfile() {
 
       districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
     });
+    var selectUserCurrent = document.querySelector("#mem-info-district option[value=\"".concat(currentUserDistrict, "\"]"));
+
+    if (selectUserCurrent) {
+      selectUserCurrent.selected = true;
+    }
+
     districtHTML.disabled = false;
   });
 }

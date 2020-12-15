@@ -264,6 +264,7 @@ function districtLoadProfile() {
     .then((resp) => resp.json())
     .then(
       (data) => {
+        const currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
         districtHTML.innerHTML = '';
 
         data.forEach((district) => {
@@ -276,6 +277,8 @@ function districtLoadProfile() {
           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
         });
 
+        const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
+        if (selectUserCurrent) { selectUserCurrent.selected = true; }
         districtHTML.disabled = false;
       },
     );
@@ -319,7 +322,9 @@ function provincesDisplay() {
         data.forEach((provin) => {
           if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
             document.querySelector('#mem-info-province option:first-child').label = provin.Title;
+
             districtLoadProfile();
+
             return;
           }
           const pID = provin.ID;
