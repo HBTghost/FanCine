@@ -337,24 +337,14 @@ handlebarsRouter.get('/member', ensureAuthenticatedOrRedirect, (req, res) => {
   });
 });
 
-handlebarsRouter.post('/member', ensureAuthenticatedOrRedirect, updateUserInfor, (req, res) => {
-  res.render('member', {
-    style: 'member',
-    userInfo: {
-      fullName: req.body.fullName,
-      phoneNumber: req.body.phoneNumber,
-      birthdate: req.body.birthdate,
-      sex: req.body.gender,
-      address: req.body.address,
-      star: req.body.star,
-      expense: req.body.expense,
-      email: req.body.email,
-      city: req.body.province,
-      town: req.body.district,
-      curYear: new Date().getFullYear(),
-    },
-  });
-});
+handlebarsRouter.post(
+  '/member/update',
+  ensureAuthenticatedOrRedirect,
+  updateUserInfor,
+  (req, res) => {
+    res.redirect('/member');
+  },
+);
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
 
