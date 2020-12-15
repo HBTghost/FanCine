@@ -39,6 +39,7 @@ handlebarsRouter.get('/', getAllMovies, async (req, res) => {
 handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   res.render('info', {
     style: 'info',
+    script: 'info',
     movie: res.movie,
   });
 });

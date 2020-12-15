@@ -262,8 +262,12 @@ function districtLoadProfile() {
     districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
   });
 
-  const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
-  if (selectUserCurrent) { selectUserCurrent.selected = true; }
+  const selectUserCurrent = document.querySelector(
+    `#mem-info-district option[value="${currentUserDistrict}"]`,
+  );
+  if (selectUserCurrent) {
+    selectUserCurrent.selected = true;
+  }
   districtHTML.disabled = false;
 }
 
@@ -274,7 +278,7 @@ function provincesDisplay() {
   const provincesProfileHTML = document.getElementById('mem-info-province');
   const districtProfileHTML = document.getElementById('mem-info-district');
 
-  fetch('isLogin')
+  fetch('/isLogin')
     .then((islogRes) => islogRes.json())
     .then((islogin) => {
       if (!islogin) {
