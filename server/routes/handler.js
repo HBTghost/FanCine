@@ -20,6 +20,7 @@ import {
 import { getDateShowsFromTheaterMovieID, getDateShowFromShowtime } from '../middleware/dateShow.js';
 import { getTypeShowFromShowtime } from '../middleware/typeShow.js';
 import { getShowTime, getShowTimeByOtherKey } from '../middleware/showTime.js';
+import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
 
 import { toBirthDate } from '../helpers/date.js';
 
@@ -301,6 +302,18 @@ handlebarsRouter.get('/render/header', (req, res) => {
 
 handlebarsRouter.get('/isLogin', (req, res) => {
   res.send(req.isAuthenticated());
+});
+
+handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
+  res.send(
+    await res.cities,
+  );
+});
+
+handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async (req, res) => {
+  res.send(
+    await res.districts,
+  );
 });
 
 // Member
