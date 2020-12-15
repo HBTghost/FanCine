@@ -60,7 +60,7 @@ async function getMoviesByKeyword(req, res, next) {
         { 'director': { $regex: req.query.q, $options: 'i' } },
       ],
     },
-    { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 });
+    { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 }).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

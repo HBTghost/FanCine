@@ -4,12 +4,15 @@
         <div class="review-title-new"><a href="/search?q={{ searchQuery }}">Từ khóa: {{ searchQuery }}</a></div>
     </div>
     <div class="row">
-        {{#if result}}
-        {{#each result}}
+        
         <div class="col-12 col-lg-8" style="background-color:;">
+            
             <div class="container-fuild">
                 <article class="review-list">
+                    {{#if result}}
+                    {{#each result}}
                     <div class="review-item">
+                        
                         <a href="/info/{{_id}}" class="review-item-img">
                             <img src="{{ horizontalImageSource }}" alt="">
                         </a>
@@ -19,23 +22,26 @@
                                     <h4>{{ vietnameseName }}</h4>
                                 </div>
                             </a>
-                            <div class="review-item-content">{{ description.0 }}</div>
+
+                            <div class="review-item-content">{{ description.[0] }}</div>
                         </div>
                     </div>
+                    
+                    {{/each}}
+                    {{else}}
+                     <div class="review-item">
+                        <img src="https://i.loli.net/2020/12/16/RONHw4EXfGznVkr.jpg" alt="">
+                        <div>
+                            <div class="review-item-content">Rất tiếc không có kết quả nào rồi!!</div>
+                        </div>
+                    </div>
+                    {{/if}}
                 </article>
             </div>
         </div>
-        <div class="row mt-3">
-                <div class="col"></div>
-                <div class="col-12 col-lg-8">
-                    <button type="button" class="btn btn-outline-secondary d-flex container d-flex justify-content-center">Xem Thêm</button>
-                </div>
-                <div class="col"></div>
-            </div>
-
-        {{/if}}
+        
             <!-- Show more button -->
-        <div class="col col-md-4 ">
+        <div class="col">
             <div class="container">
                 <img src="https://via.placeholder.com/768x1024" alt="" class="img-thumbnail">
             </div>
