@@ -5,6 +5,7 @@ import {
   getMovieFromTheaterMovie,
   getAllMovies,
   getMoviesByTheaterID,
+  getMoviesByKeyword,
 } from '../middleware/movie.js';
 import {
   getTheaterFromTheaterMovie,
@@ -315,6 +316,15 @@ handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
 handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async (req, res) => {
   res.json(
     await res.districts,
+  );
+});
+
+handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
+  // res.render('searchResult', {
+  //   style: 'review',
+  // });
+  res.json(
+    await res.result,
   );
 });
 

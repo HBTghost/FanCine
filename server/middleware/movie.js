@@ -46,6 +46,28 @@ async function getMoviesByTheaterID(req, res, next) {
   return next();
 }
 
+async function getMoviesByKeyword(req, res, next) {
+  try {
+    res.result = await Movie.find({
+      $or: [
+        { 'label': { $regex: req.query.q, $options: 'i' } },
+        { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+        { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+        { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+        { 'originalName': { $regex: req.query.q, $options: 'i' } },
+        { 'producer': { $regex: req.query.q, $options: 'i' } },
+        { 'nation': { $regex: req.query.q, $options: 'i' } },
+        { 'director': { $regex: req.query.q, $options: 'i' } },
+      ],
+    },
+    { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 });
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function postSampleMovies(req, res, next) {
   try {
     const movies = [];
@@ -221,4 +243,4 @@ async function postSampleMovies(req, res, next) {
   return next();
 }
 
-export { getMovie, getMovieFromTheaterMovie, getAllMovies, getMoviesByTheaterID, postSampleMovies };
+export { getMoviesByKeyword, getMovie, getMovieFromTheaterMovie, getAllMovies, getMoviesByTheaterID, postSampleMovies };
