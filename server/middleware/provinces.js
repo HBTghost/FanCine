@@ -23,8 +23,7 @@ async function getAllDistrict(req, res, next) {
 
     res.districts = getDistrictData.data.map(
       (district) => ({ 'ID': district.ID, 'Title': district.Title }),
-    )
-      .sort((a, b) => ((a.Title > b.Title) ? 1 : -1));
+    );
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

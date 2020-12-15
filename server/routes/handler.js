@@ -311,7 +311,7 @@ handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
 });
 
 handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async (req, res) => {
-  res.send(
+  res.json(
     await res.districts,
   );
 });
