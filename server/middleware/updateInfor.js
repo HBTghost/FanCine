@@ -3,13 +3,13 @@ import User from '../models/user.js';
 
 async function updateUserInfor(req, res, next) {
   try {
-    // console.log(req.body);
-    // console.log(req.body.email);
-    await User.findOneAndUpdate({ email: req.body.email }, { name: req.body.fullName, phone: req.body.phoneNumber, DoB: req.body.birthdate, sex: req.body.gender });
-    // User.findOne({ email: req.body.email }, (err, result) => {
-    //   console.log('This is result');
-    //   console.log(result);
-    // });
+    console.log(req.body);
+    console.log(req.body.email);
+    await User.findOneAndUpdate({ email: req.body.email }, { name: req.body.fullName, phone: req.body.phoneNumber, DoB: req.body.birthdate, sex: req.body.gender, address: req.body.address });
+    User.findOne({ email: req.body.email }, (err, result) => {
+      console.log('This is result');
+      console.log(result);
+    });
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
