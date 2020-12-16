@@ -361,9 +361,9 @@ handlebarsRouter.post(
 );
 
 // Detailed session
-handlebarsRouter.get('/session/:id', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('detailedSession', {
-    style: 'detailedSession',
+handlebarsRouter.get('/transaction/:id', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('detailedTransaction', {
+    style: 'detailedTransaction',
   });
 });
 

@@ -43,6 +43,6 @@ sessionItemElements.forEach((e) => {
   });
 
   e.addEventListener('click', () => {
-    window.open(`session/${e.firstElementChild.innerHTML}`);
+    window.open(`transaction/${e.firstElementChild.innerHTML}`);
   });
 });

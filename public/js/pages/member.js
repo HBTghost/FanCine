@@ -37,6 +37,6 @@ sessionItemElements.forEach(function (e) {
     e.classList.remove('mem-history-item-hover');
   });
   e.addEventListener('click', function () {
-    window.open("session/".concat(e.firstElementChild.innerHTML));
+    window.open("transaction/".concat(e.firstElementChild.innerHTML));
   });
 });
