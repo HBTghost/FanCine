@@ -47,7 +47,6 @@ async function insertSession(req, res, next) {
     session.paymentMethod = req.body.paymentMethod;
     res.session = await session.save();
   } catch (err) {
-    console.log(res.status(err.status || 500).json({ message: err.message }));
     return res.status(err.status || 500).json({ message: err.message });
   }
 
