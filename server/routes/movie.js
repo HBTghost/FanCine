@@ -57,8 +57,8 @@ movieRouter.post('/utils/postSampleDatasets', postSampleMovies, (req, res) => {
 
 movieRouter.delete('/:id', async (req, res) => {
   try {
-    // await Movie.findById(mongoose.Types.ObjectId(req.params.id));
-    await Movie.findByIdAndDelete(mongoose.Types.ObjectId(req.params.id));
+    await Movie.findById(mongoose.Types.ObjectId(req.params.id));
+    // await Movie.findByIdAndDelete(mongoose.Types.ObjectId(req.params.id));
   } catch (err) {
     res.status(500).json(err);
   }
