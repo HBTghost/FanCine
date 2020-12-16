@@ -39,6 +39,7 @@ async function insertSession(req, res, next) {
 
     const session = new Session();
     session._idUser = mongoose.Types.ObjectId(req.user._id);
+    session.createdAt = Date.now();
     session._idShowtime = mongoose.Types.ObjectId(req.body._idShowtime);
     session.ticketInfo = req.body.ticketInfo;
     session.comboInfo = req.body.comboInfo;
