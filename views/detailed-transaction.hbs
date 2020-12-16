@@ -1,0 +1,45 @@
+<div id="dettrans-body">
+  <div id="dettrans-container">
+    {{#with session}}
+    <div id="dettrans-session">
+      <div class="dettrans-sec dettrans-movie">
+        <img class="dettrans-movie-poster" src="{{movie.horizontalImageSource}}" alt="Horizontal Poster">
+        <div class="dettrans-movie-ori-name dettrans-movie-name">{{movie.originalName}}</div>
+        <div class="dettrans-movie-vie-name dettrans-movie-name">{{movie.vietnameseName}}</div>
+      </div>
+
+      <div class="dettrans-sec dettrans-info">
+        <div class="dettrans-info-sec">
+          <div class="dettrans-info-sec-head">RẠP</div>
+          <div class="dettrans-info-sec-list">
+            <div class="dettrans-info-sec-item"><b>Tên:&ensp;</b>{{theater.name}}</div>
+            <div class="dettrans-info-sec-item dettrans-info-sec-item-last"><b>Địa chỉ:&ensp;</b>{{theater.address}}</div>
+          </div>
+        </div>
+
+        <div class="dettrans-info-sec">
+          <div class="dettrans-info-sec-head">SUẤT CHIẾU</div>
+          <div class="dettrans-info-sec-list">
+            <div class="dettrans-info-sec-item"><b>Ngày:&ensp;</b>{{dateShow.value}}</div>
+            <div class="dettrans-info-sec-item"><b>Giờ:&ensp;</b>{{showtime.time}}</div>
+            <div class="dettrans-info-sec-item"><b>Phòng:&ensp;</b>{{showtime.room}}</div>
+            <div class="dettrans-info-sec-item dettrans-info-sec-item-last"><b>Hình thức:&ensp;</b>{{typeShow.value}}</div>
+          </div>
+        </div>
+
+        <div class="dettrans-info-sec dettrans-info-sec-last">
+          <div class="dettrans-info-sec-head">GIAO DỊCH</div>
+          <div class="dettrans-info-sec-list">
+            <div class="dettrans-info-sec-item"><b>Vé:&ensp;</b>{{ticketInfo}}</div>
+            <div class="dettrans-info-sec-item"><b>Combo:&ensp;</b>{{comboInfo}}</div>
+            <div class="dettrans-info-sec-item"><b>Chỗ ngồi:&ensp;</b>{{seatInfo}}</div>
+            <div class="dettrans-info-sec-item"><b>Tổng tiền:&ensp;</b>{{formatPrice totalPrice}}</div>
+            <div class="dettrans-info-sec-item"><b>Hình thức thanh toán:&ensp;</b>{{paymentMethod}}</div>
+            <div class="dettrans-info-sec-item dettrans-info-sec-item-last"><b>Thời gian:&ensp;</b>{{createdAt}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/with}}
+  </div>
+</div>

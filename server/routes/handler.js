@@ -338,6 +338,10 @@ handlebarsRouter.get(
   getTheaterMoviesFromSessions,
   getMoviesFromSessions,
   (req, res) => {
+    res.sessions.forEach((session) => {
+      session.createdAt = session.createdAt.toLocaleString('en-GB');
+    });
+
     res.render('member', {
       style: 'member',
       script: 'member',
@@ -380,8 +384,10 @@ handlebarsRouter.get(
   getDateShowBySession,
   getTypeShowBySession,
   (req, res) => {
-    res.render('detailedTransaction', {
-      style: 'detailedTransaction',
+    res.session.createdAt = res.session.createdAt.toLocaleString('en-GB');
+
+    res.render('detailed-transaction', {
+      style: 'detailed-transaction',
       session: res.session,
     });
   },
