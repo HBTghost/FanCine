@@ -11,6 +11,18 @@ async function getMovie(req, res, next) {
   return next();
 }
 
+async function getMovieBySession(req, res, next) {
+  try {
+    res.session.movie = await Movie.findById(
+      mongoose.Types.ObjectId(res.session.theaterMovie._idMovie),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getMoviesFromSessions(req, res, next) {
   try {
     for await (const session of res.sessions) {
@@ -264,6 +276,7 @@ async function postSampleMovies(req, res, next) {
 
 export {
   getMovie,
+  getMovieBySession,
   getMoviesFromSessions,
   getMovieFromTheaterMovie,
   getAllMovies,

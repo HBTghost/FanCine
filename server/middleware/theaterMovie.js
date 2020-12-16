@@ -39,6 +39,18 @@ async function getTheaterMoviesFromSessions(req, res, next) {
   return next();
 }
 
+async function getTheaterMovieBySession(req, res, next) {
+  try {
+    res.session.theaterMovie = await TheaterMovie.findById(
+      mongoose.Types.ObjectId(res.session.showtime._idTheaterMovie),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getTheaterMovieRecursively(req, res, next) {
   try {
     const theaterMovie = await TheaterMovie.findById(mongoose.Types.ObjectId(req.params.id));
@@ -176,6 +188,7 @@ async function postSampleTheaterMovie(req, res, next) {
 export {
   getTheaterMovie,
   getTheaterMovieFromShowtime,
+  getTheaterMovieBySession,
   getTheaterMoviesFromSessions,
   getTheaterMovieRecursively,
   getTheaterMoviesByMovieID,

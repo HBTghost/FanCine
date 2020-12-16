@@ -16,6 +16,18 @@ async function getShowTime(req, res, next) {
   return next();
 }
 
+async function getShowtimeBySession(req, res, next) {
+  try {
+    res.session.showtime = await ShowTime.findById(
+      mongoose.Types.ObjectId(res.session._idShowtime),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getShowtimesBySessions(req, res, next) {
   try {
     for await (const session of res.sessions) {
@@ -154,6 +166,7 @@ async function postSampleShowTimes(req, res, next) {
 
 export {
   getShowTime,
+  getShowtimeBySession,
   getShowtimesBySessions,
   getShowTimeByOtherKey,
   getDatesByTheaterMovie,

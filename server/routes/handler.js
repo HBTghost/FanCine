@@ -2,27 +2,35 @@ import express from 'express';
 import { ensureAuthenticated, ensureAuthenticatedOrRedirect } from '../config/checkAuth.js';
 import {
   getMovie,
+  getMovieBySession,
   getMoviesFromSessions,
   getMovieFromTheaterMovie,
   getAllMovies,
   getMoviesByTheaterID,
 } from '../middleware/movie.js';
 import {
+  getTheaterBySession,
   getTheaterFromTheaterMovie,
   getAllTheaters,
   getTheatersByMovieID,
 } from '../middleware/theater.js';
 import {
   getTheaterMovieFromShowtime,
+  getTheaterMovieBySession,
   getTheaterMoviesFromSessions,
   getTheaterMoviesByMovieID,
   getTheaterMoviesByTheaterID,
   getTheaterMovieRecursively,
 } from '../middleware/theaterMovie.js';
-import { getDateShowsFromTheaterMovieID, getDateShowFromShowtime } from '../middleware/dateShow.js';
-import { getTypeShowFromShowtime } from '../middleware/typeShow.js';
+import {
+  getDateShowBySession,
+  getDateShowsFromTheaterMovieID,
+  getDateShowFromShowtime,
+} from '../middleware/dateShow.js';
+import { getTypeShowBySession, getTypeShowFromShowtime } from '../middleware/typeShow.js';
 import {
   getShowTime,
+  getShowtimeBySession,
   getShowTimeByOtherKey,
   getShowtimesBySessions,
 } from '../middleware/showTime.js';
@@ -30,7 +38,7 @@ import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
 import { toBirthDate } from '../helpers/date.js';
 import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
-import { getSessionsByUserOrderByCreatedAtDesc } from '../middleware/session.js';
+import { getSessionByID, getSessionsByUserOrderByCreatedAtDesc } from '../middleware/session.js';
 
 const handlebarsRouter = express.Router();
 
@@ -360,12 +368,24 @@ handlebarsRouter.post(
   },
 );
 
-// Detailed session
-handlebarsRouter.get('/transaction/:id', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('detailedTransaction', {
-    style: 'detailedTransaction',
-  });
-});
+// Detailed transaction
+handlebarsRouter.get(
+  '/transaction/:id',
+  ensureAuthenticatedOrRedirect,
+  getSessionByID,
+  getShowtimeBySession,
+  getTheaterMovieBySession,
+  getTheaterBySession,
+  getMovieBySession,
+  getDateShowBySession,
+  getTypeShowBySession,
+  (req, res) => {
+    res.render('detailedTransaction', {
+      style: 'detailedTransaction',
+      session: res.session,
+    });
+  },
+);
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
 
