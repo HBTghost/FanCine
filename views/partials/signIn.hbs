@@ -35,7 +35,7 @@
                 <form onsubmit="register(event)">
                     {{!-- Name --}}
                     <div class="form-group">
-                        <input type="name" id="name" name="name" class="form-control" placeholder="Họ tên">
+                        <input type="name" id="name" name="name" class="form-control" placeholder="Họ tên" required>
                     </div>
                     {{! Email }}
                     <div class="form-group">
@@ -66,7 +66,7 @@
                         {{!-- Birth day --}}
                         <div class="col-md-4 col-12">
                             <div class="form-group">
-                                <input placeholder="Ngày Sinh" type="input" onfocus="(this.type='date')" id="regBirthday" name="birthday">
+                                <input placeholder="Ngày Sinh" type="input" onfocus="(this.type='date')" id="regBirthday" name="birthday" required>
                             </div>
                         </div>
                     </div>
