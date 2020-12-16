@@ -7,6 +7,9 @@ const historyTabElement = document.querySelector('#mem-history-tab');
 
 const sessionsGridElement = document.querySelector('.mem-history-section');
 const sessionItemElements = document.querySelectorAll('.mem-history-item');
+const historyInfoTimeElements = document.querySelectorAll(
+  '.mem-history-item .mem-history-item-info-time',
+);
 
 // ===== Events handling =====
 infoBtnElement.addEventListener('click', () => {
@@ -45,4 +48,8 @@ sessionItemElements.forEach((e) => {
   e.addEventListener('click', () => {
     window.open(`transaction/${e.firstElementChild.innerHTML}`);
   });
+});
+
+historyInfoTimeElements.forEach((e) => {
+  e.innerHTML = new Date(e.innerHTML).toLocaleString('en-GB');
 });

@@ -6,7 +6,8 @@ var historyBtnElement = document.querySelector('#mem-history-btn');
 var infoTabElement = document.querySelector('#mem-info-tab');
 var historyTabElement = document.querySelector('#mem-history-tab');
 var sessionsGridElement = document.querySelector('.mem-history-section');
-var sessionItemElements = document.querySelectorAll('.mem-history-item'); // ===== Events handling =====
+var sessionItemElements = document.querySelectorAll('.mem-history-item');
+var historyInfoTimeElements = document.querySelectorAll('.mem-history-item .mem-history-item-info-time'); // ===== Events handling =====
 
 infoBtnElement.addEventListener('click', function () {
   infoBtnElement.classList.add('mem-nav-btn-selected');
@@ -39,4 +40,7 @@ sessionItemElements.forEach(function (e) {
   e.addEventListener('click', function () {
     window.open("transaction/".concat(e.firstElementChild.innerHTML));
   });
+});
+historyInfoTimeElements.forEach(function (e) {
+  e.innerHTML = new Date(e.innerHTML).toLocaleString('en-GB');
 });

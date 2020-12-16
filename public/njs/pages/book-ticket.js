@@ -227,7 +227,9 @@ function countdown(minutes) {
   countdownID = setInterval(() => {
     if (timer === 0) {
       clearInterval(countdownID);
-      alert(`Giao dịch thất bại vì đã hết thời gian giao dịch cho phép (${countdownMinutes} phút)!`);
+      alert(
+        `Giao dịch thất bại vì đã hết thời gian giao dịch cho phép (${countdownMinutes} phút)!`,
+      );
       window.location = '/';
     } else {
       timer -= 1;

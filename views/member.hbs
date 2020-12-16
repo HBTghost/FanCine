@@ -121,8 +121,8 @@
             </div>
             <div class="mem-history-item-info-sec">
               <p class="mem-history-item-info mem-history-item-info-viename">{{movie.vietnameseName}}</p>
-              <p class="mem-history-item-info mem-history-item-info-time"><b>Thời điểm thanh toán:&ensp;</b>{{createdAt}}</p>
-              <p class="mem-history-item-info mem-history-item-info-price"><b>Tổng tiền:&ensp;</b>{{formatPrice totalPrice}}</p>
+              <p class="mem-history-item-info"><b>Thời điểm thanh toán:&ensp;</b><span class="mem-history-item-info-time">{{createdAt}}</span></p>
+              <p class="mem-history-item-info"><b>Tổng tiền:&ensp;</b><span class="mem-history-item-info-price">{{formatPrice totalPrice}}</span></p>
             </div>
           </div>
           {{/each}}
