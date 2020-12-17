@@ -4,7 +4,14 @@ import express from 'express';
 import authController from '../controllers/authRenderController.js';
 import { forwardAuthenticated, ensureAuthenticated } from '../config/checkAuth.js';
 
+import { ensureCaptchaClickedRender } from '../helpers/captcha.js';
+
 const renderAuthRouter = express.Router();
+
+renderAuthRouter.use((req, res, next) => {
+  res.locals.layout = 'authRender';
+  next();
+});
 
 // ------------ Login Route ------------//
 renderAuthRouter.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
@@ -30,13 +37,13 @@ renderAuthRouter.get('/activate/:token', forwardAuthenticated, authController.ac
 renderAuthRouter.post('/forgot', authController.forgotPassword);
 
 // ------------ Reset Password Handle ------------//
-renderAuthRouter.post('/reset/:id', authController.resetPassword);
+renderAuthRouter.post('/reset/:id', ensureCaptchaClickedRender, authController.resetPassword);
 
 // ------------ Reset Password Handle ------------//
 renderAuthRouter.get('/forgot/:token', forwardAuthenticated, authController.gotoReset);
 
 // ------------ Login POST Handle ------------//
-renderAuthRouter.post('/login', authController.loginHandle);
+renderAuthRouter.post('/login', ensureCaptchaClickedRender, authController.loginHandle);
 renderAuthRouter.post('/loginAdmin', authController.loginHandle);
 
 // ------------ Logout GET Handle ------------//
