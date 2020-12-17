@@ -87,14 +87,8 @@ async function getMoviesByKeyword(req, res, next) {
 
       const totalContent = await Movie.count({
         $or: [
-          { 'label': { $regex: req.query.q, $options: 'i' } },
-          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
           { 'originalName': { $regex: req.query.q, $options: 'i' } },
-          { 'producer': { $regex: req.query.q, $options: 'i' } },
-          { 'nation': { $regex: req.query.q, $options: 'i' } },
-          { 'director': { $regex: req.query.q, $options: 'i' } },
+          { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
         ],
       });
       const temp = parseInt(totalContent / limitContent, 10);
@@ -130,17 +124,11 @@ async function getMoviesByKeyword(req, res, next) {
 
       res.result = await Movie.find({
         $or: [
-          { 'label': { $regex: req.query.q, $options: 'i' } },
-          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
           { 'originalName': { $regex: req.query.q, $options: 'i' } },
-          { 'producer': { $regex: req.query.q, $options: 'i' } },
-          { 'nation': { $regex: req.query.q, $options: 'i' } },
-          { 'director': { $regex: req.query.q, $options: 'i' } },
+          { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
         ],
       },
-      { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
+      { '_id': 1, 'vietnameseName': 1, 'originalName': 1, 'description': 1, 'horizontalImageSource': 1 },
       { skip: pageSkip * limitContent, limit: limitContent }).lean();
     }
   } catch (err) {
