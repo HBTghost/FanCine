@@ -16,6 +16,53 @@ async function getShowTime(req, res, next) {
   return next();
 }
 
+async function getShowtimeBySession(req, res, next) {
+  try {
+    res.session.showtime = await ShowTime.findById(
+      mongoose.Types.ObjectId(res.session._idShowtime),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getShowtimesBySessions(req, res, next) {
+  try {
+    for await (const session of res.sessions) {
+      session.showtime = await ShowTime.findById(
+        mongoose.Types.ObjectId(session._idShowtime),
+      ).lean();
+    }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function updateSeats(req, res, next) {
+  try {
+    let showtime = await ShowTime.findById(mongoose.Types.ObjectId(req.body._idShowtime));
+    const newState = showtime.state;
+    const seats = req.body.seatInfo.split(', ');
+    seats.forEach((seat) => {
+      const row = seat.charCodeAt(0) - 'A'.charCodeAt(0);
+      const col = parseInt(seat.slice(1), 10);
+      newState[row][col] = true;
+    });
+    showtime = await ShowTime.findOneAndUpdate(
+      { _id: mongoose.Types.ObjectId(req.body._idShowtime) },
+      { $set: { state: newState } },
+    );
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getShowTimeByOtherKey(req, res, next) {
   try {
     const showTime = await ShowTime.findOne({
@@ -140,6 +187,9 @@ async function postSampleShowTimes(req, res, next) {
 
 export {
   getShowTime,
+  getShowtimeBySession,
+  getShowtimesBySessions,
+  updateSeats,
   getShowTimeByOtherKey,
   getDatesByTheaterMovie,
   getTypesByTheaterMovie,

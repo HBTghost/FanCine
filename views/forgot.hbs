@@ -6,14 +6,14 @@
                 Quên mật khẩu
             </h2>
             {{> message }}
-            <form action="/forgot" method="POST">
+            <form action="/render/forgot" method="POST">
                 <div class="form-group">
                     <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email bạn đã dùng để đăng ký" required/>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Gửi link cài lại mật khẩu mới vào email cho tôi</button>
             </form>
             <p class="mt-4">
-                Đã nhớ mật khẩu? <a href="#" onclick="popupModal()">Đăng nhập</a>
+                Đã nhớ mật khẩu? <a href="/render/login">Đăng nhập</a>
             </p>
         </div>
     </div>

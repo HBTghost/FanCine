@@ -4,6 +4,7 @@ import theaterRouter from './theater.js';
 import theaterMovieRouter from './theaterMovie.js';
 import showTimeRouter from './showTime.js';
 import swaggerRouter from './swagger.js';
+import sessionRouter from './session.js';
 
 export {
   handlebarsRouter,
@@ -12,4 +13,5 @@ export {
   theaterMovieRouter,
   showTimeRouter,
   swaggerRouter,
+  sessionRouter,
 };

@@ -1,5 +1,6 @@
 @import '../base/variable';
 @import './review';
+@import './showtimes';
 
 .onshow-banner {
   width: 262;
@@ -62,6 +63,11 @@
 .movie-name-title {
   text-transform: uppercase;
   font-weight: bold;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .vn {

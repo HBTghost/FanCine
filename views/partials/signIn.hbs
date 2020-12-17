@@ -1,4 +1,4 @@
-<div class="modal-container" id="modal">
+<div class="modal-container" id="modal" >
     <div class="modal-content p-3">
         <span class="modal-close" onclick="popdownModal()">X</span>
         <nav>
@@ -6,6 +6,12 @@
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-sign-in" role="tab" aria-controls="nav-home" aria-selected="true">Đăng nhập</a>
 
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-sign-up" role="tab" aria-controls="nav-profile" aria-selected="false">Đăng ký</a>
+
+                <a class="nav-item nav-link" id="nav-verify-tab" data-toggle="tab" href="#nav-verify" role="tab" aria-controls="nav-verify" aria-selected="false" style="display: none;">Kích hoạt tài khoản</a>
+
+                <a class="nav-item nav-link" id="nav-forgot-tab" data-toggle="tab" href="#nav-forgot" role="tab" aria-controls="nav-forgot" aria-selected="false" style="display: none;">Quên mật khẩu</a>
+
+                <a class="nav-item nav-link" id="nav-reset-tab" data-toggle="tab" href="#nav-reset" role="tab" aria-controls="nav-reset" aria-selected="false" style="display: none;">Cài lại mật khẩu</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -13,33 +19,84 @@
             <div class="tab-pane fade show active" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-home-tab">
                 <form id="loginForm" onsubmit="login(event)">
                     <div class="form-group">
-                        <input name="email" type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp" placeholder="Email đã đăng ký" required>
+                        <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp" placeholder="Email đã đăng ký" required>
                     </div>
                     <div class="form-group">
-                        <input name="password" type="password" class="form-control" id="passwordLogin" placeholder="Password" required>
+                        <input name="password" type="password" class="form-control" id="passwordLogin" placeholder="Mật khẩu" required>
                     </div>
                     <small id="emailHelp" class="form-text text-muted text-right">
-                        <a  href="/forgot">Quên mật khẩu</a>
+                        <a href="#nav-forgot" onclick="showForgot(event)">Quên mật khẩu</a>
                     </small>
                     <button type="submit" class="btn btn-outline-success">Đăng nhập!</button>
                 </form>
             </div>
             <!-- register -->
             <div class="tab-pane fade" id="nav-sign-up" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <form>
+                <form onsubmit="register(event)">
+                    {{!-- Name --}}
                     <div class="form-group">
-                        <input type="email" class="form-control" id="regEmail" placeholder="Email" required>
+                        <input type="name" id="name" name="name" class="form-control" placeholder="Họ tên" required>
                     </div>
+                    {{! Email }}
+                    <div class="form-group">
+                        <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="email" class="form-control" id="regEmail" placeholder="Email" name="email" required>
+                    </div>
+                    {{!-- Password --}}
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                        <input type="password" class="form-control" id="regPassword" placeholder="Mật khẩu" required>
+                        <input type="password" class="form-control" id="regPassword"  placeholder="Mật khẩu" required>
                         </div>
                         <div class="form-group col-md-6">
-                        <input type="password" class="form-control" id="regPassword2" placeholder="Nhập lại Mật khẩu" required>
+                        <input type="password" class="form-control" id="regPassword2" placeholder="Nhập lại mật khẩu" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" id="regPhone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Số điện thoại - ví dụ: 0912323454">
+                    {{!-- Gender choose --}}
+                    <div class="row">
+                        {{!-- Gender choose --}}
+                        <div class="col-md-8 col-12">
+                            <div class="form-group">
+                                <select class="form-control" id="regGender" name="gender" required>
+                                    <option value="" disabled selected hidden>Chọn giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        {{!-- Birth day --}}
+                        <div class="col-md-4 col-12">
+                            <div class="form-group">
+                                <input placeholder="Ngày Sinh" type="input" onfocus="(this.type='date')" id="regBirthday" name="birthday" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{!-- Phone number --}}
+                    <div class="form-group pt-3">
+                        <input type="tel" class="form-control" id="regPhone" name="phone" pattern="[0-9]{10}" placeholder="Số điện thoại - ví dụ: 0912323454" required>
+                    </div>
+                    {{!-- Addresss --}}
+                    <div class="form-group pt-3">
+                        <input type="input" class="form-control" id="regAddress" name="address" placeholder="Địa chỉ - ví dụ: 123 Trần Hưng Đạo" required>
+                    </div>
+                    {{!-- Location --}}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <select class="form-control" id="regCity" name="city" onchange="districtLoad()" required>
+                                    <option value="" disabled selected hidden>Khu vực của bạn</option>
+                                    {{!-- <option value="others">Khác...</option> --}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group" >
+                                <select class="form-control" id="regTown" name="district" required>
+                                    <option value="" disabled selected hidden>Quận</option>
+                                    {{!-- <option value="nhabe">Nhà bè</option> --}}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
@@ -50,6 +107,43 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-outline-success">Đăng ký</button>
+                </form>
+            </div>
+            {{!-- verify --}}
+            <div class="tab-pane fade" id="nav-verify" role="tabpanel" aria-labelledby="nav-verify-tab">
+                <form id="verifyForm" onsubmit="verify(event)">
+                    <input type="email" name="email" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" name="verifyToken" id="verifyToken" class="form-control" placeholder="Nhập mã kích hoạt" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Kích hoạt tài khoản</button>
+                </form>
+            </div>
+            {{!-- forgot --}}
+            <div class="tab-pane fade" id="nav-forgot" role="tabpanel" aria-labelledby="nav-forgot-tab">
+                <form id="forgotForm" onsubmit="forgot(event)">
+                    <div class="form-group">
+                        <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" type="email" class="form-control" id="forgotEmail" aria-describedby="emailHelp" placeholder="Email đã đăng ký" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Gửi link cài lại mật khẩu mới vào email này</button>
+                </form>
+            </div>
+            {{!-- reset --}}
+            <div class="tab-pane fade" id="nav-reset" role="tabpanel" aria-labelledby="nav-reset-tab">
+                <form id="resetForm" onsubmit="resetPasswordForm(event)">
+                    <input type="email" name="email" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" name="resetToken" id="resetToken" class="form-control" placeholder="Nhập mã xác thực" required>
+                    </div>
+                    <div class="form-row my-0 py-0">
+                        <div class="form-group col-md-6">
+                            <input type="password" class="form-control" id="resetPassword"  placeholder="Mật khẩu mới" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="password" class="form-control" id="resetPassword2" placeholder="Nhập lại mật khẩu mới" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Cài lại mật khẩu</button>
                 </form>
             </div>
         </div>

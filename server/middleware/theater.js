@@ -11,6 +11,42 @@ async function getTheater(req, res, next) {
   return next();
 }
 
+async function getTheaterBySession(req, res, next) {
+  try {
+    res.session.theater = await Theater.findById(
+      mongoose.Types.ObjectId(res.session.theaterMovie._idTheater),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTheaterFromTheaterMovie(req, res, next) {
+  try {
+    res.theater = await Theater.findById(
+      mongoose.Types.ObjectId(res.theaterMovie._idTheater),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTheaterByTheaterMovieID(req, res, next) {
+  try {
+    res.theater = await Theater.findById(
+      mongoose.Types.ObjectId(res.theaterMovie._idTheater),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getAllTheaters(req, res, next) {
   try {
     res.allTheaters = await Theater.find().lean();
@@ -122,4 +158,12 @@ async function postSampleTheaters(req, res, next) {
   return next();
 }
 
-export { getTheater, getAllTheaters, getTheatersByMovieID, postSampleTheaters };
+export {
+  getTheater,
+  getTheaterBySession,
+  getTheaterFromTheaterMovie,
+  getTheaterByTheaterMovieID,
+  getAllTheaters,
+  getTheatersByMovieID,
+  postSampleTheaters,
+};

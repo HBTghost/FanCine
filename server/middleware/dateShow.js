@@ -11,6 +11,30 @@ async function getDateShow(req, res, next) {
   return next();
 }
 
+async function getDateShowBySession(req, res, next) {
+  try {
+    res.session.dateShow = await DateShow.findById(
+      mongoose.Types.ObjectId(res.session.showtime._idDateShow),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getDateShowFromShowtime(req, res, next) {
+  try {
+    res.dateShow = await DateShow.findById(
+      mongoose.Types.ObjectId(res.showTime._idDateShow),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getDateShowsFromTheaterMovieID(req, res, next) {
   try {
     res.dateShows = [];
@@ -37,4 +61,10 @@ async function getAllDateShows(req, res, next) {
   return next();
 }
 
-export { getDateShow, getDateShowsFromTheaterMovieID, getAllDateShows };
+export {
+  getDateShow,
+  getDateShowBySession,
+  getDateShowFromShowtime,
+  getDateShowsFromTheaterMovieID,
+  getAllDateShows,
+};

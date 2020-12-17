@@ -6,7 +6,7 @@
         Đăng ký tài khoản mới
       </h2>
       {{> message }}
-      <form action="/register" method="POST">
+      <form action="/render/register" method="POST">
         <div class="form-group">
           <label for="name">Họ tên</label>
           {{#if name}}
@@ -61,7 +61,7 @@
           Đăng ký
         </button>
       </form>
-      <p class="mt-4">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+      <p class="mt-4">Đã có tài khoản? <a href="/render/login">Đăng nhập</a></p>
     </div>
   </div>
 </div>

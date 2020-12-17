@@ -1,144 +1,88 @@
 <section>
   <div id="book-ticket-container">
+    {{#with showtime}}
     <div id="book-ticket-main">
       <div id="book-ticket-ticketfood-box" class="book-ticket-select-box">
-        <div class="book-ticket-box-header">CHỌN VÉ / THỨC ĂN</div>
+        <div class="book-ticket-box-header">
+          <span>CHỌN VÉ / COMBO</span>
+          <div id="book-ticket-available-tickets">
+            <p>Số lượng vé còn lại:&ensp;<span id="book-ticket-available-tickets-num">{{availableTicketsNum}}</span></p>
+          </div>
+        </div>
+
         <div class="book-ticket-box-section">
           <div id="book-ticket-ticket-box">
             <div class="book-ticket-head">
               <div class="book-ticket-row">
                 <div class="book-ticket-type-cell book-ticket-cell">Loại vé</div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">Số lượng</div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">Giá (VNĐ)</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">Tổng (VNĐ)</div>
+                <div class="book-ticket-unit-price-cell book-ticket-cell">Giá</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell">Tổng</div>
               </div>
             </div>
+
             <div class="book-ticket-list">
-              <div class="book-ticket-row">
+              {{#each tickets}}
+              <div class="book-ticket-row book-ticket-data-row">
                 <div class="book-ticket-type-cell book-ticket-cell">
-                  <div class="book-ticket-name">Người lớn</div>
-                  <div class="book-ticket-description">Vé 2D</div>
+                  <div class="book-ticket-name">{{name}}</div>
+                  <div class="book-ticket-description">{{description}}</div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
+                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
+                  <div class="book-ticket-quantity"></div>
+                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
                 </div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">90,000</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
+                <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
-              <div class="book-ticket-row">
-                <div class="book-ticket-type-cell book-ticket-cell">
-                  <div class="book-ticket-name">Thành viên</div>
-                  <div class="book-ticket-description">Vé 2D - Chỉ áp dụng cho khách hàng thành
-                    viên</div>
-                </div>
-                <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
-                </div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">80,000</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
-              </div>
+              {{/each}}
               <div class="book-ticket-row book-ticket-total-row">
                 <div class="book-ticket-type-cell book-ticket-cell">Tổng</div>
                 <div class="book-ticket-quantity-cell book-ticket-cell"></div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell"></div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
             </div>
           </div>
+
           <div id="book-ticket-food-box">
             <div class="book-ticket-head">
               <div class="book-ticket-row">
                 <div class="book-ticket-type-cell book-ticket-cell">Combo</div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">Số lượng</div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">Giá (VNĐ)</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">Tổng (VNĐ)</div>
+                <div class="book-ticket-unit-price-cell book-ticket-cell">Giá</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell">Tổng</div>
               </div>
             </div>
+
             <div class="book-ticket-list">
-              <div class="book-ticket-row">
+              {{#each combos}}
+              <div class="book-ticket-row book-ticket-data-row">
                 <div class="book-ticket-type-cell book-ticket-cell">
                   <div class="book-ticket-img">
-                    <img src="https://www.galaxycine.vn/media/2020/5/19/combo-1_1589871759174.jpg" alt="iCombo 1 Big">
-                  </div>
-                  <div class="book-ticket-type"> 
-                    <div class="book-ticket-name">iCombo 1 Big</div>
-                    <div class="book-ticket-description">1 Bắp + 1 Nước ngọt 32 Oz</div>
-                  </div>
-                </div>
-                <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
-                </div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">72,000</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
-              </div>
-              <div class="book-ticket-row">
-                <div class="book-ticket-type-cell book-ticket-cell">
-                  <div class="book-ticket-img">
-                    <img src="https://www.galaxycine.vn/media/2020/5/19/combo-2_1589871763789.jpg" alt="iCombo 2 Small">
+                    <img src="{{image}}" alt="Combo">
                   </div>
                   <div class="book-ticket-type">
-                    <div class="book-ticket-name">iCombo 2 Small</div>
-                    <div class="book-ticket-description">1 Bắp + 2 Nước ngọt 22 Oz</div>
+                    <div class="book-ticket-name">{{name}}</div>
+                    <div class="book-ticket-description">{{description}}</div>
                   </div>
                 </div>
                 <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
+                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
+                  <div class="book-ticket-quantity"></div>
+                  <button class="book-ticket-increase-btn book-ticket-quantity-btn book-ticket-btn-pointer" type="button"></button>
                 </div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">81,000</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
+                <div class="book-ticket-unit-price-cell book-ticket-cell">{{formatPrice unitPrice}}</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
-              <div class="book-ticket-row">
-                <div class="book-ticket-type-cell book-ticket-cell">
-                  <div class="book-ticket-img">
-                    <img src="https://www.galaxycine.vn/media/2020/5/21/family-combo-11_1590046655052.jpg"
-                      alt="iCombo Family 1">
-                  </div>
-                  <div class="book-ticket-type">
-                    <div class="book-ticket-name">iCombo Family 1</div>
-                    <div class="book-ticket-description">1 Bắp + 3 Nước ngọt 22 Oz</div>
-                  </div>
-                </div>
-                <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
-                </div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">116,000</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
-              </div>
-              <div class="book-ticket-row">
-                <div class="book-ticket-type-cell book-ticket-cell">
-                  <div class="book-ticket-img">
-                    <img src="https://www.galaxycine.vn/media/2020/5/21/family-combo-2_1590046348452.jpg"
-                      alt="iCombo Family 2">
-                  </div>
-                  <div class="book-ticket-type">
-                    <div class="book-ticket-name">iCombo Family 2</div>
-                    <div class="book-ticket-description">2 Bắp + 4 Nước ngọt 22 Oz + 1 Snack
-                    </div>
-                  </div>
-                </div>
-                <div class="book-ticket-quantity-cell book-ticket-cell">
-                  <button class="book-ticket-decrease-btn book-ticket-quantity-btn"></button>
-                  <div class="book-ticket-quantity">0</div>
-                  <button class="book-ticket-increase-btn book-ticket-quantity-btn"></button>
-                </div>
-                <div class="book-ticket-unit-price-cell book-ticket-cell">162,000</div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
-              </div>
+              {{/each}}
+
               <div class="book-ticket-row book-ticket-total-row">
                 <div class="book-ticket-type-cell book-ticket-cell">Tổng</div>
                 <div class="book-ticket-quantity-cell book-ticket-cell"></div>
                 <div class="book-ticket-unit-price-cell book-ticket-cell"></div>
-                <div class="book-ticket-total-price-cell book-ticket-cell">0</div>
+                <div class="book-ticket-total-price-cell book-ticket-cell"></div>
               </div>
             </div>
           </div>
@@ -146,27 +90,143 @@
       </div>
 
       <div id="book-ticket-seat-box" class="book-ticket-select-box">
-        <div class="book-ticket-box-header">CHỌN GHẾ</div>
-        <div class="book-ticket-box-section"></div>
+        <div class="book-ticket-box-header">
+          <span>CHỌN GHẾ</span>
+          <div id="book-ticket-mandatory-seats">
+            <p>Số lượng ghế còn lại phải chọn:&ensp;<span id="book-ticket-mandatory-seats-num"></span></p>
+          </div>
+        </div>
+
+        <div class="book-ticket-box-section">
+          <div id="book-ticket-seat-room-sec">
+            <div class="book-ticket-seat-stage">
+              <div class="book-ticket-seat-screen">Màn hình</div>
+            </div>
+
+            {{#with auditorium}}
+            <div class="book-ticket-seat-auditorium">
+              <div class="book-ticket-seat-panel">
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
+              </div>
+
+              <div class="book-ticket-seat-area">
+                {{#each seatStates}}
+                <div class="book-ticket-seat-row">
+                  {{#each row}}
+                  <div class="book-ticket-seat-item {{getClassNameOfSeatState this}}">
+                    <span style="display: none;">{{../label}}</span>
+                    <span>{{@index}}</span>
+                  </div>
+                  {{/each}}
+                </div>
+                {{/each}}
+              </div>
+
+              <div class="book-ticket-seat-panel">
+                {{#each rowSeatLabels}}
+                <div class="book-ticket-seat-row-label">{{this}}</div>
+                {{/each}}
+              </div>
+            </div>
+            {{/with}}
+          </div>
+
+          <div id="book-ticket-seat-note-sec">
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-selected"></div>
+              <span>Ghế đang chọn</span>
+            </div>
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-sold"></div>
+              <span>Ghế đã bán</span>
+            </div>
+            <div class="book-ticket-seat-note">
+              <div class="book-ticket-seat-available"></div>
+              <span>Ghế còn trống</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="book-ticket-checkout-box" class="book-ticket-select-box">
-        <div class="book-ticket-box-header">VUI LÒNG THANH TOÁN</div>
-        <div class="book-ticket-box-section"></div>
+        <div class="book-ticket-box-header">
+          <span>VUI LÒNG THANH TOÁN</span>
+          <div id="book-ticket-remaining-time">
+            <p>Thời gian còn lại:&ensp;<span id="book-ticket-remaining-time-value"></span></p>
+          </div>
+        </div>
+
+        <div class="book-ticket-box-section">
+          <form id="book-ticket-checkout-form" method="POST">
+            <div class="book-ticket-checkout-fields">
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-payment-method">Hình thức thanh toán</label>
+                <select name="paymentMethod" id="book-ticket-checkout-payment-method" class="book-ticket-btn-pointer">
+                  <option value="0">Ví điện tử Zalo Pay</option>
+                  <option value="1">Ví điện tử Momo</option>
+                  <option value="2">Ví điện tử Viettel Pay</option>
+                </select>
+              </div>
+
+              {{#with user}}
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-full-name">Họ và tên</label>
+                <input id="book-ticket-checkout-full-name" class="book-ticket-btn-no-drop" type="text" value="{{fullName}}" readonly>
+              </div>
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-email">Email</label>
+                <input id="book-ticket-checkout-email" class="book-ticket-btn-no-drop" type="email" value="{{email}}" readonly>
+              </div>
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-phone-number">Số điện thoại</label>
+                <input id="book-ticket-checkout-phone-number" class="book-ticket-btn-no-drop" type="tel" value="{{phoneNumber}}" readonly>
+              </div>
+              {{/with}}
+
+              <div class="book-ticket-checkout-field">
+                <label for="book-ticket-checkout-total-price">Tổng số tiền cần thanh toán</label>
+                <input id="book-ticket-checkout-total-price" class="book-ticket-btn-no-drop" type="text" readonly>
+              </div>
+            </div>
+
+            <div class="book-ticket-checkout-btns">
+              <button id="book-ticket-checkout-pay-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer" type="button">THANH TOÁN</button>
+              <button id="book-ticket-checkout-back-btn" class="book-ticket-checkout-btn book-ticket-btn-pointer" type="button">QUAY LẠI</button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div id="book-ticket-info-box">
-        <img class="book-ticket-movie-poster" src="https://galaxycine.vn/media/2020/10/29/450-anime_1603948617423.jpg"
-          alt="Movie Poster">
-        <div class="book-ticket-movie-name ori-name">Fate/Stay Night: Heaven's Feel III. Spring Song</div>
-        <div class="book-ticket-movie-name vie-name">Fate/Stay Night: Heaven's Feel III. Khúc Xuân Ca</div>
-        <div class="book-ticket-showtime-info"><b>Rạp:&ensp;</b>FanCine Tân Phú&ensp;|&ensp;Rạp 2</div>
-        <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b>10:00&ensp;|&ensp;Thứ sáu, 27/11/2020</div>
-        <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b></div>
-        <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b></div>
-        <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span>0 VNĐ</span></div>
-        <button class="book-ticket-continue-btn">TIẾP TỤC</button>
+        {{#with info}}
+        <img class="book-ticket-movie-poster" src="{{image}}" alt="Movie Poster">
+        <div class="book-ticket-movie-name ori-name">{{oriName}}</div>
+        <div class="book-ticket-movie-name vie-name">{{vieName}}</div>
+        {{#with label}}
+        <div class="book-ticket-movie-label">
+          <div class="book-ticket-movie-label-value">{{value}}</div>
+          <span class="book-ticket-movie-label-description">{{description}}</span>
+        </div>
+        {{/with}}
+        <div class="book-ticket-showtime-info"><b>Rạp:&ensp;</b><span id="book-ticket-showtime-info-theater-name">{{theaterName}}</span>&ensp;|&ensp;<span id="book-ticket-showtime-info-room-name">{{roomName}}</span></div>
+        <div class="book-ticket-showtime-info"><b>Suất chiếu:&ensp;</b><span id="book-ticket-showtime-info-time">{{time}}</span>&ensp;|&ensp;<span id="book-ticket-showtime-info-date">{{date}}</span></div>
+        <div class="book-ticket-showtime-info"><b>Hình thức:&ensp;</b><span id="book-ticket-showtime-info-type">{{type}}</span></div>
+        {{/with}}
+        <div class="book-ticket-showtime-info"><b>Vé:&ensp;</b><span class="book-ticket-showtime-info-ticket"></span>
+        </div>
+        <div class="book-ticket-showtime-info"><b>Combo:&ensp;</b><span class="book-ticket-showtime-info-combo"></span>
+        </div>
+        <div class="book-ticket-showtime-info"><b>Ghế:&ensp;</b><span class="book-ticket-showtime-info-seat"></span>
+        </div>
+        <div class="book-ticket-total-price"><b>Tổng:&ensp;</b><span id="book-ticket-showtime-info-total-price"></span></div>
+        <div class="book-ticket-info-btn-row">
+          <button class="book-ticket-info-back-btn book-ticket-info-btn" type="button">QUAY LẠI</button>
+          <button class="book-ticket-info-continue-btn book-ticket-info-btn" type="button">TIẾP TỤC</button>
+        </div>
       </div>
+      {{/with}}
     </div>
   </div>
 </section>

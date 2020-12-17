@@ -6,6 +6,8 @@
 ._*
 
 # Ignore local editor
+.yarn-error.log
+debug.log
 .project
 .settings
 .idea
@@ -17,6 +19,7 @@ nbproject/*
 Thumbs.db
 
 npm-debug.log
+package-lock.json
 
 node_modules/
 dist/

@@ -1,11 +1,49 @@
 import mongoose from 'mongoose';
 import { Movie, Theater, TheaterMovie, DateShow, TypeShow } from '../models/index.js';
-import toDateString from '../helpers/date.js';
+import { toDateString } from '../helpers/date.js';
 import { randomIntMinMax } from '../helpers/tools.js';
 
 async function getTheaterMovie(req, res, next) {
   try {
     res.theaterMovie = await TheaterMovie.findById(mongoose.Types.ObjectId(req.params.id)).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTheaterMovieFromShowtime(req, res, next) {
+  try {
+    res.theaterMovie = await TheaterMovie.findById(
+      mongoose.Types.ObjectId(res.showTime._idTheaterMovie),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTheaterMoviesFromSessions(req, res, next) {
+  try {
+    for await (const session of res.sessions) {
+      session.theaterMovie = await TheaterMovie.findById(
+        mongoose.Types.ObjectId(session.showtime._idTheaterMovie),
+      ).lean();
+    }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getTheaterMovieBySession(req, res, next) {
+  try {
+    res.session.theaterMovie = await TheaterMovie.findById(
+      mongoose.Types.ObjectId(res.session.showtime._idTheaterMovie),
+    ).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -149,6 +187,9 @@ async function postSampleTheaterMovie(req, res, next) {
 
 export {
   getTheaterMovie,
+  getTheaterMovieFromShowtime,
+  getTheaterMovieBySession,
+  getTheaterMoviesFromSessions,
   getTheaterMovieRecursively,
   getTheaterMoviesByMovieID,
   getTheaterMoviesByTheaterID,

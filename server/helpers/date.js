@@ -3,5 +3,8 @@ function toDateString(date) {
   const props = dateString.split('-').reverse();
   return props.join('-');
 }
+function toBirthDate(DoB) {
+  return DoB.toISOString().slice(0, 10);
+}
 
-export default toDateString;
+export { toDateString, toBirthDate };

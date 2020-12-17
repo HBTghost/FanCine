@@ -6,7 +6,7 @@
                 Cài lại mật khẩu mới
             </h2>
             {{> message }}
-            <form action="/reset/{{ id }}"  method="POST">
+            <form action="/render/reset/{{ id }}"  method="POST">
                 <div class="form-group">
                     {{#if password }}
                     <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới"
@@ -28,7 +28,7 @@
                 <button type="submit" class="btn btn-primary btn-block">Cài đặt lại</button>
             </form>
             <p class="mt-4">
-                Đã nhớ mật khẩu? <a href="#" onclick="popupModal()">Đăng nhập</a>
+                Đã nhớ mật khẩu? <a href="#nav-sign-in" onclick="popupLogin()">Đăng nhập</a>
             </p>
         </div>
     </div>

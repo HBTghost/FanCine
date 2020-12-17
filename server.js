@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
 import configPassport from './server/config/passport.js';
 import HandlebarsHelper from './server/helpers/handlebars.js';
 
@@ -23,9 +24,11 @@ import {
   theaterMovieRouter,
   showTimeRouter,
   swaggerRouter,
+  sessionRouter,
 } from './server/routes/index.js';
 
 import authRouter from './server/routes/auth.js';
+import renderAuthRouter from './server/routes/renderAuth.js';
 
 configPassport(passport);
 
@@ -54,6 +57,11 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(
+  fileUpload({
+    createParentPath: true,
+  }),
+);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -90,12 +98,14 @@ app.use((req, res, next) => {
 app.use('/', handlebarsRouter);
 
 app.use('/', authRouter);
+app.use('/render', renderAuthRouter);
 
 // API services
 app.use('/api/movies', movieRouter);
 app.use('/api/theaters', theaterRouter);
 app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
+app.use('/api/sessions', sessionRouter);
 
 // swagger docs route
 app.use('/api-docs', swaggerRouter);

@@ -6,7 +6,7 @@
                 Đăng nhập
             </h2>
             {{> message }}
-            <form action="/login" method="POST">
+            <form action="/render/login" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email" />
@@ -19,10 +19,10 @@
                 <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
             </form>
             <p class="mt-4">
-                Thành viên mới? <a href="#" onclick="popupModal()">Đăng ký</a>
+                Thành viên mới? <a href="#nav-sign-up" onclick="popupRegister()">Đăng ký</a>
             </p>
             <p>
-                Quên mật khẩu? <a href="/forgot">Cài lại mật khẩu mới</a>
+                Quên mật khẩu? <a href="#nav-forgot" onclick="popupForgot()">Cài lại mật khẩu mới</a>
             </p>
         </div>
     </div>
