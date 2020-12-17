@@ -104,6 +104,7 @@ const infoContinueBtnElement = document.querySelector(
 );
 
 // Checkout section
+const checkoutTimerElement = document.querySelector('#book-ticket-remaining-time-value');
 const checkoutBackBthElement = document.querySelector('#book-ticket-checkout-back-btn');
 const checkoutPayBthElement = document.querySelector('#book-ticket-checkout-pay-btn');
 const checkoutTotalPriceFieldElement = document.querySelector('#book-ticket-checkout-total-price');
@@ -130,6 +131,9 @@ let totalPrice = 0;
 
 let mandatorySeatsNum = 0;
 let selectedSeats = [];
+
+let countdownID;
+const countdownMinutes = 1;
 
 const seatStateClassName = Object.freeze({
   SELECTED: 'book-ticket-seat-selected',
@@ -202,6 +206,36 @@ function getSeatInfo() {
 
 function getNameOfSeatItemElement(e) {
   return e.firstElementChild.innerHTML + e.lastElementChild.innerHTML;
+}
+
+function getPrettierTime(seconds) {
+  let mins = parseInt(seconds / 60, 10).toString();
+  let secs = (seconds % 60).toString();
+  if (mins.length === 1) {
+    mins = `0${mins}`;
+  }
+  if (secs.length === 1) {
+    secs = `0${secs}`;
+  }
+  return `${mins}:${secs}`;
+}
+
+function countdown(minutes) {
+  let timer = 60 * minutes;
+  checkoutTimerElement.innerHTML = getPrettierTime(timer);
+
+  countdownID = setInterval(() => {
+    if (timer === 0) {
+      clearInterval(countdownID);
+      alert(
+        `Giao dịch thất bại vì đã hết thời gian giao dịch cho phép (${countdownMinutes} phút)!`,
+      );
+      window.location = '/';
+    } else {
+      timer -= 1;
+      checkoutTimerElement.innerHTML = getPrettierTime(timer);
+    }
+  }, 1000);
 }
 
 // Events
@@ -322,6 +356,7 @@ infoContinueBtnElement.addEventListener('click', () => {
 
     case myScreen.SEAT:
       if (mandatorySeatsNum === 0) {
+        countdown(countdownMinutes);
         curScreen = myScreen.CHECKOUT;
 
         seatBoxElement.style.display = 'none';
@@ -366,6 +401,7 @@ infoBackBtnElement.addEventListener('click', () => {
 
 // Checkout section
 checkoutBackBthElement.addEventListener('click', () => {
+  clearInterval(countdownID);
   curScreen = myScreen.SEAT;
 
   checkoutBoxElement.style.display = 'none';
@@ -375,6 +411,7 @@ checkoutBackBthElement.addEventListener('click', () => {
 });
 
 checkoutPayBthElement.addEventListener('click', () => {
+  // clearInterval(countdownID);
   fetch('/api/sessions/insertOne', {
     method: 'POST',
     headers: {

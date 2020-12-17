@@ -2,30 +2,44 @@ import express from 'express';
 import { ensureAuthenticated, ensureAuthenticatedOrRedirect } from '../config/checkAuth.js';
 import {
   getMovie,
+  getMovieBySession,
+  getMoviesFromSessions,
   getMovieFromTheaterMovie,
   getAllMovies,
   getMoviesByTheaterID,
   getMoviesByKeyword,
 } from '../middleware/movie.js';
 import {
+  getTheaterBySession,
   getTheaterFromTheaterMovie,
   getAllTheaters,
   getTheatersByMovieID,
 } from '../middleware/theater.js';
 import {
   getTheaterMovieFromShowtime,
+  getTheaterMovieBySession,
+  getTheaterMoviesFromSessions,
   getTheaterMoviesByMovieID,
   getTheaterMoviesByTheaterID,
   getTheaterMovieRecursively,
 } from '../middleware/theaterMovie.js';
-import { getDateShowsFromTheaterMovieID, getDateShowFromShowtime } from '../middleware/dateShow.js';
-import { getTypeShowFromShowtime } from '../middleware/typeShow.js';
-import { getShowTime, getShowTimeByOtherKey } from '../middleware/showTime.js';
+import {
+  getDateShowBySession,
+  getDateShowsFromTheaterMovieID,
+  getDateShowFromShowtime,
+} from '../middleware/dateShow.js';
+import { getTypeShowBySession, getTypeShowFromShowtime } from '../middleware/typeShow.js';
+import {
+  getShowTime,
+  getShowtimeBySession,
+  getShowTimeByOtherKey,
+  getShowtimesBySessions,
+} from '../middleware/showTime.js';
 import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
-
 import { toBirthDate } from '../helpers/date.js';
-
+import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
+import { getSessionByID, getSessionsByUserOrderByCreatedAtDesc } from '../middleware/session.js';
 
 const handlebarsRouter = express.Router();
 
@@ -39,6 +53,7 @@ handlebarsRouter.get('/', getAllMovies, async (req, res) => {
 handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   res.render('info', {
     style: 'info',
+    script: 'info',
     movie: res.movie,
   });
 });
@@ -308,15 +323,11 @@ handlebarsRouter.get('/isLogin', (req, res) => {
 });
 
 handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
-  res.json(
-    await res.fullProvinces,
-  );
+  res.json(await res.fullProvinces);
 });
 
 handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async (req, res) => {
-  res.json(
-    await res.districts,
-  );
+  res.json(await res.districts);
 });
 
 handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
@@ -329,41 +340,110 @@ handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
 });
 
 // Member
-handlebarsRouter.get('/member', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('member', {
-    style: 'member',
-    script: 'member',
-    userInfo: {
-      fullName: req.user.name,
-      phoneNumber: req.user.phone,
-      birthdate: toBirthDate(req.user.DoB),
-      sex: req.user.sex,
-      address: req.user.address,
-      star: req.user.point,
-      expense: req.user.spending,
-      email: req.user.email,
-      curYear: new Date().getFullYear(),
-    },
+handlebarsRouter.get(
+  '/member',
+  ensureAuthenticatedOrRedirect,
+  getSessionsByUserOrderByCreatedAtDesc,
+  getShowtimesBySessions,
+  getTheaterMoviesFromSessions,
+  getMoviesFromSessions,
+  (req, res) => {
+    res.render('member', {
+      style: 'member',
+      script: 'member',
+      userInfo: {
+        fullName: req.user.name,
+        phoneNumber: req.user.phone,
+        birthdate: toBirthDate(req.user.DoB),
+        sex: req.user.sex,
+        address: req.user.address,
+        star: req.user.point,
+        expense: req.user.spending,
+        email: req.user.email,
+        city: req.user.city,
+        town: req.user.town,
+        curYear: new Date().getFullYear(),
+      },
+      sessions: res.sessions,
+    });
+  },
+);
+
+handlebarsRouter.post(
+  '/member/update',
+  ensureAuthenticatedOrRedirect,
+  updateUserInfor,
+  (req, res) => {
+    res.redirect('/member');
+  },
+);
+
+// Promotion
+handlebarsRouter.get('/promotion', (req, res) => {
+  res.render('promotion-detail.hbs', {
+    style: 'promotion-detail',
   });
 });
 
-handlebarsRouter.post('/member', ensureAuthenticatedOrRedirect, updateUserInfor, (req, res) => {
-  res.render('member', {
-    style: 'member',
-    userInfo: {
-      fullName: req.body.fullName,
-      phoneNumber: req.body.phoneNumber,
-      birthdate: req.body.birthdate,
-      sex: req.body.gender,
-      address: req.body.address,
-      star: req.body.star,
-      expense: req.body.expense,
-      email: req.body.email,
-      curYear: new Date().getFullYear(),
-    },
-  });
-});
+// Detailed transaction
+handlebarsRouter.get(
+  '/transaction/:id',
+  ensureAuthenticatedOrRedirect,
+  getSessionByID,
+  getShowtimeBySession,
+  getTheaterMovieBySession,
+  getTheaterBySession,
+  getMovieBySession,
+  getDateShowBySession,
+  getTypeShowBySession,
+  (req, res) => {
+    res.render('detailed-transaction', {
+      style: 'detailed-transaction',
+      script: 'detailed-transaction',
+      session: res.session,
+    });
+  },
+);
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
+
+handlebarsRouter.get('/admin/login', (req, res) => {
+  res.render('adminLogin');
+});
+
+handlebarsRouter.get('/admin', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('admin', {
+    layout: 'admin',
+  });
+});
+
+handlebarsRouter.get('/manage/login', (req, res) => {
+  res.render('managerLogin');
+});
+
+handlebarsRouter.get('/manage', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('manage', {});
+});
+
+handlebarsRouter.get('/manage/postMovie', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('postMovie', {
+    labels: Movie.schema.path('label').enumValues,
+    style: 'postMovie',
+    script: 'postMovie',
+  });
+});
+
+handlebarsRouter.get(
+  '/manage/deleteMovie',
+  ensureAuthenticatedOrRedirect,
+  getAllMovies,
+  (req, res) => {
+    res.render('deleteMovie', {
+      movies: res.allMovies,
+      style: 'deleteMovie',
+      script: 'deleteMovie',
+    });
+  },
+);
 
 export default handlebarsRouter;

@@ -11,6 +11,32 @@ async function getMovie(req, res, next) {
   return next();
 }
 
+async function getMovieBySession(req, res, next) {
+  try {
+    res.session.movie = await Movie.findById(
+      mongoose.Types.ObjectId(res.session.theaterMovie._idMovie),
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getMoviesFromSessions(req, res, next) {
+  try {
+    for await (const session of res.sessions) {
+      session.movie = await Movie.findById(
+        mongoose.Types.ObjectId(session.theaterMovie._idMovie),
+      ).lean();
+    }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getMovieFromTheaterMovie(req, res, next) {
   try {
     res.movie = await Movie.findById(mongoose.Types.ObjectId(res.theaterMovie._idMovie)).lean();
@@ -66,6 +92,34 @@ async function getMoviesByKeyword(req, res, next) {
       { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
       { skip: (Number(req.query.page) > 0) ? Number(req.query.page) - 1 : 0 || 0, limit: 2 }).lean();
     }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function createMovieByForm(req, res, next) {
+  try {
+    const data = req.body;
+    const movie = new Movie({
+      originalName: data.originalName,
+      vietnameseName: data.vietnameseName,
+      label: data.label,
+      time: data.time,
+      producer: data.producer,
+      category: data.category[1].trim().split(','),
+      cast: data.cast[1].trim().split(','),
+      nation: data.nation,
+      director: data.director,
+      date: data.date,
+      description: data.description,
+      trailerEmbedID: data.trailerEmbedID,
+      imageSource: data.imageSource,
+      horizontalImageSource: data.horizontalImageSource,
+    });
+    await movie.save();
+    res.movie = movie;
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -248,4 +302,14 @@ async function postSampleMovies(req, res, next) {
   return next();
 }
 
-export { getMoviesByKeyword, getMovie, getMovieFromTheaterMovie, getAllMovies, getMoviesByTheaterID, postSampleMovies };
+export {
+  getMoviesByKeyword,
+  getMovie,
+  getMovieBySession,
+  getMoviesFromSessions,
+  getMovieFromTheaterMovie,
+  getAllMovies,
+  getMoviesByTheaterID,
+  createMovieByForm,
+  postSampleMovies,
+};

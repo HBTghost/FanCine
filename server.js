@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
 import configPassport from './server/config/passport.js';
 import HandlebarsHelper from './server/helpers/handlebars.js';
 
@@ -56,6 +57,11 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(
+  fileUpload({
+    createParentPath: true,
+  }),
+);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

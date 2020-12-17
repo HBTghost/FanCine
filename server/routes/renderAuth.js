@@ -37,6 +37,7 @@ renderAuthRouter.get('/forgot/:token', forwardAuthenticated, authController.goto
 
 // ------------ Login POST Handle ------------//
 renderAuthRouter.post('/login', authController.loginHandle);
+renderAuthRouter.post('/loginAdmin', authController.loginHandle);
 
 // ------------ Logout GET Handle ------------//
 renderAuthRouter.get('/logout', ensureAuthenticated, authController.logoutHandle);

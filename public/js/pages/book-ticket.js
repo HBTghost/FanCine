@@ -52,6 +52,7 @@ var checkoutBoxElement = document.querySelector('#book-ticket-checkout-box');
 var infoBackBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-back-btn');
 var infoContinueBtnElement = document.querySelector('#book-ticket-info-box .book-ticket-info-btn-row .book-ticket-info-continue-btn'); // Checkout section
 
+var checkoutTimerElement = document.querySelector('#book-ticket-remaining-time-value');
 var checkoutBackBthElement = document.querySelector('#book-ticket-checkout-back-btn');
 var checkoutPayBthElement = document.querySelector('#book-ticket-checkout-pay-btn');
 var checkoutTotalPriceFieldElement = document.querySelector('#book-ticket-checkout-total-price'); // Global variables
@@ -84,6 +85,8 @@ var availableTicketsNum = availableTicketsNumElement.innerHTML;
 var totalPrice = 0;
 var mandatorySeatsNum = 0;
 var selectedSeats = [];
+var countdownID;
+var countdownMinutes = 1;
 var seatStateClassName = Object.freeze({
   SELECTED: 'book-ticket-seat-selected',
   SOLD: 'book-ticket-seat-sold',
@@ -160,6 +163,36 @@ function getSeatInfo() {
 
 function getNameOfSeatItemElement(e) {
   return e.firstElementChild.innerHTML + e.lastElementChild.innerHTML;
+}
+
+function getPrettierTime(seconds) {
+  var mins = parseInt(seconds / 60, 10).toString();
+  var secs = (seconds % 60).toString();
+
+  if (mins.length === 1) {
+    mins = "0".concat(mins);
+  }
+
+  if (secs.length === 1) {
+    secs = "0".concat(secs);
+  }
+
+  return "".concat(mins, ":").concat(secs);
+}
+
+function countdown(minutes) {
+  var timer = 60 * minutes;
+  checkoutTimerElement.innerHTML = getPrettierTime(timer);
+  countdownID = setInterval(function () {
+    if (timer === 0) {
+      clearInterval(countdownID);
+      alert("Giao d\u1ECBch th\u1EA5t b\u1EA1i v\xEC \u0111\xE3 h\u1EBFt th\u1EDDi gian giao d\u1ECBch cho ph\xE9p (".concat(countdownMinutes, " ph\xFAt)!"));
+      window.location = '/';
+    } else {
+      timer -= 1;
+      checkoutTimerElement.innerHTML = getPrettierTime(timer);
+    }
+  }, 1000);
 } // Events
 // Ticket Food section
 
@@ -272,6 +305,7 @@ infoContinueBtnElement.addEventListener('click', function () {
 
     case myScreen.SEAT:
       if (mandatorySeatsNum === 0) {
+        countdown(countdownMinutes);
         curScreen = myScreen.CHECKOUT;
         seatBoxElement.style.display = 'none';
         checkoutBoxElement.style.display = 'block';
@@ -308,6 +342,7 @@ infoBackBtnElement.addEventListener('click', function () {
 }); // Checkout section
 
 checkoutBackBthElement.addEventListener('click', function () {
+  clearInterval(countdownID);
   curScreen = myScreen.SEAT;
   checkoutBoxElement.style.display = 'none';
   seatBoxElement.style.display = 'block';
@@ -315,6 +350,7 @@ checkoutBackBthElement.addEventListener('click', function () {
   infoContinueBtnElement.style.display = 'block';
 });
 checkoutPayBthElement.addEventListener('click', function () {
+  // clearInterval(countdownID);
   fetch('/api/sessions/insertOne', {
     method: 'POST',
     headers: {

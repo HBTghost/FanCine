@@ -280,7 +280,7 @@ function provincesDisplay() {
   var districtHTML = document.getElementById('regTown');
   var provincesProfileHTML = document.getElementById('mem-info-province');
   var districtProfileHTML = document.getElementById('mem-info-district');
-  fetch('isLogin').then(function (islogRes) {
+  fetch('/isLogin').then(function (islogRes) {
     return islogRes.json();
   }).then(function (islogin) {
     if (!islogin) {
