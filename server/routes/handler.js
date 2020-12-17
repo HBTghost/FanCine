@@ -335,6 +335,10 @@ handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
     style: 'review',
     result: await res.result,
     searchQuery: req.query.q,
+    pageArray: await res.pageArray,
+    pagePrevious: await res.pagePrevious,
+    pageCurrent: await res.pageCurrent,
+    pageNext: await res.pageNext,
   });
   // res.json(await res.result);
 });

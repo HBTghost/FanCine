@@ -123,3 +123,8 @@
   -3px -3px 3px $accent-color;
   transition: .5s;
 }
+
+.disabled-a {
+  pointer-events: none;
+  color: $accent-color;
+}

@@ -1,7 +1,7 @@
 <div class="container mt-3">
     <!-- Content -->
     <div class="review-title-container">
-        <div class="review-title-new"><a href="/search?q={{ searchQuery }}">Từ khóa: {{ searchQuery }}</a></div>
+        <div class="review-title-new"><a href="/search?q={{ searchQuery }}"><b>Từ khóa:</b> "{{ searchQuery }}"</a></div>
     </div>
     <div class="row">
         
@@ -28,12 +28,23 @@
                     </div>
                     
                     {{/each}}
-                    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+
+                    <nav aria-label="..." class="d-flex justify-content-center mt-3" >
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="/search?q={{ searchQuery }}&page=1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="/search?q={{ searchQuery }}&page=2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            {{! previous page }}
+                            <li class="page-item">
+                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pagePrevious}}">Lùi</a>
+                            </li>
+                            {{! load link }}
+                            {{#each pageArray}}
+                            <li class="page-item {{#if (equal this '...')}}disabled{{/if}} {{#if (equal this ../pageCurrent)}}active{{/if}}">
+                                <a class="page-link" href="/search?q={{ ../searchQuery }}&page={{this}}">{{this}}</a>
+                            </li>
+                            {{/each}}
+                            {{! next page }}
+                            <li class="page-item">
+                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pageNext}}">Tiến</a>
+                            </li>
                         </ul>
                     </nav>
                     {{else}}
@@ -45,7 +56,7 @@
                         <div>
                             <a href="/">
                                 <div class="review-item-title">
-                                    <h4>OOPS</h4>
+                                    <h4>OOPS - Hãy đưa tôi quay về trang chủ</h4>
                                 </div>
                             </a>
 
