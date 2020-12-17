@@ -81,7 +81,7 @@ async function getMoviesByKeyword(req, res, next) {
       const pageNumber = pageSkip + 1;
       res.pageCurrent = pageNumber;
       res.pageArray = [];
-      const displayablePageFront = 1; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
+      const displayablePageFront = 2; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
       const displayablePageBack = 1; // The number of page will be display. EX:  ... 23 24 -> displayableBack = 2
       const limitContent = 2;
 
@@ -100,8 +100,6 @@ async function getMoviesByKeyword(req, res, next) {
       const temp = parseInt(totalContent / limitContent, 10);
       const totalPage = (temp * limitContent < totalContent) ? temp + 1 : temp;
 
-      console.log(totalPage);
-
       if ((totalPage - res.pageCurrent + 2) <= (displayablePageFront + displayablePageBack)) {
         for (let i = (res.pageCurrent > 1) ? res.pageCurrent - 1 : res.pageCurrent; i <= totalPage; i++) {
           res.pageArray.push(i);
@@ -119,8 +117,6 @@ async function getMoviesByKeyword(req, res, next) {
           res.pageArray.push(i);
         }
 
-        if (res.pageCurrent === 1) { res.pageArray.push(i); }
-
         // Back
         res.pageArray.push('...');
 
@@ -131,8 +127,6 @@ async function getMoviesByKeyword(req, res, next) {
 
       res.pagePrevious = (pageNumber - 1 > 0) ? pageNumber - 1 : pageNumber;
       res.pageNext = (pageNumber + 1 > totalPage) ? totalPage : pageNumber + 1;
-
-      console.log(res.pageArray);
 
       res.result = await Movie.find({
         $or: [
