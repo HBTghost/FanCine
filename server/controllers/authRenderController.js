@@ -232,7 +232,7 @@ function gotoReset(req, res) {
             req.flash('error_msg', 'Không tìm thấy tài khoản ứng với email này. Vui lòng thử lại');
             res.redirect('/render/login');
           } else {
-            res.redirect(`/reset/${_id}`);
+            res.redirect(`/render/reset/${_id}`);
           }
         });
       }

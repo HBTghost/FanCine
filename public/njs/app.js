@@ -1,4 +1,10 @@
 // -- SignIn - Modal initial --
+let loginW = null;
+let registerW = null;
+let activateW = null;
+let forgotW = null;
+let resetW = null;
+
 const modal = document.getElementById('modal');
 const parser = new DOMParser();
 let redirectURL = '';
@@ -35,11 +41,11 @@ function popupForgot() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function windowClickOff(event) {
-  if (event.target === modal) {
-    popdownModal();
-  }
-};
+// window.onclick = function windowClickOff(event) {
+//   if (event.target === modal) {
+//     popdownModal();
+//   }
+// };
 // -- End modal --
 
 function renderUsernameToggle() {
@@ -54,27 +60,34 @@ function renderUsernameToggle() {
 
 function login(event) {
   event.preventDefault();
+  $('#loginBtn').attr('disabled', 'disabled');
   fetch('/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       'email': document.querySelector('#emailLogin').value,
       'password': document.querySelector('#passwordLogin').value,
+      'g-recaptcha-response': grecaptcha.getResponse(loginW),
     }),
-  }).then((res) => {
-    res.json().then((data) => {
-      if (data.message) {
-        alert(data.message);
-      } else {
-        if (redirectURL.length > 0) {
-          window.location = redirectURL;
-          redirectURL = '';
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        if (data.message) {
+          alert(data.message);
+        } else {
+          if (redirectURL.length > 0) {
+            window.location = redirectURL;
+            redirectURL = '';
+          }
+          renderUsernameToggle();
+          popdownModal();
         }
-        renderUsernameToggle();
-        popdownModal();
-      }
+      });
+    })
+    .finally(() => {
+      grecaptcha.reset(loginW);
+      $('#loginBtn').removeAttr('disabled');
     });
-  });
 }
 
 function showVerify() {
@@ -84,6 +97,7 @@ function showVerify() {
 
 function register(event) {
   event.preventDefault();
+  $('#registerBtn').attr('disabled', 'disabled');
   fetch('/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -98,17 +112,23 @@ function register(event) {
       'address': document.querySelector('#regAddress').value,
       'city': document.querySelector('#regCity').value,
       'town': document.querySelector('#regTown').value,
+      'g-recaptcha-response': grecaptcha.getResponse(registerW),
     }),
-  }).then((res) => {
-    res.json().then((data) => {
-      if (data.success_msg) {
-        alert(data.success_msg);
-        showVerify();
-      } else {
-        alert(data.msg);
-      }
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        if (data.success_msg) {
+          alert(data.success_msg);
+          showVerify();
+        } else {
+          alert(data.message);
+        }
+      });
+    })
+    .finally(() => {
+      grecaptcha.reset(registerW);
+      $('#registerBtn').removeAttr('disabled');
     });
-  });
 }
 
 function logout(event) {
@@ -147,69 +167,102 @@ function hideUnused() {
 
 function forgot(event) {
   event.preventDefault();
+  $('#forgotBtn').attr('disabled', 'disabled');
   fetch('/forgot', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       'email': document.querySelector('#forgotEmail').value,
+      'g-recaptcha-response': grecaptcha.getResponse(forgotW),
     }),
-  }).then((res) => {
-    res.json().then((data) => {
-      if (data.success_msg) {
-        alert(data.success_msg);
-        showReset();
-      } else {
-        alert(data.msg);
-      }
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        if (data.success_msg) {
+          alert(data.success_msg);
+          showReset();
+        } else {
+          alert(data.message);
+        }
+      });
+    })
+    .finally(() => {
+      grecaptcha.reset(forgotW);
+      $('#forgotBtn').removeAttr('disabled');
     });
-  });
 }
 
 function resetPasswordForm(event) {
   event.preventDefault();
+  $('#resetBtn').attr('disabled', 'disabled');
   const token = document.querySelector('#resetToken').value;
-  fetch(`/forgot/${token}`).then((res) => {
-    res.json().then((data) => {
-      if (data.msg) {
-        alert(data.msg);
-      } else {
-        fetch(`/reset/${data.id}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            'password': document.querySelector('#resetPassword').value,
-            'password2': document.querySelector('#resetPassword2').value,
-          }),
-        }).then((res2) => {
-          res2.json().then((data2) => {
-            if (data2.success_msg) {
-              alert(data2.success_msg);
-              $('#modal a[href="#nav-sign-in"]').tab('show');
-              hideUnused();
-            } else {
-              alert(data2.msg);
-            }
+  fetch(`/forgot/${token}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      'g-recaptcha-response': grecaptcha.getResponse(resetW),
+    }),
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        if (data.message) {
+          alert(data.message);
+          grecaptcha.reset(resetW);
+          $('#resetBtn').removeAttr('disabled');
+        } else {
+          fetch(`/reset/${data.id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              'password': document.querySelector('#resetPassword').value,
+              'password2': document.querySelector('#resetPassword2').value,
+            }),
+          }).then((res2) => {
+            res2.json().then((data2) => {
+              if (data2.success_msg) {
+                alert(data2.success_msg);
+                $('#modal a[href="#nav-sign-in"]').tab('show');
+                hideUnused();
+              } else {
+                alert(data2.message);
+              }
+            });
           });
-        });
-      }
+        }
+      });
+    })
+    .catch(() => {
+      grecaptcha.reset(resetW);
+      $('#resetBtn').removeAttr('disabled');
     });
-  });
 }
 
 function verify(event) {
   event.preventDefault();
+  $('#activateBtn').attr('disabled', 'disabled');
   const token = document.querySelector('#verifyToken').value;
-  fetch(`/activate/${token}`).then((res) => {
-    res.json().then((data) => {
-      if (data.msg) {
-        alert(data.msg);
-      } else {
-        alert(data.success_msg);
-        $('#modal a[href="#nav-sign-in"]').tab('show');
-        hideUnused();
-      }
+  fetch(`/activate/${token}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      'g-recaptcha-response': grecaptcha.getResponse(activateW),
+    }),
+  })
+    .then((res) => {
+      res.json().then((data) => {
+        if (data.message) {
+          alert(data.message);
+        } else {
+          alert(data.success_msg);
+          $('#modal a[href="#nav-sign-in"]').tab('show');
+          hideUnused();
+        }
+      });
+    })
+    .finally(() => {
+      grecaptcha.reset(activateW);
+      $('#activateBtn').removeAttr('disabled');
     });
-  });
 }
 
 function forceLoginAndRedirect(url) {
@@ -320,116 +373,22 @@ function provincesDisplay() {
   }
 }
 
-// --- Server side provinces Handler ---
+function CaptchaCallback() {
+  const siteKey = '6LcxngkaAAAAAO-aKP2yGehcIFJ8bIXHiJ6awbZB';
 
-// function districtLoad() {
-//   const provincesHTML = document.getElementById('regCity');
-//   const districtHTML = document.getElementById('regTown');
-
-//   fetch(`getProvince/${provincesHTML.value}/District`, {
-//     method: 'POST',
-//   })
-//     .then((resp) => resp.json())
-//     .then(
-//       (data) => {
-//         districtHTML.innerHTML = '';
-
-//         data.forEach((district) => {
-//           const pID = district.ID;
-//           const pName = district.Title;
-
-//           const innerDistrict = `<option value="${pID}">${pName}</option>`;
-
-//           // const provinceElement = document.createElement(innerProvince);
-//           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
-//         });
-
-//         districtHTML.disabled = false;
-//       },
-//     );
-// }
-
-// function districtLoadProfile() {
-//   const provincesHTML = document.getElementById('mem-info-province');
-//   const districtHTML = document.getElementById('mem-info-district');
-
-//   fetch(`getProvince/${provincesHTML.value}/District`, {
-//     method: 'POST',
-//   })
-//     .then((resp) => resp.json())
-//     .then(
-//       (data) => {
-//         const currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
-//         districtHTML.innerHTML = '';
-
-//         data.forEach((district) => {
-//           const pID = district.ID;
-//           const pName = district.Title;
-
-//           const innerDistrict = `<option value="${pID}">${pName}</option>`;
-
-//           // const provinceElement = document.createElement(innerProvince);
-//           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
-//         });
-
-//         const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
-//         if (selectUserCurrent) { selectUserCurrent.selected = true; }
-//         districtHTML.disabled = false;
-//       },
-//     );
-// }
-
-// function provincesDisplay() {
-//   const provincesHTML = document.getElementById('regCity');
-//   const districtHTML = document.getElementById('regTown');
-
-//   const provincesProfileHTML = document.getElementById('mem-info-province');
-//   const districtProfileHTML = document.getElementById('mem-info-district');
-
-//   fetch('getProvinces', {
-//     method: 'POST',
-//   })
-//     .then((resp) => resp.json())
-//     .then((data) => {
-//       fetch('isLogin')
-//         .then((islogRes) => islogRes.json())
-//         .then((islogin) => {
-//           if (!islogin) {
-//             if (provincesHTML) {
-//               districtHTML.disabled = true;
-
-//               data.forEach((provin) => {
-//                 const pID = provin.ID;
-//                 const pName = provin.Title;
-
-//                 const innerProvince = `<option value="${pID}">${pName}</option>`;
-
-//                 // const provinceElement = document.createElement(innerProvince);
-//                 provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
-//               });
-//             }
-//           }
-//         });
-
-//       if (provincesProfileHTML) {
-//         districtProfileHTML.disabled = false;
-
-//         data.forEach((provin) => {
-//           if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
-//             document.querySelector('#mem-info-province option:first-child').label = provin.Title;
-
-//             districtLoadProfile();
-
-//             return;
-//           }
-//           const pID = provin.ID;
-//           const pName = provin.Title;
-
-//           const innerProvince = `<option value="${pID}">${pName}</option>`;
-
-//           // const provinceElement = document.createElement(innerProvince);
-//           provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
-//         });
-//       }
-//     });
-// }
+  loginW = grecaptcha.render('loginCaptcha', {
+    'sitekey': siteKey,
+  });
+  registerW = grecaptcha.render('registerCaptcha', {
+    'sitekey': siteKey,
+  });
+  activateW = grecaptcha.render('activateCaptcha', {
+    'sitekey': siteKey,
+  });
+  forgotW = grecaptcha.render('forgotCaptcha', {
+    'sitekey': siteKey,
+  });
+  resetW = grecaptcha.render('resetCaptcha', {
+    'sitekey': siteKey,
+  });
+}

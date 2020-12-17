@@ -63,3 +63,9 @@ body {
     height: 750px;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .recapcha {
+    margin-bottom: 3%;
+  }
+}
