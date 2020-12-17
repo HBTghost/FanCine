@@ -81,11 +81,11 @@ async function getMoviesByKeyword(req, res, next) {
       const pageNumber = pageSkip + 1;
       res.pageCurrent = pageNumber;
       res.pageArray = [];
-      const displayablePageFront = 3; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
+      const displayablePageFront = 1; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
       const displayablePageBack = 1; // The number of page will be display. EX:  ... 23 24 -> displayableBack = 2
-      const limitContent = 3;
+      const limitContent = 2;
 
-      const totalPage = await Movie.count({
+      const totalContent = await Movie.count({
         $or: [
           { 'label': { $regex: req.query.q, $options: 'i' } },
           { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
@@ -97,9 +97,13 @@ async function getMoviesByKeyword(req, res, next) {
           { 'director': { $regex: req.query.q, $options: 'i' } },
         ],
       });
+      const temp = parseInt(totalContent / limitContent, 10);
+      const totalPage = (temp * limitContent < totalContent) ? temp + 1 : temp;
 
-      if ((await totalPage - res.pageCurrent + 1) <= (displayablePageFront + displayablePageBack)) {
-        for (let i = totalPage - (displayablePageFront + displayablePageBack); i <= totalPage; i++) {
+      console.log(totalPage);
+
+      if ((totalPage - res.pageCurrent + 2) <= (displayablePageFront + displayablePageBack)) {
+        for (let i = (res.pageCurrent > 1) ? res.pageCurrent - 1 : res.pageCurrent; i <= totalPage; i++) {
           res.pageArray.push(i);
         }
       } else {
@@ -143,7 +147,7 @@ async function getMoviesByKeyword(req, res, next) {
         ],
       },
       { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
-      { skip: pageSkip, limit: limitContent }).lean();
+      { skip: pageSkip * limitContent, limit: limitContent }).lean();
     }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
