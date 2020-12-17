@@ -1,6 +1,11 @@
 "use strict";
 
 // -- SignIn - Modal initial --
+var loginW = null;
+var registerW = null;
+var activateW = null;
+var forgotW = null;
+var resetW = null;
 var modal = document.getElementById('modal');
 var parser = new DOMParser();
 var redirectURL = '';
@@ -38,13 +43,12 @@ function popupForgot() {
   popupModal();
   $('#modal a[href="#nav-forgot"]').tab('show');
 } // When the user clicks anywhere outside of the modal, close it
-
-
-window.onclick = function windowClickOff(event) {
-  if (event.target === modal) {
-    popdownModal();
-  }
-}; // -- End modal --
+// window.onclick = function windowClickOff(event) {
+//   if (event.target === modal) {
+//     popdownModal();
+//   }
+// };
+// -- End modal --
 
 
 function renderUsernameToggle() {
@@ -59,6 +63,7 @@ function renderUsernameToggle() {
 
 function login(event) {
   event.preventDefault();
+  $('#loginBtn').attr('disabled', 'disabled');
   fetch('/login', {
     method: 'POST',
     headers: {
@@ -66,7 +71,8 @@ function login(event) {
     },
     body: JSON.stringify({
       'email': document.querySelector('#emailLogin').value,
-      'password': document.querySelector('#passwordLogin').value
+      'password': document.querySelector('#passwordLogin').value,
+      'g-recaptcha-response': grecaptcha.getResponse(loginW)
     })
   }).then(function (res) {
     res.json().then(function (data) {
@@ -82,6 +88,9 @@ function login(event) {
         popdownModal();
       }
     });
+  }).finally(function () {
+    grecaptcha.reset(loginW);
+    $('#loginBtn').removeAttr('disabled');
   });
 }
 
@@ -92,6 +101,7 @@ function showVerify() {
 
 function register(event) {
   event.preventDefault();
+  $('#registerBtn').attr('disabled', 'disabled');
   fetch('/register', {
     method: 'POST',
     headers: {
@@ -107,7 +117,8 @@ function register(event) {
       'sex': document.querySelector('#regGender').value,
       'address': document.querySelector('#regAddress').value,
       'city': document.querySelector('#regCity').value,
-      'town': document.querySelector('#regTown').value
+      'town': document.querySelector('#regTown').value,
+      'g-recaptcha-response': grecaptcha.getResponse(registerW)
     })
   }).then(function (res) {
     res.json().then(function (data) {
@@ -115,9 +126,12 @@ function register(event) {
         alert(data.success_msg);
         showVerify();
       } else {
-        alert(data.msg);
+        alert(data.message);
       }
     });
+  }).finally(function () {
+    grecaptcha.reset(registerW);
+    $('#registerBtn').removeAttr('disabled');
   });
 }
 
@@ -157,13 +171,15 @@ function hideUnused() {
 
 function forgot(event) {
   event.preventDefault();
+  $('#forgotBtn').attr('disabled', 'disabled');
   fetch('/forgot', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      'email': document.querySelector('#forgotEmail').value
+      'email': document.querySelector('#forgotEmail').value,
+      'g-recaptcha-response': grecaptcha.getResponse(forgotW)
     })
   }).then(function (res) {
     res.json().then(function (data) {
@@ -171,19 +187,33 @@ function forgot(event) {
         alert(data.success_msg);
         showReset();
       } else {
-        alert(data.msg);
+        alert(data.message);
       }
     });
+  }).finally(function () {
+    grecaptcha.reset(forgotW);
+    $('#forgotBtn').removeAttr('disabled');
   });
 }
 
 function resetPasswordForm(event) {
   event.preventDefault();
+  $('#resetBtn').attr('disabled', 'disabled');
   var token = document.querySelector('#resetToken').value;
-  fetch("/forgot/".concat(token)).then(function (res) {
+  fetch("/forgot/".concat(token), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'g-recaptcha-response': grecaptcha.getResponse(resetW)
+    })
+  }).then(function (res) {
     res.json().then(function (data) {
-      if (data.msg) {
-        alert(data.msg);
+      if (data.message) {
+        alert(data.message);
+        grecaptcha.reset(resetW);
+        $('#resetBtn').removeAttr('disabled');
       } else {
         fetch("/reset/".concat(data.id), {
           method: 'POST',
@@ -201,28 +231,43 @@ function resetPasswordForm(event) {
               $('#modal a[href="#nav-sign-in"]').tab('show');
               hideUnused();
             } else {
-              alert(data2.msg);
+              alert(data2.message);
             }
           });
         });
       }
     });
+  }).catch(function () {
+    grecaptcha.reset(resetW);
+    $('#resetBtn').removeAttr('disabled');
   });
 }
 
 function verify(event) {
   event.preventDefault();
+  $('#activateBtn').attr('disabled', 'disabled');
   var token = document.querySelector('#verifyToken').value;
-  fetch("/activate/".concat(token)).then(function (res) {
+  fetch("/activate/".concat(token), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'g-recaptcha-response': grecaptcha.getResponse(activateW)
+    })
+  }).then(function (res) {
     res.json().then(function (data) {
-      if (data.msg) {
-        alert(data.msg);
+      if (data.message) {
+        alert(data.message);
       } else {
         alert(data.success_msg);
         $('#modal a[href="#nav-sign-in"]').tab('show');
         hideUnused();
       }
     });
+  }).finally(function () {
+    grecaptcha.reset(activateW);
+    $('#activateBtn').removeAttr('disabled');
   });
 }
 
@@ -313,92 +358,23 @@ function provincesDisplay() {
       provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
     });
   }
-} // --- Server side provinces Handler ---
-// function districtLoad() {
-//   const provincesHTML = document.getElementById('regCity');
-//   const districtHTML = document.getElementById('regTown');
-//   fetch(`getProvince/${provincesHTML.value}/District`, {
-//     method: 'POST',
-//   })
-//     .then((resp) => resp.json())
-//     .then(
-//       (data) => {
-//         districtHTML.innerHTML = '';
-//         data.forEach((district) => {
-//           const pID = district.ID;
-//           const pName = district.Title;
-//           const innerDistrict = `<option value="${pID}">${pName}</option>`;
-//           // const provinceElement = document.createElement(innerProvince);
-//           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
-//         });
-//         districtHTML.disabled = false;
-//       },
-//     );
-// }
-// function districtLoadProfile() {
-//   const provincesHTML = document.getElementById('mem-info-province');
-//   const districtHTML = document.getElementById('mem-info-district');
-//   fetch(`getProvince/${provincesHTML.value}/District`, {
-//     method: 'POST',
-//   })
-//     .then((resp) => resp.json())
-//     .then(
-//       (data) => {
-//         const currentUserDistrict = document.querySelector('#mem-info-district option:first-child').value;
-//         districtHTML.innerHTML = '';
-//         data.forEach((district) => {
-//           const pID = district.ID;
-//           const pName = district.Title;
-//           const innerDistrict = `<option value="${pID}">${pName}</option>`;
-//           // const provinceElement = document.createElement(innerProvince);
-//           districtHTML.insertAdjacentHTML('beforeend', innerDistrict);
-//         });
-//         const selectUserCurrent = document.querySelector(`#mem-info-district option[value="${currentUserDistrict}"]`);
-//         if (selectUserCurrent) { selectUserCurrent.selected = true; }
-//         districtHTML.disabled = false;
-//       },
-//     );
-// }
-// function provincesDisplay() {
-//   const provincesHTML = document.getElementById('regCity');
-//   const districtHTML = document.getElementById('regTown');
-//   const provincesProfileHTML = document.getElementById('mem-info-province');
-//   const districtProfileHTML = document.getElementById('mem-info-district');
-//   fetch('getProvinces', {
-//     method: 'POST',
-//   })
-//     .then((resp) => resp.json())
-//     .then((data) => {
-//       fetch('isLogin')
-//         .then((islogRes) => islogRes.json())
-//         .then((islogin) => {
-//           if (!islogin) {
-//             if (provincesHTML) {
-//               districtHTML.disabled = true;
-//               data.forEach((provin) => {
-//                 const pID = provin.ID;
-//                 const pName = provin.Title;
-//                 const innerProvince = `<option value="${pID}">${pName}</option>`;
-//                 // const provinceElement = document.createElement(innerProvince);
-//                 provincesHTML.insertAdjacentHTML('beforeend', innerProvince);
-//               });
-//             }
-//           }
-//         });
-//       if (provincesProfileHTML) {
-//         districtProfileHTML.disabled = false;
-//         data.forEach((provin) => {
-//           if (`${provin.ID}` === document.querySelector('#mem-info-province option:first-child').value) {
-//             document.querySelector('#mem-info-province option:first-child').label = provin.Title;
-//             districtLoadProfile();
-//             return;
-//           }
-//           const pID = provin.ID;
-//           const pName = provin.Title;
-//           const innerProvince = `<option value="${pID}">${pName}</option>`;
-//           // const provinceElement = document.createElement(innerProvince);
-//           provincesProfileHTML.insertAdjacentHTML('beforeend', innerProvince);
-//         });
-//       }
-//     });
-// }
+}
+
+function CaptchaCallback() {
+  var siteKey = '6LcxngkaAAAAAO-aKP2yGehcIFJ8bIXHiJ6awbZB';
+  loginW = grecaptcha.render('loginCaptcha', {
+    'sitekey': siteKey
+  });
+  registerW = grecaptcha.render('registerCaptcha', {
+    'sitekey': siteKey
+  });
+  activateW = grecaptcha.render('activateCaptcha', {
+    'sitekey': siteKey
+  });
+  forgotW = grecaptcha.render('forgotCaptcha', {
+    'sitekey': siteKey
+  });
+  resetW = grecaptcha.render('resetCaptcha', {
+    'sitekey': siteKey
+  });
+}
