@@ -81,7 +81,7 @@ async function getMoviesByKeyword(req, res, next) {
       const pageNumber = pageSkip + 1;
       res.pageCurrent = pageNumber;
       res.pageArray = [];
-      const displayablePageFront = 2; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
+      const displayablePageFront = 1; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
       const displayablePageBack = 1; // The number of page will be display. EX:  ... 23 24 -> displayableBack = 2
       const limitContent = 2;
 
@@ -118,6 +118,8 @@ async function getMoviesByKeyword(req, res, next) {
 
           res.pageArray.push(i);
         }
+
+        if (res.pageCurrent === 1) { res.pageArray.push(i); }
 
         // Back
         res.pageArray.push('...');
