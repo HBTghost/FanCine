@@ -72,6 +72,90 @@ async function getMoviesByTheaterID(req, res, next) {
   return next();
 }
 
+async function getMoviesByKeyword(req, res, next) {
+  try {
+    if (req.query.q === '') {
+      res.result = null;
+    } else {
+      const pageSkip = (Number(req.query.page) > 0) ? Number(req.query.page) - 1 : 0 || 0;
+      const pageNumber = pageSkip + 1;
+      res.pageCurrent = pageNumber;
+      res.pageArray = [];
+      const displayablePageFront = 1; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
+      const displayablePageBack = 1; // The number of page will be display. EX:  ... 23 24 -> displayableBack = 2
+      const limitContent = 2;
+
+      const totalContent = await Movie.count({
+        $or: [
+          { 'label': { $regex: req.query.q, $options: 'i' } },
+          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'originalName': { $regex: req.query.q, $options: 'i' } },
+          { 'producer': { $regex: req.query.q, $options: 'i' } },
+          { 'nation': { $regex: req.query.q, $options: 'i' } },
+          { 'director': { $regex: req.query.q, $options: 'i' } },
+        ],
+      });
+      const temp = parseInt(totalContent / limitContent, 10);
+      const totalPage = (temp * limitContent < totalContent) ? temp + 1 : temp;
+
+      console.log(totalPage);
+
+      if ((totalPage - res.pageCurrent + 2) <= (displayablePageFront + displayablePageBack)) {
+        for (let i = (res.pageCurrent > 1) ? res.pageCurrent - 1 : res.pageCurrent; i <= totalPage; i++) {
+          res.pageArray.push(i);
+        }
+      } else {
+        let i = pageNumber;
+        // Front
+        if (pageNumber - 1 > 0) {
+          res.pageArray.push(pageNumber - 1);
+        }
+
+        for (; i < totalPage; i++) {
+          if (i - res.pageCurrent > displayablePageFront - 1) { break; }
+
+          res.pageArray.push(i);
+        }
+
+        if (res.pageCurrent === 1) { res.pageArray.push(i); }
+
+        // Back
+        res.pageArray.push('...');
+
+        for (i = totalPage - displayablePageBack + 1; i <= totalPage; i++) {
+          res.pageArray.push(i);
+        }
+      }
+
+      res.pagePrevious = (pageNumber - 1 > 0) ? pageNumber - 1 : pageNumber;
+      res.pageNext = (pageNumber + 1 > totalPage) ? totalPage : pageNumber + 1;
+
+      console.log(res.pageArray);
+
+      res.result = await Movie.find({
+        $or: [
+          { 'label': { $regex: req.query.q, $options: 'i' } },
+          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+          { 'originalName': { $regex: req.query.q, $options: 'i' } },
+          { 'producer': { $regex: req.query.q, $options: 'i' } },
+          { 'nation': { $regex: req.query.q, $options: 'i' } },
+          { 'director': { $regex: req.query.q, $options: 'i' } },
+        ],
+      },
+      { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
+      { skip: pageSkip * limitContent, limit: limitContent }).lean();
+    }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function createMovieByForm(req, res, next) {
   try {
     const data = req.body;
@@ -96,6 +180,7 @@ async function createMovieByForm(req, res, next) {
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
+
   return next();
 }
 
@@ -275,6 +360,7 @@ async function postSampleMovies(req, res, next) {
 }
 
 export {
+  getMoviesByKeyword,
   getMovie,
   getMovieBySession,
   getMoviesFromSessions,

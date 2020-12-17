@@ -7,6 +7,7 @@ import {
   getMovieFromTheaterMovie,
   getAllMovies,
   getMoviesByTheaterID,
+  getMoviesByKeyword,
 } from '../middleware/movie.js';
 import {
   getTheaterBySession,
@@ -327,6 +328,19 @@ handlebarsRouter.post('/getProvinces', getAllProvinces, async (req, res) => {
 
 handlebarsRouter.post('/getProvince/:provinceID/District', getAllDistrict, async (req, res) => {
   res.json(await res.districts);
+});
+
+handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
+  res.render('searchResult', {
+    style: 'review',
+    result: await res.result,
+    searchQuery: req.query.q,
+    pageArray: await res.pageArray,
+    pagePrevious: await res.pagePrevious,
+    pageCurrent: await res.pageCurrent,
+    pageNext: await res.pageNext,
+  });
+  // res.json(await res.result);
 });
 
 // Member
