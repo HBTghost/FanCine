@@ -6,62 +6,10 @@
         Đăng ký tài khoản mới
       </h2>
       {{> message }}
-      <form action="/render/register" method="POST">
-        <div class="form-group">
-          <label for="name">Họ tên</label>
-          {{#if name}}
-          <input type="name" id="name" name="name" class="form-control" placeholder="Nhập họ tên của bạn"
-            value="{{ name }}" />
-          {{else}}
-          <input type="name" id="name" name="name" class="form-control" placeholder="Nhập họ tên của bạn"
-            value="" />
-          {{/if}}
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          {{#if email }}
-          <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email"
-            value="{{ email }}" />
-          {{else}}
-          <input type="email" id="email" name="email" class="form-control" placeholder="Nhập địa chỉ email"
-            value="" />
-          {{/if}}
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          {{#if phone }}
-          <input type="tel" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại"
-            value="{{ phone }}" />
-          {{else}}
-          <input type="tel" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại"
-            value="" />
-          {{/if}}
-        </div>
-        <div class="form-group">
-          <label for="password">Mật khẩu</label>
-          {{#if password }}
-          <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
-            value="{{ password }}" />
-          {{else}}
-          <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
-            value="" />
-          {{/if}}
-        </div>
-        <div class="form-group">
-          <label for="password2">Nhập lại mật khẩu</label>
-          {{#if password2 }}
-          <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu"
-            value="{{ password2 }}" />
-          {{else}}
-          <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu"
-            value="" />
-          {{/if}}
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">
-          Đăng ký
-        </button>
-      </form>
-      <p class="mt-4">Đã có tài khoản? <a href="/render/login">Đăng nhập</a></p>
+      <button type="submit" class="btn btn-primary btn-block" onclick="popupRegister()">
+        Đăng ký
+      </button>
+      <p class="mt-4">Đã có tài khoản? <a href="#" onclick="popupLogin()">Đăng nhập</a></p>
     </div>
   </div>
 </div>
