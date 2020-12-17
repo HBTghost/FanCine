@@ -368,6 +368,13 @@ handlebarsRouter.post(
   },
 );
 
+// Promotion
+handlebarsRouter.get('/promotion', (req, res) => {
+  res.render('promotion-detail.hbs', {
+    style: 'promotion-detail',
+  });
+});
+
 // Detailed transaction
 handlebarsRouter.get(
   '/transaction/:id',

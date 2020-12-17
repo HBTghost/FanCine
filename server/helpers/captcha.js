@@ -11,7 +11,7 @@ function ensureCaptchaClicked(req, res, next) {
     req.body['g-recaptcha-response'] === null
   ) {
     return res.json({
-      message: 'Vui lòng xác nhận bạn không phải là rôbốt bằng cách click vào reCAPTCHA!',
+      message: 'Vui lòng xác nhận bạn không phải là rô bốt bằng cách click vào reCAPTCHA!',
     });
   }
 
@@ -21,7 +21,7 @@ function ensureCaptchaClicked(req, res, next) {
       if (response.data.success === true) {
         return next();
       }
-      res.json({ message: 'Xác thực không phải là rôbốt thất bại. Vui lòng thử lại!' });
+      res.json({ message: 'Xác thực không phải là rô bốt thất bại. Vui lòng thử lại!' });
     })
     .catch((error) => res.json(error));
 }
@@ -36,7 +36,7 @@ function ensureCaptchaClickedRender(req, res, next) {
   ) {
     req.flash(
       'error_msg',
-      'Vui lòng xác nhận bạn không phải là rôbốt bằng cách click vào reCAPTCHA!',
+      'Vui lòng xác nhận bạn không phải là rô bốt bằng cách click vào reCAPTCHA!',
     );
     return res.redirect(curTab);
   }
@@ -47,7 +47,7 @@ function ensureCaptchaClickedRender(req, res, next) {
       if (response.data.success === true) {
         return next();
       }
-      req.flash('error_msg', 'Xác thực không phải là rôbốt thất bại. Vui lòng thử lại!');
+      req.flash('error_msg', 'Xác thực không phải là rô bốt thất bại. Vui lòng thử lại!');
       return res.redirect(curTab);
     })
     .catch((error) => {
