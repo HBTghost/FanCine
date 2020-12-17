@@ -83,7 +83,7 @@ async function getMoviesByKeyword(req, res, next) {
       res.pageArray = [];
       const displayablePageFront = 2; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
       const displayablePageBack = 1; // The number of page will be display. EX:  ... 23 24 -> displayableBack = 2
-      const limitContent = 2;
+      const limitContent = 3;
 
       const totalContent = await Movie.count({
         $or: [
@@ -128,7 +128,7 @@ async function getMoviesByKeyword(req, res, next) {
           { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
         ],
       },
-      { '_id': 1, 'vietnameseName': 1, 'originalName': 1, 'description': 1, 'horizontalImageSource': 1 },
+      { '_id': 1, 'vietnameseName': 1, 'originalName': 1, 'description': 1, 'horizontalImageSource': 1, 'imageSource': 1 },
       { skip: pageSkip * limitContent, limit: limitContent }).lean();
     }
   } catch (err) {
