@@ -411,7 +411,7 @@ checkoutBackBthElement.addEventListener('click', () => {
 });
 
 checkoutPayBthElement.addEventListener('click', () => {
-  // clearInterval(countdownID);
+  clearInterval(countdownID);
   fetch('/api/sessions/insertOne', {
     method: 'POST',
     headers: {
@@ -432,7 +432,7 @@ checkoutPayBthElement.addEventListener('click', () => {
   alert(
     'Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".',
   );
-  forceLoginAndRedirect('/member');
+  forceLoginAndRedirect('/member/transaction-history');
 });
 
 function main() {

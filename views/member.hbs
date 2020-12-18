@@ -1,11 +1,12 @@
 <div id="mem-body">
   <div id="mem-container">
     <div id="mem-nav">
+      <span id="mem-nav-active-tab" style="display: none;">{{activeTab}}</span>
       <button class="mem-nav-btn mem-pointer mem-nav-btn-selected" id="mem-info-btn">THÔNG TIN THÀNH VIÊN</button>
       <button class="mem-nav-btn mem-pointer" id="mem-history-btn">LỊCH SỬ GIAO DỊCH</button>
     </div>
 
-    <form id="mem-info-tab" method="POST" action="member/update">
+    <form id="mem-info-tab" method="POST" action="/member/info/update">
       <div id="mem-info-content">
         {{#with userInfo}}
         <div id="mem-info-personal-info-sec">
@@ -68,7 +69,7 @@
               <input class="mem-info-field" name="star" id="mem-info-star" type="number" value="{{star}}" readonly>
             </div>
             <div class="mem-info-item">
-              <label class="mem-info-label" for="mem-info-expense">Chi tiêu {{curYear}}</label>
+              <label class="mem-info-label" for="mem-info-expense">Chi tiêu</label>
               <input class="mem-info-field" name="expense" id="mem-info-expense" type="text"
                 value="{{formatPrice expense}}" readonly>
             </div>
@@ -92,25 +93,30 @@
     <div id="mem-history-tab">
       <div class="mem-history-tab-empty">Hiện tại bạn chưa thực hiện giao dịch nào!</div>
       <div class="mem-history-tab-not-empty">
-        <div class="mem-history-head">
+        <form class="mem-history-head" method="POST">
           <div class="mem-history-head-item">
-            <label for="mem-history-head-item-start">Từ</label>
-            <input type="date" id="mem-history-head-item-start">
-          </div>
+              <label for="mem-history-head-item-start">Từ</label>
+              <input type="date" id="mem-history-head-item-start">
+            </div>
 
-          <div class="mem-history-head-item">
-            <label for="mem-history-head-item-end">Đến</label>
-            <input type="date" id="mem-history-head-item-end">
-          </div>
+            <div class="mem-history-head-item">
+              <label for="mem-history-head-item-end">Đến</label>
+              <input type="date" id="mem-history-head-item-end">
+            </div>
 
-          <div class="mem-history-head-item">
-            <label for="mem-history-head-item-end">Thứ tự</label>
-            <select id="mem-history-head-item-order">
-              <option value="0">Gần đây nhất</option>
-              <option value="1">Xa đây nhất</option>
-            </select>
-          </div>
-        </div>
+            <div class="mem-history-head-item">
+              <label for="mem-history-head-item-order">Thứ tự</label>
+              <select id="mem-history-head-item-order">
+                <option value="0">Gần đây nhất</option>
+                <option value="1">Xa đây nhất</option>
+              </select>
+            </div>
+
+            <div class="mem-history-head-item">
+              <label for="">&nbsp;</label>
+              <input id="mem-history-head-item-submit" type="submit" value="Lọc">
+            </div>
+        </form>
 
         <div class="mem-history-section">
           {{#each sessions}}
@@ -121,8 +127,10 @@
             </div>
             <div class="mem-history-item-info-sec">
               <p class="mem-history-item-info mem-history-item-info-viename">{{movie.vietnameseName}}</p>
-              <p class="mem-history-item-info"><b>Thời điểm thanh toán:&ensp;</b><span class="mem-history-item-info-time">{{createdAt}}</span></p>
-              <p class="mem-history-item-info"><b>Tổng tiền:&ensp;</b><span class="mem-history-item-info-price">{{formatPrice totalPrice}}</span></p>
+              <p class="mem-history-item-info"><b>Thời điểm thanh toán:&ensp;</b><span
+                  class="mem-history-item-info-time">{{createdAt}}</span></p>
+              <p class="mem-history-item-info"><b>Tổng tiền:&ensp;</b><span
+                  class="mem-history-item-info-price">{{formatPrice totalPrice}}</span></p>
             </div>
           </div>
           {{/each}}
