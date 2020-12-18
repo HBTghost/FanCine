@@ -1,0 +1,87 @@
+<div class="container mt-3">
+    <!-- Content -->
+    <div class="review-title-container">
+        <div class="review-title-new"><a href="/search?q={{ searchQuery }}"><b>Từ khóa:</b> "{{ searchQuery }}"</a></div>
+    </div>
+    <div class="row">
+        
+        <div class="col-12 col-lg-8">
+            
+            <div class="container-fuild">
+                <article class="review-list">
+                    {{#if result}}
+                    {{#each result}}
+                    <div class="review-item">
+                        
+                        <a href="/info/{{_id}}" class="review-item-img">
+                            <img src="{{ horizontalImageSource }}" alt="">
+                        </a>
+                        <div>
+                            <a href="/info/{{_id}}">
+                                <div class="review-item-title">
+                                    <h4>{{ vietnameseName }}</h4>
+                                </div>
+                            </a>
+
+                            <div class="review-item-content">{{ description.[0] }}</div>
+                        </div>
+                    </div>
+                    
+                    {{/each}}
+
+                    <nav aria-label="..." class="d-flex justify-content-center mt-3" >
+                        <ul class="pagination">
+                            {{! previous page }}
+                            <li class="page-item">
+                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pagePrevious}}">Lùi</a>
+                            </li>
+                            {{! load link }}
+                            {{#each pageArray}}
+                            <li class="page-item {{#if (equal this '...')}}disabled{{/if}} {{#if (equal this ../pageCurrent)}}active{{/if}}">
+                                <a class="page-link" href="/search?q={{ ../searchQuery }}&page={{this}}">{{this}}</a>
+                            </li>
+                            {{/each}}
+                            {{! next page }}
+                            <li class="page-item">
+                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pageNext}}">Tiến</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    {{else}}
+                     <div class="review-item">
+                         <a href="/" class="review-item-img">
+                            <img src="https://i.loli.net/2020/12/16/RONHw4EXfGznVkr.jpg" alt="">
+                        </a>
+
+                        <div>
+                            <a href="/">
+                                <div class="review-item-title">
+                                    <h4>OOPS - Hãy đưa tôi quay về trang chủ</h4>
+                                </div>
+                            </a>
+
+                            <div class="review-item-content">Rất tiếc không có kết quả nào rồi!!</div>
+                        </div>
+                    </div>
+                    {{/if}}
+                </article>
+            </div>
+        </div>
+        
+            <!-- Show more button -->
+        <div class="col">
+            <div class="container">
+                <img src="https://via.placeholder.com/768x1024" alt="" class="img-thumbnail">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    let change = document.getElementById("select")
+
+    function myname() {
+        console.log(change.value)
+    }
+</script>

@@ -2,8 +2,8 @@
 
 .container-custom {
   margin: 50px 175px auto;
-  font-size: 20px;
 }
+
 
 a:first-child {
   color: $accent-color;
@@ -56,4 +56,63 @@ a:first-child:hover {
 .content ul {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.content {
+  font-size: 20px;
+}
+
+#header-other-promotion {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 3px solid $color-orange;
+  margin-right: 10px;
+  color: $color-orange;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.promotion-onshow-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  transition: all 300ms;
+  opacity: 0;
+  background-color: $multi-background;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.promotion-onshow-content:hover {
+  opacity: 1;
+}
+
+.content-card {
+  opacity: 0;
+  transition: 1.5s;
+}
+
+.content-card:hover {
+  opacity: 1;
+}
+
+.promotion-btn {
+  position: relative;
+  bottom: -120px;
+  border: 1px solid $white;
+
+}
+
+.promotion-btn:hover {
+  background-color: $color-orange;
+  text-decoration: none;
+  font-weight: 700;
 }
