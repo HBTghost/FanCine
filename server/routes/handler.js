@@ -349,8 +349,42 @@ handlebarsRouter.get('/search', getMoviesByKeyword, async (req, res) => {
 });
 
 // Member
+handlebarsRouter.get('/member', (req, res) => {
+  res.redirect('/member/info');
+});
+
+handlebarsRouter.get('/member/info', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('member', {
+    style: 'member',
+    script: 'member',
+    activeTab: 0,
+    userInfo: {
+      fullName: req.user.name,
+      phoneNumber: req.user.phone,
+      birthdate: toBirthDate(req.user.DoB),
+      sex: req.user.sex,
+      address: req.user.address,
+      star: req.user.point,
+      expense: req.user.spending,
+      email: req.user.email,
+      city: req.user.city,
+      town: req.user.town,
+      curYear: new Date().getFullYear(),
+    },
+  });
+});
+
+handlebarsRouter.post(
+  '/member/info/update',
+  ensureAuthenticatedOrRedirect,
+  updateUserInfor,
+  (req, res) => {
+    res.redirect('/member/info');
+  },
+);
+
 handlebarsRouter.get(
-  '/member',
+  '/member/transaction-history',
   ensureAuthenticatedOrRedirect,
   getSessionsByUserOrderByCreatedAtDesc,
   getShowtimesBySessions,
@@ -360,44 +394,14 @@ handlebarsRouter.get(
     res.render('member', {
       style: 'member',
       script: 'member',
-      userInfo: {
-        fullName: req.user.name,
-        phoneNumber: req.user.phone,
-        birthdate: toBirthDate(req.user.DoB),
-        sex: req.user.sex,
-        address: req.user.address,
-        star: req.user.point,
-        expense: req.user.spending,
-        email: req.user.email,
-        city: req.user.city,
-        town: req.user.town,
-        curYear: new Date().getFullYear(),
-      },
+      activeTab: 1,
       sessions: res.sessions,
     });
   },
 );
 
-handlebarsRouter.post(
-  '/member/update',
-  ensureAuthenticatedOrRedirect,
-  updateUserInfor,
-  (req, res) => {
-    res.redirect('/member');
-  },
-);
-
-// Promotion
-handlebarsRouter.get('/promotion', (req, res) => {
-  res.render('promotion-detail.hbs', {
-    style: 'promotion-detail',
-    script: 'info',
-  });
-});
-
-// Detailed transaction
 handlebarsRouter.get(
-  '/transaction/:id',
+  '/member/transaction-history/:id',
   ensureAuthenticatedOrRedirect,
   getSessionByID,
   getShowtimeBySession,
@@ -414,6 +418,14 @@ handlebarsRouter.get(
     });
   },
 );
+
+// Promotion
+handlebarsRouter.get('/promotion', (req, res) => {
+  res.render('promotion-detail.hbs', {
+    style: 'promotion-detail',
+    script: 'info',
+  });
+});
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
 
