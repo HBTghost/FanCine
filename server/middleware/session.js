@@ -31,11 +31,6 @@ async function getFilteredSessionsFromUser(req, res, next) {
       };
     }
 
-    // !!!
-    if (req.body.timezoneOffsetMili === undefined) {
-      req.body.timezoneOffsetMili = `${-420 * 60 * 1000}`;
-    }
-
     const d = new Date();
     switch (req.body.orderType) {
       case '0':
@@ -76,10 +71,10 @@ async function getFilteredSessionsFromUser(req, res, next) {
           createdAtMili: {
             $gte:
               new Date(`${d.getFullYear()}-01-01T00:00:00`).getTime() +
-              parseInt(req.body.timezoneOffsetMili, 10),
+              parseInt(`${-420 * 60 * 1000}`, 10),
             $lte:
               new Date(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T23:59:59`).getTime() +
-              parseInt(req.body.timezoneOffsetMili, 10),
+              parseInt(`${-420 * 60 * 1000}`, 10),
           },
         })
           .sort({ createdAt: 'desc' })
