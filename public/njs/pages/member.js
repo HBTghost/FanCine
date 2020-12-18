@@ -5,38 +5,57 @@ const historyBtnElement = document.querySelector('#mem-history-btn');
 const infoTabElement = document.querySelector('#mem-info-tab');
 const historyTabElement = document.querySelector('#mem-history-tab');
 
-const sessionsGridElement = document.querySelector('.mem-history-section');
-const sessionItemElements = document.querySelectorAll('.mem-history-item');
+const transactionsGridElement = document.querySelector('.mem-history-section');
+const transactionItemElements = document.querySelectorAll('.mem-history-item');
 const historyInfoTimeElements = document.querySelectorAll(
   '.mem-history-item .mem-history-item-info-time',
 );
 
-// ===== Events handling =====
-infoBtnElement.addEventListener('click', () => {
+const historyStartDateElement = document.querySelector('#mem-history-head-item-start');
+const historyEndDateElement = document.querySelector('#mem-history-head-item-end');
+const historyOrderElement = document.querySelector('#mem-history-head-item-order');
+const historySubmitElement = document.querySelector('#mem-history-head-item-submit');
+
+// ===== Functions =====
+function displayInfoTab() {
   infoBtnElement.classList.add('mem-nav-btn-selected');
   historyBtnElement.classList.remove('mem-nav-btn-selected');
-
   infoTabElement.style.display = 'block';
   historyTabElement.style.display = 'none';
+}
+
+function displayHistoryTab() {
+  historyBtnElement.classList.add('mem-nav-btn-selected');
+  infoBtnElement.classList.remove('mem-nav-btn-selected');
+  historyTabElement.style.display = 'block';
+  infoTabElement.style.display = 'none';
+
+  if (transactionItemElements.length === 0) {
+    document.querySelector('.mem-history-tab-empty').style.display = 'block';
+    document.querySelector('.mem-history-tab-not-empty').style.display = 'none';
+  } else {
+    document.querySelector('.mem-history-tab-empty').style.display = 'none';
+    document.querySelector('.mem-history-tab-not-empty').style.display = 'block';
+  }
+}
+
+function setDefaultValuesForHistoryForm() {
+  const d = new Date();
+  historyStartDateElement.value = `${d.getFullYear()}-01-01`;
+  historyEndDateElement.value = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+  historyOrderElement.value = 0;
+}
+
+// ===== Events handling =====
+infoBtnElement.addEventListener('click', () => {
+  window.location = '/member/info';
 });
 
 historyBtnElement.addEventListener('click', () => {
-  historyBtnElement.classList.add('mem-nav-btn-selected');
-  infoBtnElement.classList.remove('mem-nav-btn-selected');
-
-  historyTabElement.style.display = 'block';
-  infoTabElement.style.display = 'none';
+  window.location = '/member/transaction-history';
 });
 
-if (sessionItemElements.length === 0) {
-  document.querySelector('.mem-history-tab-empty').style.display = 'block';
-  document.querySelector('.mem-history-tab-not-empty').style.display = 'none';
-} else {
-  document.querySelector('.mem-history-tab-empty').style.display = 'none';
-  document.querySelector('.mem-history-tab-not-empty').style.display = 'block';
-}
-
-sessionItemElements.forEach((e) => {
+transactionItemElements.forEach((e) => {
   e.addEventListener('mouseenter', () => {
     e.classList.add('mem-history-item-hover');
   });
@@ -46,10 +65,23 @@ sessionItemElements.forEach((e) => {
   });
 
   e.addEventListener('click', () => {
-    window.open(`transaction/${e.firstElementChild.innerHTML}`);
+    window.open(`/member/transaction-history/${e.firstElementChild.innerHTML}`);
   });
 });
 
 historyInfoTimeElements.forEach((e) => {
   e.innerHTML = new Date(e.innerHTML).toLocaleString('en-GB');
 });
+
+// Main
+switch (document.querySelector('#mem-nav-active-tab').innerHTML) {
+  case '0':
+    displayInfoTab();
+    break;
+  case '1':
+    displayHistoryTab();
+    setDefaultValuesForHistoryForm();
+    break;
+  default:
+    displayInfoTab();
+}
