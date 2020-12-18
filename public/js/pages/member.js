@@ -11,7 +11,7 @@ var historyInfoTimeElements = document.querySelectorAll('.mem-history-item .mem-
 var historyStartDateElement = document.querySelector('#mem-history-head-item-start');
 var historyEndDateElement = document.querySelector('#mem-history-head-item-end');
 var historyOrderElement = document.querySelector('#mem-history-head-item-order');
-var historySubmitElement = document.querySelector('#mem-history-head-item-submit'); // ===== Functions =====
+var historySelectedOrderElement = document.querySelector('#mem-history-order-opt-index'); // ===== Functions =====
 
 function displayInfoTab() {
   infoBtnElement.classList.add('mem-nav-btn-selected');
@@ -35,11 +35,20 @@ function displayHistoryTab() {
   }
 }
 
-function setDefaultValuesForHistoryForm() {
-  var d = new Date();
-  historyStartDateElement.value = "".concat(d.getFullYear(), "-01-01");
-  historyEndDateElement.value = "".concat(d.getFullYear(), "-").concat(d.getMonth() + 1, "-").concat(d.getDate());
-  historyOrderElement.value = 0;
+function initValuesForHistoryForm() {
+  // Default dates
+  if (historyStartDateElement.value === '') {
+    var d = new Date();
+    historyStartDateElement.value = "".concat(d.getFullYear(), "-01-01");
+    historyEndDateElement.value = "".concat(d.getFullYear(), "-").concat(d.getMonth() + 1, "-").concat(d.getDate());
+    historyOrderElement.value = 0;
+  } // Selected order type
+
+
+  if (historySelectedOrderElement.innerHTML !== '') {
+    var optionElements = document.querySelectorAll('.mem-history-head-item-order-opt');
+    optionElements[historySelectedOrderElement.innerHTML.charCodeAt(0) - '0'.charCodeAt(0)].setAttribute('selected', 'true');
+  }
 } // ===== Events handling =====
 
 
@@ -71,7 +80,7 @@ switch (document.querySelector('#mem-nav-active-tab').innerHTML) {
 
   case '1':
     displayHistoryTab();
-    setDefaultValuesForHistoryForm();
+    initValuesForHistoryForm();
     break;
 
   default:
