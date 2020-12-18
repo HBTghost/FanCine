@@ -15,6 +15,9 @@ const historyStartDateElement = document.querySelector('#mem-history-head-item-s
 const historyEndDateElement = document.querySelector('#mem-history-head-item-end');
 const historyOrderElement = document.querySelector('#mem-history-head-item-order');
 const historySelectedOrderElement = document.querySelector('#mem-history-order-opt-index');
+const historyTimezoneOffsetMiliElement = document.querySelector(
+  '#mem-history-head-item-timezone-offset-mili',
+);
 
 // ===== Functions =====
 function displayInfoTab() {
@@ -40,6 +43,9 @@ function displayHistoryTab() {
 }
 
 function initValuesForHistoryForm() {
+  // Timezone offset
+  historyTimezoneOffsetMiliElement.value = new Date().getTimezoneOffset() * 60 * 1000;
+
   // Default dates
   if (historyStartDateElement.value === '') {
     const d = new Date();
