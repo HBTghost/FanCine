@@ -4,6 +4,7 @@ import FormData from 'form-data';
 import { File } from 'file-api';
 import mongoose from 'mongoose';
 import { Movie } from '../models/index.js';
+import { ensureAdminApi } from '../config/checkAuth.js';
 import {
   getMovie,
   getAllMovies,
@@ -47,18 +48,19 @@ movieRouter.post('/', async (req, res) => {
   res.send('Done');
 });
 
-movieRouter.post('/simple', createMovieByForm, (req, res) => {
-  res.redirect('/manage');
+movieRouter.post('/simple', ensureAdminApi, createMovieByForm, (req, res) => {
+  res.redirect('/admin');
 });
 
 movieRouter.post('/utils/postSampleDatasets', postSampleMovies, (req, res) => {
   res.json(res.movies);
 });
 
-movieRouter.delete('/:id', async (req, res) => {
+movieRouter.delete('/:id', ensureAdminApi, async (req, res) => {
   try {
     await Movie.findById(mongoose.Types.ObjectId(req.params.id));
     // await Movie.findByIdAndDelete(mongoose.Types.ObjectId(req.params.id));
+    res.json({});
   } catch (err) {
     res.status(500).json(err);
   }

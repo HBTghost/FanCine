@@ -17,6 +17,15 @@ const HandlebarsHelper = {
   getClassNameOfSeatState(state) {
     return state ? 'book-ticket-seat-sold' : 'book-ticket-seat-available';
   },
+  activeClass(a, b) {
+    return a === b ? 'active' : '';
+  },
+  activeClassItem(a, b) {
+    return a === b ? 'activeItem' : '';
+  },
+  showCollapse(show) {
+    return show ? 'show' : '';
+  },
 };
 
 export default HandlebarsHelper;

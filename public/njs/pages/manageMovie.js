@@ -1,12 +1,21 @@
-function removeMovieFromDatabase(_id) {
+function removeMovieFromDatabase(todo) {
+  const _id = todo.firstElementChild.innerHTML;
   try {
     fetch(`/api/movies/${_id}`, {
       method: 'DELETE',
+    }).then((res) => {
+      res.json().then((data) => {
+        if (data.message) {
+          alert(data.message);
+        } else {
+          todo.classList.add('fall');
+          todo.ontransitionend = (e) => todo.remove();
+        }
+      });
     });
   } catch (err) {
     return false;
   }
-  return true;
 }
 
 function removeMovie(event) {
@@ -14,11 +23,7 @@ function removeMovie(event) {
   const todo = item.parentElement;
   if (item.classList[0] === 'trash-btn') {
     if (confirm('Bạn có chắc chắn xóa phim này không?')) {
-      const _id = todo.firstElementChild.innerHTML;
-      if (removeMovieFromDatabase(_id)) {
-        todo.classList.add('fall');
-        todo.ontransitionend = (e) => todo.remove();
-      }
+      removeMovieFromDatabase(todo);
     }
   } else if (item.classList[0] === 'edit-btn') {
     todo.classList.toggle('completed');

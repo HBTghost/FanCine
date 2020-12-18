@@ -13,4 +13,14 @@ async function addExpense(req, res, next) {
   return next();
 }
 
-export default addExpense;
+async function getAllUsers(req, res, next) {
+  try {
+    res.allUsers = await User.find().lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+export { addExpense, getAllUsers };

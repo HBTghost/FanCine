@@ -1,0 +1,47 @@
+<nav id="sidebar" class="active">
+  <div class="sidebar-header">
+    <button class="btn navbar-btn" id="sidebarCollapse"><img src="/images/favicon.ico" class="w-100"></button>
+    <h3 id="username">FanCine Admin</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li class="{{activeClass page 'home'}}">
+      <a href="/admin">
+        <i class="fa fa-home"></i>
+        Home
+      </a>
+    </li>
+    <li class="{{activeClass page 'user'}}">
+      <a href="/admin/manageUser">
+        <i class="fa fa-user"></i>
+        User
+      </a>
+    </li>
+    <li class="{{activeClass page 'movie'}}">
+      <a href="#movieSubmenu" data-toggle="collapse" aria-expanded="false">
+        <i class="fa fa-film"></i>
+        Movie
+      </a>
+      <ul class="collapse list-unstyled {{showCollapse show}}" id="movieSubmenu">
+        <li class="{{activeClassItem menuItem 'postMovie'}}"><a href="/admin/postMovie">Post</a></li>
+        <li class="{{activeClassItem menuItem 'manageMovie'}}"><a href="/admin/manageMovie">Manage</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#theaterSubmenu" data-toggle="collapse" aria-expanded="false">
+        <i class="fa fa-map-marker"></i>
+        Theater
+      </a>
+      <ul class="collapse list-unstyled" id="theaterSubmenu">
+        <li><a href="#">Post</a></li>
+        <li><a href="#">Manage</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-ticket"></i>
+        Ticket
+      </a>
+    </li>
+  </ul>
+</nav>

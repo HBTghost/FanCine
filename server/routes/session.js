@@ -1,6 +1,6 @@
 import express from 'express';
 import { insertSession } from '../middleware/session.js';
-import addExpense from '../middleware/user.js';
+import { addExpense } from '../middleware/user.js';
 import { ensureAuthenticated } from '../config/checkAuth.js';
 import { updateSeats } from '../middleware/showTime.js';
 

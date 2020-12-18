@@ -284,7 +284,7 @@ function loginHandle(req, res, next) {
   console.log(req.headers);
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/render/login',
     failureFlash: true,
   })(req, res, next);
 }

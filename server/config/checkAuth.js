@@ -13,6 +13,21 @@ function ensureAuthenticatedOrRedirect(req, res, next) {
   }
   res.redirect('/');
 }
+
+function ensureAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user._doc.role === 'admin') {
+    return next();
+  }
+  res.redirect('/');
+}
+
+function ensureAdminApi(req, res, next) {
+  if (req.isAuthenticated() && req.user._doc.role === 'admin') {
+    return next();
+  }
+  res.status(401).json({ message: 'Unauthorized' });
+}
+
 function forwardAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
@@ -20,4 +35,10 @@ function forwardAuthenticated(req, res, next) {
   res.redirect('/');
 }
 
-export { ensureAuthenticated, ensureAuthenticatedOrRedirect, forwardAuthenticated };
+export {
+  ensureAuthenticated,
+  ensureAuthenticatedOrRedirect,
+  forwardAuthenticated,
+  ensureAdmin,
+  ensureAdminApi,
+};
