@@ -72,9 +72,7 @@ async function getFilteredSessionsFromUser(req, res, next) {
             $gte:
               new Date(`${d.getFullYear()}-01-01T00:00:00`).getTime() +
               parseInt(`${-420 * 60 * 1000}`, 10),
-            $lte:
-              new Date(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T23:59:59`).getTime() +
-              parseInt(`${-420 * 60 * 1000}`, 10),
+            $lte: new Date(d).getTime(),
           },
         })
           .sort({ createdAt: 'desc' })
