@@ -25,6 +25,7 @@ import {
   showTimeRouter,
   swaggerRouter,
   sessionRouter,
+  userRouter,
 } from './server/routes/index.js';
 
 import authRouter from './server/routes/auth.js';
@@ -106,6 +107,7 @@ app.use('/api/theaters', theaterRouter);
 app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
 app.use('/api/sessions', sessionRouter);
+app.use('/api/users', userRouter);
 
 // swagger docs route
 app.use('/api-docs', swaggerRouter);

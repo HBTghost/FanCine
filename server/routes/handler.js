@@ -1,5 +1,9 @@
 import express from 'express';
-import { ensureAuthenticated, ensureAuthenticatedOrRedirect } from '../config/checkAuth.js';
+import {
+  ensureAuthenticated,
+  ensureAuthenticatedOrRedirect,
+  ensureAdmin,
+} from '../config/checkAuth.js';
 import {
   getMovie,
   getMovieBySession,
@@ -29,6 +33,7 @@ import {
   getDateShowFromShowtime,
 } from '../middleware/dateShow.js';
 import { getTypeShowBySession, getTypeShowFromShowtime } from '../middleware/typeShow.js';
+import { getAllUsers } from '../middleware/user.js';
 import {
   getShowTime,
   getShowtimeBySession,
@@ -412,43 +417,55 @@ handlebarsRouter.get(
 
 handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
 
-handlebarsRouter.get('/admin/login', (req, res) => {
-  res.render('adminLogin');
-});
-
-handlebarsRouter.get('/admin', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('admin', {
-    layout: 'admin',
-  });
-});
-
-handlebarsRouter.get('/manage/login', (req, res) => {
-  res.render('managerLogin');
-});
-
-handlebarsRouter.get('/manage', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('manage', {});
-});
-
-handlebarsRouter.get('/manage/postMovie', ensureAuthenticatedOrRedirect, (req, res) => {
-  res.render('postMovie', {
-    labels: Movie.schema.path('label').enumValues,
-    style: 'postMovie',
-    script: 'postMovie',
-  });
-});
-
 handlebarsRouter.get(
-  '/manage/deleteMovie',
-  ensureAuthenticatedOrRedirect,
+  '/admin',
+  ensureAdmin,
+  getAllUsers,
   getAllMovies,
+  getAllTheaters,
   (req, res) => {
-    res.render('deleteMovie', {
-      movies: res.allMovies,
-      style: 'deleteMovie',
-      script: 'deleteMovie',
+    res.render('admin', {
+      layout: 'admin',
+      page: 'home',
+      userQuantity: res.allUsers.length,
+      movieQuantity: res.allMovies.length,
+      theaterQuantity: res.allTheaters.length,
     });
   },
 );
+
+handlebarsRouter.get('/admin/postMovie', ensureAdmin, (req, res) => {
+  res.render('postMovie', {
+    layout: 'admin',
+    labels: Movie.schema.path('label').enumValues,
+    style: 'postMovie',
+    script: 'postMovie',
+    page: 'movie',
+    show: true,
+    menuItem: 'postMovie',
+  });
+});
+
+handlebarsRouter.get('/admin/manageMovie', ensureAdmin, getAllMovies, (req, res) => {
+  res.render('manageMovie', {
+    movies: res.allMovies,
+    layout: 'admin',
+    style: 'manageMovie',
+    script: 'manageMovie',
+    page: 'movie',
+    show: true,
+    menuItem: 'manageMovie',
+  });
+});
+
+handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) => {
+  res.render('manageUser', {
+    users: res.allUsers,
+    style: 'manageMovie',
+    script: 'manageUser',
+    layout: 'admin',
+    page: 'user',
+  });
+});
 
 export default handlebarsRouter;
