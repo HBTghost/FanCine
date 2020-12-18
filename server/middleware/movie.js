@@ -77,7 +77,7 @@ async function getMoviesByKeyword(req, res, next) {
     if (req.query.q === '') {
       res.result = null;
     } else {
-      const pageSkip = (Number(req.query.page) > 0) ? Number(req.query.page) - 1 : 0 || 0;
+      const pageSkip = Number(req.query.page) > 0 ? Number(req.query.page) - 1 : 0 || 0;
       const pageNumber = pageSkip + 1;
       res.pageCurrent = pageNumber;
       res.pageArray = [];
@@ -98,10 +98,14 @@ async function getMoviesByKeyword(req, res, next) {
         ],
       });
       const temp = parseInt(totalContent / limitContent, 10);
-      const totalPage = (temp * limitContent < totalContent) ? temp + 1 : temp;
+      const totalPage = temp * limitContent < totalContent ? temp + 1 : temp;
 
-      if ((totalPage - res.pageCurrent + 2) <= (displayablePageFront + displayablePageBack)) {
-        for (let i = (res.pageCurrent > 1) ? res.pageCurrent - 1 : res.pageCurrent; i <= totalPage; i++) {
+      if (totalPage - res.pageCurrent + 2 <= displayablePageFront + displayablePageBack) {
+        for (
+          let i = res.pageCurrent > 1 ? res.pageCurrent - 1 : res.pageCurrent;
+          i <= totalPage;
+          i++
+        ) {
           res.pageArray.push(i);
         }
       } else {
@@ -112,7 +116,9 @@ async function getMoviesByKeyword(req, res, next) {
         }
 
         for (; i < totalPage; i++) {
-          if (i - res.pageCurrent > displayablePageFront - 1) { break; }
+          if (i - res.pageCurrent > displayablePageFront - 1) {
+            break;
+          }
 
           res.pageArray.push(i);
         }
@@ -125,23 +131,25 @@ async function getMoviesByKeyword(req, res, next) {
         }
       }
 
-      res.pagePrevious = (pageNumber - 1 > 0) ? pageNumber - 1 : pageNumber;
-      res.pageNext = (pageNumber + 1 > totalPage) ? totalPage : pageNumber + 1;
+      res.pagePrevious = pageNumber - 1 > 0 ? pageNumber - 1 : pageNumber;
+      res.pageNext = pageNumber + 1 > totalPage ? totalPage : pageNumber + 1;
 
-      res.result = await Movie.find({
-        $or: [
-          { 'label': { $regex: req.query.q, $options: 'i' } },
-          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'originalName': { $regex: req.query.q, $options: 'i' } },
-          { 'producer': { $regex: req.query.q, $options: 'i' } },
-          { 'nation': { $regex: req.query.q, $options: 'i' } },
-          { 'director': { $regex: req.query.q, $options: 'i' } },
-        ],
-      },
-      { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
-      { skip: pageSkip * limitContent, limit: limitContent }).lean();
+      res.result = await Movie.find(
+        {
+          $or: [
+            { 'label': { $regex: req.query.q, $options: 'i' } },
+            { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+            { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+            { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
+            { 'originalName': { $regex: req.query.q, $options: 'i' } },
+            { 'producer': { $regex: req.query.q, $options: 'i' } },
+            { 'nation': { $regex: req.query.q, $options: 'i' } },
+            { 'director': { $regex: req.query.q, $options: 'i' } },
+          ],
+        },
+        { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
+        { skip: pageSkip * limitContent, limit: limitContent },
+      ).lean();
     }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
