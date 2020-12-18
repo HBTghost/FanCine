@@ -31,14 +31,23 @@ async function getFilteredSessionsFromUser(req, res, next) {
       };
     }
 
+    // !!!
+    if (req.body.timezoneOffsetMili === undefined) {
+      req.body.timezoneOffsetMili = `${-420 * 60 * 1000}`;
+    }
+
     const d = new Date();
     switch (req.body.orderType) {
       case '0':
         res.sessions = await Session.find({
           _idUser: mongoose.Types.ObjectId(req.user._id),
           createdAtMili: {
-            $gte: new Date(`${req.body.startDate}T00:00:00`).getTime(),
-            $lte: new Date(`${req.body.endDate}T23:59:59`).getTime(),
+            $gte:
+              new Date(`${req.body.startDate}T00:00:00`).getTime() +
+              parseInt(req.body.timezoneOffsetMili, 10),
+            $lte:
+              new Date(`${req.body.endDate}T23:59:59`).getTime() +
+              parseInt(req.body.timezoneOffsetMili, 10),
           },
         })
           .sort({ createdAt: 'desc' })
@@ -49,8 +58,12 @@ async function getFilteredSessionsFromUser(req, res, next) {
         res.sessions = await Session.find({
           _idUser: mongoose.Types.ObjectId(req.user._id),
           createdAtMili: {
-            $gte: new Date(`${req.body.startDate}T00:00:00`).getTime(),
-            $lte: new Date(`${req.body.endDate}T23:59:59`).getTime(),
+            $gte:
+              new Date(`${req.body.startDate}T00:00:00`).getTime() +
+              parseInt(req.body.timezoneOffsetMili, 10),
+            $lte:
+              new Date(`${req.body.endDate}T23:59:59`).getTime() +
+              parseInt(req.body.timezoneOffsetMili, 10),
           },
         })
           .sort({ createdAt: 'asc' })
@@ -61,10 +74,12 @@ async function getFilteredSessionsFromUser(req, res, next) {
         res.sessions = await Session.find({
           _idUser: mongoose.Types.ObjectId(req.user._id),
           createdAtMili: {
-            $gte: new Date(`${d.getFullYear()}-01-01T00:00:00`).getTime(),
-            $lte: new Date(
-              `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T23:59:59`,
-            ).getTime(),
+            $gte:
+              new Date(`${d.getFullYear()}-01-01T00:00:00`).getTime() +
+              parseInt(req.body.timezoneOffsetMili, 10),
+            $lte:
+              new Date(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T23:59:59`).getTime() +
+              parseInt(req.body.timezoneOffsetMili, 10),
           },
         })
           .sort({ createdAt: 'desc' })

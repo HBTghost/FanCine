@@ -92,6 +92,8 @@
 
     <div id="mem-history-tab">
       <form class="mem-history-head" method="POST">
+        <input id="mem-history-head-item-timezone-offset-mili" type="text" name="timezoneOffsetMili" style="display: none;">
+
         <div class="mem-history-head-item">
           <label for="mem-history-head-item-start">Từ</label>
           <input type="date" id="mem-history-head-item-start" name="startDate" value="{{filterForm.startDate}}"
