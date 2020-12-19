@@ -13,6 +13,9 @@ const SessionSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  createdAtMili: {
+    type: Number,
+  },
   ticketInfo: {
     type: String,
     required: true,

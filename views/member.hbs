@@ -91,33 +91,38 @@
     </form>
 
     <div id="mem-history-tab">
-      <div class="mem-history-tab-empty">Hiện tại bạn chưa thực hiện giao dịch nào!</div>
+      <form class="mem-history-head" method="POST">
+        <input id="mem-history-head-item-timezone-offset-mili" type="text" name="timezoneOffsetMili" style="display: none;">
+
+        <div class="mem-history-head-item">
+          <label for="mem-history-head-item-start">Từ</label>
+          <input type="date" id="mem-history-head-item-start" name="startDate" value="{{filterForm.startDate}}"
+            required>
+        </div>
+
+        <div class="mem-history-head-item">
+          <label for="mem-history-head-item-end">Đến</label>
+          <input type="date" id="mem-history-head-item-end" name="endDate" value="{{filterForm.endDate}}" required>
+        </div>
+
+        <div class="mem-history-head-item">
+          <span style="display: none;" id="mem-history-order-opt-index">{{filterForm.orderType}}</span>
+          <label for="mem-history-head-item-order">Thứ tự</label>
+          <select id="mem-history-head-item-order" name="orderType">
+            <option value="0" class="mem-history-head-item-order-opt">Gần đây nhất</option>
+            <option value="1" class="mem-history-head-item-order-opt">Xa đây nhất</option>
+          </select>
+        </div>
+
+        <div class="mem-history-head-item">
+          <label for="">&nbsp;</label>
+          <input id="mem-history-head-item-submit" type="submit" value="Lọc">
+        </div>
+      </form>
+
+      <div class="mem-history-tab-empty">Không có giao dịch nào!</div>
+
       <div class="mem-history-tab-not-empty">
-        <form class="mem-history-head" method="POST">
-          <div class="mem-history-head-item">
-              <label for="mem-history-head-item-start">Từ</label>
-              <input type="date" id="mem-history-head-item-start">
-            </div>
-
-            <div class="mem-history-head-item">
-              <label for="mem-history-head-item-end">Đến</label>
-              <input type="date" id="mem-history-head-item-end">
-            </div>
-
-            <div class="mem-history-head-item">
-              <label for="mem-history-head-item-order">Thứ tự</label>
-              <select id="mem-history-head-item-order">
-                <option value="0">Gần đây nhất</option>
-                <option value="1">Xa đây nhất</option>
-              </select>
-            </div>
-
-            <div class="mem-history-head-item">
-              <label for="">&nbsp;</label>
-              <input id="mem-history-head-item-submit" type="submit" value="Lọc">
-            </div>
-        </form>
-
         <div class="mem-history-section">
           {{#each sessions}}
           <div class="mem-history-item">
@@ -136,6 +141,7 @@
           {{/each}}
         </div>
       </div>
+
     </div>
   </div>
 </div>

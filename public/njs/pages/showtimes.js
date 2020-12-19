@@ -39,17 +39,6 @@ let curTheaterMovieID = '';
 const tab = Object.freeze({ MOVIE: 0, THEATER: 1 });
 let curTab = tab.MOVIE;
 
-// Spinner
-const spinnerModal = document.getElementsByClassName('spinner-modal')[0];
-
-function enableSpinner() {
-  spinnerModal.style.display = 'block';
-}
-
-function disableSpinner() {
-  spinnerModal.style.display = 'none';
-}
-
 // Reused functions
 function addClickEventToTheaterItems(clickEvent) {
   theaterItems = document.getElementsByClassName('showtimes-row-data-theater');

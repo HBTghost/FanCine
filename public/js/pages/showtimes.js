@@ -36,18 +36,7 @@ var tab = Object.freeze({
   MOVIE: 0,
   THEATER: 1
 });
-var curTab = tab.MOVIE; // Spinner
-
-var spinnerModal = document.getElementsByClassName('spinner-modal')[0];
-
-function enableSpinner() {
-  spinnerModal.style.display = 'block';
-}
-
-function disableSpinner() {
-  spinnerModal.style.display = 'none';
-} // Reused functions
-
+var curTab = tab.MOVIE; // Reused functions
 
 function addClickEventToTheaterItems(clickEvent) {
   theaterItems = document.getElementsByClassName('showtimes-row-data-theater');
