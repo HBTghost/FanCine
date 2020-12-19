@@ -44,7 +44,7 @@ import { getAllProvinces, getAllDistrict } from '../middleware/provinces.js';
 import { toBirthDate } from '../helpers/date.js';
 import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
-import { getSessionByID, getSessionsByUserOrderByCreatedAtDesc } from '../middleware/session.js';
+import { getSessionByID, getFilteredSessionsFromUser } from '../middleware/session.js';
 
 const handlebarsRouter = express.Router();
 
@@ -383,10 +383,10 @@ handlebarsRouter.post(
   },
 );
 
-handlebarsRouter.get(
+handlebarsRouter.all(
   '/member/transaction-history',
   ensureAuthenticatedOrRedirect,
-  getSessionsByUserOrderByCreatedAtDesc,
+  getFilteredSessionsFromUser,
   getShowtimesBySessions,
   getTheaterMoviesFromSessions,
   getMoviesFromSessions,
@@ -396,6 +396,7 @@ handlebarsRouter.get(
       script: 'member',
       activeTab: 1,
       sessions: res.sessions,
+      filterForm: res.filterForm,
     });
   },
 );

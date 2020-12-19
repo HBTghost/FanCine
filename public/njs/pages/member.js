@@ -14,7 +14,10 @@ const historyInfoTimeElements = document.querySelectorAll(
 const historyStartDateElement = document.querySelector('#mem-history-head-item-start');
 const historyEndDateElement = document.querySelector('#mem-history-head-item-end');
 const historyOrderElement = document.querySelector('#mem-history-head-item-order');
-const historySubmitElement = document.querySelector('#mem-history-head-item-submit');
+const historySelectedOrderElement = document.querySelector('#mem-history-order-opt-index');
+const historyTimezoneOffsetMiliElement = document.querySelector(
+  '#mem-history-head-item-timezone-offset-mili',
+);
 
 // ===== Functions =====
 function displayInfoTab() {
@@ -39,11 +42,25 @@ function displayHistoryTab() {
   }
 }
 
-function setDefaultValuesForHistoryForm() {
-  const d = new Date();
-  historyStartDateElement.value = `${d.getFullYear()}-01-01`;
-  historyEndDateElement.value = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-  historyOrderElement.value = 0;
+function initValuesForHistoryForm() {
+  // Timezone offset
+  historyTimezoneOffsetMiliElement.value = new Date().getTimezoneOffset() * 60 * 1000;
+
+  // Default dates
+  if (historyStartDateElement.value === '') {
+    const d = new Date();
+    historyStartDateElement.value = `${d.getFullYear()}-01-01`;
+    historyEndDateElement.value = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    historyOrderElement.value = 0;
+  }
+
+  // Selected order type
+  if (historySelectedOrderElement.innerHTML !== '') {
+    const optionElements = document.querySelectorAll('.mem-history-head-item-order-opt');
+    optionElements[
+      historySelectedOrderElement.innerHTML.charCodeAt(0) - '0'.charCodeAt(0)
+    ].setAttribute('selected', 'true');
+  }
 }
 
 // ===== Events handling =====
@@ -80,7 +97,7 @@ switch (document.querySelector('#mem-nav-active-tab').innerHTML) {
     break;
   case '1':
     displayHistoryTab();
-    setDefaultValuesForHistoryForm();
+    initValuesForHistoryForm();
     break;
   default:
     displayInfoTab();
