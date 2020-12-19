@@ -10,6 +10,17 @@ const parser = new DOMParser();
 let redirectURL = '';
 let forceLogin = false;
 
+// Spinner
+const spinnerModal = document.getElementsByClassName('spinner-modal')[0];
+
+function enableSpinner() {
+  spinnerModal.style.display = 'block';
+}
+
+function disableSpinner() {
+  spinnerModal.style.display = 'none';
+}
+
 // Disable sign in modal
 function popdownModal() {
   fetch('/isLogin').then((res) => {
@@ -40,14 +51,6 @@ function popupForgot() {
   $('#modal a[href="#nav-forgot"]').tab('show');
 }
 
-// When the user clicks anywhere outside of the modal, close it
-// window.onclick = function windowClickOff(event) {
-//   if (event.target === modal) {
-//     popdownModal();
-//   }
-// };
-// -- End modal --
-
 function renderUsernameToggle() {
   fetch('/render/header').then((partial) => {
     partial.text().then((html) => {
@@ -59,6 +62,7 @@ function renderUsernameToggle() {
 }
 
 function login(event) {
+  enableSpinner();
   event.preventDefault();
   $('#loginBtn').attr('disabled', 'disabled');
   fetch('/login', {
@@ -87,6 +91,7 @@ function login(event) {
     .finally(() => {
       grecaptcha.reset(loginW);
       $('#loginBtn').removeAttr('disabled');
+      disableSpinner();
     });
 }
 
@@ -96,6 +101,7 @@ function showVerify() {
 }
 
 function register(event) {
+  enableSpinner();
   event.preventDefault();
   $('#registerBtn').attr('disabled', 'disabled');
   fetch('/register', {
@@ -128,24 +134,30 @@ function register(event) {
     .finally(() => {
       grecaptcha.reset(registerW);
       $('#registerBtn').removeAttr('disabled');
+      disableSpinner();
     });
 }
 
 function logout(event) {
+  enableSpinner();
   event.preventDefault();
-  fetch('/logout').then((res) => {
-    res.json().then((data) => {
-      renderUsernameToggle();
-      fetch(`${data.curTab}/checkAuth`).then((partial) => {
-        partial.text().then((text) => {
-          if (text === 'notAuth') {
-            popupModal();
-            forceLogin = true;
-          }
+  fetch('/logout')
+    .then((res) => {
+      res.json().then((data) => {
+        renderUsernameToggle();
+        fetch(`${data.curTab}/checkAuth`).then((partial) => {
+          partial.text().then((text) => {
+            if (text === 'notAuth') {
+              popupModal();
+              forceLogin = true;
+            }
+          });
         });
       });
+    })
+    .finally(() => {
+      disableSpinner();
     });
-  });
 }
 
 function showForgot(event) {
@@ -166,6 +178,7 @@ function hideUnused() {
 }
 
 function forgot(event) {
+  enableSpinner();
   event.preventDefault();
   $('#forgotBtn').attr('disabled', 'disabled');
   fetch('/forgot', {
@@ -189,10 +202,12 @@ function forgot(event) {
     .finally(() => {
       grecaptcha.reset(forgotW);
       $('#forgotBtn').removeAttr('disabled');
+      disableSpinner();
     });
 }
 
 function resetPasswordForm(event) {
+  enableSpinner();
   event.preventDefault();
   $('#resetBtn').attr('disabled', 'disabled');
   const token = document.querySelector('#resetToken').value;
@@ -231,13 +246,15 @@ function resetPasswordForm(event) {
         }
       });
     })
-    .catch(() => {
+    .finally(() => {
       grecaptcha.reset(resetW);
       $('#resetBtn').removeAttr('disabled');
+      disableSpinner();
     });
 }
 
 function verify(event) {
+  enableSpinner();
   event.preventDefault();
   $('#activateBtn').attr('disabled', 'disabled');
   const token = document.querySelector('#verifyToken').value;
@@ -262,6 +279,7 @@ function verify(event) {
     .finally(() => {
       grecaptcha.reset(activateW);
       $('#activateBtn').removeAttr('disabled');
+      disableSpinner();
     });
 }
 

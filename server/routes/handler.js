@@ -481,4 +481,11 @@ handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) =
   });
 });
 
+handlebarsRouter.get('/updatePassword', ensureAuthenticatedOrRedirect, (req, res) => {
+  res.render('updatePassword', {
+    layout: 'authRender',
+  });
+});
+handlebarsRouter.get('/updatePassword/checkAuth', ensureAuthenticated);
+
 export default handlebarsRouter;

@@ -9,7 +9,18 @@ var resetW = null;
 var modal = document.getElementById('modal');
 var parser = new DOMParser();
 var redirectURL = '';
-var forceLogin = false; // Disable sign in modal
+var forceLogin = false; // Spinner
+
+var spinnerModal = document.getElementsByClassName('spinner-modal')[0];
+
+function enableSpinner() {
+  spinnerModal.style.display = 'block';
+}
+
+function disableSpinner() {
+  spinnerModal.style.display = 'none';
+} // Disable sign in modal
+
 
 function popdownModal() {
   fetch('/isLogin').then(function (res) {
@@ -42,14 +53,7 @@ function popupForgot() {
   document.querySelector('#nav-forgot-tab').style.display = 'block';
   popupModal();
   $('#modal a[href="#nav-forgot"]').tab('show');
-} // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function windowClickOff(event) {
-//   if (event.target === modal) {
-//     popdownModal();
-//   }
-// };
-// -- End modal --
-
+}
 
 function renderUsernameToggle() {
   fetch('/render/header').then(function (partial) {
@@ -62,6 +66,7 @@ function renderUsernameToggle() {
 }
 
 function login(event) {
+  enableSpinner();
   event.preventDefault();
   $('#loginBtn').attr('disabled', 'disabled');
   fetch('/login', {
@@ -91,6 +96,7 @@ function login(event) {
   }).finally(function () {
     grecaptcha.reset(loginW);
     $('#loginBtn').removeAttr('disabled');
+    disableSpinner();
   });
 }
 
@@ -100,6 +106,7 @@ function showVerify() {
 }
 
 function register(event) {
+  enableSpinner();
   event.preventDefault();
   $('#registerBtn').attr('disabled', 'disabled');
   fetch('/register', {
@@ -132,10 +139,12 @@ function register(event) {
   }).finally(function () {
     grecaptcha.reset(registerW);
     $('#registerBtn').removeAttr('disabled');
+    disableSpinner();
   });
 }
 
 function logout(event) {
+  enableSpinner();
   event.preventDefault();
   fetch('/logout').then(function (res) {
     res.json().then(function (data) {
@@ -149,6 +158,8 @@ function logout(event) {
         });
       });
     });
+  }).finally(function () {
+    disableSpinner();
   });
 }
 
@@ -170,6 +181,7 @@ function hideUnused() {
 }
 
 function forgot(event) {
+  enableSpinner();
   event.preventDefault();
   $('#forgotBtn').attr('disabled', 'disabled');
   fetch('/forgot', {
@@ -193,10 +205,12 @@ function forgot(event) {
   }).finally(function () {
     grecaptcha.reset(forgotW);
     $('#forgotBtn').removeAttr('disabled');
+    disableSpinner();
   });
 }
 
 function resetPasswordForm(event) {
+  enableSpinner();
   event.preventDefault();
   $('#resetBtn').attr('disabled', 'disabled');
   var token = document.querySelector('#resetToken').value;
@@ -237,13 +251,15 @@ function resetPasswordForm(event) {
         });
       }
     });
-  }).catch(function () {
+  }).finally(function () {
     grecaptcha.reset(resetW);
     $('#resetBtn').removeAttr('disabled');
+    disableSpinner();
   });
 }
 
 function verify(event) {
+  enableSpinner();
   event.preventDefault();
   $('#activateBtn').attr('disabled', 'disabled');
   var token = document.querySelector('#verifyToken').value;
@@ -268,6 +284,7 @@ function verify(event) {
   }).finally(function () {
     grecaptcha.reset(activateW);
     $('#activateBtn').removeAttr('disabled');
+    disableSpinner();
   });
 }
 

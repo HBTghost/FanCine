@@ -38,6 +38,12 @@ renderAuthRouter.post('/forgot', authController.forgotPassword);
 
 // ------------ Reset Password Handle ------------//
 renderAuthRouter.post('/reset/:id', ensureCaptchaClickedRender, authController.resetPassword);
+renderAuthRouter.post(
+  '/updatePassword',
+  ensureCaptchaClickedRender,
+  ensureAuthenticated,
+  authController.updatePassword,
+);
 
 // ------------ Reset Password Handle ------------//
 renderAuthRouter.get('/forgot/:token', forwardAuthenticated, authController.gotoReset);

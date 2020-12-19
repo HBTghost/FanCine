@@ -17,6 +17,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ username }}</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                                     <a class="dropdown-item" href="/member">Thông tin</a>
+                                    <a class="dropdown-item" href="/updatePassword">Đổi mật khẩu</a>
                                     <a class="dropdown-item" href="#" onclick="logout(event)">Thoát</a>
                                 </div>
                             </div>
@@ -69,6 +70,9 @@
         </div>
     </div>
 
+<div class="spinner-modal">
+    <div class="spinner-modal-content"></div>
+</div>
 {{> signIn }}
 
 </div>

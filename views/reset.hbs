@@ -25,10 +25,14 @@
                         value="" required />
                     {{/if}}
                   </div>
-                    <div class="form-group">
-                        <div class="g-recaptcha" data-sitekey="6LcxngkaAAAAAO-aKP2yGehcIFJ8bIXHiJ6awbZB"></div>
-                    </div>
-                <button type="submit" class="btn btn-primary btn-block">Cài đặt lại</button>
+                <div class="row gap-2">
+                  <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="g-recaptcha" data-sitekey="6LcxngkaAAAAAO-aKP2yGehcIFJ8bIXHiJ6awbZB"></div>
+                  </div>
+                  <div class="d-grid col-lg-6 col-sm-12 col-12 d-flex p-3">
+                    <button type="submit" class="btn btn-outline-success btn-block">Cài đặt lại</button>
+                  </div>
+                </div>
             </form>
             <p class="mt-4">
                 Đã nhớ mật khẩu? <a href="#nav-sign-in" onclick="popupLogin()">Đăng nhập</a>

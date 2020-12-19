@@ -279,6 +279,51 @@ function resetPassword(req, res) {
   }
 }
 
+function updatePassword(req, res) {
+  let { curPassword, password, password2 } = req.body;
+  const id = req.user._doc._id;
+  const userPassword = req.user._doc.password;
+  console.log(userPassword);
+
+  // ------------ Checking required fields ------------//
+  bcryptjs.compare(curPassword, userPassword, (err1, isMatch) => {
+    if (err1) throw err1;
+    if (!isMatch) {
+      req.flash(
+        'error_msg',
+        'Mật khẩu hiện tại không đúng. Vui lòng điền đúng để có thể đổi mật khẩu!',
+      );
+      res.redirect('/updatePassword');
+    } else if (!password || !password2) {
+      req.flash('error_msg', 'Vui lòng điền đầy đủ tất cả các trường.');
+      res.redirect('/updatePassword');
+    } else if (password.length < 8) {
+      req.flash('error_msg', 'Mật khẩu phải có ít nhất 8 kí tự.');
+      res.redirect('/updatePassword');
+    } else if (password !== password2) {
+      req.flash('error_msg', 'Mật khẩu không trùng khớp.');
+      res.redirect('/updatePassword');
+    } else {
+      bcryptjs.genSalt(10, (err2, salt2) => {
+        bcryptjs.hash(password, salt2, (err3, hash2) => {
+          if (err3) throw err3;
+          password = hash2;
+
+          User.findByIdAndUpdate({ _id: id }, { password }, (err4, result) => {
+            if (err4) {
+              req.flash('error_msg', 'Lỗi khi đổi mật khẩu!');
+              res.redirect('/updatePassword');
+            } else {
+              req.flash('success_msg', 'Đổi mật khẩu thành công!');
+              res.redirect('/updatePassword');
+            }
+          });
+        });
+      });
+    }
+  });
+}
+
 // ------------ Login Handle ------------//
 function loginHandle(req, res, next) {
   console.log(req.headers);
@@ -304,4 +349,5 @@ export default {
   resetPassword,
   loginHandle,
   logoutHandle,
+  updatePassword,
 };
