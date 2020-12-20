@@ -48,7 +48,6 @@
     "express-handlebars": "^3.0.0",
     "express-jwt": "^6.0.0",
     "express-session": "^1.17.1",
-    "file-api": "^0.10.4",
     "form-data": "^3.0.0",
     "googleapis": "^66.0.0",
     "gulp-cli": "^2.3.0",
@@ -60,6 +59,7 @@
     "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "request": "^2.88.2",
     "rootpath": "^0.1.2",
     "swagger-ui-express": "^4.1.5",
     "yamljs": "^0.3.0"

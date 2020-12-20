@@ -161,24 +161,28 @@ async function getMoviesByKeyword(req, res, next) {
 async function createMovieByForm(req, res, next) {
   try {
     const data = req.body;
+    const description = data.description
+      .split('\r\n')
+      .map((x) => x.trim())
+      .filter((x) => x.length > 0);
     const movie = new Movie({
       originalName: data.originalName,
       vietnameseName: data.vietnameseName,
       label: data.label,
       time: data.time,
       producer: data.producer,
-      category: data.category[1].trim().split(','),
-      cast: data.cast[1].trim().split(','),
+      category: data.category.trim().split(','),
+      cast: data.cast.trim().split(','),
       nation: data.nation,
       director: data.director,
       date: data.date,
-      description: data.description,
+      description,
       trailerEmbedID: data.trailerEmbedID,
-      imageSource: data.imageSource,
-      horizontalImageSource: data.horizontalImageSource,
+      imageSource: req.uploadUrl.verticalImage,
+      horizontalImageSource: req.uploadUrl.horizontalImage,
     });
     await movie.save();
-    res.movie = movie;
+    res._id = String(movie._id);
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

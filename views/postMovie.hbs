@@ -1,7 +1,8 @@
 
-<div class="container py-3">
+<div class="container py-3 w-100">
 <h1 class="text-center">Đăng tải phim</h1>
-<form action="/api/movies/simple" method="POST">
+{{> message }}
+<form action="/api/movies/" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="originalName">Tên phim gốc</label>
     <input type="text" name="originalName" id="originalName" class="form-control" value="Tên phim gốc">
@@ -34,16 +35,20 @@
     <label for="time">Thời gian</label>
     <input type="text" name="time" id="time" class="form-control" value="120 phút">
     <label for="description">Mô tả</label>
-    {{!-- <input type="text" name="description" id="description" class="form-control" value="Mô tả"> --}}
     <textarea class="form-control" rows="5" id="description" name="description"></textarea>
-    <label for="trailerEmbedID">Video trailer ID (Youtube)</label>
-    <input type="text" name="trailerEmbedID" id="trailerEmbedID" class="form-control" value="bkY8ntjoQsg">
+    <label for="trailerEmbedID">Video trailer link (Youtube)</label>
+    <div class="row">
+      <div class="col-12 col-sm-4 col-md-3 pt-1">
+          https://youtu.be/
+      </div>
+      <div class="col-12 col-sm-8 col-md-9">
+        <input type="text" name="trailerEmbedID" id="trailerEmbedID" class="form-control" value="1SOvuOURKT0" required>
+      </div>
+    </div>
     <label for="verticalImage">Poster dọc</label>
-    {{!-- <input type="file" name="verticalImage" id="verticalImage" class="form-control" value="Poster dọc" accept="image/*"> --}}
-    <input type="url" name="verticalImage" id="verticalImage" class="form-control" value="https://i.loli.net/2020/12/13/IhYtEybi7c8wl2q.jpg">
+    <input type="file" name="verticalImage" id="verticalImage" class="form-control" value="Poster dọc" accept="image/*" required>
     <label for="horizontalImage">Poster ngang</label>
-    {{!-- <input type="file" name="horizontalImage" id="horizontalImage" class="form-control" placeholder="Poster ngang" accept="image/*"> --}}
-    <input type="url" name="horizontalImage" id="horizontalImage" class="form-control" value="https://i.loli.net/2020/12/13/5pvWebtuZ6CId1a.jpg">
+    <input type="file" name="horizontalImage" id="horizontalImage" class="form-control" placeholder="Poster ngang" accept="image/*" required>
   </div>
   <div class="row justify-content-center">
     <button type="submit" class="btn btn-outline-success ">Đăng!</button>

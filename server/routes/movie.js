@@ -1,7 +1,4 @@
 import express from 'express';
-import axios from 'axios';
-import FormData from 'form-data';
-import { File } from 'file-api';
 import mongoose from 'mongoose';
 import { Movie } from '../models/index.js';
 import { ensureAdminApi } from '../config/checkAuth.js';
@@ -11,6 +8,7 @@ import {
   createMovieByForm,
   postSampleMovies,
 } from '../middleware/movie.js';
+import ImageMiddleware from '../middleware/image.js';
 
 const movieRouter = express.Router();
 
@@ -22,37 +20,17 @@ movieRouter.get('/', getAllMovies, (req, res) => {
   res.json(res.allMovies);
 });
 
-movieRouter.post('/', async (req, res) => {
-  const img = req.files.horizontalImage2;
-  const file = new File({
-    name: img.name,
-    type: img.mimetype,
-    buffer: Buffer.from(img.data, 'hex').toString(),
-  });
+movieRouter.post(
+  '/',
+  ensureAdminApi,
+  ImageMiddleware.upload,
+  createMovieByForm,
+  async (req, res) => {
+    res.redirect(`/info/${res._id}`);
+  },
+);
 
-  const formData = new FormData();
-  formData.smfile = file;
-  formData.ssl = true;
-
-  await axios
-    .post('https://sm.ms/api/v2/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'XBIMYfKCfBIyCMxLeACvEYEDvdyVuQuT',
-        'User-Agent': 'Mozilla/5.0',
-      },
-    })
-    .then((response) => console.log(response.data))
-    .catch(() => console.error('Failure'));
-
-  res.send('Done');
-});
-
-movieRouter.post('/simple', ensureAdminApi, createMovieByForm, (req, res) => {
-  res.redirect('/admin');
-});
-
-movieRouter.post('/utils/postSampleDatasets', postSampleMovies, (req, res) => {
+movieRouter.post('/utils/postSampleDatasets', ensureAdminApi, postSampleMovies, (req, res) => {
   res.json(res.movies);
 });
 
