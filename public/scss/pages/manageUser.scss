@@ -1,0 +1,223 @@
+$bd-table: #000;
+$bg-even-row: #ebeeff;
+
+$bg-table-header: #7386d5;
+$txt-table-header: #fff;
+
+$bg-scrollbar-track: #808080;
+$bg-scrollbar-thumb: #a9aabc;
+
+.wrapper {
+  overflow: hidden;
+}
+
+#mnuser-body {
+  display: grid;
+  justify-content: center;
+  font-size: 15px;
+
+  .mnuser-container {
+    #mnuser-title {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+      a {
+        text-align: center;
+        padding: 5px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 40px;
+        font-weight: bolder;
+        transition: background-color .5s, color 1s;
+        -webkit-transition: background-color .5s, color 1s;
+      }
+
+      a:hover {
+        color: $txt-table-header;
+        background-color: $bg-table-header;
+        
+      }
+    }
+
+    #mnuser-header {
+      margin-top: 50px;
+
+      #mnuser-display {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 10px;
+        column-gap: 30px;
+        justify-content: center;
+
+        .mmnuser-display-item {
+          display: inline-block;
+
+          input,
+          label {
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .mnuser-scrollable-container:hover {
+    overflow-x: overlay;
+  }
+
+  .mnuser-scrollable-container {
+    overflow-x: hidden;
+
+    #mnuser-table:hover {
+      overflow-x: overlay;
+    }
+
+    #mnuser-table {
+      border-collapse: collapse;
+      overflow-x: hidden;
+      margin-top: 30px;
+
+      tr {
+        display: table;
+        width: max-content;
+        table-layout: fixed;
+
+        th,
+        td {
+          border: 1px solid $bd-table;
+          padding: 10px;
+        }
+
+        td {
+          cursor: pointer;
+        }
+
+        .mnuser-cell {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .mnuser-role {
+          width: 80px;
+        }
+        .mnuser-name {
+          width: 250px;
+        }
+        .mnuser-email {
+          width: 300px;
+        }
+        .mnuser-phonenum {
+          width: 150px;
+        }
+        .mnuser-dob {
+          width: 120px;
+        }
+        .mnuser-gender {
+          width: 100px;
+        }
+        .mnuser-address {
+          width: 250px;
+        }
+        .mnuser-city {
+          width: 200px;
+        }
+        .mnuser-area {
+          width: 200px;
+        }
+        .mnuser-star {
+          width: 130px;
+        }
+        .mnuser-expense {
+          width: 150px;
+        }
+      }
+
+      thead {
+        tr {
+          background-color: $bg-table-header;
+          color: $txt-table-header;
+
+          th {
+            text-align: center;
+          }
+        }
+      }
+
+      tbody {
+        display: block;
+        max-height: 500px;
+        overflow-y: hidden;
+
+        tr:nth-child(even) {
+          background-color: $bg-even-row;
+        }
+
+        tr {
+          .mnuser-phonenum {
+            text-align: center;
+          }
+          .mnuser-dob {
+            text-align: center;
+          }
+          .mnuser-gender {
+            text-align: center;
+          }
+          .mnuser-star {
+            text-align: right;
+          }
+          .mnuser-expense {
+            text-align: right;
+          }
+        }
+      }
+
+      tbody:hover {
+        overflow-y: overlay;
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px $bg-scrollbar-track;
+    border-radius: 50px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $bg-scrollbar-thumb;
+    border-radius: 10px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  #mnuser-body {
+    .mnuser-container {
+      #mnuser-title {
+        a {
+          padding: 5px 0;
+          font-size: 30px;
+        }
+      } 
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #mnuser-body {
+    .mnuser-container {
+      #mnuser-title {
+        a {
+          font-size: 20px;
+        }
+      } 
+    }
+  }
+}

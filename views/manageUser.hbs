@@ -1,19 +1,94 @@
-<div class="container">
-<h1 class="text-center">Quản lý tài khoản</h1>
-<div class="delete-movie">
-<div class="todo-container">
-  <ul class="todo-list" onclick="removeUser(event)">
-    {{#each users }}
-    <div class="todo">
-      <p class="_id" style="display: none;">{{ _id }}</p>
-      <li class="todo-item">{{ email }}</li>
-      <button class="complete-btn green"><i class="fas fa-check"></i></button>
-      <button class="edit-btn yellow"><i class="fas fa-edit"></i></button>
-      <button class="trash-btn orange"><i class="fas fa-trash"></i></button>
+<div id="mnuser-body">
+  <div class="mnuser-container">
+    <div id="mnuser-title">
+      <a href="manageUser">QUẢN LÝ TÀI KHOẢN</a>
     </div>
-    {{/each}}
-  </ul>
-</div>
-</div>
 
+    <div id="mnuser-header">
+      <div id="mnuser-display">
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-role">
+          <label for="mmnuser-display-item-role">Vai trò</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-name">
+          <label for="mmnuser-display-item-name">Họ &amp; tên</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-email">
+          <label for="mmnuser-display-item-email">Email</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-phonenum">
+          <label for="mmnuser-display-item-phonenum">Số điện thoại</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-dob">
+          <label for="mmnuser-display-item-dob">Ngày sinh</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-gender">
+          <label for="mmnuser-display-item-gender">Giới tính</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-address">
+          <label for="mmnuser-display-item-address">Địa chỉ</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-city">
+          <label for="mmnuser-display-item-city">Tỉnh thành</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-area">
+          <label for="mmnuser-display-item-area">Khu vực</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-star">
+          <label for="mmnuser-display-item-star">Sao tích lũy</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-expense">
+          <label for="mmnuser-display-item-expense">Chi tiêu</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnuser-container mnuser-scrollable-container">
+    <table id="mnuser-table">
+      <thead>
+        <tr>
+          <th class="mnuser-cell mnuser-role">Vai trò</th>
+          <th class="mnuser-cell mnuser-name">Họ &amp; tên</th>
+          <th class="mnuser-cell mnuser-email">Email</th>
+          <th class="mnuser-cell mnuser-phonenum">Số điện thoại</th>
+          <th class="mnuser-cell mnuser-dob">Ngày sinh</th>
+          <th class="mnuser-cell mnuser-gender">Giới tính</th>
+          <th class="mnuser-cell mnuser-address">Địa chỉ</th>
+          <th class="mnuser-cell mnuser-city">Tỉnh thành</th>
+          <th class="mnuser-cell mnuser-area">Khu vực</th>
+          <th class="mnuser-cell mnuser-star">Sao tích lũy</th>
+          <th class="mnuser-cell mnuser-expense">Chi tiêu</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each users}}
+        <tr>
+          <td class="mnuser-cell mnuser-role">{{role}}</td>
+          <td class="mnuser-cell mnuser-name">{{name}}</td>
+          <td class="mnuser-cell mnuser-email">{{email}}</td>
+          <td class="mnuser-cell mnuser-phonenum">{{phone}}</td>
+          <td class="mnuser-cell mnuser-dob">{{DoB}}</td>
+          <td class="mnuser-cell mnuser-gender">{{sex}}</td>
+          <td class="mnuser-cell mnuser-address">{{address}}</td>
+          <td class="mnuser-cell mnuser-city">{{cityName}}</td>
+          <td class="mnuser-cell mnuser-area">{{townName}}</td>
+          <td class="mnuser-cell mnuser-star">{{point}}</td>
+          <td class="mnuser-cell mnuser-expense">{{spending}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>

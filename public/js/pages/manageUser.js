@@ -1,5 +1,25 @@
 "use strict";
 
+// Global variables
+var TABLE_HEADERS = Object.freeze({
+  ROLE: 0,
+  NAME: 1,
+  EMAIL: 2,
+  PHONE_NUM: 3,
+  DOB: 4,
+  GENDER: 5,
+  ADDRESS: 6,
+  CITY: 7,
+  AREA: 8,
+  STAR: 9,
+  EXPENSE: 10
+}); // ===== HTML elements =====
+
+var userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
+var tableRowElements = document.querySelectorAll('#mnuser-table tr');
+var expenseCellElements = document.querySelectorAll('#mnuser-table tbody tr .mnuser-expense');
+var displayCheckboxElements = document.querySelectorAll('#mnuser-display .mmnuser-display-item input'); // ===== Functions =====
+
 function removeUserFromDatabase(todo) {
   var _id = todo.firstElementChild.innerHTML;
 
@@ -59,3 +79,57 @@ function removeUser(event) {
     todo.classList.toggle('completed');
   }
 }
+
+function showTableColumn(colIndex) {
+  tableRowElements.forEach(function (e) {
+    e.children[colIndex].style.display = 'table-cell';
+  });
+}
+
+function hideTableColumn(colIndex) {
+  tableRowElements.forEach(function (e) {
+    e.children[colIndex].style.display = 'none';
+  });
+}
+
+function initTable() {
+  var defaultColIndex = [TABLE_HEADERS.ROLE, TABLE_HEADERS.NAME, TABLE_HEADERS.EMAIL, TABLE_HEADERS.PHONE_NUM, TABLE_HEADERS.DOB, TABLE_HEADERS.CITY, TABLE_HEADERS.EXPENSE];
+  var hiddenColIndex = [TABLE_HEADERS.GENDER, TABLE_HEADERS.ADDRESS, TABLE_HEADERS.AREA, TABLE_HEADERS.STAR];
+  defaultColIndex.forEach(function (colIndex) {
+    displayCheckboxElements[colIndex].checked = true;
+  });
+  hiddenColIndex.forEach(function (colIndex) {
+    hideTableColumn(colIndex);
+  });
+}
+
+function formatExpenseValues() {
+  expenseCellElements.forEach(function (e) {
+    e.innerHTML = parseInt(e.innerHTML, 10).toLocaleString('it-IT', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  });
+} // ===== Events =====
+
+
+function eventDisplayCheckboxes() {
+  displayCheckboxElements.forEach(function (e, i) {
+    e.addEventListener('click', function () {
+      if (e.checked === true) {
+        showTableColumn(i);
+      } else {
+        hideTableColumn(i);
+      }
+    });
+  });
+} // ===== Main =====
+
+
+function main() {
+  initTable();
+  formatExpenseValues();
+  eventDisplayCheckboxes();
+}
+
+main();

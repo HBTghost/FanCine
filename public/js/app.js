@@ -19,8 +19,7 @@ function enableSpinner() {
 
 function disableSpinner() {
   spinnerModal.style.display = 'none';
-} // Disable sign in modal
-
+}
 
 function popdownModal() {
   fetch('/isLogin').then(function (res) {
