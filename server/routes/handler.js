@@ -383,7 +383,7 @@ handlebarsRouter.post(
   },
 );
 
-handlebarsRouter.all(
+handlebarsRouter.get(
   '/member/transaction-history',
   ensureAuthenticatedOrRedirect,
   getFilteredSessionsFromUser,
@@ -428,7 +428,7 @@ handlebarsRouter.get('/promotion', (req, res) => {
   });
 });
 
-handlebarsRouter.all('/member/checkAuth', ensureAuthenticated);
+handlebarsRouter.get('/member/info/checkAuth', ensureAuthenticated);
 
 handlebarsRouter.get(
   '/admin',
@@ -447,7 +447,7 @@ handlebarsRouter.get(
   },
 );
 
-handlebarsRouter.get('/admin/postMovie', ensureAdmin, (req, res) => {
+handlebarsRouter.get('/admin/postMovie', (req, res) => {
   res.render('postMovie', {
     layout: 'admin',
     labels: Movie.schema.path('label').enumValues,

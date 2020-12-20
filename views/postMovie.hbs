@@ -2,6 +2,7 @@
 <div class="container py-3 w-100">
 <h1 class="text-center">Đăng tải phim</h1>
 {{> message }}
+
 <form action="/api/movies/" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="originalName">Tên phim gốc</label>
@@ -45,13 +46,49 @@
         <input type="text" name="trailerEmbedID" id="trailerEmbedID" class="form-control" value="1SOvuOURKT0" required>
       </div>
     </div>
-    <label for="verticalImage">Poster dọc</label>
-    <input type="file" name="verticalImage" id="verticalImage" class="form-control" value="Poster dọc" accept="image/*" required>
-    <label for="horizontalImage">Poster ngang</label>
-    <input type="file" name="horizontalImage" id="horizontalImage" class="form-control" placeholder="Poster ngang" accept="image/*" required>
-  </div>
+
+<label for="vertical-file-upload">Poster dọc</label>
+<div class="upload-preview w-100">
+<div id="vertical-file-upload-form" class="uploader">
+  <input id="vertical-file-upload" type="file" name="verticalImage" accept="image/*"/>
+
+  <label for="vertical-file-upload" id="vertical-file-drag">
+    <img id="vertical-file-image" src="#" alt="Preview" class="hidden file-image">
+    <div id="vertical-start" class="start">
+      <i class="fa fa-download" aria-hidden="true"></i>
+      <div>Select a file or drag here</div>
+      <div id="vertical-notimage" class="hidden notimage">Please select an image</div>
+      <span id="vertical-file-upload-btn" class="btn btn-primary">Select a file</span>
+    </div>
+    <div id="vertical-response" class="hidden response">
+      <div id="vertical-messages" class="messages"></div>
+    </div>
+  </label>
+</div>
+</div>
+
+<label for="horizontal-file-upload">Poster ngang</label>
+<div class="upload-preview w-100">
+<div id="horizontal-file-upload-form" class="uploader">
+  <input id="horizontal-file-upload" type="file" name="horizontalImage" accept="image/*"/>
+
+  <label for="horizontal-file-upload" id="horizontal-file-drag">
+    <img id="horizontal-file-image" src="#" alt="Preview" class="hidden file-image">
+    <div id="horizontal-start" class="start">
+      <i class="fa fa-download" aria-hidden="true"></i>
+      <div>Select a file or drag here</div>
+      <div id="horizontal-notimage" class="hidden notimage">Please select an image</div>
+      <span id="horizontal-file-upload-btn" class="btn btn-primary">Select a file</span>
+    </div>
+    <div id="horizontal-response" class="hidden response">
+      <div id="horizontal-messages" class="messages"></div>
+    </div>
+  </label>
+</div>
+</div>
+
   <div class="row justify-content-center">
-    <button type="submit" class="btn btn-outline-success ">Đăng!</button>
+    <button type="submit" class="btn btn-success w-50">Đăng!</button>
   </div>
 </form> 
 </div>
