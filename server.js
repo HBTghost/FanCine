@@ -8,6 +8,7 @@ import expbs from 'express-handlebars';
 import flash from 'connect-flash';
 import session from 'express-session';
 import passport from 'passport';
+import { redirectToHTTPS } from 'express-http-to-https';
 
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
@@ -58,6 +59,7 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(redirectToHTTPS([/localhost:(\d{4})/], 301));
 app.use(
   fileUpload({
     createParentPath: true,

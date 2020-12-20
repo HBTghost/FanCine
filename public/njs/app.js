@@ -77,7 +77,11 @@ function login(event) {
     .then((res) => {
       res.json().then((data) => {
         if (data.message) {
-          alert(data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: data.message,
+          });
         } else {
           if (redirectURL.length > 0) {
             window.location = redirectURL;
@@ -124,10 +128,18 @@ function register(event) {
     .then((res) => {
       res.json().then((data) => {
         if (data.success_msg) {
-          alert(data.success_msg);
+          Swal.fire({
+            icon: 'info',
+            title: 'Thông báo',
+            html: data.success_msg,
+          });
           showVerify();
         } else {
-          alert(data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: data.message,
+          });
         }
       });
     })
@@ -192,10 +204,18 @@ function forgot(event) {
     .then((res) => {
       res.json().then((data) => {
         if (data.success_msg) {
-          alert(data.success_msg);
+          Swal.fire({
+            icon: 'info',
+            title: '',
+            html: data.success_msg,
+          });
           showReset();
         } else {
-          alert(data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: data.message,
+          });
         }
       });
     })
@@ -221,7 +241,11 @@ function resetPasswordForm(event) {
     .then((res) => {
       res.json().then((data) => {
         if (data.message) {
-          alert(data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: data.message,
+          });
           grecaptcha.reset(resetW);
           $('#resetBtn').removeAttr('disabled');
         } else {
@@ -235,11 +259,19 @@ function resetPasswordForm(event) {
           }).then((res2) => {
             res2.json().then((data2) => {
               if (data2.success_msg) {
-                alert(data2.success_msg);
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Thành công',
+                  html: data2.success_msg,
+                });
                 $('#modal a[href="#nav-sign-in"]').tab('show');
                 hideUnused();
               } else {
-                alert(data2.message);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  html: data2.message,
+                });
               }
             });
           });
@@ -268,9 +300,17 @@ function verify(event) {
     .then((res) => {
       res.json().then((data) => {
         if (data.message) {
-          alert(data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: data.message,
+          });
         } else {
-          alert(data.success_msg);
+          Swal.fire({
+            icon: 'info',
+            title: '',
+            html: data.success_msg,
+          });
           $('#modal a[href="#nav-sign-in"]').tab('show');
           hideUnused();
         }

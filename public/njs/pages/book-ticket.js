@@ -227,10 +227,22 @@ function countdown(minutes) {
   countdownID = setInterval(() => {
     if (timer === 0) {
       clearInterval(countdownID);
-      alert(
-        `Giao dịch thất bại vì đã hết thời gian giao dịch cho phép (${countdownMinutes} phút)!`,
-      );
-      window.location = '/';
+      Swal.fire({
+        title: 'Oops...',
+        icon: 'error',
+        html: `Giao dịch thất bại vì đã hết thời gian giao dịch cho phép (${countdownMinutes} phút)!`,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Trở về trang chủ',
+        showCancelButton: true,
+        cancelButtonColor: '#45B39D',
+        cancelButtonText: 'Đặt vé lại',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = '/';
+        } else {
+          window.location = '/showtimes';
+        }
+      });
     } else {
       timer -= 1;
       checkoutTimerElement.innerHTML = getPrettierTime(timer);
@@ -322,9 +334,12 @@ seatItemElements.forEach((e) => {
         selectedSeats.push(getNameOfSeatItemElement(e));
         infoSeatElement.innerHTML = getSeatInfo();
       } else {
-        alert(
-          'Đã hết số lượng vé!\nVui lòng quay lại để đặt thêm vé, hoặc tiếp tục để xác nhận thanh toán.',
-        );
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          html:
+            '<p>Đã hết số lượng vé!</p><p>Vui lòng quay lại để đặt thêm vé, hoặc tiếp tục để xác nhận thanh toán.</p>',
+        });
       }
     } else if (e.classList.contains(seatStateClassName.SELECTED)) {
       mandatorySeatsNum += 1;
@@ -350,7 +365,11 @@ infoContinueBtnElement.addEventListener('click', () => {
         infoBackBtnElement.style.display = 'block';
         mandatorySeatsNumElement.innerHTML = mandatorySeatsNum;
       } else {
-        alert('Phải chọn số lượng vé để tiếp tục.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          html: 'Phải chọn số lượng vé để tiếp tục.',
+        });
       }
       break;
 
@@ -366,9 +385,11 @@ infoContinueBtnElement.addEventListener('click', () => {
 
         checkoutTotalPriceFieldElement.value = formatPriceVND(totalPrice);
       } else {
-        alert(
-          `Phải chọn đủ số ghế đã đặt để tiếp tục.\nVui lòng chọn thêm ${mandatorySeatsNum} vị trí nữa.`,
-        );
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          html: `<p>Phải chọn đủ số ghế đã đặt để tiếp tục.</p><p>Vui lòng chọn <b>thêm ${mandatorySeatsNum} vị trí</b> nữa.</p>`,
+        });
       }
       break;
 
@@ -430,9 +451,13 @@ checkoutPayBthElement.addEventListener('click', () => {
   });
 
   enableSpinner();
-  alert('Thanh toán thành công!');
-
-  forceLoginAndRedirect('/member/transaction-history');
+  Swal.fire({
+    icon: 'success',
+    title: 'Thành công',
+    html: 'Thanh toán thành công!',
+  }).then(() => {
+    forceLoginAndRedirect('/member/transaction-history');
+  });
 });
 
 function main() {

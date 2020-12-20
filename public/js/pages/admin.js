@@ -237,11 +237,14 @@ $('li').click(function () {
       var self = this;
 
       if (self.objectItems) {
-        if (_typeof(item) === 'object') item = $.grep(self.itemsArray, function (other) {
-          return self.options.itemValue(other) === self.options.itemValue(item);
-        });else item = $.grep(self.itemsArray, function (other) {
+        if (_typeof(item) === 'object') {
+          item = $.grep(self.itemsArray, function (other) {
+            return self.options.itemValue(other) === self.options.itemValue(item);
+          });
+        } else item = $.grep(self.itemsArray, function (other) {
           return self.options.itemValue(other) === item;
         });
+
         item = item[item.length - 1];
       }
 

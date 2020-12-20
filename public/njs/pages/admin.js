@@ -257,12 +257,12 @@ $('li').click(function () {
       const self = this;
 
       if (self.objectItems) {
-        if (typeof item === 'object')
+        if (typeof item === 'object') {
           item = $.grep(
             self.itemsArray,
             (other) => self.options.itemValue(other) === self.options.itemValue(item),
           );
-        else item = $.grep(self.itemsArray, (other) => self.options.itemValue(other) === item);
+        } else item = $.grep(self.itemsArray, (other) => self.options.itemValue(other) === item);
 
         item = item[item.length - 1];
       }
