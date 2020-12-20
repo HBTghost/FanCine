@@ -429,9 +429,9 @@ checkoutPayBthElement.addEventListener('click', () => {
     }),
   });
 
-  alert(
-    'Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".',
-  );
+  enableSpinner();
+  alert('Thanh toán thành công!');
+
   forceLoginAndRedirect('/member/transaction-history');
 });
 

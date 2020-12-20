@@ -365,7 +365,8 @@ checkoutPayBthElement.addEventListener('click', function () {
       paymentMethod: document.querySelector('#book-ticket-checkout-payment-method').children[parseInt(document.querySelector('#book-ticket-checkout-payment-method').value, 10)].innerHTML
     })
   });
-  alert('Thanh toán thành công!\nĐể xem lại thông tin chi tiết của giao dịch này, click OK, sau đó vui lòng truy cập vào phần "Lịch sử giao dịch".');
+  enableSpinner();
+  alert('Thanh toán thành công!');
   forceLoginAndRedirect('/member/transaction-history');
 });
 
