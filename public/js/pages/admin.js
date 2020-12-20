@@ -146,11 +146,16 @@ $('li').click(function () {
       } // Throw an error when trying to add an object while the itemValue option was not set
 
 
-      if (_typeof(item) === 'object' && !self.objectItems) throw "Can't add objects when itemValue option is not set"; // Ignore strings only containg whitespace
+      if (_typeof(item) === 'object' && !self.objectItems) {
+        throw "Can't add objects when itemValue option is not set";
+      } // Ignore strings only containg whitespace
+
 
       if (item.toString().match(/^\s*$/)) return; // If SELECT but not multiple, remove current tag
 
-      if (self.isSelect && !self.multiple && self.itemsArray.length > 0) self.remove(self.itemsArray[0]);
+      if (self.isSelect && !self.multiple && self.itemsArray.length > 0) {
+        self.remove(self.itemsArray[0]);
+      }
 
       if (typeof item === 'string' && this.$element[0].tagName === 'INPUT') {
         var delimiter = self.options.delimiterRegex ? self.options.delimiterRegex : self.options.delimiter;
@@ -215,7 +220,10 @@ $('li').click(function () {
 
       if (!dontPushVal) self.pushVal(self.options.triggerChange); // Add class when reached maxTags
 
-      if (self.options.maxTags === self.itemsArray.length || self.items().toString().length === self.options.maxInputLength) self.$container.addClass('bootstrap-tagsinput-max'); // If using typeahead, once the tag has been added, clear the typeahead value so it does not stick around in the input.
+      if (self.options.maxTags === self.itemsArray.length || self.items().toString().length === self.options.maxInputLength) {
+        self.$container.addClass('bootstrap-tagsinput-max');
+      } // If using typeahead, once the tag has been added, clear the typeahead value so it does not stick around in the input.
+
 
       if ($('.typeahead, .twitter-typeahead', self.$container).length) {
         self.$input.typeahead('val', '');
@@ -262,12 +270,18 @@ $('li').click(function () {
         $('option', self.$element).filter(function () {
           return $(this).data('item') === item;
         }).remove();
-        if ($.inArray(item, self.itemsArray) !== -1) self.itemsArray.splice($.inArray(item, self.itemsArray), 1);
+
+        if ($.inArray(item, self.itemsArray) !== -1) {
+          self.itemsArray.splice($.inArray(item, self.itemsArray), 1);
+        }
       }
 
       if (!dontPushVal) self.pushVal(self.options.triggerChange); // Remove class when reached maxTags
 
-      if (self.options.maxTags > self.itemsArray.length) self.$container.removeClass('bootstrap-tagsinput-max');
+      if (self.options.maxTags > self.itemsArray.length) {
+        self.$container.removeClass('bootstrap-tagsinput-max');
+      }
+
       self.$element.trigger($.Event('itemRemoved', {
         item: item,
         options: options

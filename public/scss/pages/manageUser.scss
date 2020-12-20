@@ -7,6 +7,10 @@ $txt-table-header: #fff;
 $bg-scrollbar-track: #808080;
 $bg-scrollbar-thumb: #a9aabc;
 
+
+$bg-icon-sort-asc: #6dfacd;
+$bg-icon-sort-desc: #ffa18e;
+
 .wrapper {
   overflow: hidden;
 }
@@ -88,10 +92,10 @@ $bg-scrollbar-thumb: #a9aabc;
         th,
         td {
           border: 1px solid $bd-table;
-          padding: 10px;
         }
 
         td {
+          padding: 10px;
           cursor: pointer;
         }
 
@@ -102,7 +106,7 @@ $bg-scrollbar-thumb: #a9aabc;
         }
 
         .mnuser-role {
-          width: 80px;
+          width: 100px;
         }
         .mnuser-name {
           width: 250px;
@@ -114,10 +118,10 @@ $bg-scrollbar-thumb: #a9aabc;
           width: 150px;
         }
         .mnuser-dob {
-          width: 120px;
+          width: 140px;
         }
         .mnuser-gender {
-          width: 100px;
+          width: 120px;
         }
         .mnuser-address {
           width: 250px;
@@ -129,7 +133,7 @@ $bg-scrollbar-thumb: #a9aabc;
           width: 200px;
         }
         .mnuser-star {
-          width: 130px;
+          width: 150px;
         }
         .mnuser-expense {
           width: 150px;
@@ -142,7 +146,44 @@ $bg-scrollbar-thumb: #a9aabc;
           color: $txt-table-header;
 
           th {
-            text-align: center;
+            .mnuser-cell-wrapper {
+              display: grid;
+              grid-template-columns: auto 15px;
+              
+
+              .mnuser-cell-header {
+                text-align: center;
+                align-self: center;
+              }
+
+              .mnuser-cell-sort {
+                display: grid;
+                row-gap: 7px;
+
+                .mnuser-cell-sort-item {
+                  cursor: pointer;
+                  font-size: 16px;
+                }
+
+                .mnuser-cell-sort-asc {
+                  margin-top: 2px;
+                }
+
+                .mnuser-cell-sort-desc {
+                  margin-bottom: 2px;
+                }
+
+                .mnuser-cell-sort-asc-selected,
+                .mnuser-cell-sort-asc-hover {
+                  color: $bg-icon-sort-asc;
+                }
+
+                .mnuser-cell-sort-desc-selected,
+                .mnuser-cell-sort-desc-hover {
+                  color: $bg-icon-sort-desc;
+                }
+              }
+            }
           }
         }
       }

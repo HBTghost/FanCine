@@ -1,5 +1,14 @@
+// ===== HTML elements =====
+let userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
+let tableRowElements = document.querySelectorAll('#mnuser-table tr');
+const tableBodyElement = document.querySelector('#mnuser-table tbody');
+const displayCheckboxElements = document.querySelectorAll(
+  '#mnuser-display .mmnuser-display-item input',
+);
+const sortingIconsElements = document.querySelectorAll('.mnuser-cell-sort');
+
 // Global variables
-const TABLE_HEADERS = Object.freeze({
+const COL = Object.freeze({
   ROLE: 0,
   NAME: 1,
   EMAIL: 2,
@@ -11,15 +20,13 @@ const TABLE_HEADERS = Object.freeze({
   AREA: 8,
   STAR: 9,
   EXPENSE: 10,
+  ID: 11,
 });
 
-// ===== HTML elements =====
-const userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
-const tableRowElements = document.querySelectorAll('#mnuser-table tr');
-const expenseCellElements = document.querySelectorAll('#mnuser-table tbody tr .mnuser-expense');
-const displayCheckboxElements = document.querySelectorAll(
-  '#mnuser-display .mmnuser-display-item input',
-);
+const parser = new DOMParser();
+
+let preColIndex;
+let preSortType;
 
 // ===== Functions =====
 function removeUserFromDatabase(todo) {
@@ -88,39 +95,49 @@ function hideTableColumn(colIndex) {
   });
 }
 
-function initTable() {
-  const defaultColIndex = [
-    TABLE_HEADERS.ROLE,
-    TABLE_HEADERS.NAME,
-    TABLE_HEADERS.EMAIL,
-    TABLE_HEADERS.PHONE_NUM,
-    TABLE_HEADERS.DOB,
-    TABLE_HEADERS.CITY,
-    TABLE_HEADERS.EXPENSE,
-  ];
-  const hiddenColIndex = [
-    TABLE_HEADERS.GENDER,
-    TABLE_HEADERS.ADDRESS,
-    TABLE_HEADERS.AREA,
-    TABLE_HEADERS.STAR,
-  ];
-
-  defaultColIndex.forEach((colIndex) => {
-    displayCheckboxElements[colIndex].checked = true;
-  });
-
-  hiddenColIndex.forEach((colIndex) => {
-    hideTableColumn(colIndex);
-  });
-}
-
 function formatExpenseValues() {
-  expenseCellElements.forEach((e) => {
-    e.innerHTML = parseInt(e.innerHTML, 10).toLocaleString('it-IT', {
+  userRowElements.forEach((e) => {
+    e.children[COL.EXPENSE].innerHTML = parseInt(
+      e.children[COL.EXPENSE].innerHTML,
+      10,
+    ).toLocaleString('it-IT', {
       style: 'currency',
       currency: 'VND',
     });
   });
+}
+
+function refresh() {
+  userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
+  tableRowElements = document.querySelectorAll('#mnuser-table tr');
+
+  formatExpenseValues();
+
+  displayCheckboxElements.forEach((e, i) => {
+    if (e.checked === false) {
+      hideTableColumn(i);
+    }
+  });
+}
+
+function sortAllUsers(colIndex, sortType) {
+  fetch(`/admin/manageUser/sort/${colIndex}/${sortType}`).then((partial) => {
+    partial.text().then((html) => {
+      const usersData = parser.parseFromString(html, 'text/html');
+      console.log(usersData);
+      tableBodyElement.innerHTML = usersData.getElementById('mnuser-users').innerHTML;
+      refresh();
+    });
+  });
+}
+
+function initTable() {
+  preColIndex = COL.ROLE;
+  preSortType = 0;
+  sortingIconsElements[preColIndex].children[preSortType].classList.add(
+    'mnuser-cell-sort-asc-selected',
+  );
+  sortAllUsers(preColIndex, preSortType);
 }
 
 // ===== Events =====
@@ -136,11 +153,60 @@ function eventDisplayCheckboxes() {
   });
 }
 
+function eventSorting() {
+  const sortTypeStr = ['asc', 'desc'];
+  let dupCount = 0;
+
+  sortingIconsElements.forEach((icons, colIndex) => {
+    for (let sortType = 0; sortType < icons.children.length; ++sortType) {
+      icons.children[sortType].addEventListener('click', () => {
+        icons.children[sortType].classList.add(
+          `mnuser-cell-sort-${sortTypeStr[sortType]}-selected`,
+        );
+        sortingIconsElements[preColIndex].children[preSortType].classList.remove(
+          `mnuser-cell-sort-${sortTypeStr[preSortType]}-selected`,
+        );
+
+        if (preColIndex === colIndex && preSortType === sortType) {
+          dupCount += 1;
+          if (dupCount % 2 === 0) {
+            icons.children[sortType].classList.add(
+              `mnuser-cell-sort-${sortTypeStr[sortType]}-selected`,
+            );
+            sortAllUsers(colIndex, sortType);
+          } else {
+            sortAllUsers(-1, 0);
+          }
+        } else {
+          dupCount = 0;
+          sortAllUsers(colIndex, sortType);
+        }
+        preColIndex = colIndex;
+        preSortType = sortType;
+      });
+
+      icons.children[sortType].addEventListener('mouseenter', () => {
+        icons.children[sortType].classList.add(`mnuser-cell-sort-${sortTypeStr[sortType]}-hover`);
+      });
+      icons.children[sortType].addEventListener('mouseleave', () => {
+        icons.children[sortType].classList.remove(
+          `mnuser-cell-sort-${sortTypeStr[sortType]}-hover`,
+        );
+      });
+    }
+  });
+}
+
+function handleEvents() {
+  eventDisplayCheckboxes();
+  eventSorting();
+}
+
 // ===== Main =====
 function main() {
   initTable();
-  formatExpenseValues();
-  eventDisplayCheckboxes();
+  refresh();
+  handleEvents();
 }
 
 main();

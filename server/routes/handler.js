@@ -33,7 +33,7 @@ import {
   getDateShowFromShowtime,
 } from '../middleware/dateShow.js';
 import { getTypeShowBySession, getTypeShowFromShowtime } from '../middleware/typeShow.js';
-import { getAllUsers } from '../middleware/user.js';
+import { getAllUsers, getAllUsersBySorting } from '../middleware/user.js';
 import {
   getShowTime,
   getShowtimeBySession,
@@ -475,8 +475,9 @@ handlebarsRouter.get('/admin/manageMovie', ensureAdmin, getAllMovies, (req, res)
   });
 });
 
-handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) => {
-  res.allUsers.forEach((user) => {
+// ===== Manage users =====
+function standardizeUsers(users) {
+  users.forEach((user) => {
     // Date of birth
     let d = user.DoB.getDate();
     let m = user.DoB.getMonth() + 1;
@@ -489,7 +490,24 @@ handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) =
     user.cityName = c[parseInt(user.city, 10)];
     user.townName = arr[parseInt(user.city, 10)][parseInt(user.town, 10)];
   });
+}
 
+handlebarsRouter.get(
+  '/admin/manageUser/sort/:colIndex/:sortType',
+  ensureAdmin,
+  getAllUsersBySorting,
+  (req, res) => {
+    standardizeUsers(res.allUsers);
+    res.status(200);
+    res.header('Content-Type', 'text/html');
+    res.render('partials/renderStructure/admin/manageUser', {
+      users: res.allUsers,
+    });
+  },
+);
+
+handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) => {
+  standardizeUsers(res.allUsers);
   res.render('manageUser', {
     users: res.allUsers,
     style: 'manageUser',
@@ -499,6 +517,7 @@ handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) =
   });
 });
 
+// ===== Update password =====
 handlebarsRouter.get('/updatePassword', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('updatePassword', {
     layout: 'authRender',

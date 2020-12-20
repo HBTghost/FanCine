@@ -1,7 +1,13 @@
 "use strict";
 
-// Global variables
-var TABLE_HEADERS = Object.freeze({
+// ===== HTML elements =====
+var userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
+var tableRowElements = document.querySelectorAll('#mnuser-table tr');
+var tableBodyElement = document.querySelector('#mnuser-table tbody');
+var displayCheckboxElements = document.querySelectorAll('#mnuser-display .mmnuser-display-item input');
+var sortingIconsElements = document.querySelectorAll('.mnuser-cell-sort'); // Global variables
+
+var COL = Object.freeze({
   ROLE: 0,
   NAME: 1,
   EMAIL: 2,
@@ -12,13 +18,12 @@ var TABLE_HEADERS = Object.freeze({
   CITY: 7,
   AREA: 8,
   STAR: 9,
-  EXPENSE: 10
-}); // ===== HTML elements =====
-
-var userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
-var tableRowElements = document.querySelectorAll('#mnuser-table tr');
-var expenseCellElements = document.querySelectorAll('#mnuser-table tbody tr .mnuser-expense');
-var displayCheckboxElements = document.querySelectorAll('#mnuser-display .mmnuser-display-item input'); // ===== Functions =====
+  EXPENSE: 10,
+  ID: 11
+});
+var parser = new DOMParser();
+var preColIndex;
+var preSortType; // ===== Functions =====
 
 function removeUserFromDatabase(todo) {
   var _id = todo.firstElementChild.innerHTML;
@@ -92,24 +97,42 @@ function hideTableColumn(colIndex) {
   });
 }
 
-function initTable() {
-  var defaultColIndex = [TABLE_HEADERS.ROLE, TABLE_HEADERS.NAME, TABLE_HEADERS.EMAIL, TABLE_HEADERS.PHONE_NUM, TABLE_HEADERS.DOB, TABLE_HEADERS.CITY, TABLE_HEADERS.EXPENSE];
-  var hiddenColIndex = [TABLE_HEADERS.GENDER, TABLE_HEADERS.ADDRESS, TABLE_HEADERS.AREA, TABLE_HEADERS.STAR];
-  defaultColIndex.forEach(function (colIndex) {
-    displayCheckboxElements[colIndex].checked = true;
-  });
-  hiddenColIndex.forEach(function (colIndex) {
-    hideTableColumn(colIndex);
-  });
-}
-
 function formatExpenseValues() {
-  expenseCellElements.forEach(function (e) {
-    e.innerHTML = parseInt(e.innerHTML, 10).toLocaleString('it-IT', {
+  userRowElements.forEach(function (e) {
+    e.children[COL.EXPENSE].innerHTML = parseInt(e.children[COL.EXPENSE].innerHTML, 10).toLocaleString('it-IT', {
       style: 'currency',
       currency: 'VND'
     });
   });
+}
+
+function refresh() {
+  userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
+  tableRowElements = document.querySelectorAll('#mnuser-table tr');
+  formatExpenseValues();
+  displayCheckboxElements.forEach(function (e, i) {
+    if (e.checked === false) {
+      hideTableColumn(i);
+    }
+  });
+}
+
+function sortAllUsers(colIndex, sortType) {
+  fetch("/admin/manageUser/sort/".concat(colIndex, "/").concat(sortType)).then(function (partial) {
+    partial.text().then(function (html) {
+      var usersData = parser.parseFromString(html, 'text/html');
+      console.log(usersData);
+      tableBodyElement.innerHTML = usersData.getElementById('mnuser-users').innerHTML;
+      refresh();
+    });
+  });
+}
+
+function initTable() {
+  preColIndex = COL.ROLE;
+  preSortType = 0;
+  sortingIconsElements[preColIndex].children[preSortType].classList.add('mnuser-cell-sort-asc-selected');
+  sortAllUsers(preColIndex, preSortType);
 } // ===== Events =====
 
 
@@ -123,13 +146,58 @@ function eventDisplayCheckboxes() {
       }
     });
   });
+}
+
+function eventSorting() {
+  var sortTypeStr = ['asc', 'desc'];
+  var dupCount = 0;
+  sortingIconsElements.forEach(function (icons, colIndex) {
+    var _loop = function _loop(sortType) {
+      icons.children[sortType].addEventListener('click', function () {
+        icons.children[sortType].classList.add("mnuser-cell-sort-".concat(sortTypeStr[sortType], "-selected"));
+        sortingIconsElements[preColIndex].children[preSortType].classList.remove("mnuser-cell-sort-".concat(sortTypeStr[preSortType], "-selected"));
+
+        if (preColIndex === colIndex && preSortType === sortType) {
+          dupCount += 1;
+
+          if (dupCount % 2 === 0) {
+            icons.children[sortType].classList.add("mnuser-cell-sort-".concat(sortTypeStr[sortType], "-selected"));
+            sortAllUsers(colIndex, sortType);
+          } else {
+            sortAllUsers(-1, 0);
+          }
+        } else {
+          dupCount = 0;
+          sortAllUsers(colIndex, sortType);
+        }
+
+        preColIndex = colIndex;
+        preSortType = sortType;
+      });
+      icons.children[sortType].addEventListener('mouseenter', function () {
+        icons.children[sortType].classList.add("mnuser-cell-sort-".concat(sortTypeStr[sortType], "-hover"));
+      });
+      icons.children[sortType].addEventListener('mouseleave', function () {
+        icons.children[sortType].classList.remove("mnuser-cell-sort-".concat(sortTypeStr[sortType], "-hover"));
+      });
+    };
+
+    for (var sortType = 0; sortType < icons.children.length; ++sortType) {
+      _loop(sortType);
+    }
+  });
+}
+
+function handleEvents() {
+  eventDisplayCheckboxes();
+  eventSorting();
 } // ===== Main =====
 
 
 function main() {
   initTable();
-  formatExpenseValues();
-  eventDisplayCheckboxes();
+  refresh();
+  handleEvents();
 }
 
 main();
