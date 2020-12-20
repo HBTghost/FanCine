@@ -22,6 +22,7 @@ function disableSpinner() {
 }
 
 function popdownModal() {
+  enableSpinner();
   fetch('/isLogin').then(function (res) {
     res.text().then(function (val) {
       if (forceLogin && val === 'true') {
@@ -32,6 +33,7 @@ function popdownModal() {
     });
   });
   modal.style.display = 'none';
+  disableSpinner();
 }
 
 function popupModal() {
@@ -334,7 +336,9 @@ function forceLoginAndRedirect(url) {
       if (val === 'false') {
         popupModal();
       } else {
+        enableSpinner();
         window.location = url;
+        disableSpinner();
       }
     });
   });

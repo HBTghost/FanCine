@@ -450,7 +450,6 @@ checkoutPayBthElement.addEventListener('click', () => {
     }),
   });
 
-  enableSpinner();
   Swal.fire({
     icon: 'success',
     title: 'Thành công',

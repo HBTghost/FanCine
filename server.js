@@ -8,7 +8,6 @@ import expbs from 'express-handlebars';
 import flash from 'connect-flash';
 import session from 'express-session';
 import passport from 'passport';
-import { redirectToHTTPS } from 'express-http-to-https';
 
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
@@ -54,12 +53,20 @@ db.once('open', () => console.log('Connected to Database'));
 
 // Create Express app
 const app = express();
+// Force https
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    if (req.headers['x-forwarded-proto'] !== 'https')
+      return res.redirect(`https://${req.headers.host}${req.url}`);
+    return next();
+  }
+  return next();
+});
 
 // Middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-app.use(redirectToHTTPS([/localhost:(\d{4})/], 301));
 app.use(
   fileUpload({
     createParentPath: true,

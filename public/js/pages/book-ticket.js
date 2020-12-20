@@ -391,7 +391,6 @@ checkoutPayBthElement.addEventListener('click', function () {
       paymentMethod: document.querySelector('#book-ticket-checkout-payment-method').children[parseInt(document.querySelector('#book-ticket-checkout-payment-method').value, 10)].innerHTML
     })
   });
-  enableSpinner();
   Swal.fire({
     icon: 'success',
     title: 'Thành công',

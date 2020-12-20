@@ -403,6 +403,8 @@ handlebarsRouter.get(
   },
 );
 
+handlebarsRouter.get('/member/transaction-history/checkAuth', ensureAuthenticated);
+
 handlebarsRouter.get(
   '/member/transaction-history/:id',
   ensureAuthenticatedOrRedirect,
@@ -431,7 +433,6 @@ handlebarsRouter.get('/promotion', (req, res) => {
 });
 
 handlebarsRouter.get('/member/info/checkAuth', ensureAuthenticated);
-handlebarsRouter.get('/member/transaction-history/checkAuth', ensureAuthenticated);
 
 handlebarsRouter.get(
   '/admin',
