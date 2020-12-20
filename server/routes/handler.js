@@ -46,6 +46,8 @@ import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
 import { getSessionByID, getFilteredSessionsFromUser } from '../middleware/session.js';
 
+import { c, arr } from '../../public/njs/pages/provinces.js';
+
 const handlebarsRouter = express.Router();
 
 handlebarsRouter.get('/', getAllMovies, async (req, res) => {
@@ -472,9 +474,23 @@ handlebarsRouter.get('/admin/manageMovie', ensureAdmin, getAllMovies, (req, res)
 });
 
 handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) => {
+  res.allUsers.forEach((user) => {
+    // Date of birth
+    let d = user.DoB.getDate();
+    let m = user.DoB.getMonth() + 1;
+    const y = user.DoB.getFullYear();
+    d = d < 10 ? `0${d}` : `${d}`;
+    m = m < 10 ? `0${m}` : `${m}`;
+    user.DoB = `${d}/${m}/${y}`;
+
+    // City & Area
+    user.cityName = c[parseInt(user.city, 10)];
+    user.townName = arr[parseInt(user.city, 10)][parseInt(user.town, 10)];
+  });
+
   res.render('manageUser', {
     users: res.allUsers,
-    style: 'manageMovie',
+    style: 'manageUser',
     script: 'manageUser',
     layout: 'admin',
     page: 'user',
