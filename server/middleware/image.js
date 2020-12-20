@@ -16,7 +16,11 @@ async function upload(req, res, next) {
           headers: header,
         })
         .then((response) => {
-          result[fileName] = response.data.data.url;
+          if (response.data.success) {
+            result[fileName] = response.data.data.url;
+          } else {
+            result[fileName] = response.data.images;
+          }
         })
         .catch(() => console.error('Failure'));
     }
