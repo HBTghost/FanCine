@@ -21,7 +21,7 @@
       <input value="2021-01-01" type="date" id="date" name="date">
     </div>
     <label for="label">Nhãn</label>
-    <select class="form-control" id="regGender" name="gender" required>
+    <select class="form-control" name="label" required>
       {{#each labels}}
       {{#if (isZero @key)}}
         <option value="{{this}}" selected>{{this}}</option>
