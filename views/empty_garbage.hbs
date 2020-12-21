@@ -1,0 +1,19 @@
+
+{{> provincesLoader}}
+{{> provincesLoader}}
+{{> provincesLoader}}
+
+<script>
+    $('document').ready(function () {
+        console.log("Ahihi");
+        
+    });
+    
+    
+    $('.city-chooser').each(function() {
+         $('#regCity2', this).on('change', function() {
+        console.log(this.value);
+    })
+    }
+    )
+</script>

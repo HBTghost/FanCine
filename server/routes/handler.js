@@ -488,4 +488,8 @@ handlebarsRouter.get('/updatePassword', ensureAuthenticatedOrRedirect, (req, res
 });
 handlebarsRouter.get('/updatePassword/checkAuth', ensureAuthenticated);
 
+handlebarsRouter.get('/hoangTest', (req, res) => {
+  res.render('empty_garbage');
+});
+
 export default handlebarsRouter;
