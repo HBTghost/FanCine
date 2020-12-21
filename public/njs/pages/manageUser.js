@@ -29,8 +29,8 @@ let preColIndex;
 let preSortType;
 
 // ===== Functions =====
-function removeUserFromDatabase(todo) {
-  const _id = todo.firstElementChild.innerHTML;
+function removeUserFromDatabase(row) {
+  const _id = row.children[COL.ID].innerHTML;
   try {
     fetch(`/api/users/${_id}`, {
       method: 'DELETE',
@@ -43,13 +43,13 @@ function removeUserFromDatabase(todo) {
             html: data.message,
           });
         } else {
-          todo.classList.add('fall');
-          todo.ontransitionend = (e) => todo.remove();
+          row.remove();
           Swal.fire({
             icon: 'success',
             title: 'Thành công',
-            html: 'Xóa user thành công',
+            html: 'Xóa tài khoản thành công',
           });
+          refreshTable();
         }
       });
     });
@@ -58,29 +58,21 @@ function removeUserFromDatabase(todo) {
   }
 }
 
-function removeUser(event) {
-  const item = event.target;
-  const todo = item.parentElement;
-  if (item.classList[0] === 'trash-btn') {
-    Swal.fire({
-      title: 'Cảnh báo',
-      icon: 'warning',
-      html: `Bạn có chắc chắn xóa user <b>${todo.innerText}</b> không?`,
-      confirmButtonColor: '#E74C3C',
-      confirmButtonText: 'Chắc chắn',
-      showCancelButton: true,
-      cancelButtonColor: '#99A3A4',
-      cancelButtonText: 'Không',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        removeUserFromDatabase(todo);
-      }
-    });
-  } else if (item.classList[0] === 'edit-btn') {
-    todo.classList.toggle('completed');
-  } else if (item.classList[0] === 'complete-btn') {
-    todo.classList.toggle('completed');
-  }
+function removeAUser(row) {
+  Swal.fire({
+    title: 'Cảnh báo',
+    icon: 'warning',
+    html: `Bạn có chắc chắn xóa tài khoản <b>${row.children[COL.EMAIL].innerHTML}</b> không?`,
+    confirmButtonColor: '#E74C3C',
+    confirmButtonText: 'Chắc chắn',
+    showCancelButton: true,
+    cancelButtonColor: '#99A3A4',
+    cancelButtonText: 'Không',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      removeUserFromDatabase(row);
+    }
+  });
 }
 
 function showTableColumn(colIndex) {
@@ -107,10 +99,13 @@ function formatExpenseValues() {
   });
 }
 
-function refresh() {
+function refreshTable() {
   userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
   tableRowElements = document.querySelectorAll('#mnuser-table tr');
+  eventRowUsers();
+}
 
+function refreshDisplay() {
   formatExpenseValues();
 
   displayCheckboxElements.forEach((e, i) => {
@@ -126,7 +121,8 @@ function sortAllUsers(colIndex, sortType) {
       const usersData = parser.parseFromString(html, 'text/html');
       console.log(usersData);
       tableBodyElement.innerHTML = usersData.getElementById('mnuser-users').innerHTML;
-      refresh();
+      refreshTable();
+      refreshDisplay();
     });
   });
 }
@@ -197,6 +193,38 @@ function eventSorting() {
   });
 }
 
+function eventRowUsers() {
+  userRowElements.forEach((row) => {
+    row.addEventListener('click', () => {
+      if (row.children[COL.ROLE].innerHTML === 'user') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Cảnh báo',
+          html: 'Mọi thay đổi của bạn không thể khôi phục lại!',
+          confirmButtonText: 'Lịch sử giao dịch',
+          showDenyButton: true,
+          denyButtonText: 'Xóa',
+          showCancelButton: true,
+          cancelButtonText: 'Trở lại',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.open(`/admin/manageUser/transaction-history/${row.children[COL.ID].innerHTML}`);
+          } else if (result.isDenied) {
+            removeAUser(row);
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Cảnh báo',
+          html: 'Loại tài khoản này không thể truy cập!',
+          confirmedButtonText: 'Trở lại',
+        });
+      }
+    });
+  });
+}
+
 function handleEvents() {
   eventDisplayCheckboxes();
   eventSorting();
@@ -205,7 +233,8 @@ function handleEvents() {
 // ===== Main =====
 function main() {
   initTable();
-  refresh();
+  refreshTable();
+  refreshDisplay();
   handleEvents();
 }
 
