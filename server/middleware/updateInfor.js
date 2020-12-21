@@ -11,7 +11,7 @@ async function updateUserInfor(req, res, next) {
         DoB: req.body.birthdate,
         sex: req.body.gender,
         address: req.body.address,
-        city: req.body.province,
+        city: req.body.city,
         town: req.body.district,
       },
     );

@@ -1,6 +1,6 @@
 <div class="form-inline city-chooser">
-    {{#if city}}<label class="mem-info-label" for="regCity2">Tỉnh</label>{{/if}}
-    <select class="form-control m-2" id="regCity2" name="province" required="">
+    {{#if city}}<label class="mem-info-label" for="regCity">Tỉnh</label>{{/if}}
+    <select class="form-control m-2" id="regCity" name="city" required="">
         <option value="{{#if city}}{{ city }}{{else}}-1{{/if}}" disabled="" selected="" hidden="">Khu vực của bạn</option>
         <option value="0">An Giang</option>
         <option value="1">Bà Rịa - Vũng Tàu</option>
@@ -67,8 +67,8 @@
         <option value="62">Yên Bái</option>
     </select>
 
-    {{#if town}}<label class="mem-info-label" for="regTown2">Quận huyện</label>{{/if}}
-    <select class="form-control m-2" id="regTown2" name="district" required disabled>
+    {{#if town}}<label class="mem-info-label" for="regTown">Quận huyện</label>{{/if}}
+    <select class="form-control m-2" id="regTown" name="district" required disabled>
         <option value="{{#if town}}{{ town }}{{else}}-1{{/if}}" disabled="" selected="" hidden="">Quận</option>
     </select>
 </div>

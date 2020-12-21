@@ -15,31 +15,27 @@ function getClientOrigin(req) {
 // ------------ Register Handle ------------//
 function registerHandle(req, res) {
   const { name, email, password, password2, phone, DoB, sex, address, city, town } = req.body;
+  console.log(req.body);
 
   if (!name || !email || !password || !password2 || !phone) {
     res.json({ message: 'Vui lòng điền tất cả các trường bắt buộc.' });
-  }
-
-  if (password !== password2) {
+  } else if (password !== password2) {
     res.json({ message: 'Mật khẩu không khớp.' });
-  }
-
-  if (password.length < 8) {
+  } else if (password.length < 8) {
     res.json({ message: 'Mật khẩu phải có ít nhất 8 ký tự.' });
-  }
-
-  User.findOne({ email }).then(async (user) => {
-    if (user) {
+  } else {
+    User.findOne({ email }).then(async (user) => {
+      if (user) {
       // ------------ User already exists ------------//
-      res.json({ message: `Địa chỉ email <b>${email}</b> đã được đăng ký bởi một ai khác.` });
-    } else {
-      const token = jwt.sign(
-        { name, email, password, phone, DoB, sex, address, city, town },
-        config.secret,
-        { expiresIn: '30m' },
-      );
+        res.json({ message: `Địa chỉ email <b>${email}</b> đã được đăng ký bởi một ai khác.` });
+      } else {
+        const token = jwt.sign(
+          { name, email, password, phone, DoB, sex, address, city, town },
+          config.secret,
+          { expiresIn: '30m' },
+        );
 
-      const output = `
+        const output = `
               <h2>Đây là mã kích hoạt tài khoản của bạn:</h2>
               <b style="color: green">${token}</b>
               <h2>Hoặc vui lòng nhấn vào link bên dưới để kích hoạt tài khoản của bạn:</h2>
@@ -47,26 +43,28 @@ function registerHandle(req, res) {
               <p><b>CHÚ Ý: </b> Mã xác thực và link kích hoạt trên sẽ hết hạn trong vòng 30 phút.</p>
               `;
 
-      const mailOptions = {
-        to: email, // list of receivers
-        subject: 'Xác thực tài khoản FanCine ✔', // Subject line
-        generateTextFromHTML: true,
-        html: output, // html body
-      };
+        const mailOptions = {
+          to: email, // list of receivers
+          subject: 'Xác thực tài khoản FanCine ✔', // Subject line
+          generateTextFromHTML: true,
+          html: output, // html body
+        };
 
-      try {
-        await sendEmail(mailOptions);
-        res.json({
-          success_msg: `<p>Mã / Link kích hoạt tài khoản đã được gởi đến email <b>${email}.</b></p><p>Vui lòng kiểm tra hòm thư và kích hoạt tài khoản để đăng nhập.</p><p style='color: red'>(Hết hạn trong 30 phút)</p>`,
-        });
-      } catch (error) {
-        res.json({
-          message: '<p>Một số lỗi không mong muốn đã xảy ra.</p><p>Vui lòng đăng ký lại.</p>',
-        });
-      }
+        try {
+          await sendEmail(mailOptions);
+          res.json({
+            success_msg: `<p>Mã / Link kích hoạt tài khoản đã được gởi đến email <b>${email}.</b></p><p>Vui lòng kiểm tra hòm thư và kích hoạt tài khoản để đăng nhập.</p><p style='color: red'>(Hết hạn trong 30 phút)</p>`,
+          });
+        } catch (error) {
+          console.log(error);
+          res.json({
+            message: '<p>Một số lỗi không mong muốn đã xảy ra.</p><p>Vui lòng đăng ký lại.</p>',
+          });
+        }
       // res.redirect('/login');
-    }
-  });
+      }
+    });
+  }
 }
 
 // ------------ Activate Account Handle ------------//
