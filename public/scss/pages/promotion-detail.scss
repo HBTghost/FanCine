@@ -1,9 +1,8 @@
 @import '../base/variable';
 
 .container-custom {
-  margin: 50px 175px auto;
+  margin: 50px 100px;
 }
-
 
 a:first-child {
   color: $accent-color;
@@ -60,6 +59,7 @@ a:first-child:hover {
 
 .content {
   font-size: 20px;
+  text-align: justify;
 }
 
 #header-other-promotion {
@@ -106,7 +106,6 @@ a:first-child:hover {
 
 .promotion-btn {
   position: relative;
-  bottom: -120px;
   border: 1px solid $white;
 
 }
@@ -115,4 +114,34 @@ a:first-child:hover {
   background-color: $color-orange;
   text-decoration: none;
   font-weight: 700;
+}
+
+
+@media only screen and (max-width: 1650px) {
+  .container-custom {
+    margin: 50px;
+  }
+  .promotion-onshow-content {
+    opacity: 0;
+  }
+  .content-card {
+    opacity: 0;
+  }
+  .img-content {
+    width: 80%;
+    margin-left: 50px;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .container-custom {
+    margin: 50p 1px;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .img-content {
+    width: 100%;
+    margin-left: 1px;
+  }
 }
