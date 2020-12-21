@@ -5,6 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 $(document).ready(function () {
   $('#sidebarCollapse').on('click', function () {
     $('#sidebar').toggleClass('active');
+    $('.sidebar2').toggleClass('active');
   });
 });
 $('li').click(function () {

@@ -451,7 +451,7 @@ handlebarsRouter.get(
   },
 );
 
-handlebarsRouter.get('/admin/postMovie', (req, res) => {
+handlebarsRouter.get('/admin/postMovie', ensureAdmin, (req, res) => {
   res.render('postMovie', {
     layout: 'admin',
     labels: Movie.schema.path('label').enumValues,
