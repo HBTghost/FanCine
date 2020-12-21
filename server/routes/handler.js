@@ -493,8 +493,8 @@ function standardizeUsers(users) {
 }
 
 handlebarsRouter.get(
-  '/admin/manageUser/sort/:colIndex/:sortType',
   ensureAdmin,
+  '/admin/manageUser/sort/:colIndex/:sortType',
   getAllUsersBySorting,
   (req, res) => {
     standardizeUsers(res.allUsers);
