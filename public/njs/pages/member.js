@@ -63,6 +63,14 @@ function initValuesForHistoryForm() {
   }
 }
 
+function turnOnAlertSave() {
+  window.onbeforeunload = () => true;
+}
+
+function turnOffAlertSave() {
+  window.onbeforeunload = () => null;
+}
+
 // ===== Events handling =====
 infoBtnElement.addEventListener('click', () => {
   window.location = '/member/info';

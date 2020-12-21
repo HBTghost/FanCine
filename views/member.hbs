@@ -13,25 +13,25 @@
           <div class="mem-info-row mem-info-row-6-4 mem-info-row-6-4-sm">
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-full-name">Họ &amp; tên</label>
-              <input class="mem-info-field" name="fullName" id="mem-info-full-name" type="text" value="{{fullName}}"
+              <input class="mem-info-field" name="fullName" id="mem-info-full-name" type="text" value="{{fullName}}" oninput="turnOnAlertSave()"
                 required>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-phone-number">Số điện thoại</label>
               <input class="mem-info-field" name="phoneNumber" id="mem-info-phone-number" type="tel"
-                pattern="[0-9]{8,10}" value="{{phoneNumber}}" required>
+                pattern="[0-9]{8,10}" value="{{phoneNumber}}" oninput="turnOnAlertSave()" required>
             </div>
           </div>
 
           <div class="mem-info-row mem-info-row-6-4">
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-birthdate">Ngày sinh</label>
-              <input class="mem-info-field" name="birthdate" id="mem-info-birthdate" type="date" value="{{birthdate}}"
+              <input class="mem-info-field" name="birthdate" id="mem-info-birthdate" type="date" value="{{birthdate}}" oninput="turnOnAlertSave()"
                 required>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-gender">Giới tính</label>
-              <select class="mem-info-field" name="gender" id="mem-info-gender" required>
+              <select class="mem-info-field" name="gender" id="mem-info-gender" required onchange="turnOnAlertSave()">
                 <option value="Nam" {{#if (equal sex 'Nam' )}}selected{{/if}}>Nam</option>
                 <option value="Nữ" {{#if (equal sex 'Nữ' )}}selected{{/if}}>Nữ</option>
                 <option value="Khác" {{#if (equal sex 'Khác' )}}selected{{/if}}>Khác</option>
@@ -42,20 +42,20 @@
           <div class="mem-info-row">
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-address">Địa chỉ</label>
-              <input class="mem-info-field" name="address" id="mem-info-address" type="text" value="{{address}}">
+              <input class="mem-info-field" name="address" id="mem-info-address" type="text" value="{{address}}" oninput="turnOnAlertSave()">
             </div>
           </div>
 
           <div class="mem-info-row mem-info-row-6-4">
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-province">Tỉnh/Thành phố</label>
-              <select class="mem-info-field" name="province" id="mem-info-province" onchange="districtLoadProfile()">
+              <select class="mem-info-field" name="province" id="mem-info-province" onchange="districtLoadProfile();turnOnAlertSave();">
                 <option value="{{ city }}"></option>
               </select>
             </div>
             <div class="mem-info-item">
               <label class="mem-info-label" for="mem-info-district">Quận/Huyện</label>
-              <select class="mem-info-field" name="district" id="mem-info-district">
+              <select class="mem-info-field" name="district" id="mem-info-district" onchange="turnOnAlertSave()">
                 <option value="{{ town }}"></option>
               </select>
             </div>
@@ -86,7 +86,7 @@
       </div>
 
       <div id="mem-info-save">
-        <input class="mem-pointer" id="mem-info-save-btn" type="submit" value="LƯU LẠI">
+        <input class="mem-pointer" id="mem-info-save-btn" type="submit" value="LƯU LẠI" onclick="turnOffAlertSave()">
       </div>
     </form>
 

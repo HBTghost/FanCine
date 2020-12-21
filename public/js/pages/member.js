@@ -52,6 +52,18 @@ function initValuesForHistoryForm() {
     var optionElements = document.querySelectorAll('.mem-history-head-item-order-opt');
     optionElements[historySelectedOrderElement.innerHTML.charCodeAt(0) - '0'.charCodeAt(0)].setAttribute('selected', 'true');
   }
+}
+
+function turnOnAlertSave() {
+  window.onbeforeunload = function () {
+    return true;
+  };
+}
+
+function turnOffAlertSave() {
+  window.onbeforeunload = function () {
+    return null;
+  };
 } // ===== Events handling =====
 
 
