@@ -33,7 +33,7 @@ import {
   getDateShowFromShowtime,
 } from '../middleware/dateShow.js';
 import { getTypeShowBySession, getTypeShowFromShowtime } from '../middleware/typeShow.js';
-import { getAllUsers } from '../middleware/user.js';
+import { getAllUsers, getAllUsersBySorting } from '../middleware/user.js';
 import {
   getShowTime,
   getShowtimeBySession,
@@ -45,6 +45,8 @@ import { toBirthDate } from '../helpers/date.js';
 import { Movie } from '../models/index.js';
 import updateUserInfor from '../middleware/updateInfor.js';
 import { getSessionByID, getFilteredSessionsFromUser } from '../middleware/session.js';
+
+import { c, arr } from '../../public/njs/pages/provinces.js';
 
 const handlebarsRouter = express.Router();
 
@@ -401,6 +403,8 @@ handlebarsRouter.get(
   },
 );
 
+handlebarsRouter.get('/member/transaction-history/checkAuth', ensureAuthenticated);
+
 handlebarsRouter.get(
   '/member/transaction-history/:id',
   ensureAuthenticatedOrRedirect,
@@ -471,16 +475,49 @@ handlebarsRouter.get('/admin/manageMovie', ensureAdmin, getAllMovies, (req, res)
   });
 });
 
+// ===== Manage users =====
+function standardizeUsers(users) {
+  users.forEach((user) => {
+    // Date of birth
+    let d = user.DoB.getDate();
+    let m = user.DoB.getMonth() + 1;
+    const y = user.DoB.getFullYear();
+    d = d < 10 ? `0${d}` : `${d}`;
+    m = m < 10 ? `0${m}` : `${m}`;
+    user.DoB = `${d}/${m}/${y}`;
+
+    // City & Area
+    user.cityName = c[parseInt(user.city, 10)];
+    user.townName = arr[parseInt(user.city, 10)][parseInt(user.town, 10)];
+  });
+}
+
+handlebarsRouter.get(
+  '/admin/manageUser/sort/:colIndex/:sortType',
+  ensureAdmin,
+  getAllUsersBySorting,
+  (req, res) => {
+    standardizeUsers(res.allUsers);
+    res.status(200);
+    res.header('Content-Type', 'text/html');
+    res.render('partials/renderStructure/admin/manageUser', {
+      users: res.allUsers,
+    });
+  },
+);
+
 handlebarsRouter.get('/admin/manageUser', ensureAdmin, getAllUsers, (req, res) => {
+  standardizeUsers(res.allUsers);
   res.render('manageUser', {
     users: res.allUsers,
-    style: 'manageMovie',
+    style: 'manageUser',
     script: 'manageUser',
     layout: 'admin',
     page: 'user',
   });
 });
 
+// ===== Update password =====
 handlebarsRouter.get('/updatePassword', ensureAuthenticatedOrRedirect, (req, res) => {
   res.render('updatePassword', {
     layout: 'authRender',

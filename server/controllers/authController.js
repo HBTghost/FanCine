@@ -31,7 +31,7 @@ function registerHandle(req, res) {
   User.findOne({ email }).then(async (user) => {
     if (user) {
       // ------------ User already exists ------------//
-      res.json({ message: `Địa chỉ email ${email} đã được đăng ký bởi một ai khác.` });
+      res.json({ message: `Địa chỉ email <b>${email}</b> đã được đăng ký bởi một ai khác.` });
     } else {
       const token = jwt.sign(
         { name, email, password, phone, DoB, sex, address, city, town },
@@ -57,10 +57,12 @@ function registerHandle(req, res) {
       try {
         await sendEmail(mailOptions);
         res.json({
-          success_msg: `Mã / Link kích hoạt tài khoản đã được gởi đến email ${email}. Vui lòng kiểm tra hòm thư và kích hoạt tài khoản để đăng nhập. (Hết hạn trong 30 phút)`,
+          success_msg: `<p>Mã / Link kích hoạt tài khoản đã được gởi đến email <b>${email}.</b></p><p>Vui lòng kiểm tra hòm thư và kích hoạt tài khoản để đăng nhập.</p><p style='color: red'>(Hết hạn trong 30 phút)</p>`,
         });
       } catch (error) {
-        res.json({ message: 'Một số lỗi không mong muốn đã xảy ra. Vui lòng đăng ký lại.' });
+        res.json({
+          message: '<p>Một số lỗi không mong muốn đã xảy ra.</p><p>Vui lòng đăng ký lại.</p>',
+        });
       }
       // res.redirect('/login');
     }
@@ -74,14 +76,15 @@ function activateHandle(req, res) {
     jwt.verify(token, config.secret, (err, decodedToken) => {
       if (err) {
         res.json({
-          message: 'Mã kích hoạt không hợp lệ hoặc đã hết hạn. Bạn vui lòng đăng ký lại.',
+          message:
+            '<p>Mã kích hoạt không hợp lệ hoặc đã hết hạn.</p><p>Bạn vui lòng đăng ký lại.</p>',
         });
       } else {
         const { name, email, password, phone, DoB, sex, address, city, town } = decodedToken;
         User.findOne({ email }).then((user) => {
           if (user) {
             // ------------ User already exists ------------//
-            res.json({ message: `Địa chỉ email ${email} đã tồn đại. Vui lòng đăng nhập.` });
+            res.json({ message: `Địa chỉ email <b>${email}</b> đã tồn đại. Vui lòng đăng nhập.` });
           } else {
             const newUser = new User({
               name,
@@ -103,7 +106,8 @@ function activateHandle(req, res) {
                   .save()
                   .then((user1) => {
                     res.json({
-                      success_msg: 'Tài khoản được kích hoạt thành công. Bạn có thể đăng nhập ngay',
+                      success_msg:
+                        '<p>Tài khoản được kích hoạt thành công.</p><p>Bạn có thể đăng nhập ngay</p>',
                     });
                   })
                   .catch((err3) => console.log(err3));
@@ -129,7 +133,7 @@ function forgotPassword(req, res) {
 
   User.findOne({ email }).then((user) => {
     if (!user) {
-      res.json({ message: `Không tìm thấy tài khoản với email ${email}!` });
+      res.json({ message: `Không tìm thấy tài khoản với email <b>${email}!</b>` });
     } else {
       const token = jwt.sign({ _id: user._id }, config.secret, { expiresIn: '30m' });
 
@@ -154,7 +158,7 @@ function forgotPassword(req, res) {
           try {
             await sendEmail(mailOptions);
             res.json({
-              success_msg: ` Mã xác thực / Link cài đặt lại mật khẩu đã được gởi đến email ${email}. Vui lòng kiểm tra hòm thư và làm theo hướng dẫn. (Hết hạn trong 30 phút)`,
+              success_msg: `<p>Mã xác thực / Link cài đặt lại mật khẩu đã được gởi đến email <b>${email}.</b></p><p>Vui lòng kiểm tra hòm thư và làm theo hướng dẫn.</p><p style='color: red'>(Hết hạn trong 30 phút)</p>`,
             });
           } catch (error) {
             res.json({
@@ -184,7 +188,7 @@ function gotoReset(req, res) {
         User.findById(_id, (err1, user) => {
           if (err1) {
             res.json({
-              message: `Không tìm thấy tài khoản ứng với email ${email}. Vui lòng thử lại`,
+              message: `Không tìm thấy tài khoản ứng với email <b>${email}.</b> Vui lòng thử lại`,
             });
           } else {
             res.json({ id: _id });
@@ -221,7 +225,8 @@ function resetPassword(req, res) {
             res.json({ message: 'Lỗi khi cài đặt lại mật khẩu!' });
           } else {
             res.json({
-              success_msg: 'Cài đặt lại mật khẩu thành công! Vui lòng đăng nhập với mật khẩu mới',
+              success_msg:
+                '<p>Cài đặt lại mật khẩu thành công!</p><p>Vui lòng đăng nhập với mật khẩu mới</p>',
             });
           }
         });

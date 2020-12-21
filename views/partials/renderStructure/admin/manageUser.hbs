@@ -1,0 +1,20 @@
+<table>
+  <tbody id="mnuser-users">
+    {{#each users}}
+    <tr>
+      <td class="mnuser-cell mnuser-role">{{role}}</td>
+      <td class="mnuser-cell mnuser-name">{{name}}</td>
+      <td class="mnuser-cell mnuser-email">{{email}}</td>
+      <td class="mnuser-cell mnuser-phonenum">{{phone}}</td>
+      <td class="mnuser-cell mnuser-dob">{{DoB}}</td>
+      <td class="mnuser-cell mnuser-gender">{{sex}}</td>
+      <td class="mnuser-cell mnuser-address">{{address}}</td>
+      <td class="mnuser-cell mnuser-city">{{cityName}}</td>
+      <td class="mnuser-cell mnuser-area">{{townName}}</td>
+      <td class="mnuser-cell mnuser-star">{{point}}</td>
+      <td class="mnuser-cell mnuser-expense">{{spending}}</td>
+      <td class="mnuser-cell mnuser-id">{{_id}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

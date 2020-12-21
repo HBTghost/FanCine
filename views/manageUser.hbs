@@ -1,19 +1,183 @@
-<div class="container">
-<h1 class="text-center">Quản lý tài khoản</h1>
-<div class="delete-movie">
-<div class="todo-container">
-  <ul class="todo-list" onclick="removeUser(event)">
-    {{#each users }}
-    <div class="todo">
-      <p class="_id" style="display: none;">{{ _id }}</p>
-      <li class="todo-item">{{ email }}</li>
-      <button class="complete-btn green"><i class="fas fa-check"></i></button>
-      <button class="edit-btn yellow"><i class="fas fa-edit"></i></button>
-      <button class="trash-btn orange"><i class="fas fa-trash"></i></button>
+<div id="mnuser-body">
+  <div class="mnuser-container">
+    <div id="mnuser-title">
+      <a href="manageUser">QUẢN LÝ TÀI KHOẢN</a>
     </div>
-    {{/each}}
-  </ul>
-</div>
-</div>
 
+    <div id="mnuser-header">
+      <div id="mnuser-display">
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-role" checked>
+          <label for="mmnuser-display-item-role">Vai trò</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-name" checked>
+          <label for="mmnuser-display-item-name">Họ &amp; tên</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-email" checked>
+          <label for="mmnuser-display-item-email">Email</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-phonenum" checked>
+          <label for="mmnuser-display-item-phonenum">Số điện thoại</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-dob" checked>
+          <label for="mmnuser-display-item-dob">Ngày sinh</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-gender">
+          <label for="mmnuser-display-item-gender">Giới tính</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-address">
+          <label for="mmnuser-display-item-address">Địa chỉ</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-city" checked>
+          <label for="mmnuser-display-item-city">Tỉnh thành</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-area">
+          <label for="mmnuser-display-item-area">Khu vực</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-star">
+          <label for="mmnuser-display-item-star">Sao tích lũy</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-expense" checked>
+          <label for="mmnuser-display-item-expense">Chi tiêu</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnuser-container mnuser-scrollable-container">
+    <table id="mnuser-table">
+      <thead>
+        <tr>
+          <th class="mnuser-cell mnuser-role">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Vai trò</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-name">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Họ &amp; tên</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-email">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Email</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-phonenum">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Số điện thoại</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-dob">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Ngày sinh</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-gender">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Giới tính</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-address">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Địa chỉ</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-city">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Tỉnh thành</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-area">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Khu vực</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-star">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Sao tích lũy</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-expense">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Chi tiêu</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each users}}
+        <tr>
+          <td class="mnuser-cell mnuser-role">{{role}}</td>
+          <td class="mnuser-cell mnuser-name">{{name}}</td>
+          <td class="mnuser-cell mnuser-email">{{email}}</td>
+          <td class="mnuser-cell mnuser-phonenum">{{phone}}</td>
+          <td class="mnuser-cell mnuser-dob">{{DoB}}</td>
+          <td class="mnuser-cell mnuser-gender">{{sex}}</td>
+          <td class="mnuser-cell mnuser-address">{{address}}</td>
+          <td class="mnuser-cell mnuser-city">{{cityName}}</td>
+          <td class="mnuser-cell mnuser-area">{{townName}}</td>
+          <td class="mnuser-cell mnuser-star">{{point}}</td>
+          <td class="mnuser-cell mnuser-expense">{{spending}}</td>
+          <td class="mnuser-cell mnuser-id">{{_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>

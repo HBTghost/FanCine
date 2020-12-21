@@ -53,6 +53,16 @@ db.once('open', () => console.log('Connected to Database'));
 
 // Create Express app
 const app = express();
+// Force https
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(`https://${req.headers.host}${req.url}`);
+    }
+    return next();
+  }
+  return next();
+});
 
 // Middleware
 if (process.env.NODE_ENV === 'development') {

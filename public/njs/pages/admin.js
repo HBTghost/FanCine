@@ -151,15 +151,17 @@ $('li').click(function () {
       }
 
       // Throw an error when trying to add an object while the itemValue option was not set
-      if (typeof item === 'object' && !self.objectItems)
+      if (typeof item === 'object' && !self.objectItems) {
         throw "Can't add objects when itemValue option is not set";
+      }
 
       // Ignore strings only containg whitespace
       if (item.toString().match(/^\s*$/)) return;
 
       // If SELECT but not multiple, remove current tag
-      if (self.isSelect && !self.multiple && self.itemsArray.length > 0)
+      if (self.isSelect && !self.multiple && self.itemsArray.length > 0) {
         self.remove(self.itemsArray[0]);
+      }
 
       if (typeof item === 'string' && this.$element[0].tagName === 'INPUT') {
         const delimiter = self.options.delimiterRegex
@@ -238,8 +240,9 @@ $('li').click(function () {
       if (
         self.options.maxTags === self.itemsArray.length ||
         self.items().toString().length === self.options.maxInputLength
-      )
+      ) {
         self.$container.addClass('bootstrap-tagsinput-max');
+      }
 
       // If using typeahead, once the tag has been added, clear the typeahead value so it does not stick around in the input.
       if ($('.typeahead, .twitter-typeahead', self.$container).length) {
@@ -257,12 +260,12 @@ $('li').click(function () {
       const self = this;
 
       if (self.objectItems) {
-        if (typeof item === 'object')
+        if (typeof item === 'object') {
           item = $.grep(
             self.itemsArray,
             (other) => self.options.itemValue(other) === self.options.itemValue(item),
           );
-        else item = $.grep(self.itemsArray, (other) => self.options.itemValue(other) === item);
+        } else item = $.grep(self.itemsArray, (other) => self.options.itemValue(other) === item);
 
         item = item[item.length - 1];
       }
@@ -282,15 +285,17 @@ $('li').click(function () {
             return $(this).data('item') === item;
           })
           .remove();
-        if ($.inArray(item, self.itemsArray) !== -1)
+        if ($.inArray(item, self.itemsArray) !== -1) {
           self.itemsArray.splice($.inArray(item, self.itemsArray), 1);
+        }
       }
 
       if (!dontPushVal) self.pushVal(self.options.triggerChange);
 
       // Remove class when reached maxTags
-      if (self.options.maxTags > self.itemsArray.length)
+      if (self.options.maxTags > self.itemsArray.length) {
         self.$container.removeClass('bootstrap-tagsinput-max');
+      }
 
       self.$element.trigger($.Event('itemRemoved', { item, options }));
     },
