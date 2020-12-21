@@ -80,7 +80,7 @@ a:first-child:hover {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  transition: all 200ms;
+  transition: all 100ms;
   opacity: 0;
   background-color: $multi-background;
   position: absolute;
@@ -120,7 +120,7 @@ a:first-child:hover {
 }
 
 .card-title {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 @media only screen and (max-width: 1650px) {
@@ -151,8 +151,6 @@ a:first-child:hover {
 
 @media only screen and (max-width: 1500px) and (min-width: 992px) {
   #promotion-btn {
-    position: absolute;
-    border: 1px solid $white;
     height: 30px;
     width: 100px;
     left: 50%;
