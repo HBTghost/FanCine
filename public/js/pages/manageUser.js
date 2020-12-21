@@ -25,8 +25,8 @@ var parser = new DOMParser();
 var preColIndex;
 var preSortType; // ===== Functions =====
 
-function removeUserFromDatabase(todo) {
-  var _id = todo.firstElementChild.innerHTML;
+function removeUserFromDatabase(row) {
+  var _id = row.children[COL.ID].innerHTML;
 
   try {
     fetch("/api/users/".concat(_id), {
@@ -40,17 +40,13 @@ function removeUserFromDatabase(todo) {
             html: data.message
           });
         } else {
-          todo.classList.add('fall');
-
-          todo.ontransitionend = function (e) {
-            return todo.remove();
-          };
-
+          row.remove();
           Swal.fire({
             icon: 'success',
             title: 'Thành công',
-            html: 'Xóa user thành công'
+            html: 'Xóa tài khoản thành công'
           });
+          refreshTable();
         }
       });
     });
@@ -59,30 +55,21 @@ function removeUserFromDatabase(todo) {
   }
 }
 
-function removeUser(event) {
-  var item = event.target;
-  var todo = item.parentElement;
-
-  if (item.classList[0] === 'trash-btn') {
-    Swal.fire({
-      title: 'Cảnh báo',
-      icon: 'warning',
-      html: "B\u1EA1n c\xF3 ch\u1EAFc ch\u1EAFn x\xF3a user <b>".concat(todo.innerText, "</b> kh\xF4ng?"),
-      confirmButtonColor: '#E74C3C',
-      confirmButtonText: 'Chắc chắn',
-      showCancelButton: true,
-      cancelButtonColor: '#99A3A4',
-      cancelButtonText: 'Không'
-    }).then(function (result) {
-      if (result.isConfirmed) {
-        removeUserFromDatabase(todo);
-      }
-    });
-  } else if (item.classList[0] === 'edit-btn') {
-    todo.classList.toggle('completed');
-  } else if (item.classList[0] === 'complete-btn') {
-    todo.classList.toggle('completed');
-  }
+function removeAUser(row) {
+  Swal.fire({
+    title: 'Cảnh báo',
+    icon: 'warning',
+    html: "B\u1EA1n c\xF3 ch\u1EAFc ch\u1EAFn x\xF3a t\xE0i kho\u1EA3n <b>".concat(row.children[COL.EMAIL].innerHTML, "</b> kh\xF4ng?"),
+    confirmButtonColor: '#E74C3C',
+    confirmButtonText: 'Chắc chắn',
+    showCancelButton: true,
+    cancelButtonColor: '#99A3A4',
+    cancelButtonText: 'Không'
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      removeUserFromDatabase(row);
+    }
+  });
 }
 
 function showTableColumn(colIndex) {
@@ -106,9 +93,13 @@ function formatExpenseValues() {
   });
 }
 
-function refresh() {
+function refreshTable() {
   userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
   tableRowElements = document.querySelectorAll('#mnuser-table tr');
+  eventRowUsers();
+}
+
+function refreshDisplay() {
   formatExpenseValues();
   displayCheckboxElements.forEach(function (e, i) {
     if (e.checked === false) {
@@ -123,7 +114,8 @@ function sortAllUsers(colIndex, sortType) {
       var usersData = parser.parseFromString(html, 'text/html');
       console.log(usersData);
       tableBodyElement.innerHTML = usersData.getElementById('mnuser-users').innerHTML;
-      refresh();
+      refreshTable();
+      refreshDisplay();
     });
   });
 }
@@ -188,6 +180,38 @@ function eventSorting() {
   });
 }
 
+function eventRowUsers() {
+  userRowElements.forEach(function (row) {
+    row.addEventListener('click', function () {
+      if (row.children[COL.ROLE].innerHTML === 'user') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Cảnh báo',
+          html: 'Mọi thay đổi của bạn không thể khôi phục lại!',
+          confirmButtonText: 'Lịch sử giao dịch',
+          showDenyButton: true,
+          denyButtonText: 'Xóa',
+          showCancelButton: true,
+          cancelButtonText: 'Trở lại'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            window.open("/admin/manageUser/transaction-history/".concat(row.children[COL.ID].innerHTML));
+          } else if (result.isDenied) {
+            removeAUser(row);
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Cảnh báo',
+          html: 'Loại tài khoản này không thể truy cập!',
+          confirmedButtonText: 'Trở lại'
+        });
+      }
+    });
+  });
+}
+
 function handleEvents() {
   eventDisplayCheckboxes();
   eventSorting();
@@ -196,7 +220,8 @@ function handleEvents() {
 
 function main() {
   initTable();
-  refresh();
+  refreshTable();
+  refreshDisplay();
   handleEvents();
 }
 
