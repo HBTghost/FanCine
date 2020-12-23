@@ -38,6 +38,7 @@ function popdownModal() {
 
 function popupModal() {
   modal.style.display = 'block';
+  CaptchaCallback();
 }
 
 function popupLogin() {

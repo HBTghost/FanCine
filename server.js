@@ -17,6 +17,8 @@ import fileUpload from 'express-fileupload';
 import configPassport from './server/config/passport.js';
 import HandlebarsHelper from './server/helpers/handlebars.js';
 
+import { ensureAdmin } from './server/config/checkAuth.js';
+
 import {
   handlebarsRouter,
   movieRouter,
@@ -30,6 +32,7 @@ import {
 
 import authRouter from './server/routes/auth.js';
 import renderAuthRouter from './server/routes/renderAuth.js';
+import adminRouter from './server/routes/adminHandler.js';
 
 configPassport(passport);
 
@@ -107,6 +110,7 @@ app.use((req, res, next) => {
 
 // Server rendering
 app.use('/', handlebarsRouter);
+app.use('/admin', ensureAdmin, adminRouter);
 
 app.use('/', authRouter);
 app.use('/render', renderAuthRouter);
