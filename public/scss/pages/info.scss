@@ -84,7 +84,22 @@
 
 .video-trailer {
   height: 500px;
-  width: 60%;
+  width: 65%;
   display: block;
   margin: auto;
 }
+
+@media only screen and (max-width: 800px) {
+  .video-trailer {
+    height: 380px;
+    width: 100%;  
+  }
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 801px) {
+  .video-trailer {
+    height: 420px;
+    width: 80%;  
+  }
+}
+

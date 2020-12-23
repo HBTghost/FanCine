@@ -7,7 +7,7 @@
 a:first-child {
   color: $accent-color;
   opacity: .7;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 a:first-child:hover {
@@ -79,11 +79,8 @@ a:first-child:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
-  z-index: 1;
   width: 100%;
-  height: 100%;
-  transition: all 300ms;
+  transition: all 100ms;
   opacity: 0;
   background-color: $multi-background;
   position: absolute;
@@ -104,32 +101,38 @@ a:first-child:hover {
   opacity: 1;
 }
 
-.promotion-btn {
-  position: relative;
+#promotion-btn {
+  position: absolute;
   border: 1px solid $white;
-
+  height: 48px;
+  width: 140px;
+  left: 50%;
+  margin-left: -70px;
+  top: 70%;
+  margin-top: -24px;
+  font-size: 22px;
 }
 
-.promotion-btn:hover {
+#promotion-btn:hover {
   background-color: $color-orange;
   text-decoration: none;
   font-weight: 700;
 }
 
+.card-title {
+  margin-top: 60px;
+}
 
 @media only screen and (max-width: 1650px) {
   .container-custom {
     margin: 50px;
   }
-  .promotion-onshow-content {
-    opacity: 0;
-  }
-  .content-card {
-    opacity: 0;
-  }
   .img-content {
     width: 80%;
     margin-left: 50px;
+  }
+  .card-title {
+    margin-top: 30px;
   }
 }
 
@@ -143,5 +146,17 @@ a:first-child:hover {
   .img-content {
     width: 100%;
     margin-left: 1px;
+  }
+}
+
+@media only screen and (max-width: 1500px) and (min-width: 992px) {
+  #promotion-btn {
+    height: 30px;
+    width: 100px;
+    left: 50%;
+    margin-left: -50px;
+    top: 70%;
+    margin-top: -15px;
+    font-size: 14px;
   }
 }

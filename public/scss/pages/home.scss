@@ -4,7 +4,7 @@
 
 .content-card {
   opacity: 0;
-  transition: 1.5s;
+  transition: 1s;
 }
 
 .content-card:hover {
@@ -68,11 +68,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
-  z-index: 1;
   width: 100%;
-  height: 100%;
-  transition: all 300ms;
+  transition: all 200ms;
   opacity: 0;
   background-color: $multi-background;
   position: absolute;
@@ -84,15 +81,57 @@
   opacity: 1;
 }
 
-.promotion-btn {
-  position: relative;
-  bottom: -180px;
+#promotion-btn {
+  position: absolute;
   border: 1px solid $white;
-
+  height: 48px;
+  width: 140px;
+  left: 50%;
+  margin-left: -70px;
+  top: 70%;
+  margin-top: -24px;
+  font-size: 22px;
 }
 
-.promotion-btn:hover {
+#promotion-btn:hover {
   background-color: $color-orange;
   text-decoration: none;
   font-weight: 700;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 25px;
+  width: 100%;
+  padding-top: 20px;
+}
+
+
+@media only screen and (max-width: 1200px) and (min-width: 1020px) {
+  .card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 25px;
+  }
+  
+}
+
+@media only screen and (max-width: 1050px) and (min-width: 992px) {
+  .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-text {
+    visibility: hidden;
+  }
 }
