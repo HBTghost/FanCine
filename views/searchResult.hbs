@@ -8,37 +8,40 @@
             <form action="/search">
             <div class="row">
                 <div class="col-12 col-md">
-                    <h6 class="text-center filter-header">Label</h6>
+                    <h6 class="text-center filter-header">Nhãn phim</h6>
                     {{#each label}}
                     <div class="form-check form-check" >
-                        <input class="form-check-input" type="checkbox" name="labelFilter" id="labelFilter{{@index}}" value="{{this}}">
-                        <label class="form-check-label" for="labelFilter{{@index}}">{{this}}</label>
+                        <input class="form-check-input" type="checkbox" name="labelFilter" id="labelFilter{{@index}}" value="{{value}}" {{#if (equal flag 1)}}checked{{/if}}>
+                        <label class="form-check-label" for="labelFilter{{@index}}">{{value}}</label>
                     </div>
                     {{/each}}
+                    {{!-- <input class="form-check-input" type="hidden" name="labelFilter" id="labelFilterHidden" value="none"> --}}
                 </div>
                 <div class="col-12 col-md">
-                    <h6 class="text-center filter-header">Category</h6>
+                    <h6 class="text-center filter-header">Thể loại</h6>
                     {{#each category}}
                     <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox" name="labelFilter" id="categoryFilter{{@index}}" value="{{this}}">
-                        <label class="form-check-label" for="categoryFilter{{@index}}">{{this}}</label>
+                        <input class="form-check-input" type="checkbox" name="categoryFilter" id="categoryFilter{{@index}}" value="{{value}}" {{#if (equal flag 1)}}checked{{/if}}>
+                        <label class="form-check-label" for="categoryFilter{{@index}}">{{value}}</label>
                     </div> 
                     {{/each}}
+                    {{!-- <input class="form-check-input" type="hidden" name="categoryFilter" id="categoryFilterHidden" value="none"> --}}
                 </div>
                 <div class="col-12 col-md">
-                    <h6 class="text-center filter-header">Rating</h6>
+                    <h6 class="text-center filter-header">Mức độ đánh giá</h6>
+                    {{#if rating}}
+                    {{#each rating}}
                     <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox" name="labelFilter" id="ratingFilterBand" value="0">
-                        <label class="form-check-label" for="ratingFilterBand0">5 <i class="fas fa-less-than"></i></label>
+                        <input class="form-check-input" type="checkbox" name="ratingFilterBand" id="ratingFilterBand{{value}}" value="{{value}}" {{#if (equal flag 1)}}checked{{/if}}>
+                        <label class="form-check-label" for="ratingFilterBand{{value}}">
+                            {{#if (equal value 0)}}5 <i class="fas fa-less-than"></i>
+                                {{else}}<i class="fas fa-greater-than-equal"></i> {{value}} 
+                            {{/if}}
+                        </label>
                     </div>
-                    <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox" name="labelFilter" id="ratingFilterBand" value="5">
-                        <label class="form-check-label" for="ratingFilterBand5"><i class="fas fa-greater-than-equal"></i> 5</label>
-                    </div>
-                    <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox" name="labelFilter" id="ratingFilterBand" value="8">
-                        <label class="form-check-label" for="ratingFilterBand8"><i class="fas fa-greater-than-equal"></i> 8</label>
-                    </div>
+                    {{/each}}
+                    {{!-- <input class="form-check-input" type="hidden" name="ratingFilterBand" id="ratingFilterBandHidden" value="-1"> --}}
+                    {{/if}}
                 </div>
                 
             </div>
@@ -86,17 +89,17 @@
                         <ul class="pagination">
                             {{! previous page }}
                             <li class="page-item">
-                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pagePrevious}}">Lùi</a>
+                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pagePrevious}}{{#each label}}{{#if (equal flag 1)}}&labelFilter={{value}}{{/if}}{{/each}}{{#each category}}{{#if (equal flag 1)}}&categoryFilter={{value}}{{/if}}{{/each}}{{#each rating}}{{#if (equal flag 1)}}&ratingFilterBand={{value}}{{/if}}{{/each}}">Lùi</a>
                             </li>
                             {{! load link }}
                             {{#each pageArray}}
                             <li class="page-item {{#if (equal this '...')}}disabled{{/if}} {{#if (equal this ../pageCurrent)}}active{{/if}}">
-                                <a class="page-link" href="/search?q={{ ../searchQuery }}&page={{this}}">{{this}}</a>
+                                <a class="page-link" href="/search?q={{ ../searchQuery }}&page={{this}}{{#each ../label}}{{#if (equal flag 1)}}&labelFilter={{value}}{{/if}}{{/each}}{{#each ../category}}{{#if (equal flag 1)}}&categoryFilter={{value}}{{/if}}{{/each}}{{#each ../rating}}{{#if (equal flag 1)}}&ratingFilterBand={{value}}{{/if}}{{/each}}">{{this}}</a>
                             </li>
                             {{/each}}
                             {{! next page }}
                             <li class="page-item">
-                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pageNext}}">Tiến</a>
+                                <a class="page-link" href="/search?q={{ searchQuery }}&page={{pageNext}}{{#each label}}{{#if (equal flag 1)}}&labelFilter={{value}}{{/if}}{{/each}}{{#each category}}{{#if (equal flag 1)}}&categoryFilter={{value}}{{/if}}{{/each}}{{#each rating}}{{#if (equal flag 1)}}&ratingFilterBand={{value}}{{/if}}{{/each}}">Tiến</a>
                             </li>
                         </ul>
                     </nav>
@@ -121,7 +124,7 @@
             </div>
         </div>
         
-            <!-- Show more button -->
+            <!-- Pagination -->
         
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">

@@ -349,12 +349,13 @@ handlebarsRouter.get('/search', getSearchFilter, getMoviesByKeyword, async (req,
     pageNext: await res.pageNext,
     label: await res.label,
     category: await res.category,
+    rating: await res.rating,
   });
   // res.json(await res.result);
 });
 
 handlebarsRouter.get('/filterSearch', getSearchFilter, async (req, res) => {
-  res.json(res.data);
+  res.json(res.result);
 });
 
 // Member

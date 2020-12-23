@@ -91,3 +91,20 @@ body {
     height: 35px;
   }  
 }
+
+#frm-search input,
+#frm-search button {
+  border: none;
+  background-color: $color-transparent-invisible;
+}
+
+#frm-search button {
+  color: $bs-success-color;
+  transition: 1s;
+}
+
+#frm-search {
+  border: 1px solid $accent-color;
+  border-radius: 20px;
+  width: 200px;
+}
