@@ -393,7 +393,7 @@ handlebarsRouter.post(
   },
 );
 
-handlebarsRouter.get(
+handlebarsRouter.all(
   '/member/transaction-history',
   ensureAuthenticatedOrRedirect,
   getFilteredSessionsFromUser,
