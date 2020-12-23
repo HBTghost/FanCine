@@ -77,35 +77,59 @@ async function getMoviesByKeyword(req, res, next) {
     if (req.query.q === '') {
       res.result = null;
     } else {
-      const pageSkip = Number(req.query.page) > 0 ? Number(req.query.page) - 1 : 0 || 0;
+      const pageSkip = (Number(req.query.page) > 0) ? Number(req.query.page) - 1 : 0 || 0;
       const pageNumber = pageSkip + 1;
       res.pageCurrent = pageNumber;
       res.pageArray = [];
       const displayablePageFront = 2; // The number of page will be display. EX: 1 2 3 ... -> displayableFront = 3
       const displayablePageBack = 1; // The number of page will be display. EX:  ... 23 24 -> displayableBack = 2
-      const limitContent = 2;
+      const limitContent = 3;
+      const isFilter = !!((req.query.labelFilter !== undefined || req.query.ratingFilterBand !== undefined || req.query.categoryFilter !== undefined));
 
-      const totalContent = await Movie.count({
-        $or: [
-          { 'label': { $regex: req.query.q, $options: 'i' } },
-          { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-          { 'originalName': { $regex: req.query.q, $options: 'i' } },
-          { 'producer': { $regex: req.query.q, $options: 'i' } },
-          { 'nation': { $regex: req.query.q, $options: 'i' } },
-          { 'director': { $regex: req.query.q, $options: 'i' } },
-        ],
-      });
+      let reqRatingTest;
+      if (req.query.ratingFilterBand !== undefined) {
+        reqRatingTest = Math.min(...req.query.ratingFilterBand);
+      }
+      const filterAndMongoose = [];
+      if (req.query.labelFilter !== undefined) {
+        filterAndMongoose.push(
+          { 'label': { $in: req.query.labelFilter } },
+        );
+      }
+      if (req.query.ratingFilterBand !== undefined) {
+        filterAndMongoose.push(
+          { 'rating': { $gte: reqRatingTest } },
+        );
+      }
+      if (req.query.categoryFilter !== undefined) {
+        filterAndMongoose.push(
+          { 'category': { $in: req.query.categoryFilter } },
+        );
+      }
+
+      let totalContent;
+      if (isFilter) {
+        totalContent = await Movie.count({
+          $or: [
+            { 'originalName': { $regex: req.query.q, $options: 'i' } },
+            { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
+          ],
+          $and: filterAndMongoose,
+        });
+      } else {
+        totalContent = await Movie.count({
+          $or: [
+            { 'originalName': { $regex: req.query.q, $options: 'i' } },
+            { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
+          ],
+        });
+      }
+
       const temp = parseInt(totalContent / limitContent, 10);
-      const totalPage = temp * limitContent < totalContent ? temp + 1 : temp;
+      const totalPage = (temp * limitContent < totalContent) ? temp + 1 : temp;
 
-      if (totalPage - res.pageCurrent + 2 <= displayablePageFront + displayablePageBack) {
-        for (
-          let i = res.pageCurrent > 1 ? res.pageCurrent - 1 : res.pageCurrent;
-          i <= totalPage;
-          i++
-        ) {
+      if ((totalPage - res.pageCurrent + 1) <= (displayablePageFront + displayablePageBack)) {
+        for (let i = (res.pageCurrent > 1) ? res.pageCurrent - 1 : res.pageCurrent; i <= totalPage; i++) {
           res.pageArray.push(i);
         }
       } else {
@@ -116,9 +140,7 @@ async function getMoviesByKeyword(req, res, next) {
         }
 
         for (; i < totalPage; i++) {
-          if (i - res.pageCurrent > displayablePageFront - 1) {
-            break;
-          }
+          if (i - res.pageCurrent > displayablePageFront - 1) { break; }
 
           res.pageArray.push(i);
         }
@@ -131,25 +153,87 @@ async function getMoviesByKeyword(req, res, next) {
         }
       }
 
-      res.pagePrevious = pageNumber - 1 > 0 ? pageNumber - 1 : pageNumber;
-      res.pageNext = pageNumber + 1 > totalPage ? totalPage : pageNumber + 1;
+      res.pagePrevious = (pageNumber - 1 > 0) ? pageNumber - 1 : pageNumber;
+      res.pageNext = (pageNumber + 1 > totalPage) ? totalPage : pageNumber + 1;
 
-      res.result = await Movie.find(
-        {
+      if (isFilter) {
+        res.result = await Movie.find({
           $or: [
-            { 'label': { $regex: req.query.q, $options: 'i' } },
-            { 'category': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-            { 'cast': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
-            { 'description': { $elemMatch: { $regex: req.query.q, $options: 'i' } } },
             { 'originalName': { $regex: req.query.q, $options: 'i' } },
-            { 'producer': { $regex: req.query.q, $options: 'i' } },
-            { 'nation': { $regex: req.query.q, $options: 'i' } },
-            { 'director': { $regex: req.query.q, $options: 'i' } },
+            { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
+          ],
+          $and: filterAndMongoose,
+        },
+        { '_id': 1, 'vietnameseName': 1, 'originalName': 1, 'description': 1, 'horizontalImageSource': 1, 'imageSource': 1 },
+        { skip: pageSkip * limitContent, limit: limitContent }).lean();
+      } else {
+        res.result = await Movie.find({
+          $or: [
+            { 'originalName': { $regex: req.query.q, $options: 'i' } },
+            { 'vietnameseName': { $regex: req.query.q, $options: 'i' } },
           ],
         },
-        { '_id': 1, 'vietnameseName': 1, 'description': 1, 'horizontalImageSource': 1 },
-        { skip: pageSkip * limitContent, limit: limitContent },
-      ).lean();
+        { '_id': 1, 'vietnameseName': 1, 'originalName': 1, 'description': 1, 'horizontalImageSource': 1, 'imageSource': 1 },
+        { skip: pageSkip * limitContent, limit: limitContent }).lean();
+      }
+    }
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getSearchFilter(req, res, next) {
+  try {
+    const dbCategory = await Movie.distinct('category').lean();
+    res.category = [];
+    for (const cate of dbCategory) {
+      res.category.push({
+        'value': cate,
+        'flag': 0,
+      });
+    }
+
+    const dbLabel = await Movie.distinct('label').lean();
+    res.label = [];
+    for (const la of dbLabel) {
+      res.label.push({
+        'value': la,
+        'flag': 0,
+      });
+    }
+
+    res.rating = [
+      { 'value': 5,
+        'flag': 0 },
+      { 'value': 8,
+        'flag': 0 }];
+
+    const reqLabel = req.query.labelFilter;
+    const reqCategory = req.query.categoryFilter;
+    const reqRating = req.query.ratingFilterBand;
+
+    if (reqCategory !== undefined) {
+      res.category.forEach((element, index) => {
+        if (reqCategory.includes(element.value)) {
+          res.category[index].flag = 1;
+        }
+      });
+    }
+    if (reqLabel !== undefined) {
+      res.label.forEach((element, index) => {
+        if (reqLabel.includes(element.value)) {
+          res.label[index].flag = 1;
+        }
+      });
+    }
+    if (reqRating !== undefined) {
+      res.rating.forEach((element, index) => {
+        if (reqRating.includes(element.value)) {
+          res.rating[index].flag = 1;
+        }
+      });
     }
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
@@ -366,6 +450,7 @@ async function postSampleMovies(req, res, next) {
 }
 
 export {
+  getSearchFilter,
   getMoviesByKeyword,
   getMovie,
   getMovieBySession,

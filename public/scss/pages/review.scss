@@ -128,3 +128,30 @@
   pointer-events: none;
   color: $accent-color;
 }
+
+.search-filter .col-12 {
+  border-right: 1px solid $color-darkgray;
+  border-left: 1px solid $color-darkgray;
+}
+
+.search-filter .col-12:first-child {
+  border: none;
+  border-right: .5px solid $color-darkgray;
+}
+
+.search-filter .col-12:last-child {
+  border: none;
+  border-left: .5px solid $color-darkgray;
+}
+
+.search-filter h6 {
+  color: $accent-color;
+}
+
+.search-filter h6::before {
+  content: '- ';
+}
+
+.search-filter h6::after {
+  content: ' -';
+}
