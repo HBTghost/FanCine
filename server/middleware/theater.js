@@ -158,6 +158,30 @@ async function postSampleTheaters(req, res, next) {
   return next();
 }
 
+async function createTheaterByForm(req, res, next) {
+  try {
+    const data = req.body;
+
+    const theater = new Theater({
+      name: data.name,
+      city: data.city,
+      address: data.address,
+      phone: data.phone,
+      rooms: data.rooms.trim().split(','),
+      mapEmbedID: data.mapEmbedID,
+      imagesSource: req.uploadUrl.imagesSource,
+      description: data.description,
+    });
+
+    await theater.save();
+    res._id = String(theater._id);
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 export {
   getTheater,
   getTheaterBySession,
@@ -166,4 +190,5 @@ export {
   getAllTheaters,
   getTheatersByMovieID,
   postSampleTheaters,
+  createTheaterByForm,
 };

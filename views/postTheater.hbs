@@ -3,7 +3,7 @@
 <h1 class="text-center">Đăng tải rạp phim</h1>
 {{> message }}
 
-<form action="/api/movies/" method="POST" enctype="multipart/form-data">
+<form action="/api/theaters/" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Tên rạp</label>
     <input type="text" name="name" id="name" class="form-control" value="Tên rạp">
@@ -13,10 +13,10 @@
     <input type="text" name="address" id="address" class="form-control" value="Địa chỉ">
     <label for="phone">Số điện thoại</label>
     <input type="text" name="phone" id="phone" class="form-control" value="+840000">
-    <label for="category">Phòng hiện có</label>
-    <input type="text" name="category" id="category" class="form-control" value="Thể loại" data-role="tagsinput">
-    
-
+    <label for="rooms">Phòng hiện có</label>
+    <input type="text" name="rooms" id="rooms" class="form-control" value="Phòng 1" data-role="tagsinput">
+    <label for="description">Mô tả</label>
+    <textarea class="form-control" rows="5" id="description" name="description"></textarea>
     <label for="mapEmbedID">Địa chỉ ở google map:</label>
     <div class="row">
       <div class="col-12 col-sm-4 pt-1">
@@ -33,7 +33,7 @@
 <label for="horizontal-file-upload">Hình ảnh rạp phim</label>
 <div class="upload-preview w-100">
 <div id="horizontal-file-upload-form" class="uploader">
-  <input id="horizontal-file-upload" type="file" name="horizontalImage" accept="image/*" required/>
+  <input id="horizontal-file-upload" type="file" name="imagesSource" accept="image/*" required/>
 
   <label for="horizontal-file-upload" id="horizontal-file-drag">
     <img id="horizontal-file-image" src="#" alt="Preview" class="hidden file-image">
