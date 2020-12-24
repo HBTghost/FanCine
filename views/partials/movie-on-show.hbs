@@ -11,7 +11,7 @@
         <!-- Movie on show -->
         <div class="tab-pane container active" id="present-mv">
             <div class="row py-4">
-                {{#each movies}}
+                {{#each movies.onshow}}
                     <div class="col-6 col-md-4 d-flex flex-column justify-content-center p-4">
                         <!-- image -->
                         <div class="onshow-banner">
@@ -36,7 +36,7 @@
         <!-- in future on show -->
         <div class="tab-pane container fade" id="future-mv">
             <div class="row py-4">
-                {{#each movies}}
+                {{#each movies.future}}
                     <div class="col-6 col-md-4 d-flex flex-column justify-content-center p-4">
                         <!-- image -->
                         <div class="onshow-banner">

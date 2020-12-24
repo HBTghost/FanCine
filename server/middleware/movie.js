@@ -242,6 +242,38 @@ async function getSearchFilter(req, res, next) {
   return next();
 }
 
+async function getMovieFutureOnShow(req, res, next) {
+  try {
+    // reference get date by format yyyy-mm-dd on w3resource.com
+    let today = new Date();
+    let dd = today.getDate();
+
+    let mm = today.getMonth() + 1;
+    const yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = `0${dd}`;
+    }
+
+    if (mm < 10) {
+      mm = `0${mm}`;
+    }
+    today = `${yyyy}-${mm}-${dd}`;
+
+    res.movies = {};
+    res.movies.onshow = await Movie.find({
+      date: { $lte: '2020-12-01' },
+    }).lean();
+
+    res.movies.future = await Movie.find({
+      date: { $gt: '2020-12-01' },
+    }).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function createMovieByForm(req, res, next) {
   try {
     const data = req.body;
@@ -450,6 +482,7 @@ async function postSampleMovies(req, res, next) {
 }
 
 export {
+  getMovieFutureOnShow,
   getSearchFilter,
   getMoviesByKeyword,
   getMovie,
