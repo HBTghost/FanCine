@@ -43,6 +43,14 @@ adminRouter.get('/manageMovie', getAllMovies, (req, res) => {
   });
 });
 
+// ===== Manage theaters =====
+adminRouter.get('/postTheater', (req, res) => {
+  res.render('postTheater', {
+    layout: 'admin',
+    style: 'postMovie',
+  });
+});
+
 // ===== Manage users =====
 function standardizeUsers(users) {
   users.forEach((user) => {
