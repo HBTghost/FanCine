@@ -48,6 +48,7 @@ adminRouter.get('/postTheater', (req, res) => {
   res.render('postTheater', {
     layout: 'admin',
     style: 'postMovie',
+    script: 'postTheater',
   });
 });
 
