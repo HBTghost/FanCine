@@ -49,8 +49,18 @@ adminRouter.get('/postTheater', (req, res) => {
     layout: 'admin',
     style: 'postMovie',
     script: 'postTheater',
+    page: 'theater',
+    show: false,
+    menuItem: 'postTheater',
   });
 });
+
+// adminRouter.get('manageTheater', (req, res) => {
+//   res.render('manageTheater', {
+//     layout: 'admin',
+//     style:
+//   });
+// });
 
 // ===== Manage users =====
 function standardizeUsers(users) {

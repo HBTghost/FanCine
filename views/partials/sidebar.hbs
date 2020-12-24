@@ -22,19 +22,19 @@
         <i class="fa fa-film"></i>
         Phim
       </a>
-      <ul class="collapse list-unstyled {{showCollapse show}}" id="movieSubmenu">
+      <ul class="collapse list-unstyled {{showCollapse show true}}" id="movieSubmenu">
         <li class="{{activeClassItem menuItem 'postMovie'}}"><a href="/admin/postMovie">Đăng</a></li>
         <li class="{{activeClassItem menuItem 'manageMovie'}}"><a href="/admin/manageMovie">Quản lý</a></li>
       </ul>
     </li>
-    <li>
+    <li class="{{activeClass page 'theater'}}">
       <a href="#theaterSubmenu" data-toggle="collapse" aria-expanded="false">
         <i class="fa fa-map-marker"></i>
         Rạp
       </a>
-      <ul class="collapse list-unstyled" id="theaterSubmenu">
-        <li><a href="/admin/postTheater">Đăng</a></li>
-        <li><a href="#">Quản lý</a></li>
+      <ul class="collapse list-unstyled {{showCollapse show false}}" id="theaterSubmenu">
+        <li class="{{activeClassItem menuItem 'postTheater'}}"><a href="/admin/postTheater">Đăng</a></li>
+        <li class="{{activeClassItem menuItem 'manageTheater'}}"><a href="/admin/manageTheater">Quản lý</a></li>
       </ul>
     </li>
     <li>

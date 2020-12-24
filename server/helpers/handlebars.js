@@ -23,8 +23,8 @@ const HandlebarsHelper = {
   activeClassItem(a, b) {
     return a === b ? 'activeItem' : '';
   },
-  showCollapse(show) {
-    return show ? 'show' : '';
+  showCollapse(show, value) {
+    return show === value ? 'show' : '';
   },
 };
 
