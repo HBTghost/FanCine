@@ -37,10 +37,11 @@
   * Lint-staged for optimize linter process.
   * Husky for pre-commit check (run all linter in lint-staged).
   * Babel compile for new ES
-  * CI with Travis
+  * CI/CD with Github Actions
   * Responsive design.
-  * Security sign in / sign out with Passport / Session / JWT / Bcrypt
+  * Security sign in / sign out with Passport / Session / JWT / Bcrypt / Google reCaptcha v2
   * Auto send mail for register / reset passport process (with Nodemailer / Google SMTP / JWT)
+  * Image server on SM.MS for flexibility (also support Drag & Drop and Preview Image)
 
 ## Docs & Community
 
