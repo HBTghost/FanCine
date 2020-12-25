@@ -3,12 +3,12 @@
 @import './showtimes';
 
 @keyframes fadeinup {
-  0% {
+  from {
     opacity: 0;
     transform: translate3d(0, 100%, 0);
   }
 
-  100% {
+  to {
     opacity: 1;
     transform: none;
   }
@@ -111,6 +111,10 @@
 
 .movie-onshow-header {
   border-bottom: 1px solid $color-gray !important;
+}
+
+.nav-link.mv-tab-custom {
+  color: $color-gray;
 }
 
 .nav-link.mv-tab-custom.active {
