@@ -1,32 +1,71 @@
-<div class="container">
-    <div id="showtimes-container">
-        <div id="showtimes-head">
-        <button id="showtimes-controller-movie">ĐANG CHIẾU</button>
-        <button id="showtimes-controller-theater">SẮP CHIẾU</button>
-        </div>
-    </div>
-    <div class="row">
-        {{!-- (.col-6.col-md-3.mt-3>(.onshow-banner(img[src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg"])+.onshow-title(.movie-name-title{Stardog and Turbocat}+.vn.movie-name-title{Liên quân siêu thú})))*6 --}}
-        {{#each movies}}
-            <div class="col-6 col-md-3 my-2">
-                <!-- image -->
-                <div class="onshow-banner">
-                    <img src="{{imageSource}}" alt="">
-                    <a href="/info/{{this._id}}">
-                        <div class="movie-onshow-content content-hai">
-                            <div class="movie-onshow-pg">{{ label }}</div>
-                            <div class="btn movie-onshow-btn">Mua vé</div>
+<div class="container movie-onshow-container">
+    <ul class="nav nav-pills mb-3 ml-4 movie-onshow-header" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link mv-tab-custom active" id="pills-home-tab" data-toggle="pill" href="#pills-onshow" role="tab" aria-controls="pills-home" aria-selected="true">Đang chiếu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mv-tab-custom" id="pills-profile-tab" data-toggle="pill" href="#pills-future" role="tab" aria-controls="pills-profile" aria-selected="false">Sắp Chiếu</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade-in-up show active" id="pills-onshow" role="tabpanel" aria-labelledby="pills-home-tab">
+           <div class="row">
+                {{!-- (.col-6.col-md-3.mt-3>(.onshow-banner(img[src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg"])+.onshow-title(.movie-name-title{Stardog and Turbocat}+.vn.movie-name-title{Liên quân siêu thú})))*6 --}}
+                {{#if movies.onshow}}
+                {{#each movies.onshow}}
+                    <div class="col-6 col-md-3 my-2">
+                        <!-- image -->
+                        <div class="onshow-banner">
+                            <img src="{{imageSource}}" alt="">
+                            <a href="/info/{{this._id}}">
+                                <div class="movie-onshow-content content-hai">
+                                    <div class="movie-onshow-pg">{{ label }}</div>
+                                    <div class="btn movie-onshow-btn">Mua vé</div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
 
-                <!-- title -->
-                <div class="onshow-title">
-                    <div class="movie-name-title">{{ originalName }}</div>
-                    <div class="vn movie-name-title">{{ vietnameseName }}</div>
-                </div>
+                        <!-- title -->
+                        <div class="onshow-title">
+                            <div class="movie-name-title">{{ originalName }}</div>
+                            <div class="vn movie-name-title">{{ vietnameseName }}</div>
+                        </div>
+                    </div>
+                {{/each}}
+                {{else}}
+                <div class="alert alert-danger text-center container-fluid" role="alert">Không có phim Đang chiếu nào tại thời điểm hiện tại</div>
+                {{/if}}
             </div>
-        {{/each}}
+        </div>
 
-    </div>
+        <div class="tab-pane fade-in-up" id="pills-future" role="tabpanel" aria-labelledby="pills-profile-tab">
+           <div class="row">
+                {{!-- (.col-6.col-md-3.mt-3>(.onshow-banner(img[src="https://galaxycine.vn/media/2020/11/3/300wx450h_1604372215389.jpg"])+.onshow-title(.movie-name-title{Stardog and Turbocat}+.vn.movie-name-title{Liên quân siêu thú})))*6 --}}
+                {{#if movies.future}}
+                {{#each movies.future}}
+                    <div class="col-6 col-md-3 my-2">
+                        <!-- image -->
+                        <div class="onshow-banner">
+                            <img src="{{imageSource}}" alt="">
+                            <a href="/info/{{this._id}}">
+                                <div class="movie-onshow-content content-hai">
+                                    <div class="movie-onshow-pg">{{ label }}</div>
+                                    <div class="btn movie-onshow-btn">Mua vé</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- title -->
+                        <div class="onshow-title">
+                            <div class="movie-name-title">{{ originalName }}</div>
+                            <div class="vn movie-name-title">{{ vietnameseName }}</div>
+                        </div>
+                    </div>
+                {{/each}}
+                {{else}}
+                <div class="alert alert-danger text-center container-fluid" role="alert">Không có phim Sắp chiếu nào tại thời điểm hiện tại</div>
+                {{/if}}
+            </div>
+        </div>
+    </div>    
 </div>

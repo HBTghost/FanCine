@@ -2,6 +2,23 @@
 @import './review';
 @import './showtimes';
 
+@keyframes fadeinup {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-in-up {
+  animation-duration: $modal-animation-duration;
+  animation-name: 'fadeinup';
+}
+
 .onshow-banner {
   width: 262;
   height: 393;
@@ -83,11 +100,38 @@
   border: 1px solid $color-orange;
   padding: 15px 30px;
   text-decoration: none;
-  transition: 0.5s;
+  transition: .5s;
 }
 
 .movie-more-btn:hover {
   color: $white;
   border-color: $color-orange;
   background-color: $color-orange;
+}
+
+.movie-onshow-header {
+  border-bottom: 1px solid $color-gray !important;
+}
+
+.nav-link.mv-tab-custom.active {
+  color: $black;
+  background-color: $white;
+  border-bottom: 3px solid $color-orange;
+}
+
+.nav-link.mv-tab-custom.active:hover {
+  color: $black !important;
+}
+
+.nav-link.mv-tab-custom:hover {
+  color: $color-orange !important;
+}
+
+.mv-tab-custom {
+  text-transform: uppercase;
+  color: $black;
+  font-size: 18px;
+  outline: none;
+  padding: 10px 0;
+  margin: 0 10px;
 }

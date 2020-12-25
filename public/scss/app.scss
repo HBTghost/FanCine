@@ -109,6 +109,8 @@ body {
   width: 200px;
 }
 
-a.none-style {
-  text-decoration: none;
+.none-style-container {
+  a {
+    text-decoration: none;
+  }
 }

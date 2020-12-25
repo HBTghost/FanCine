@@ -14,6 +14,7 @@ import {
   getMoviesByKeyword,
   getSearchFilter,
   getMovieFutureOnShow,
+  getMovieFutureOnShowUnlimt,
 } from '../middleware/movie.js';
 import {
   getTheaterBySession,
@@ -67,10 +68,10 @@ handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   });
 });
 
-handlebarsRouter.get('/movie-on-show', getAllMovies, async (req, res) => {
+handlebarsRouter.get('/movie-on-show', getMovieFutureOnShowUnlimt, async (req, res) => {
   res.render('movieLiveList', {
     style: 'movie-on-show',
-    movies: await res.allMovies,
+    movies: await res.movies,
   });
 });
 
