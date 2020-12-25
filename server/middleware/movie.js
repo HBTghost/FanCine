@@ -261,12 +261,16 @@ async function getMovieFutureOnShow(req, res, next) {
 
     res.movies = {};
     res.movies.onshow = await Movie.find({
-      date: { $lte: '2020-12-01' },
-    }).lean();
+      date: { $lte: today },
+    },
+    { 'imageSource': 1, '_id': 1, 'label': 1, 'originalName': 1, 'vietnameseName': 1 },
+    { limit: 6 }).lean();
 
     res.movies.future = await Movie.find({
-      date: { $gt: '2020-12-01' },
-    }).lean();
+      date: { $gt: today },
+    },
+    { 'imageSource': 1, '_id': 1, 'label': 1, 'originalName': 1, 'vietnameseName': 1 },
+    { limit: 6 }).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

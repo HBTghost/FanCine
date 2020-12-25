@@ -74,3 +74,20 @@
   font-weight: normal;
   color: $color-gray;
 }
+
+.movie-more-btn {
+  text-transform: uppercase;
+  color: $color-orange;
+  background-color: $white;
+  font-weight: bold;
+  border: 1px solid $color-orange;
+  padding: 15px 30px;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.movie-more-btn:hover {
+  color: $white;
+  border-color: $color-orange;
+  background-color: $color-orange;
+}

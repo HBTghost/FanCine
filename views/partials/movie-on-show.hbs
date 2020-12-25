@@ -11,6 +11,7 @@
         <!-- Movie on show -->
         <div class="tab-pane container active" id="present-mv">
             <div class="row py-4">
+                {{#if movies.onshow}}
                 {{#each movies.onshow}}
                     <div class="col-6 col-md-4 d-flex flex-column justify-content-center p-4">
                         <!-- image -->
@@ -31,17 +32,26 @@
                         </div>
                     </div>
                 {{/each}}
+                <div class="container d-flex justify-content-end">
+                    <a href="/movie-on-show" class="none-style">
+                        <div class="movie-more-btn">Xem Thêm  <i class="fas fa-forward"></i></div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="alert alert-danger text-center container-fluid" role="alert">Không có phim đang chiếu nào tại thời điểm hiện tại</div>
+                {{/if}}
             </div>
         </div>
         <!-- in future on show -->
         <div class="tab-pane container fade" id="future-mv">
             <div class="row py-4">
+                {{#if movies.future}}
                 {{#each movies.future}}
                     <div class="col-6 col-md-4 d-flex flex-column justify-content-center p-4">
                         <!-- image -->
                         <div class="onshow-banner">
                             <img src="{{this.imageSource}}" alt="image"> 
-                            <a href="/info/{{this._id}}">z
+                            <a href="/info/{{this._id}}">
                                 <div class="movie-onshow-content content-hai">
                                     <div class="movie-onshow-pg">{{label}}</div>
                                     <div class="btn movie-onshow-btn">Thông tin</div>
@@ -55,7 +65,15 @@
                             <div class="vn movie-name-title">{{vietnameseName}}</div>
                         </div>
                     </div>
-                {{/each}}              
+                {{/each}}   
+                <div class="container d-flex justify-content-end">
+                    <a href="/movie-on-show" class="none-style">
+                        <div class="movie-more-btn">Xem Thêm  <i class="fas fa-forward"></i></div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="alert alert-danger text-center container-fluid" role="alert">Không có phim đang chiếu nào tại thời điểm hiện tại</div>
+                {{/if}}           
             </div>
         </div>
     </div>
