@@ -1,14 +1,98 @@
-<table>
-  <tr>
-    <th>Monthiuerbgihrefvehwjfbjwekfbewkfwekhfruk.k</th>
-    <td>Savings</td>
-  </tr>
-  <tr>
-    <th>January</th>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <th>February</th>
-    <td>$50</td>
-  </tr>
-</table>
+<div id="mnuser-body">
+  <div class="mnuser-container">
+    <div id="mnuser-title">
+      <a href="manageUser">QUẢN LÝ RẠP PHIM</a>
+    </div>
+
+    <div id="mnuser-header">
+      <div id="mnuser-display">
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-role" checked>
+          <label for="mmnuser-display-item-role">Tên rạp</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-name" checked>
+          <label for="mmnuser-display-item-name">Thành phố</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-email" checked>
+          <label for="mmnuser-display-item-email">Địa chỉ</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-phonenum" checked>
+          <label for="mmnuser-display-item-phonenum">Số điện thoại</label>
+        </div>
+        <div class="mmnuser-display-item">
+          <input type="checkbox" id="mmnuser-display-item-dob" checked>
+          <label for="mmnuser-display-item-dob">Phòng</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnuser-container mnuser-scrollable-container">
+    <table id="mnuser-table">
+      <thead>
+        <tr>
+          <th class="mnuser-cell mnuser-role">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Tên rạp</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-name">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Thành phố</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-email">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Địa chỉ</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          <th class="mnuser-cell mnuser-phonenum">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Số điện thoại</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th>
+          {{!-- <th class="mnuser-cell mnuser-dob">
+            <div class="mnuser-cell-wrapper">
+              <div class="mnuser-cell-header">Phòng</div>
+              <div class="mnuser-cell-sort">
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-asc fad fa-angle-double-up"></div>
+                <div class="mnuser-cell-sort-item mnuser-cell-sort-desc fad fa-angle-double-down"></div>
+              </div>
+            </div>
+          </th> --}}
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each theaters}}
+        <tr>
+          <td class="mnuser-cell mnuser-role">{{name}}</td>
+          <td class="mnuser-cell mnuser-name">{{city}}</td>
+          <td class="mnuser-cell mnuser-email">{{address}}</td>
+          <td class="mnuser-cell mnuser-phonenum">{{phone}}</td>
+
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
