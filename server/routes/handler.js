@@ -13,6 +13,8 @@ import {
   getMoviesByTheaterID,
   getMoviesByKeyword,
   getSearchFilter,
+  getMovieFutureOnShow,
+  getMovieFutureOnShowUnlimt,
 } from '../middleware/movie.js';
 import {
   getTheaterBySession,
@@ -51,10 +53,10 @@ import { c, arr } from '../../public/njs/pages/provinces.js';
 
 const handlebarsRouter = express.Router();
 
-handlebarsRouter.get('/', getAllMovies, async (req, res) => {
+handlebarsRouter.get('/', getMovieFutureOnShow, async (req, res) => {
   res.render('home', {
     style: 'home',
-    movies: await res.allMovies,
+    movies: await res.movies,
   });
 });
 
@@ -66,10 +68,10 @@ handlebarsRouter.get('/info/:id', getMovie, (req, res) => {
   });
 });
 
-handlebarsRouter.get('/movie-on-show', getAllMovies, async (req, res) => {
+handlebarsRouter.get('/movie-on-show', getMovieFutureOnShowUnlimt, async (req, res) => {
   res.render('movieLiveList', {
     style: 'movie-on-show',
-    movies: await res.allMovies,
+    movies: await res.movies,
   });
 });
 
@@ -354,7 +356,7 @@ handlebarsRouter.get('/search', getSearchFilter, getMoviesByKeyword, async (req,
   // res.json(await res.result);
 });
 
-handlebarsRouter.get('/filterSearch', getSearchFilter, async (req, res) => {
+handlebarsRouter.get('/HoangTest', getMovieFutureOnShow, async (req, res) => {
   res.json(res.result);
 });
 
