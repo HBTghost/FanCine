@@ -68,7 +68,7 @@ adminRouter.get(
     standardizeUsers(res.allUsers);
     res.status(200);
     res.header('Content-Type', 'text/html');
-    res.render('partials/renderStructure/manageUser', {
+    res.render('partials/renderStructure/admin/manageUser', {
       users: res.allUsers,
     });
   },
