@@ -55,12 +55,16 @@ adminRouter.get('/postTheater', (req, res) => {
   });
 });
 
-// adminRouter.get('manageTheater', (req, res) => {
-//   res.render('manageTheater', {
-//     layout: 'admin',
-//     style:
-//   });
-// });
+adminRouter.get('/manageTheater', getAllTheaters, (req, res) => {
+  res.render('manageTheater', {
+    theaters: res.allTheaters,
+    layout: 'admin',
+    style: 'manageTheater',
+    page: 'theater',
+    show: false,
+    menuItem: 'manageTheater',
+  });
+});
 
 // ===== Manage users =====
 function standardizeUsers(users) {
