@@ -105,38 +105,20 @@ $bg-icon-sort-desc: #ffa18e;
           text-overflow: ellipsis;
         }
 
-        .mnuser-role {
-          width: 100px;
-        }
         .mnuser-name {
-          width: 250px;
-        }
-        .mnuser-email {
-          width: 300px;
-        }
-        .mnuser-phonenum {
-          width: 150px;
-        }
-        .mnuser-dob {
-          width: 140px;
-        }
-        .mnuser-gender {
-          width: 120px;
-        }
-        .mnuser-address {
           width: 250px;
         }
         .mnuser-city {
           width: 200px;
         }
-        .mnuser-area {
-          width: 200px;
+        .mnuser-address {
+          width: 700px;
         }
-        .mnuser-star {
+        .mnuser-phonenum {
           width: 150px;
         }
-        .mnuser-expense {
-          width: 150px;
+        .mnuser-rooms {
+          width: 140px;
         }
       }
 
@@ -163,14 +145,6 @@ $bg-icon-sort-desc: #ffa18e;
                 .mnuser-cell-sort-item {
                   cursor: pointer;
                   font-size: 16px;
-                }
-
-                .mnuser-cell-sort-asc {
-                  margin-top: 2px;
-                }
-
-                .mnuser-cell-sort-desc {
-                  margin-bottom: 2px;
                 }
 
                 .mnuser-cell-sort-asc-selected,
@@ -200,18 +174,6 @@ $bg-icon-sort-desc: #ffa18e;
         tr {
           .mnuser-phonenum {
             text-align: center;
-          }
-          .mnuser-dob {
-            text-align: center;
-          }
-          .mnuser-gender {
-            text-align: center;
-          }
-          .mnuser-star {
-            text-align: right;
-          }
-          .mnuser-expense {
-            text-align: right;
           }
         }
       }
