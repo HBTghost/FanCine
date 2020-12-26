@@ -109,16 +109,16 @@ $bg-icon-sort-desc: #ffa18e;
           width: 250px;
         }
         .mnuser-city {
-          width: 200px;
+          width: 150px;
         }
         .mnuser-address {
-          width: 700px;
+          width: 600px;
         }
         .mnuser-phonenum {
           width: 150px;
         }
         .mnuser-rooms {
-          width: 140px;
+          width: 300px;
         }
       }
 
@@ -173,6 +173,9 @@ $bg-icon-sort-desc: #ffa18e;
 
         tr {
           .mnuser-phonenum {
+            text-align: center;
+          }
+          .mnuser-city {
             text-align: center;
           }
         }

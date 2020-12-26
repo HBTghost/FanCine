@@ -60,6 +60,7 @@ adminRouter.get('/manageTheater', getAllTheaters, (req, res) => {
     theaters: res.allTheaters,
     layout: 'admin',
     style: 'manageTheater',
+    script: 'manageTheater',
     page: 'theater',
     show: false,
     menuItem: 'manageTheater',
