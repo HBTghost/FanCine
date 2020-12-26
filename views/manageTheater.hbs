@@ -1,13 +1,13 @@
 <div id="mntheater-body">
   <div class="mntheater-container">
     <div id="mntheater-title">
-      <a href="managetheater">QUẢN LÝ RẠP PHIM</a>
+      <a href="manageTheater">QUẢN LÝ RẠP PHIM</a>
     </div>
 
     <div id="mntheater-header">
       <div id="mntheater-display">
         <div class="mmntheater-display-item">
-          <input type="checkbox" id="mmntheater-display-item-name">
+          <input type="checkbox" id="mmntheater-display-item-name" checked>
           <label for="mmntheater-display-item-name">Tên rạp</label>
         </div>
         <div class="mmntheater-display-item">
@@ -23,7 +23,7 @@
           <label for="mmntheater-display-item-phonenum">Số điện thoại</label>
         </div>
         <div class="mmntheater-display-item">
-          <input type="checkbox" id="mmntheater-display-item-rooms" checked>
+          <input type="checkbox" id="mmntheater-display-item-rooms">
           <label for="mmntheater-display-item-rooms">Phòng</label>
         </div>
       </div>
@@ -76,6 +76,7 @@
           <td class="mntheater-cell mntheater-address">{{address}}</td>
           <td class="mntheater-cell mntheater-phonenum">{{phone}}</td>
           <td class="mntheater-cell mntheater-rooms">{{rooms}}</td>
+          <td class="mntheater-cell mntheater-id">{{_id}}</td>
         </tr>
         {{/each}}
       </tbody>
