@@ -1,62 +1,52 @@
 "use strict";
 
-function removeMovieFromDatabase(todo) {
-  var _id = todo.firstElementChild.innerHTML;
+// ===== HTML elements =====
+var movieRowElements = document.querySelectorAll('#mnmovie-table tbody tr');
+var tableRowElements = document.querySelectorAll('#mnmovie-table tr');
+var tableBodyElement = document.querySelector('#mnmovie-table tbody');
+var displayCheckboxElements = document.querySelectorAll('#mnmovie-display .mmnmovie-display-item input'); // ===== Functions =====
 
-  try {
-    fetch("/api/movies/".concat(_id), {
-      method: 'DELETE'
-    }).then(function (res) {
-      res.json().then(function (data) {
-        if (data.message) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            html: data.message
-          });
-        } else {
-          todo.classList.add('fall');
-
-          todo.ontransitionend = function (e) {
-            return todo.remove();
-          };
-
-          Swal.fire({
-            icon: 'success',
-            title: 'Thành công',
-            html: 'Xóa phim thành công'
-          });
-        }
-      });
-    });
-  } catch (err) {
-    return false;
-  }
+function showTableColumn(colIndex) {
+  tableRowElements.forEach(function (e) {
+    e.children[colIndex].style.display = 'table-cell';
+  });
 }
 
-function removeMovie(event) {
-  var item = event.target;
-  var todo = item.parentElement;
+function hideTableColumn(colIndex) {
+  tableRowElements.forEach(function (e) {
+    e.children[colIndex].style.display = 'none';
+  });
+}
 
-  if (item.classList[0] === 'trash-btn') {
-    Swal.fire({
-      title: 'Cảnh báo',
-      icon: 'warning',
-      html: "B\u1EA1n c\xF3 ch\u1EAFc ch\u1EAFn x\xF3a phim <b>".concat(todo.innerText, "</b> kh\xF4ng?"),
-      confirmButtonColor: '#E74C3C',
-      confirmButtonText: 'Chắc chắn',
-      showCancelButton: true,
-      cancelButtonColor: '#99A3A4',
-      cancelButtonText: 'Không'
-    }).then(function (result) {
-      if (result.isConfirmed) {
-        removeMovieFromDatabase(todo);
+function refreshDisplay() {
+  displayCheckboxElements.forEach(function (e, i) {
+    if (e.checked === false) {
+      hideTableColumn(i + 1);
+    }
+  });
+} // ===== Events =====
+
+
+function eventDisplayCheckboxes() {
+  displayCheckboxElements.forEach(function (e, i) {
+    e.addEventListener('click', function () {
+      if (e.checked === true) {
+        showTableColumn(i + 1);
+      } else {
+        hideTableColumn(i + 1);
       }
     });
-  } else if (item.classList[0] === 'edit-btn') {
-    todo.classList.toggle('completed'); // todo.classList.add('fall');
-    // todo.ontransitionend = (e) => todo.remove();
-  } else if (item.classList[0] === 'complete-btn') {
-    todo.classList.toggle('completed');
-  }
+  });
 }
+
+function handleEvents() {
+  eventDisplayCheckboxes();
+} // ===== Main =====
+
+
+function main() {
+  refreshDisplay();
+  handleEvents();
+}
+
+main();

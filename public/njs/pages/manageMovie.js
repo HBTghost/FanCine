@@ -1,55 +1,53 @@
-function removeMovieFromDatabase(todo) {
-  const _id = todo.firstElementChild.innerHTML;
-  try {
-    fetch(`/api/movies/${_id}`, {
-      method: 'DELETE',
-    }).then((res) => {
-      res.json().then((data) => {
-        if (data.message) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            html: data.message,
-          });
-        } else {
-          todo.classList.add('fall');
-          todo.ontransitionend = (e) => todo.remove();
-          Swal.fire({
-            icon: 'success',
-            title: 'Thành công',
-            html: 'Xóa phim thành công',
-          });
-        }
-      });
-    });
-  } catch (err) {
-    return false;
-  }
+// ===== HTML elements =====
+const movieRowElements = document.querySelectorAll('#mnmovie-table tbody tr');
+const tableRowElements = document.querySelectorAll('#mnmovie-table tr');
+const tableBodyElement = document.querySelector('#mnmovie-table tbody');
+const displayCheckboxElements = document.querySelectorAll(
+  '#mnmovie-display .mmnmovie-display-item input',
+);
+
+// ===== Functions =====
+function showTableColumn(colIndex) {
+  tableRowElements.forEach((e) => {
+    e.children[colIndex].style.display = 'table-cell';
+  });
 }
 
-function removeMovie(event) {
-  const item = event.target;
-  const todo = item.parentElement;
-  if (item.classList[0] === 'trash-btn') {
-    Swal.fire({
-      title: 'Cảnh báo',
-      icon: 'warning',
-      html: `Bạn có chắc chắn xóa phim <b>${todo.innerText}</b> không?`,
-      confirmButtonColor: '#E74C3C',
-      confirmButtonText: 'Chắc chắn',
-      showCancelButton: true,
-      cancelButtonColor: '#99A3A4',
-      cancelButtonText: 'Không',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        removeMovieFromDatabase(todo);
+function hideTableColumn(colIndex) {
+  tableRowElements.forEach((e) => {
+    e.children[colIndex].style.display = 'none';
+  });
+}
+
+function refreshDisplay() {
+  displayCheckboxElements.forEach((e, i) => {
+    if (e.checked === false) {
+      hideTableColumn(i + 1);
+    }
+  });
+}
+
+// ===== Events =====
+function eventDisplayCheckboxes() {
+  displayCheckboxElements.forEach((e, i) => {
+    e.addEventListener('click', () => {
+      if (e.checked === true) {
+        showTableColumn(i + 1);
+      } else {
+        hideTableColumn(i + 1);
       }
     });
-  } else if (item.classList[0] === 'edit-btn') {
-    todo.classList.toggle('completed');
-    // todo.classList.add('fall');
-    // todo.ontransitionend = (e) => todo.remove();
-  } else if (item.classList[0] === 'complete-btn') {
-    todo.classList.toggle('completed');
-  }
+  });
 }
+
+function handleEvents() {
+  eventDisplayCheckboxes();
+}
+
+// ===== Main =====
+function main() {
+  refreshDisplay();
+  handleEvents();
+}
+
+main();
