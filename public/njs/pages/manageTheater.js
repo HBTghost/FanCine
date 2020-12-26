@@ -1,9 +1,9 @@
 // ===== HTML elements =====
-const userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
-const tableRowElements = document.querySelectorAll('#mnuser-table tr');
-const tableBodyElement = document.querySelector('#mnuser-table tbody');
+const theaterRowElements = document.querySelectorAll('#mntheater-table tbody tr');
+const tableRowElements = document.querySelectorAll('#mntheater-table tr');
+const tableBodyElement = document.querySelector('#mntheater-table tbody');
 const displayCheckboxElements = document.querySelectorAll(
-  '#mnuser-display .mmnuser-display-item input',
+  '#mntheater-display .mmntheater-display-item input',
 );
 
 // ===== Functions =====
@@ -32,9 +32,9 @@ function eventDisplayCheckboxes() {
   displayCheckboxElements.forEach((e, i) => {
     e.addEventListener('click', () => {
       if (e.checked === true) {
-        showTableColumn(i);
+        showTableColumn(i + 1);
       } else {
-        hideTableColumn(i);
+        hideTableColumn(i + 1);
       }
     });
   });

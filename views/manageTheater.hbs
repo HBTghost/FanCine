@@ -1,62 +1,67 @@
-<div id="mnuser-body">
-  <div class="mnuser-container">
-    <div id="mnuser-title">
-      <a href="manageUser">QUẢN LÝ RẠP PHIM</a>
+<div id="mntheater-body">
+  <div class="mntheater-container">
+    <div id="mntheater-title">
+      <a href="managetheater">QUẢN LÝ RẠP PHIM</a>
     </div>
 
-    <div id="mnuser-header">
-      <div id="mnuser-display">
-        <div class="mmnuser-display-item">
-          <input type="checkbox" id="mmnuser-display-item-name" checked>
-          <label for="mmnuser-display-item-name">Tên rạp</label>
+    <div id="mntheater-header">
+      <div id="mntheater-display">
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-name" checked>
+          <label for="mmntheater-display-item-name">Tên rạp</label>
         </div>
-        <div class="mmnuser-display-item">
-          <input type="checkbox" id="mmnuser-display-item-city" checked>
-          <label for="mmnuser-display-item-city">Thành phố</label>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-city" checked>
+          <label for="mmntheater-display-item-city">Thành phố</label>
         </div>
-        <div class="mmnuser-display-item">
-          <input type="checkbox" id="mmnuser-display-item-address" checked>
-          <label for="mmnuser-display-item-address">Địa chỉ</label>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-address" checked>
+          <label for="mmntheater-display-item-address">Địa chỉ</label>
         </div>
-        <div class="mmnuser-display-item">
-          <input type="checkbox" id="mmnuser-display-item-phonenum" checked>
-          <label for="mmnuser-display-item-phonenum">Số điện thoại</label>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-phonenum" checked>
+          <label for="mmntheater-display-item-phonenum">Số điện thoại</label>
         </div>
-        <div class="mmnuser-display-item">
-          <input type="checkbox" id="mmnuser-display-item-rooms" checked>
-          <label for="mmnuser-display-item-rooms">Phòng</label>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-rooms" checked>
+          <label for="mmntheater-display-item-rooms">Phòng</label>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="mnuser-container mnuser-scrollable-container">
-    <table id="mnuser-table">
+  <div class="mntheater-container mntheater-scrollable-container">
+    <table id="mntheater-table">
       <thead>
         <tr>
-          <th class="mnuser-cell mnuser-name">
-            <div class="mnuser-cell-wrapper">
-              <div class="mnuser-cell-header">Tên rạp</div>
+          <th class="mntheater-cell mntheater-number">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">STT</div>
             </div>
           </th>
-          <th class="mnuser-cell mnuser-city">
-            <div class="mnuser-cell-wrapper">
-              <div class="mnuser-cell-header">Thành phố</div>
+          <th class="mntheater-cell mntheater-name">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Tên rạp</div>
             </div>
           </th>
-          <th class="mnuser-cell mnuser-address">
-            <div class="mnuser-cell-wrapper">
-              <div class="mnuser-cell-header">Địa chỉ</div>
+          <th class="mntheater-cell mntheater-city">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Thành phố</div>
             </div>
           </th>
-          <th class="mnuser-cell mnuser-phonenum">
-            <div class="mnuser-cell-wrapper">
-              <div class="mnuser-cell-header">Số điện thoại</div>
+          <th class="mntheater-cell mntheater-address">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Địa chỉ</div>
             </div>
           </th>
-          <th class="mnuser-cell mnuser-rooms">
-            <div class="mnuser-cell-wrapper">
-              <div class="mnuser-cell-header">Phòng</div>
+          <th class="mntheater-cell mntheater-phonenum">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Số điện thoại</div>
+            </div>
+          </th>
+          <th class="mntheater-cell mntheater-rooms">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Phòng</div>
             </div>
           </th>
         </tr>
@@ -65,11 +70,12 @@
       <tbody>
         {{#each theaters}}
         <tr>
-          <td class="mnuser-cell mnuser-name">{{name}}</td>
-          <td class="mnuser-cell mnuser-city">{{city}}</td>
-          <td class="mnuser-cell mnuser-address">{{address}}</td>
-          <td class="mnuser-cell mnuser-phonenum">{{phone}}</td>
-          <td class="mnuser-cell mnuser-rooms">{{rooms}}</td>
+          <td class="mntheater-cell mntheater-number"></td>
+          <td class="mntheater-cell mntheater-name">{{name}}</td>
+          <td class="mntheater-cell mntheater-city">{{city}}</td>
+          <td class="mntheater-cell mntheater-address">{{address}}</td>
+          <td class="mntheater-cell mntheater-phonenum">{{phone}}</td>
+          <td class="mntheater-cell mntheater-rooms">{{rooms}}</td>
         </tr>
         {{/each}}
       </tbody>

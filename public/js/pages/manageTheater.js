@@ -1,10 +1,10 @@
 "use strict";
 
 // ===== HTML elements =====
-var userRowElements = document.querySelectorAll('#mnuser-table tbody tr');
-var tableRowElements = document.querySelectorAll('#mnuser-table tr');
-var tableBodyElement = document.querySelector('#mnuser-table tbody');
-var displayCheckboxElements = document.querySelectorAll('#mnuser-display .mmnuser-display-item input'); // ===== Functions =====
+var theaterRowElements = document.querySelectorAll('#mntheater-table tbody tr');
+var tableRowElements = document.querySelectorAll('#mntheater-table tr');
+var tableBodyElement = document.querySelector('#mntheater-table tbody');
+var displayCheckboxElements = document.querySelectorAll('#mntheater-display .mmntheater-display-item input'); // ===== Functions =====
 
 function showTableColumn(colIndex) {
   tableRowElements.forEach(function (e) {
@@ -31,9 +31,9 @@ function eventDisplayCheckboxes() {
   displayCheckboxElements.forEach(function (e, i) {
     e.addEventListener('click', function () {
       if (e.checked === true) {
-        showTableColumn(i);
+        showTableColumn(i + 1);
       } else {
-        hideTableColumn(i);
+        hideTableColumn(i + 1);
       }
     });
   });
