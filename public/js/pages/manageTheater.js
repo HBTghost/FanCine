@@ -21,7 +21,7 @@ function hideTableColumn(colIndex) {
 function refreshDisplay() {
   displayCheckboxElements.forEach(function (e, i) {
     if (e.checked === false) {
-      hideTableColumn(i);
+      hideTableColumn(i + 1);
     }
   });
 } // ===== Events =====
