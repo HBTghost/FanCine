@@ -1,7 +1,128 @@
-<div class="container py-3 w-100">
-<h1>Dashboard</h1>
+<h1 class="text-center">Dashboard</h1>
 
-<h3>Number of users: {{ userQuantity }}</h3>
-<h3>Number of movies: {{ movieQuantity }}</h3>
-<h3>Number of theaters: {{ theaterQuantity }}</h3>
+{{> adminHeader }}
+
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <canvas id="userChart"></canvas>
+    <h3 class="text-center">Registered Accounts</h3>
+  </div>
+  <div class="col-12 col-lg-6">
+    <canvas id="sessionChart"></canvas>
+    <h3 class="text-center">Bought Tickets</h3>
+  </div>
 </div>
+
+<div class="row mt-4">
+  <div class="col-12 col-md-6">
+    <canvas id="movieRatingChart"></canvas>
+    <h3 class="text-center">Rated Movies</h3>
+  </div>
+  <div class="col-12 col-md-6">
+    <canvas id="movieLabelChart"></canvas>
+    <h3 class="text-center">Labeled Movies</h3>
+  </div>
+</div>
+<script>
+let movieData = [];
+{{#each movieHistogram}}
+  movieData.push({{ this }});
+{{/each}}
+var ctx = document.getElementById("movieRatingChart").getContext('2d');
+var movieRatingChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ["Really Bad", "Bad", "Fine", "Interesting", "Good"],
+    datasets: [{
+      label: 'Movie rating',
+      backgroundColor: [
+        "#e74c3c",
+        "#9b59b6",
+        "#f1c40f",
+        "#3498db",
+        "#2ecc71",
+      ],
+      data: movieData
+    }]
+  }
+});
+
+let movieLabelLabel = [];
+let movieLabelData = [];
+{{#each movieLabels}}
+  movieLabelLabel.push('{{ @key }}');
+  movieLabelData.push({{ this }});
+{{/each}}
+var ctx = document.getElementById("movieLabelChart").getContext('2d');
+var movieLabelChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: movieLabelLabel,
+    datasets: [{
+      label: 'Movie rating',
+      backgroundColor: [
+        "#9b59b6",
+        "#f1c40f",
+        "#3498db",
+        "#2ecc71",
+      ],
+      data: movieLabelData
+    }]
+  }
+});
+
+  function renderChart(query, label, data) {
+    new Chart(
+      document.querySelector(query),
+      {
+        'type': 'bar',
+        'data': {
+          'labels': [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+          'datasets': [{
+            'label': label,
+            'data': data,
+            'fill': false,
+            'backgroundColor': [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(201, 203, 207, 0.2)'
+            ],
+            'borderColor': [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgb(153, 102, 255)',
+              'rgb(201, 203, 207)'
+            ],
+            'borderWidth':1
+          }]
+        },
+        'options': {
+          'scales': {
+            'yAxes': [{
+              'ticks': {
+                'beginAtZero': true,
+              }
+            }]
+          }
+        }
+      }
+    );
+  }
+  let userData = [];
+  {{#each userHistogram}}
+    userData.push({{ this }});
+  {{/each}}
+  let sessionData = [];
+  {{#each sessionHistogram}}
+    sessionData.push({{ this }});
+  {{/each}}
+  renderChart('#userChart', 'Registered Account', userData);
+  renderChart('#sessionChart', 'Bought ticket', sessionData);
+</script>

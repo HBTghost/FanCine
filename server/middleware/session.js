@@ -11,6 +11,20 @@ async function getSessionByID(req, res, next) {
   return next();
 }
 
+async function getAllSessions(req, res, next) {
+  try {
+    res.allSessions = await Session.find().lean();
+    res.sessionHistogram = [0, 0, 0, 0, 0, 0, 0];
+    res.allSessions.forEach((session) => {
+      res.sessionHistogram[session.createdAt.getDay()]++;
+    });
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function getSessionsByUser(req, res, next) {
   try {
     res.sessions = await Session.find({ _idUser: mongoose.Types.ObjectId(req.user._id) }).lean();
@@ -107,4 +121,10 @@ async function insertSession(req, res, next) {
   return next();
 }
 
-export { getSessionByID, getSessionsByUser, getFilteredSessionsFromUser, insertSession };
+export {
+  getSessionByID,
+  getAllSessions,
+  getSessionsByUser,
+  getFilteredSessionsFromUser,
+  insertSession,
+};

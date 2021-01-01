@@ -9,7 +9,10 @@ const MovieSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  rating: Number,
+  rating: {
+    type: Number,
+    default: 0,
+  },
   rates: Number,
   label: {
     type: String,

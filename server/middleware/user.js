@@ -15,7 +15,13 @@ async function addExpense(req, res, next) {
 
 async function getAllUsers(req, res, next) {
   try {
-    res.allUsers = await User.find().lean();
+    const users = await User.find().lean();
+    res.allUsers = users;
+    const histogram = [0, 0, 0, 0, 0, 0, 0];
+    users.forEach((user) => {
+      histogram[user.createdAt.getDay()]++;
+    });
+    res.userHistogram = histogram;
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }

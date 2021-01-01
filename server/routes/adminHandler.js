@@ -1,6 +1,7 @@
 import express from 'express';
 import { getAllMovies } from '../middleware/movie.js';
 import { getAllTheaters } from '../middleware/theater.js';
+import { getAllSessions } from '../middleware/session.js';
 import { getAllUsers, getAllUsersBySorting } from '../middleware/user.js';
 
 import { Movie } from '../models/index.js';
@@ -9,13 +10,18 @@ import { c, arr } from '../../public/njs/pages/provinces.js';
 
 const adminRouter = express.Router();
 
-adminRouter.get('/', getAllUsers, getAllMovies, getAllTheaters, (req, res) => {
+adminRouter.get('/', getAllUsers, getAllMovies, getAllTheaters, getAllSessions, (req, res) => {
   res.render('admin', {
     layout: 'admin',
     page: 'home',
     userQuantity: res.allUsers.length,
+    userHistogram: res.userHistogram,
     movieQuantity: res.allMovies.length,
+    movieHistogram: res.movieHistogram,
+    movieLabels: res.movieLabels,
     theaterQuantity: res.allTheaters.length,
+    sessionQuantity: res.allSessions.length,
+    sessionHistogram: res.sessionHistogram,
   });
 });
 

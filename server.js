@@ -34,6 +34,8 @@ import authRouter from './server/routes/auth.js';
 import renderAuthRouter from './server/routes/renderAuth.js';
 import adminRouter from './server/routes/adminHandler.js';
 
+import config from './server/config.json';
+
 configPassport(passport);
 
 const __filename = fileURLToPath(import.meta.url);
@@ -86,7 +88,7 @@ app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: 
 // ------------ Express session Configuration ------------//
 app.use(
   session({
-    secret: 'secret',
+    secret: config.secret,
     resave: true,
     saveUninitialized: true,
   }),
