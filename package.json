@@ -52,6 +52,7 @@
     "googleapis": "^66.0.0",
     "gulp-cli": "^2.3.0",
     "handlebars": "^4.7.6",
+    "heroku-awake": "^1.0.10",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.14",
