@@ -4,12 +4,12 @@
 
 <div class="row">
   <div class="col-12 col-lg-6">
-    <canvas id="userChart"></canvas>
-    <h3 class="text-center">Registered Accounts</h3>
+    <canvas id="sessionChart"></canvas>
+    {{!-- <h3 class="text-center">Registered Accounts</h3> --}}
   </div>
   <div class="col-12 col-lg-6">
-    <canvas id="sessionChart"></canvas>
-    <h3 class="text-center">Bought Tickets</h3>
+    <canvas id="revenueChart"></canvas>
+    {{!-- <h3 class="text-center">Bought Tickets</h3> --}}
   </div>
 </div>
 
@@ -23,13 +23,17 @@
     <h3 class="text-center">Labeled Movies</h3>
   </div>
 </div>
+
+
 <script>
+
+// Movie rating histogram ---------------------------------
 let movieData = [];
 {{#each movieHistogram}}
   movieData.push({{ this }});
 {{/each}}
-var ctx = document.getElementById("movieRatingChart").getContext('2d');
-var movieRatingChart = new Chart(ctx, {
+new Chart(
+  document.querySelector('#movieRatingChart'), {
   type: 'pie',
   data: {
     labels: ["Really Bad", "Bad", "Fine", "Interesting", "Good"],
@@ -47,82 +51,131 @@ var movieRatingChart = new Chart(ctx, {
   }
 });
 
+// Movie label histogram ---------------------------------
 let movieLabelLabel = [];
 let movieLabelData = [];
 {{#each movieLabels}}
   movieLabelLabel.push('{{ @key }}');
   movieLabelData.push({{ this }});
 {{/each}}
-var ctx = document.getElementById("movieLabelChart").getContext('2d');
-var movieLabelChart = new Chart(ctx, {
+new Chart(
+  document.querySelector('#movieLabelChart'), {
   type: 'doughnut',
   data: {
     labels: movieLabelLabel,
     datasets: [{
       label: 'Movie rating',
       backgroundColor: [
-        "#9b59b6",
         "#f1c40f",
         "#3498db",
         "#2ecc71",
+        "#9b59b6",
       ],
       data: movieLabelData
     }]
   }
 });
 
-  function renderChart(query, label, data) {
-    new Chart(
-      document.querySelector(query),
-      {
-        'type': 'bar',
-        'data': {
-          'labels': [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-          'datasets': [{
-            'label': label,
-            'data': data,
-            'fill': false,
-            'backgroundColor': [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 205, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(201, 203, 207, 0.2)'
-            ],
-            'borderColor': [
-              'rgb(255, 99, 132)',
-              'rgb(255, 159, 64)',
-              'rgb(255, 205, 86)',
-              'rgb(75, 192, 192)',
-              'rgb(54, 162, 235)',
-              'rgb(153, 102, 255)',
-              'rgb(201, 203, 207)'
-            ],
-            'borderWidth':1
-          }]
-        },
-        'options': {
-          'scales': {
-            'yAxes': [{
-              'ticks': {
-                'beginAtZero': true,
-              }
-            }]
-          }
-        }
-      }
-    );
+// Revenue histogram ---------------------------------
+
+let revenueData = [];
+{{#each revenueHistogram}}
+  revenueData.push({{ this }});
+{{/each}}
+
+new Chart(
+  document.querySelector('#revenueChart'),
+  {
+    type: 'line',
+    data: {
+      labels: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+      datasets: [{
+        label: 'Revenue',
+        data: revenueData,
+        backgroundColor: [
+          'rgba(255, 205, 86, 0.2)',
+        ],
+        borderColor: [
+          'rgb(255, 205, 86)',
+        ],
+        pointBackgroundColor: 'rgb(255, 205, 86)',
+        borderWidth: 1
+      }]
+    }
   }
-  let userData = [];
-  {{#each userHistogram}}
-    userData.push({{ this }});
-  {{/each}}
-  let sessionData = [];
-  {{#each sessionHistogram}}
-    sessionData.push({{ this }});
-  {{/each}}
-  renderChart('#userChart', 'Registered Account', userData);
-  renderChart('#sessionChart', 'Bought ticket', sessionData);
+);
+
+// User & Session histogram ---------------------------------
+let userData = [];
+{{#each userHistogram}}
+  userData.push({{ this }});
+{{/each}}
+let sessionData = [];
+{{#each sessionHistogram}}
+  sessionData.push({{ this }});
+{{/each}}
+
+new Chart(
+  document.querySelector('#sessionChart'),
+  {
+  type: 'bar',
+  data: {
+    labels: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+    datasets: [
+      {
+        label: 'Bought Ticket',
+        data: sessionData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 99, 132)',
+          'rgb(255, 99, 132)',
+          'rgb(255, 99, 132)',
+          'rgb(255, 99, 132)',
+          'rgb(255, 99, 132)',
+          'rgb(255, 99, 132)',
+        ],
+        borderWidth:1
+      },
+      {
+        label: 'Registered Account',
+        data: userData,
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+          ],
+          borderColor: [
+            'rgb(54, 162, 235)',
+            'rgb(54, 162, 235)',
+            'rgb(54, 162, 235)',
+            'rgb(54, 162, 235)',
+            'rgb(54, 162, 235)',
+            'rgb(54, 162, 235)',
+            'rgb(54, 162, 235)',
+          ],
+          borderWidth:1
+      }
+    ]
+  },
+  options: {
+      scales: {
+          yAxes: [{
+              stacked: false
+          }]
+      }
+  }
+});
 </script>

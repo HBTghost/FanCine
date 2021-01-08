@@ -22,6 +22,8 @@ adminRouter.get('/', getAllUsers, getAllMovies, getAllTheaters, getAllSessions, 
     theaterQuantity: res.allTheaters.length,
     sessionQuantity: res.allSessions.length,
     sessionHistogram: res.sessionHistogram,
+    profit: res.profit,
+    revenueHistogram: res.revenueHistogram,
   });
 });
 
@@ -90,5 +92,27 @@ adminRouter.get('/manageUser', getAllUsers, (req, res) => {
     page: 'user',
   });
 });
+
+adminRouter.get(
+  '/manageTicket',
+  getAllUsers,
+  getAllMovies,
+  getAllTheaters,
+  getAllSessions,
+  (req, res) => {
+    res.render('manageTicket', {
+      layout: 'admin',
+      page: 'home',
+      userQuantity: res.allUsers.length,
+      userHistogram: res.userHistogram,
+      movieQuantity: res.allMovies.length,
+      movieHistogram: res.movieHistogram,
+      movieLabels: res.movieLabels,
+      theaterQuantity: res.allTheaters.length,
+      sessionQuantity: res.allSessions.length,
+      sessionHistogram: res.sessionHistogram,
+    });
+  },
+);
 
 export default adminRouter;

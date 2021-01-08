@@ -15,8 +15,12 @@ async function getAllSessions(req, res, next) {
   try {
     res.allSessions = await Session.find().lean();
     res.sessionHistogram = [0, 0, 0, 0, 0, 0, 0];
+    res.revenueHistogram = [0, 0, 0, 0, 0, 0, 0];
+    res.profit = 0;
     res.allSessions.forEach((session) => {
+      res.profit += session.totalPrice;
       res.sessionHistogram[session.createdAt.getDay()]++;
+      res.revenueHistogram[session.createdAt.getDay()] += session.totalPrice;
     });
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
