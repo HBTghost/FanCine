@@ -454,3 +454,22 @@ function CaptchaCallback() {
     'sitekey': siteKey,
   });
 }
+
+$(document).ready(() => {
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 50) {
+      $('#back-to-top').addClass('show');
+    } else {
+      $('#back-to-top').removeClass('show');
+    }
+  });
+  $('#back-to-top').click(() => {
+    $('body,html').animate(
+      {
+        scrollTop: 0,
+      },
+      400,
+    );
+    return false;
+  });
+});
