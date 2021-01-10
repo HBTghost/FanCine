@@ -6,6 +6,17 @@ const displayCheckboxElements = document.querySelectorAll(
   '#mntheater-display .mmntheater-display-item input',
 );
 
+// Global variables
+const COL = Object.freeze({
+  NAME: 1,
+  CITY: 2,
+  ADDRESS: 3,
+  PHONE: 4,
+  ROOMS: 5,
+  ID: 6,
+
+});
+
 // ===== Functions =====
 function showTableColumn(colIndex) {
   tableRowElements.forEach((e) => {
@@ -40,8 +51,22 @@ function eventDisplayCheckboxes() {
   });
 }
 
+function eventRowTheaters() {
+  theaterRowElements.forEach((row) => {
+    row.addEventListener('click', () => {
+      const _id = row.children[COL.ID].innerHTML;
+      fetch(`/api/theaters/${_id}`).then((res) => {
+        res.json().then((data) => {
+          console.log(data.address);
+        });
+      });
+    });
+  });
+}
+
 function handleEvents() {
   eventDisplayCheckboxes();
+  eventRowTheaters();
 }
 
 // ===== Main =====
