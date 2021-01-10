@@ -42,6 +42,8 @@
   * Security sign in / sign out with Passport / Session / JWT / Bcrypt / Google reCaptcha v2
   * Auto send mail for register / reset passport process (with Nodemailer / Google SMTP / JWT)
   * Image server on SM.MS for flexibility (also support Drag & Drop and Preview Image)
+  * Beautiful alert with Sweet Alert
+  * Admin dashboard with ChartJS
 
 ## Docs & Community
 
