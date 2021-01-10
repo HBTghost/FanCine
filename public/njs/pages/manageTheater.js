@@ -57,11 +57,16 @@ function eventRowTheaters() {
       const _id = row.children[COL.ID].innerHTML;
       fetch(`/api/theaters/${_id}`).then((res) => {
         res.json().then((data) => {
+          $('h2').html(data.name);
           $('.nameField').html(data.name);
           $('.cityField').html(data.city);
           $('.addressField').html(data.address);
           $('.phoneField').html(data.phone);
-          $('.roomField').html(data.rooms);
+          $('.roomField').html(data.rooms[0]);
+          for (let i = 1; i < data.rooms.length; i += 1) {
+            $('.roomField').append(`, ${data.rooms[i]}`);
+          }
+
           $('#myModal').modal('show');
         });
       });
