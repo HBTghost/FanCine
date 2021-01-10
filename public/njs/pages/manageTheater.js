@@ -57,7 +57,9 @@ function eventRowTheaters() {
       const _id = row.children[COL.ID].innerHTML;
       fetch(`/api/theaters/${_id}`).then((res) => {
         res.json().then((data) => {
-          console.log(data.address);
+          // $('nameField').innerHTML = data.name;
+          $('#myModal').modal('show');
+          console.log(data.name);
         });
       });
     });

@@ -54,7 +54,9 @@ function eventRowTheaters() {
       var _id = row.children[COL.ID].innerHTML;
       fetch("/api/theaters/".concat(_id)).then(function (res) {
         res.json().then(function (data) {
-          console.log(data.address);
+          // $('nameField').innerHTML = data.name;
+          $('#myModal').modal('show');
+          console.log(data.name);
         });
       });
     });
