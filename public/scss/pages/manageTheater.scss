@@ -263,12 +263,12 @@ $bg-icon-sort-desc: #ffa18e;
   }
 }
 
-
-
-#button-submit {
-  width: 100px;
+.button {
+  display: flex;
+  justify-content: center;
   margin: 30px auto;
 }
+
 
 
 

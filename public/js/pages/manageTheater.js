@@ -54,9 +54,12 @@ function eventRowTheaters() {
       var _id = row.children[COL.ID].innerHTML;
       fetch("/api/theaters/".concat(_id)).then(function (res) {
         res.json().then(function (data) {
-          // $('nameField').innerHTML = data.name;
+          $('.nameField').html(data.name);
+          $('.cityField').html(data.city);
+          $('.addressField').html(data.address);
+          $('.phoneField').html(data.phone);
+          $('.roomField').html(data.rooms);
           $('#myModal').modal('show');
-          console.log(data.name);
         });
       });
     });
@@ -66,7 +69,12 @@ function eventRowTheaters() {
 function handleEvents() {
   eventDisplayCheckboxes();
   eventRowTheaters();
-} // ===== Main =====
+} // $('#close').click(() => {
+//   $('#myModal').removeClass('show');
+//   $('#myModal').modal('hide');
+//   console.log($('#myModal').modal());
+// });
+// ===== Main =====
 
 
 function main() {
