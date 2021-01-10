@@ -1,3 +1,5 @@
+@import '../base/variable';
+
 $bd-table: #000;
 $bg-even-row: #ebeeff;
 
@@ -212,6 +214,63 @@ $bg-icon-sort-desc: #ffa18e;
     border-radius: 10px;
   }
 }
+
+
+.modal-box {
+  width: 900px;
+  margin: auto;
+  padding: 30px;
+
+  .modal-content {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .table {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    .tbody {
+      display: table-row-group;
+      .tr {
+        display: table-row;
+        .td {
+          display: table-cell;
+          border: 1px solid $black;
+          padding: 10px 25px;
+          width: 60%;
+        }
+        .title {
+          display: table-cell; 
+          border: 1px solid $black;
+          /* padding-left: 30px; */
+          width: 15%;
+          text-align: center;
+          
+        }
+      }
+      .tr.editing .td INPUT {
+        width: 100px;
+      }
+    }
+  }
+}
+
+
+
+#button-submit {
+  width: 100px;
+  margin: 30px auto;
+}
+
+
 
 @media only screen and (max-width: 580px) {
   #mntheater-body {
