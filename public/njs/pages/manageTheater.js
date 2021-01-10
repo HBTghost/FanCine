@@ -66,7 +66,6 @@ function eventRowTheaters() {
           for (let i = 1; i < data.rooms.length; i += 1) {
             $('.roomField').append(`, ${data.rooms[i]}`);
           }
-
           $('#myModal').modal('show');
         });
       });

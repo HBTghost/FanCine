@@ -23,6 +23,7 @@ a:first-child:hover {
 }
 
 .button {
+  display: block;
   background-color: $tag-color;
   padding-left: 8px;
   padding-right: 10px;

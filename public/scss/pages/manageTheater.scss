@@ -1,4 +1,6 @@
 @import '../base/variable';
+@import '../partials/tagsInput';
+
 
 $bd-table: #000;
 $bg-even-row: #ebeeff;
@@ -264,9 +266,150 @@ $bg-icon-sort-desc: #ffa18e;
 }
 
 .button {
-  display: flex;
+  display: block;
   justify-content: center;
   margin: 30px auto;
+}
+
+.upload-preview  {
+  h2 {
+    font-size: 26px;
+    line-height: 1;
+    color: $cinema-name-bgc;
+    margin-bottom: 0;
+  }
+  p {
+    font-size: 18px;
+    color: $medium-gray;
+  }
+  // Upload Demo
+  // 
+  .uploader {
+    display: block;
+    clear: both;
+    margin: 0 auto;
+    max-width: 1300px;
+
+    label {
+      float: left;
+      clear: both;
+      width: 100%;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: #fff;
+      border-radius: 7px;
+      border: 3px solid #eee;
+      transition: all .2s ease;
+      user-select: none;
+
+      &:hover {
+        border-color: $cinema-name-bgc;
+      }
+      &.hover {
+        border: 3px solid $cinema-name-bgc;
+        box-shadow: inset 0 0 0 6px #eee;
+      
+        .start .fa {
+          transform: scale(.8);
+          opacity: .3;
+        }
+      }
+    }
+
+    .start {
+      float: left;
+      clear: both;
+      width: 100%;
+      &.hidden {
+        display: none;
+      }
+      .fa {
+        font-size: 50px;
+        margin-bottom: 1rem;
+        transition: all .2s ease-in-out;
+      }
+    }
+    .response {
+      float: left;
+      clear: both;
+      width: 100%;
+      &.hidden {
+        display: none;
+      }
+      .messages {
+        margin-bottom: .5rem;
+      }
+    }
+
+    .file-image {
+      display: inline;
+      margin: 0 auto .5rem;
+      width: 90%;
+      height: auto;
+      &.hidden {
+        display: none;
+      }
+    }
+  
+    .notimage {
+      display: block;
+      float: left;
+      clear: both;
+      width: 100%;
+      &.hidden {
+        display: none;
+      }
+    }
+
+    progress,
+    .progress {
+      // appearance: none;
+      display: inline;
+      clear: both;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 180px;
+      height: 8px;
+      border: none;
+      border-radius: 4px;
+      background-color: #eee;
+      overflow: hidden;
+    }
+
+    input[type='file'] {
+      display: none;
+    }
+
+    div {
+      margin: 0 0 .5rem;
+      color: $medium-gray;
+    }
+    .btn {
+      display: inline-block;
+      margin: .5rem .5rem 1rem;
+      clear: both;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      text-transform: initial;
+      border: none;
+      border-radius: .2rem;
+      outline: none;
+      padding: 0 1rem;
+      height: 36px;
+      line-height: 36px;
+      color: #fff;
+      transition: all .2s ease-in-out;
+      box-sizing: border-box;
+      background: $cinema-name-bgc;
+      border-color: $cinema-name-bgc;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: $tag-color;
+    }
+  }
 }
 
 
