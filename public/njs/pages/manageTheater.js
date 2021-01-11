@@ -49,6 +49,8 @@ function closeModal() {
 function editModal() {
   if (!($('.modal-content').hasClass('editing'))) {
     $('.modal-content').addClass('editing');
+    $('#button-submit').css('display', 'none');
+    $('#close').css('display', 'none');
     $('#edit').text('Save');
     $('.modal-content').find('.edit').each(function () {
       if (jQuery(this).is('#mapid')) {
@@ -68,6 +70,8 @@ function editModal() {
   } else {
     $('.modal-content').removeClass('editing');
     $('#edit').text('Edit');
+    $('#button-submit').css('display', 'inline-block');
+    $('#close').css('display', 'inline-block');
     $('.modal-content').find('.edit').each(function () {
       if (!jQuery(this).is('#mapid') && !jQuery(this).hasClass('desField')) {
         const value = $(this).find('INPUT').val();
