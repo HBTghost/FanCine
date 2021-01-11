@@ -88,6 +88,65 @@ function updateMap() {
   document.getElementById('Map').src = result;
 }
 
+function submitModal() {
+  let theForm;
+  let id;
+  let namefield;
+  let city;
+  let address;
+  let phone;
+  let description;
+
+  // Start by creating a <form>
+  theForm = document.createElement('form');
+  theForm.action = `/admin/manageTheater/update/${$('.idField').text()}`;
+  theForm.method = 'post';
+  // Next create the <input>s in the form and give them names and values
+  id = document.createElement('input');
+  id.type = 'hidden';
+  id.name = 'id';
+  id.value = $('.idField').text();
+  namefield = document.createElement('input');
+  namefield.type = 'hidden';
+  namefield.name = 'namefield';
+  namefield.value = $('.nameField').text();
+  city = document.createElement('input');
+  city.type = 'hidden';
+  city.name = 'city';
+  city.value = $('.cityField').text();
+  address = document.createElement('input');
+  address.type = 'hidden';
+  address.name = 'address';
+  address.value = $('.addressField').text();
+  phone = document.createElement('input');
+  phone.type = 'hidden';
+  phone.name = 'phone';
+  phone.value = $('.phoneField').text();
+  description = document.createElement('input');
+  description.type = 'hidden';
+  description.name = 'description';
+  description.value = $('.desField').text();
+  // Now put everything together...
+  theForm.appendChild(id);
+  theForm.appendChild(namefield);
+  theForm.appendChild(city);
+  theForm.appendChild(address);
+  theForm.appendChild(phone);
+  theForm.appendChild(description);
+
+  console.log(id.value);
+  console.log(namefield.value);
+  console.log(city.value);
+  console.log(address.value);
+  console.log(phone.value);
+  console.log(description.value);
+
+  // ...and it to the DOM...
+  document.getElementById('hidden_form_container').appendChild(theForm);
+  // ...and submit it
+  theForm.submit();
+}
+
 // ===== Events =====
 function eventDisplayCheckboxes() {
   displayCheckboxElements.forEach((e, i) => {
@@ -108,6 +167,7 @@ function eventRowTheaters() {
       fetch(`/api/theaters/${_id}`).then((res) => {
         res.json().then((data) => {
           $('h2').html(data.name);
+          $('.idField').html(_id);
           $('.nameField').html(data.name);
           $('.cityField').html(data.city);
           $('.addressField').html(data.address);
