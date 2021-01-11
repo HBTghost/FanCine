@@ -217,6 +217,18 @@ $bg-icon-sort-desc: #ffa18e;
   }
 }
 
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  background-color: $multi-background;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+}
 
 .modal-box {
   width: 900px;
@@ -226,6 +238,23 @@ $bg-icon-sort-desc: #ffa18e;
   .modal-content {
     padding-left: 10%;
     padding-right: 10%;
+    width: 100%;
+    margin: auto;
+    animation-duration: $modal-animation-duration;
+    animation-name: 'popup';
+    background-color: $white;
+    border: 1px solid $black;
+    position: relative;
+    .modal-close {
+      position: relative;
+      text-align: right;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    .modal-close:hover {
+      color: $link-color;
+      cursor: pointer;
+    }
   }
 
   .header {
