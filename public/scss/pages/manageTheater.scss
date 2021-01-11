@@ -263,6 +263,14 @@ $bg-icon-sort-desc: #ffa18e;
       }
     }
   }
+  .row #mapid {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+  }
 }
 
 .button {
@@ -282,8 +290,7 @@ $bg-icon-sort-desc: #ffa18e;
     font-size: 18px;
     color: $medium-gray;
   }
-  // Upload Demo
-  // 
+
   .uploader {
     display: block;
     clear: both;
