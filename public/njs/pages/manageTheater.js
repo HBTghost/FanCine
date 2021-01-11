@@ -47,6 +47,36 @@ function closeModal() {
   console.log('helo');
 }
 
+function editModal() {
+  if (!($('.modal-content').hasClass('editing'))) {
+    $('.modal-content').addClass('editing');
+    $('.modal-content').find('.edit').each(function () {
+      if (jQuery(this).is('#mapid')) {
+        const value = jQuery(this).text();
+        jQuery(this).text('');
+        jQuery(this).append(`<textarea class="form-control" rows="3" id="mapEmbedID" name="mapEmbedID" onchange="updateMap();" required>${value}</textarea>`);
+      } else if (jQuery(this).hasClass('desField')) {
+        console.log('hello');
+        const value = jQuery(this).text();
+        jQuery(this).text('');
+        jQuery(this).append(`<textarea class="form-control" rows="6">${value}</textarea>`);
+      } else {
+        const value = jQuery(this).text();
+        jQuery(this).text('');
+        jQuery(this).append(`<input class="textfield" type="text" value="${value}" />`);
+      }
+    });
+  } else {
+    $('.modal-content').removeClass('editing');
+  }
+}
+
+function updateMap() {
+  let result;
+  result = `${document.getElementById('mapEmbedID').value}`;
+  document.getElementById('Map').src = result;
+}
+
 // ===== Events =====
 function eventDisplayCheckboxes() {
   displayCheckboxElements.forEach((e, i) => {
@@ -75,8 +105,10 @@ function eventRowTheaters() {
           for (let i = 1; i < data.rooms.length; i += 1) {
             $('.roomField').append(`, ${data.rooms[i]}`);
           }
+          $('.desField').html(data.description);
           $('#mapid').html(`https://www.google.com/maps/embed?pb=${data.mapEmbedID}`);
           $('#Map').attr('src', `https://www.google.com/maps/embed?pb=${data.mapEmbedID}`);
+
           openModal();
         });
       });
