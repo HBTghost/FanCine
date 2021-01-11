@@ -74,6 +74,8 @@ function eventRowTheaters() {
             $('.roomField').append(", ".concat(data.rooms[i]));
           }
 
+          $('#mapid').html("https://www.google.com/maps/embed?pb=".concat(data.mapEmbedID));
+          $('#Map').attr('src', "https://www.google.com/maps/embed?pb=".concat(data.mapEmbedID));
           openModal();
         });
       });

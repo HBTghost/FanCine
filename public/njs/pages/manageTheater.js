@@ -75,6 +75,8 @@ function eventRowTheaters() {
           for (let i = 1; i < data.rooms.length; i += 1) {
             $('.roomField').append(`, ${data.rooms[i]}`);
           }
+          $('#mapid').html(`https://www.google.com/maps/embed?pb=${data.mapEmbedID}`);
+          $('#Map').attr('src', `https://www.google.com/maps/embed?pb=${data.mapEmbedID}`);
           openModal();
         });
       });
