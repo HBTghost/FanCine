@@ -79,9 +79,9 @@ adminRouter.get('/postReview', (req, res) => {
 //   },
 // );
 
-adminRouter.get('/manageReview', getAllMovies, (req, res) => {
+adminRouter.get('/manageReview', (req, res) => {
   res.render('manageMovie', {
-    movies: res.allMovies,
+    // movies: res.allMovies,
     layout: 'admin',
     style: 'manageMovie',
     script: 'manageMovie',

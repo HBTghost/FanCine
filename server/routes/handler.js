@@ -97,7 +97,7 @@ handlebarsRouter.get('/review/:id', getReview, async (req, res) => {
   // const y = d1.getFullYear();
 
   // const dateString = `${d}/${m}/${y}`;
-  console.log(res.review);
+  // console.log(res.review);
 
   res.render('reviewContent', {
     style: 'reviewContent',
