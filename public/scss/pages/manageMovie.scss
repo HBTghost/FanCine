@@ -1,3 +1,5 @@
+@import '../base/variable';
+
 $bd-table: #000;
 $bg-even-row: #ebeeff;
 
@@ -234,6 +236,102 @@ $bg-icon-sort-desc: #ffa18e;
     border-radius: 10px;
   }
 }
+
+
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  background-color: $multi-background;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+}
+
+.modal-box {
+  width: 900px;
+  margin: auto;
+  padding: 30px;
+
+  .modal-content {
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 100%;
+    margin: auto;
+    animation-duration: $modal-animation-duration;
+    animation-name: 'popup';
+    background-color: $white;
+    border: 1px solid $black;
+    position: relative;
+    .modal-close {
+      position: relative;
+      text-align: right;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    .modal-close:hover {
+      color: $link-color;
+      cursor: pointer;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .table {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    .tbody {
+      display: table-row-group;
+      .tr {
+        display: table-row;
+        .td {
+          display: table-cell;
+          border: 1px solid $black;
+          padding: 10px 25px;
+          width: 60%;
+          .textfield {
+            width: 100%;
+            padding: 10px;
+          }
+        }
+        .title {
+          display: table-cell; 
+          border: 1px solid $black;
+          /* padding-left: 30px; */
+          width: 15%;
+          text-align: center;
+          
+        }
+      }
+      .tr.editing .td INPUT {
+        width: 100px;
+      }
+    }
+  }
+  .row #mapid {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+  }
+}
+
+.button {
+  justify-content: center;
+  margin: 30px auto;
+}
+
 
 @media only screen and (max-width: 580px) {
   #mnmovie-body {
