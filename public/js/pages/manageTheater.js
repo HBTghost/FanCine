@@ -95,7 +95,8 @@ function submitModal() {
   var city;
   var address;
   var phone;
-  var description; // Start by creating a <form>
+  var description;
+  var rooms; // Start by creating a <form>
 
   theForm = document.createElement('form');
   theForm.action = '/admin/manageTheater/update';
@@ -124,19 +125,25 @@ function submitModal() {
   description = document.createElement('input');
   description.type = 'hidden';
   description.name = 'description';
-  description.value = $('.desField').text(); // Now put everything together...
+  description.value = $('.desField').text();
+  rooms = document.createElement('input');
+  rooms.type = 'hidden';
+  rooms.name = 'rooms';
+  rooms.value = $('.roomField').text(); // Now put everything together...
 
   theForm.appendChild(id);
   theForm.appendChild(namefield);
   theForm.appendChild(city);
   theForm.appendChild(address);
   theForm.appendChild(phone);
-  theForm.appendChild(description); // console.log(id.value);
+  theForm.appendChild(description);
+  theForm.appendChild(rooms); // console.log(id.value);
   // console.log(namefield.value);
   // console.log(city.value);
   // console.log(address.value);
   // console.log(phone.value);
   // console.log(description.value);
+  // console.log(rooms.value);
   // ...and it to the DOM...
 
   document.getElementById('hidden_form_container').appendChild(theForm); // ...and submit it

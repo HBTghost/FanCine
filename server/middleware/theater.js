@@ -193,6 +193,7 @@ async function updateTheaterInfor(req, res, next) {
         address: req.body.address,
         phone: req.body.phone,
         description: req.body.description,
+        rooms: req.body.rooms.trim().split(','),
       },
     );
   } catch (err) {

@@ -96,6 +96,7 @@ function submitModal() {
   let address;
   let phone;
   let description;
+  let rooms;
 
   // Start by creating a <form>
   theForm = document.createElement('form');
@@ -126,6 +127,10 @@ function submitModal() {
   description.type = 'hidden';
   description.name = 'description';
   description.value = $('.desField').text();
+  rooms = document.createElement('input');
+  rooms.type = 'hidden';
+  rooms.name = 'rooms';
+  rooms.value = $('.roomField').text();
   // Now put everything together...
   theForm.appendChild(id);
   theForm.appendChild(namefield);
@@ -133,6 +138,7 @@ function submitModal() {
   theForm.appendChild(address);
   theForm.appendChild(phone);
   theForm.appendChild(description);
+  theForm.appendChild(rooms);
 
   // console.log(id.value);
   // console.log(namefield.value);
@@ -140,6 +146,7 @@ function submitModal() {
   // console.log(address.value);
   // console.log(phone.value);
   // console.log(description.value);
+  // console.log(rooms.value);
 
   // ...and it to the DOM...
   document.getElementById('hidden_form_container').appendChild(theForm);
