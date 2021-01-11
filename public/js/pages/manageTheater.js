@@ -96,7 +96,8 @@ function submitModal() {
   var address;
   var phone;
   var description;
-  var rooms; // Start by creating a <form>
+  var rooms;
+  var mapEmbedID; // Start by creating a <form>
 
   theForm = document.createElement('form');
   theForm.action = '/admin/manageTheater/update';
@@ -129,7 +130,12 @@ function submitModal() {
   rooms = document.createElement('input');
   rooms.type = 'hidden';
   rooms.name = 'rooms';
-  rooms.value = $('.roomField').text(); // Now put everything together...
+  rooms.value = $('.roomField').text();
+  mapEmbedID = document.createElement('input');
+  mapEmbedID.type = 'hidden';
+  mapEmbedID.name = 'mapEmbedID';
+  mapEmbedID.value = $('#mapid').text();
+  mapEmbedID.value = mapEmbedID.value.replace('https://www.google.com/maps/embed?pb=', ''); // Now put everything together...
 
   theForm.appendChild(id);
   theForm.appendChild(namefield);
@@ -137,14 +143,8 @@ function submitModal() {
   theForm.appendChild(address);
   theForm.appendChild(phone);
   theForm.appendChild(description);
-  theForm.appendChild(rooms); // console.log(id.value);
-  // console.log(namefield.value);
-  // console.log(city.value);
-  // console.log(address.value);
-  // console.log(phone.value);
-  // console.log(description.value);
-  // console.log(rooms.value);
-  // ...and it to the DOM...
+  theForm.appendChild(rooms);
+  theForm.appendChild(mapEmbedID); // ...and it to the DOM...
 
   document.getElementById('hidden_form_container').appendChild(theForm); // ...and submit it
 
