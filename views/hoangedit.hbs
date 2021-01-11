@@ -1,0 +1,34 @@
+<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+
+<br>
+<br>
+<br>
+<form action="/hoangupload" method="POST">
+    <label for="review_head_originalName">Tên phim gốc</label>
+    <input type="text" name="review_head_originalName" id="review_head_originalName" class="form-control" value="Tên phim gốc">
+    <label for="review_head_vietnameseName">Tên phim tiếng Việt</label>
+    <input type="text" name="review_head_vietnameseName" id="review_head_vietnameseName" class="form-control" value="Tên phim tiếng Việt">
+    
+    <label for="review_title">Tiêu đề bài viết</label>
+    <input type="text" name="review_title" id="review_title" class="form-control" value="Tiêu đề bài viết">
+    <label for="review_content">Nội dung bài viết</label>
+    <textarea name="review_content" id="review_content" required>
+    </textarea>
+    <input type="submit" value="Đăng bài!">
+</form>
+
+
+<script>
+ClassicEditor
+    .create( document.querySelector( '#review_content' ), {
+    ckfinder: {
+        uploadUrl: '/hoangupload'
+    }
+    } )
+    .then( editor => {
+        window.editor = editor;
+    } )
+    .catch( err => {
+        console.error( err.stack );
+    } );
+</script>

@@ -1,0 +1,35 @@
+
+
+{{#with review}}
+<script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
+
+<div id="article-header" class="article-font" style="background-image: linear-gradient(0deg,rgba(0,0,0,.79),rgba(0,0,0,.79)),url({{imageSource}});">
+    <!-- <h1 class="article-header-title">loreemememememeememmemeememememememeemememememememeemememm</h1> -->
+    <h1 class="article-header-title">{{originalName}}<br>{{vienameseName}}</h1> 
+    <p><!--hello--></p>
+</div>
+
+<article class="article-body article-font" >
+    <h1 class="article-content-justify-center">{{title}}</h1>
+    <div class="entry-meta">
+      <span class="entry-item">{{../date}}</span>
+      <span class="entry-item">{{author}}</span>
+    </div>
+    
+    <div id="content-here">
+      {{{content}}}
+    </div>
+</article>
+<script>
+    document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+        // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
+        // to discover the media.
+        const anchor = document.createElement( 'a' );
+
+        anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
+        anchor.className = 'embedly-card';
+
+        element.appendChild( anchor );
+    } );
+</script>
+{{/with}}

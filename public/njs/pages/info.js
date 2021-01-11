@@ -10,7 +10,7 @@ window.gc_params = {
   (
     document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]
   ).appendChild(gc);
-})();
+}());
 
 function confirmGotoShowtime() {
   Swal.fire({

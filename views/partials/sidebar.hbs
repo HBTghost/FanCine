@@ -27,6 +27,16 @@
         <li class="{{activeClassItem menuItem 'manageMovie'}}"><a href="/admin/manageMovie">Quản lý</a></li>
       </ul>
     </li>
+    <li class="{{activeClass page 'review'}}">
+      <a href="#reviewSubmenu" data-toggle="collapse" aria-expanded="false">
+        <i class="fas fa-pencil-alt"></i>
+        Đánh giá phim
+      </a>
+      <ul class="collapse list-unstyled {{showCollapse showReview}}" id="reviewSubmenu">
+        <li class="{{activeClassItem menuItem 'postReview'}}"><a href="/admin/postReview">Đăng</a></li>
+        <li class="{{activeClassItem menuItem 'manageReview'}}"><a href="/admin/manageReview">Quản lý</a></li>
+      </ul>
+    </li>
     <li>
       <a href="#theaterSubmenu" data-toggle="collapse" aria-expanded="false">
         <i class="fa fa-map-marker"></i>
