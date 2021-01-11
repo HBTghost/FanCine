@@ -21,6 +21,17 @@ async function getAllReview(req, res, next) {
   return next();
 }
 
+async function getLimitedReview(req, res, next) {
+  try {
+    const limitReview = 6;
+    res.allReviews = await Review.find().limit(limitReview).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 async function createReviewByForm(req, res, next) {
   try {
     const data = req.body;
@@ -48,5 +59,6 @@ async function createReviewByForm(req, res, next) {
 export {
   getReview,
   getAllReview,
+  getLimitedReview,
   createReviewByForm,
 };

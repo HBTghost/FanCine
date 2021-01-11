@@ -54,14 +54,16 @@ import ImageMiddleware from '../middleware/image.js';
 import {
   getReview,
   getAllReview,
+  getLimitedReview,
   createReviewByForm,
 } from '../middleware/review.js';
 
 const handlebarsRouter = express.Router();
 
-handlebarsRouter.get('/', getMovieFutureOnShow, async (req, res) => {
+handlebarsRouter.get('/', getMovieFutureOnShow, getLimitedReview, async (req, res) => {
   res.render('home', {
     style: 'home',
+    reviews: await res.allReviews,
     movies: await res.movies,
   });
 });
@@ -81,8 +83,9 @@ handlebarsRouter.get('/movie-on-show', getMovieFutureOnShowUnlimt, async (req, r
   });
 });
 
-handlebarsRouter.get('/review', (req, res) => {
+handlebarsRouter.get('/review', getAllReview, async (req, res) => {
   res.render('review', {
+    reviews: res.allReviews,
     style: 'review',
   });
 });

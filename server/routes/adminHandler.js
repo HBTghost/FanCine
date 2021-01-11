@@ -79,6 +79,18 @@ adminRouter.get('/postReview', (req, res) => {
 //   },
 // );
 
+adminRouter.get('/manageReview', getAllMovies, (req, res) => {
+  res.render('manageMovie', {
+    movies: res.allMovies,
+    layout: 'admin',
+    style: 'manageMovie',
+    script: 'manageMovie',
+    page: 'review',
+    showReview: true,
+    menuItem: 'manageReview',
+  });
+});
+
 // ===== Manage users =====
 function standardizeUsers(users) {
   users.forEach((user) => {

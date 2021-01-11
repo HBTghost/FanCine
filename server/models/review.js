@@ -7,7 +7,6 @@ const ReviewSchema = mongoose.Schema({
   },
   vietnameseName: {
     type: String,
-    required: true,
   },
   imageSource: String,
   author: {
