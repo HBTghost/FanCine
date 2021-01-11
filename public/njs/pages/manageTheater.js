@@ -38,6 +38,15 @@ function refreshDisplay() {
   });
 }
 
+function openModal() {
+  $('#myModal').css('display', 'block');
+}
+
+function closeModal() {
+  $('#myModal').css('display', 'none');
+  console.log('helo');
+}
+
 // ===== Events =====
 function eventDisplayCheckboxes() {
   displayCheckboxElements.forEach((e, i) => {
@@ -66,7 +75,7 @@ function eventRowTheaters() {
           for (let i = 1; i < data.rooms.length; i += 1) {
             $('.roomField').append(`, ${data.rooms[i]}`);
           }
-          $('#myModal').modal('show');
+          openModal();
         });
       });
     });
@@ -77,12 +86,6 @@ function handleEvents() {
   eventDisplayCheckboxes();
   eventRowTheaters();
 }
-
-// $('#close').click(() => {
-//   $('#myModal').removeClass('show');
-//   $('#myModal').modal('hide');
-//   console.log($('#myModal').modal());
-// });
 
 // ===== Main =====
 function main() {

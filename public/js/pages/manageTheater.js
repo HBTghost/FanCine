@@ -33,6 +33,15 @@ function refreshDisplay() {
       hideTableColumn(i + 1);
     }
   });
+}
+
+function openModal() {
+  $('#myModal').css('display', 'block');
+}
+
+function closeModal() {
+  $('#myModal').css('display', 'none');
+  console.log('helo');
 } // ===== Events =====
 
 
@@ -65,7 +74,7 @@ function eventRowTheaters() {
             $('.roomField').append(", ".concat(data.rooms[i]));
           }
 
-          $('#myModal').modal('show');
+          openModal();
         });
       });
     });
@@ -75,12 +84,7 @@ function eventRowTheaters() {
 function handleEvents() {
   eventDisplayCheckboxes();
   eventRowTheaters();
-} // $('#close').click(() => {
-//   $('#myModal').removeClass('show');
-//   $('#myModal').modal('hide');
-//   console.log($('#myModal').modal());
-// });
-// ===== Main =====
+} // ===== Main =====
 
 
 function main() {
