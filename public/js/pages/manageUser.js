@@ -188,15 +188,11 @@ function eventRowUsers() {
           icon: 'info',
           title: 'Cảnh báo',
           html: 'Mọi thay đổi của bạn không thể khôi phục lại!',
-          confirmButtonText: 'Lịch sử giao dịch',
-          showDenyButton: true,
-          denyButtonText: 'Xóa',
+          confirmButtonText: 'Xóa',
           showCancelButton: true,
           cancelButtonText: 'Trở lại'
         }).then(function (result) {
           if (result.isConfirmed) {
-            window.open("/admin/manageUser/transaction-history/".concat(row.children[COL.ID].innerHTML));
-          } else if (result.isDenied) {
             removeAUser(row);
           }
         });
