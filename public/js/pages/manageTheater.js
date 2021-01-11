@@ -41,20 +41,18 @@ function openModal() {
 
 function closeModal() {
   $('#myModal').css('display', 'none');
-  console.log('helo');
 }
 
 function editModal() {
   if (!$('.modal-content').hasClass('editing')) {
     $('.modal-content').addClass('editing');
+    $('#edit').text('Save');
     $('.modal-content').find('.edit').each(function () {
       if (jQuery(this).is('#mapid')) {
         var value = jQuery(this).text();
         jQuery(this).text('');
         jQuery(this).append("<textarea class=\"form-control\" rows=\"3\" id=\"mapEmbedID\" name=\"mapEmbedID\" onchange=\"updateMap();\" required>".concat(value, "</textarea>"));
       } else if (jQuery(this).hasClass('desField')) {
-        console.log('hello');
-
         var _value = jQuery(this).text();
 
         jQuery(this).text('');
@@ -68,6 +66,19 @@ function editModal() {
     });
   } else {
     $('.modal-content').removeClass('editing');
+    $('#edit').text('Edit');
+    $('.modal-content').find('.edit').each(function () {
+      if (!jQuery(this).is('#mapid') && !jQuery(this).hasClass('desField')) {
+        var value = $(this).find('INPUT').val();
+        $(this).text(value);
+        $(this).find('INPUT').remove();
+      } else {
+        var _value3 = $(this).find('TEXTAREA').val();
+
+        $(this).text(_value3);
+        $(this).find('TEXTAREA').remove();
+      }
+    });
   }
 }
 
