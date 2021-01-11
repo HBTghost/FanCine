@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAllMovies } from '../middleware/movie.js';
-import { getAllTheaters } from '../middleware/theater.js';
+import { getAllTheaters, updateTheaterInfor } from '../middleware/theater.js';
 import { getAllUsers, getAllUsersBySorting } from '../middleware/user.js';
 
 import { Movie } from '../models/index.js';
@@ -65,6 +65,10 @@ adminRouter.get('/manageTheater', getAllTheaters, (req, res) => {
     show: false,
     menuItem: 'manageTheater',
   });
+});
+
+adminRouter.post('/manageTheater/update', updateTheaterInfor, (req, res) => {
+  res.redirect('/admin/manageTheater');
 });
 
 // ===== Manage users =====

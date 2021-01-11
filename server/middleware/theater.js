@@ -182,6 +182,26 @@ async function createTheaterByForm(req, res, next) {
   return next();
 }
 
+async function updateTheaterInfor(req, res, next) {
+  try {
+    console.log(req.body);
+    await Theater.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        name: req.body.namefield,
+        city: req.body.city,
+        address: req.body.address,
+        phone: req.body.phone,
+        description: req.body.description,
+      },
+    );
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 export {
   getTheater,
   getTheaterBySession,
@@ -191,4 +211,5 @@ export {
   getTheatersByMovieID,
   postSampleTheaters,
   createTheaterByForm,
+  updateTheaterInfor,
 };
