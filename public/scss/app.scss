@@ -129,7 +129,7 @@ body {
   background-color: rgba(241, 127, 0, .8);
 }
 .show {
-  display: block;
+  display: block !important;
 }
 
 @keyframes pulse {
@@ -147,4 +147,11 @@ body {
     transform: scale(.95);
     box-shadow: 0 0 0 0 rgba(241, 127, 0, .1);
   }
+}
+
+.modal-container {
+  z-index: 2;
+}
+.sticky-top {
+  z-index: 1;
 }

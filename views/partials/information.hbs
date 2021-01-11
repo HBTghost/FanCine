@@ -1,3 +1,4 @@
+<script src="/js/pages/rater-min.js"></script>
 <!-- Information page  -->
 <div class="text-black bg-poster" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7) ,rgba(0, 0, 0, 0.7)), url('{{movie.horizontalImageSource}}');">  <!-- poster, information -->
     <div class="container">
@@ -6,13 +7,14 @@
                 <figure class="poster">
                     <img src="{{movie.imageSource}}" alt="" class="img-thumbnail">
                     <button class="btn btn-success w-100 mt-2" onclick="window.location = '/showtimes'">Đặt vé</button>
+                    <div class="rating fs-1 text-warning mx-auto mt-2" data-rate-value={{ movie.rating }}></div>
                 </figure>
             </div>
             <div class="col-lg-9 col-sm-9 text-white">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2>{{ movie.vietnameseName }}</h2>     
-                        <p>{{ movie.originalName}}</p>           
+                        <h2>{{ movie.vietnameseName }}</h2>
+                        <p>{{ movie.originalName}}</p>
                         <p><b>Thể loại:</b> {{#join movie.category ', ' }}{{/join}}</p>
                         <b>Tóm tắt</b>
                     </div>
@@ -21,13 +23,37 @@
                             {{#each movie.description }}
                                 <p>{{ this }}</p>
                             {{/each}}
-                        </div>               
+                        </div>
 
                         <div class="row mb-3">
-                            <div class="col-xl-3 col-sm-6"><b>Hài lòng: </b>{{ movie.rating }}</div>
-                            <div class="col-xl-3 col-sm-6"><b>Khởi chiếu: </b>{{ movie.date }}</div>
-                            <div class="col-xl-3 col-sm-6"><b>Thời lượng: </b>{{ movie.time }}</div>
-                            <div class="col-xl-3 col-sm-6"><b>Giới hạn tuổi: </b>{{ movie.label }}</div>
+                            <div class="col-xl-3 col-sm-6">
+                                <b>Hài lòng: </b>
+                                <p>
+                                    <i class="fas fa-star"></i>
+                                    {{ movie.rating }} / 10 ({{ movie.rates }})
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-6">
+                                <b>Khởi chiếu: </b>
+                                <p>
+                                    <i class="fas fa-calendar-day"></i>
+                                    {{ movie.date }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-6">
+                                <b>Thời lượng: </b>
+                                <p>
+                                    <i class="fas fa-history"></i>
+                                    {{ movie.time }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-6">
+                                <b>Giới hạn tuổi: </b>
+                                <p>
+                                    <i class="fas fa-tag"></i>
+                                    {{ movie.label }}
+                                </p>
+                            </div>
                         </div>
                     </div>   
                     <div class="col-lg-3 col-sm-12">
@@ -69,3 +95,12 @@
 
 {{!-- Comment and rating --}}
 <div id="graphcomment"></div>
+
+<script>
+const options = {
+selected_symbol_type: 'fontawesome_star',
+  max_value: 10,
+  step_size: 1,
+};
+$('.rating').rate(options);
+</script>

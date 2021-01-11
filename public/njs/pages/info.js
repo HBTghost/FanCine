@@ -29,3 +29,12 @@ function confirmGotoShowtime() {
     }
   });
 }
+
+function toggleRate(event) {
+  event.preventDefault();
+  $('.rating').toggleClass('show');
+}
+
+$('.rating').on('change', (ev, data) => {
+  console.log(data.from, data.to);
+});

@@ -24,7 +24,7 @@
 
 .description {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -38,7 +38,7 @@
   border-left: 10px solid $cinema-name-border-left-color;
   color: $white;
   display: flex;
-  font-size: 20px;
+  
   font-weight: bold;
   height: 50px;
   padding-left: 10px;
@@ -102,4 +102,3 @@
     width: 80%;  
   }
 }
-
