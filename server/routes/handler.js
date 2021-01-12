@@ -54,6 +54,7 @@ import ImageMiddleware from '../middleware/image.js';
 import {
   getReview,
   getAllReview,
+  getAllReviewNoContent,
   getLimitedReview,
   createReviewByForm,
 } from '../middleware/review.js';
@@ -83,7 +84,7 @@ handlebarsRouter.get('/movie-on-show', getMovieFutureOnShowUnlimt, async (req, r
   });
 });
 
-handlebarsRouter.get('/review', getAllReview, async (req, res) => {
+handlebarsRouter.get('/review', getAllReviewNoContent, async (req, res) => {
   res.render('review', {
     reviews: res.allReviews,
     style: 'review',
@@ -101,6 +102,7 @@ handlebarsRouter.get('/review/:id', getReview, async (req, res) => {
 
   res.render('reviewContent', {
     style: 'reviewContent',
+    script: 'info',
     date: new Date(res.review.createdAtMili).toDateString(),
     review: res.review,
   });
