@@ -13,4 +13,15 @@ function isValidId(id) {
   return mongoose.Types.ObjectId.isValid(id);
 }
 
-export { Movie, Theater, TheaterMovie, DateShow, TypeShow, ShowTime, Session, User, Review, isValidId };
+export {
+  Movie,
+  Theater,
+  TheaterMovie,
+  DateShow,
+  TypeShow,
+  ShowTime,
+  Session,
+  User,
+  Review,
+  isValidId,
+};

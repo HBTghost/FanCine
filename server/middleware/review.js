@@ -56,9 +56,4 @@ async function createReviewByForm(req, res, next) {
   return next();
 }
 
-export {
-  getReview,
-  getAllReview,
-  getLimitedReview,
-  createReviewByForm,
-};
+export { getReview, getAllReview, getLimitedReview, createReviewByForm };
