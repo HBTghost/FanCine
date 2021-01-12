@@ -45,11 +45,16 @@ function editModal() {
         var value = jQuery(this).text();
         jQuery(this).text('');
         jQuery(this).append("<textarea class=\"form-control\" rows=\"8\">".concat(value, "</textarea>"));
-      } else {
+      } else if (jQuery(this).is('#trailerembedidfield')) {
         var _value = jQuery(this).text();
 
         jQuery(this).text('');
-        jQuery(this).append("<input class=\"textfield\" type=\"text\" value=\"".concat(_value, "\" />"));
+        jQuery(this).append("<textarea class=\"form-control\" rows=\"1\" id=\"trailerEmbedID\" onchange=\"updateVideo();\">".concat(_value, "</textarea>"));
+      } else {
+        var _value2 = jQuery(this).text();
+
+        jQuery(this).text('');
+        jQuery(this).append("<input class=\"textfield\" type=\"text\" value=\"".concat(_value2, "\" />"));
       }
     });
   } else {
@@ -58,14 +63,14 @@ function editModal() {
     $('#button-submit').css('display', 'inline-block');
     $('#close').css('display', 'inline-block');
     $('.modal-content').find('.edit').each(function () {
-      if (!jQuery(this).hasClass('descriptionField')) {
+      if (!jQuery(this).hasClass('descriptionField') && !jQuery(this).is('#trailerembedidfield')) {
         var value = $(this).find('INPUT').val();
         $(this).text(value);
         $(this).find('INPUT').remove();
       } else {
-        var _value2 = $(this).find('TEXTAREA').val();
+        var _value3 = $(this).find('TEXTAREA').val();
 
-        $(this).text(_value2);
+        $(this).text(_value3);
         $(this).find('TEXTAREA').remove();
       }
     });
@@ -85,7 +90,8 @@ function submitModal() {
   var nation;
   var director;
   var date;
-  var description; // Start by creating a <form>
+  var description;
+  var trailerEmbedID; // Start by creating a <form>
 
   theForm = document.createElement('form');
   theForm.action = '/admin/manageMovie/update';
@@ -138,7 +144,12 @@ function submitModal() {
   description = document.createElement('input');
   description.type = 'hidden';
   description.name = 'description';
-  description.value = $('.descriptionField').text(); // Now put everything together...
+  description.value = $('.descriptionField').text();
+  trailerEmbedID = document.createElement('input');
+  trailerEmbedID.type = 'hidden';
+  trailerEmbedID.name = 'trailerEmbedID';
+  trailerEmbedID.value = $('#trailerembedidfield').text();
+  trailerEmbedID.value = trailerEmbedID.value.replace('https://www.youtube.com/embed/', ''); // Now put everything together...
 
   theForm.appendChild(id);
   theForm.appendChild(originalName);
@@ -151,11 +162,18 @@ function submitModal() {
   theForm.appendChild(nation);
   theForm.appendChild(director);
   theForm.appendChild(date);
-  theForm.appendChild(description); // ...and it to the DOM...
+  theForm.appendChild(description);
+  theForm.appendChild(trailerEmbedID); // ...and it to the DOM...
 
   document.getElementById('hidden_form_container').appendChild(theForm); // ...and submit it
 
   theForm.submit();
+}
+
+function updateVideo() {
+  var result;
+  result = "".concat(document.getElementById('trailerEmbedID').value);
+  document.getElementById('video-trailer').src = result;
 } // ===== Events =====
 
 
@@ -207,7 +225,7 @@ function eventRowMovies() {
             $('.descriptionField').append("<br>".concat(data.description[_i2]));
           }
 
-          $('#trailerEmbedIDField').html("https://www.youtube.com/embed/".concat(data.trailerEmbedID));
+          $('#trailerembedidfield').html("https://www.youtube.com/embed/".concat(data.trailerEmbedID));
           $('#video-trailer').attr('src', "https://www.youtube.com/embed/".concat(data.trailerEmbedID)); // $('.imageSourceField').html(data.imageSource);
           // $('.horizontalImageSourceField').html(data.horizontalImageSource);
 
