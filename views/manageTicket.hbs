@@ -1,1 +1,125 @@
-<h1 class="text-center">Manage Ticket</h1>
+<div id="mnticket-body">
+  <div class="mnticket-container">
+    <div id="mnticket-title">
+      <a href="manageTicket">QUẢN LÝ VÉ</a>
+    </div>
+
+    <div id="mnticket-header">
+      <div id="mnticket-display">
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-iduser" checked>
+          <label for="mmnticket-display-item-iduser">ID người dùng</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-idshowtime" checked>
+          <label for="mmnticket-display-item-idshowtime">ID suất chiếu</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-createdat" checked>
+          <label for="mmnticket-display-item-createdat">Thời điểm mua</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-createdatmili" checked>
+          <label for="mmnticket-display-item-createdatmili">Thời điểm mua (ms)</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-ticketinfo" checked>
+          <label for="mmnticket-display-item-ticketinfo">Thông tin vé</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-comboinfo">
+          <label for="mmnticket-display-item-comboinfo">Thông tin combo</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-seatinfo">
+          <label for="mmnticket-display-item-seatinfo">Ghế đã đặt</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-totalprice" checked>
+          <label for="mmnticket-display-item-totalprice">Tổng giá tiền</label>
+        </div>
+        <div class="mmnticket-display-item">
+          <input type="checkbox" id="mmnticket-display-item-paymentmethod">
+          <label for="mmnticket-display-item-paymentmethod">Phương thức thanh toán</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnticket-container mnticket-scrollable-container">
+    <table id="mnticket-table">
+      <thead>
+        <tr>
+          <th class="mnticket-cell mnticket-number">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">STT</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-iduser">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">ID người dùng</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-idshowtime">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">ID suất chiếu</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-createdat">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Thời điểm mua</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-createdatmili">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Thời điểm mua (ms)</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-ticketinfo">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Thông tin vé</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-comboinfo">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Thông tin combo</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-seatinfo">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Ghế đã đặt</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-totalprice">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Tổng giá tiền</div>
+            </div>
+          </th>
+          <th class="mnticket-cell mnticket-paymentmethod">
+            <div class="mnticket-cell-wrapper">
+              <div class="mnticket-cell-header">Phương thức thanh toán</div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each allSessions}}
+        <tr>
+          <td class="mnticket-cell mnticket-number"></td>
+          <td class="mnticket-cell mnticket-iduser">{{_idUser}}</td>
+          <td class="mnticket-cell mnticket-idshowtime">{{_idShowtime}}</td>
+          <td class="mnticket-cell mnticket-createdat">{{createdAt}}</td>
+          <td class="mnticket-cell mnticket-createdatmili">{{createdAtMili}}</td>
+          <td class="mnticket-cell mnticket-ticketinfo">{{ticketInfo}}</td>
+          <td class="mnticket-cell mnticket-comboinfo">{{comboInfo}}</td>
+          <td class="mnticket-cell mnticket-seatinfo">{{seatInfo}}</td>
+          <td class="mnticket-cell mnticket-totalprice">{{totalPrice}}</td>
+          <td class="mnticket-cell mnticket-paymentmethod">{{paymentMethod}}</td>
+          <td class="mnticket-cell mnticket-id">{{_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
