@@ -63,7 +63,7 @@ function editModal() {
         var _value2 = jQuery(this).text();
 
         jQuery(this).text('');
-        jQuery(this).append("<input class=\"textfield\" type=\"text\" value=\"".concat(_value2, "\" />"));
+        jQuery(this).append("<input class=\"textfield\" type=\"text\" value=\"".concat(_value2, "\"/>"));
       }
     });
   } else {

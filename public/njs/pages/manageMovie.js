@@ -41,12 +41,124 @@ function editModal() {
     $('#button-submit').css('display', 'none');
     $('#close').css('display', 'none');
     $('#edit').text('Save');
+    $('.modal-content').find('.edit').each(function () {
+      if (jQuery(this).hasClass('descriptionField')) {
+        const value = jQuery(this).text();
+        jQuery(this).text('');
+        jQuery(this).append(`<textarea class="form-control" rows="8">${value}</textarea>`);
+      } else {
+        const value = jQuery(this).text();
+        jQuery(this).text('');
+        jQuery(this).append(`<input class="textfield" type="text" value="${value}" />`);
+      }
+    });
   } else {
     $('.modal-content').removeClass('editing');
     $('#edit').text('Edit');
     $('#button-submit').css('display', 'inline-block');
     $('#close').css('display', 'inline-block');
+    $('.modal-content').find('.edit').each(function () {
+      if (!jQuery(this).hasClass('descriptionField')) {
+        const value = $(this).find('INPUT').val();
+        $(this).text(value);
+        $(this).find('INPUT').remove();
+      } else {
+        const value = $(this).find('TEXTAREA').val();
+        $(this).text(value);
+        $(this).find('TEXTAREA').remove();
+      }
+    });
   }
+}
+
+function submitModal() {
+  let theForm;
+  let id;
+  let originalName;
+  let vietnameseName;
+  let label;
+  let time;
+  let producer;
+  let category;
+  let cast;
+  let nation;
+  let director;
+  let date;
+  let description;
+
+  // Start by creating a <form>
+  theForm = document.createElement('form');
+  theForm.action = '/admin/manageMovie/update';
+  theForm.method = 'post';
+
+  // Next create the <input>s in the form and give them names and values
+  id = document.createElement('input');
+  id.type = 'hidden';
+  id.name = 'id';
+  id.value = $('.idField').text();
+  originalName = document.createElement('input');
+  originalName.type = 'hidden';
+  originalName.name = 'originalName';
+  originalName.value = $('.originalNameField').text();
+  vietnameseName = document.createElement('input');
+  vietnameseName.type = 'hidden';
+  vietnameseName.name = 'vietnameseName';
+  vietnameseName.value = $('.vietnameseNameField').text();
+  label = document.createElement('input');
+  label.type = 'hidden';
+  label.name = 'label';
+  label.value = $('.labelField').text();
+  time = document.createElement('input');
+  time.type = 'hidden';
+  time.name = 'time';
+  time.value = $('.timeField').text();
+  producer = document.createElement('input');
+  producer.type = 'hidden';
+  producer.name = 'producer';
+  producer.value = $('.producerField').text();
+  category = document.createElement('input');
+  category.type = 'hidden';
+  category.name = 'category';
+  category.value = $('.categoryField').text();
+  cast = document.createElement('input');
+  cast.type = 'hidden';
+  cast.name = 'cast';
+  cast.value = $('.castField').text();
+  nation = document.createElement('input');
+  nation.type = 'hidden';
+  nation.name = 'nation';
+  nation.value = $('.nationField').text();
+  director = document.createElement('input');
+  director.type = 'hidden';
+  director.name = 'director';
+  director.value = $('.directorField').text();
+  date = document.createElement('input');
+  date.type = 'hidden';
+  date.name = 'date';
+  date.value = $('.dateField').text();
+  description = document.createElement('input');
+  description.type = 'hidden';
+  description.name = 'description';
+  description.value = $('.descriptionField').text();
+
+  // Now put everything together...
+  theForm.appendChild(id);
+  theForm.appendChild(originalName);
+  theForm.appendChild(vietnameseName);
+  theForm.appendChild(label);
+  theForm.appendChild(time);
+  theForm.appendChild(producer);
+  theForm.appendChild(category);
+  theForm.appendChild(cast);
+  theForm.appendChild(nation);
+  theForm.appendChild(director);
+  theForm.appendChild(date);
+  theForm.appendChild(description);
+
+  // ...and it to the DOM...
+  document.getElementById('hidden_form_container').appendChild(theForm);
+  // ...and submit it
+  theForm.submit();
 }
 
 // ===== Events =====
@@ -90,7 +202,7 @@ function eventRowMovies() {
           $('.dateField').html(data.date);
           $('.descriptionField').html(data.description[0]);
           for (let i = 1; i < data.description.length; i += 1) {
-            $('.descriptionField').append(`\n${data.description[i]}`);
+            $('.descriptionField').append(`<br>${data.description[i]}`);
           }
           // $('.trailerEmbedIDField').html(data.trailerEmbedID);
           // $('.imageSourceField').html(data.imageSource);

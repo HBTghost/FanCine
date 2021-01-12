@@ -184,7 +184,6 @@ async function createTheaterByForm(req, res, next) {
 
 async function updateTheaterInfor(req, res, next) {
   try {
-    console.log(req.body);
     await Theater.findOneAndUpdate(
       { _id: req.body.id },
       {

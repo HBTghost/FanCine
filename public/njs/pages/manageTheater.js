@@ -64,7 +64,7 @@ function editModal() {
       } else {
         const value = jQuery(this).text();
         jQuery(this).text('');
-        jQuery(this).append(`<input class="textfield" type="text" value="${value}" />`);
+        jQuery(this).append(`<input class="textfield" type="text" value="${value}"/>`);
       }
     });
   } else {
