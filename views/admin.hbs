@@ -1,4 +1,4 @@
-<h1 class="text-center">Dashboard</h1>
+<h1 class="text-center">Trang chủ</h1>
 
 {{> adminHeader }}
 
@@ -16,18 +16,18 @@
 <div class="row mt-4">
   <div class="col-12 col-md-6">
     <canvas id="movieRatingChart"></canvas>
-    <h3 class="text-center">Rated Movies</h3>
+    <h3 class="text-center">Đánh giá phim</h3>
   </div>
   <div class="col-12 col-md-6">
     <canvas id="movieLabelChart"></canvas>
-    <h3 class="text-center">Labeled Movies</h3>
+    <h3 class="text-center">Nhãn phim</h3>
   </div>
 </div>
 
 
 <script>
 
-// Movie rating histogram ---------------------------------
+// gp histogram ---------------------------------
 let movieData = [];
 {{#each movieHistogram}}
   movieData.push({{ this }});
@@ -36,9 +36,9 @@ new Chart(
   document.querySelector('#movieRatingChart'), {
   type: 'pie',
   data: {
-    labels: ["Really Bad", "Bad", "Fine", "Interesting", "Good"],
+    labels: ["Rất dở", 'Dở', "Tạm ổn", "Thú vị", "Hay"],
     datasets: [{
-      label: 'Movie rating',
+      label: 'gp',
       backgroundColor: [
         "#e74c3c",
         "#9b59b6",
@@ -64,7 +64,7 @@ new Chart(
   data: {
     labels: movieLabelLabel,
     datasets: [{
-      label: 'Movie rating',
+      label: 'Đánh giá phim',
       backgroundColor: [
         "#f1c40f",
         "#3498db",
@@ -88,9 +88,9 @@ new Chart(
   {
     type: 'line',
     data: {
-      labels: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+      labels: [ 'Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7' ],
       datasets: [{
-        label: 'Revenue',
+        label: 'Tổng doanh thu',
         data: revenueData,
         backgroundColor: [
           'rgba(255, 205, 86, 0.2)',
@@ -120,10 +120,10 @@ new Chart(
   {
   type: 'bar',
   data: {
-    labels: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
+    labels: [ 'Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7' ],
     datasets: [
       {
-        label: 'Bought Ticket',
+        label: 'Số vé bán',
         data: sessionData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -146,7 +146,7 @@ new Chart(
         borderWidth:1
       },
       {
-        label: 'Registered Account',
+        label: 'Số tài khoản đăng kí',
         data: userData,
           backgroundColor: [
             'rgba(54, 162, 235, 0.2)',

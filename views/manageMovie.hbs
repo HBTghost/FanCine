@@ -1,19 +1,156 @@
-<div class="container">
-<h1 class="text-center">Quản lý phim</h1>
-<div class="delete-movie">
-<div class="todo-container">
-  <ul class="todo-list" onclick="removeMovie(event)">
-    {{#each movies }}
-    <div class="todo">
-      <p class="_id" style="display: none;">{{ _id }}</p>
-      <li class="todo-item">{{ originalName }}</li>
-      <button class="complete-btn green"><i class="fas fa-check"></i></button>
-      <button class="edit-btn yellow"><i class="fas fa-edit"></i></button>
-      <button class="trash-btn orange"><i class="fas fa-trash"></i></button>
+<div id="mnmovie-body">
+  <div class="mnmovie-container">
+    <div id="mnmovie-title">
+      <a href="managemovie">QUẢN LÝ PHIM</a>
     </div>
-    {{/each}}
-  </ul>
-</div>
-</div>
 
+    <div id="mnmovie-header">
+      <div id="mnmovie-display">
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-originalname" checked>
+          <label for="mmnmovie-display-item-name">Tên gốc</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-vietnamesename">
+          <label for="mmnmovie-display-item-city">Tên Việt Nam</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-rating" checked>
+          <label for="mmnmovie-display-item-address">Đánh giá</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-rates">
+          <label for="mmnmovie-display-item-address">Lượt xem</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-label" checked>
+          <label for="mmnmovie-display-item-phonenum">Nhãn</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-time" checked>
+          <label for="mmnmovie-display-item-rooms">Thời lượng</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-producer" checked>
+          <label for="mmnmovie-display-item-rooms">Nhà sản xuất</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-category" checked>
+          <label for="mmnmovie-display-item-rooms">Thể loại</label>
+        </div>
+                <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-cast" checked>
+          <label for="mmnmovie-display-item-rooms">Diễn viên</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-nation">
+          <label for="mmnmovie-display-item-rooms">Quốc gia</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-director" checked>
+          <label for="mmnmovie-display-item-rooms">Đạo diễn</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-date" checked>
+          <label for="mmnmovie-display-item-rooms">Ngày ra rạp</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mnmovie-container mnmovie-scrollable-container">
+    <table id="mnmovie-table">
+      <thead>
+        <tr>
+          <th class="mnmovie-cell mnmovie-number">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">STT</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-originalname">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Tên gốc</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-vietnamesename">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Tên Việt Nam</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-rating">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Đánh giá</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-rates">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Lượt xem</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-label">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Nhãn</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-time">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Thời lượng</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-producer">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Nhà sản xuất</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-category">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Thể loại</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-cast">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Diễn viên</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-nation">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Quốc gia</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-director">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Đạo diễn</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-date">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Ngày ra rạp</div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each movies}}
+        <tr>
+          <td class="mnmovie-cell mnmovie-number"></td>
+          <td class="mnmovie-cell mnmovie-originalname">{{originalName}}</td>
+          <td class="mnmovie-cell mnmovie-vietnamesename">{{vietnameseName}}</td>
+          <td class="mnmovie-cell mnmovie-rating">{{rating}}</td>
+          <td class="mnmovie-cell mnmovie-rates">{{rates}}</td>
+          <td class="mnmovie-cell mnmovie-label">{{label}}</td> 
+          <td class="mnmovie-cell mnmovie-time">{{time}}</td>
+          <td class="mnmovie-cell mnmovie-producer">{{producer}}</td>
+          <td class="mnmovie-cell mnmovie-category">{{category}}</td>
+          <td class="mnmovie-cell mnmovie-cast">{{cast}}</td>
+          <td class="mnmovie-cell mnmovie-nation">{{nation}}</td>
+          <td class="mnmovie-cell mnmovie-director">{{director}}</td>
+          <td class="mnmovie-cell mnmovie-date">{{date}}</td>
+          <td class="mnmovie-cell mnmovie-id">{{_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{> inforMovie}}
 </div>

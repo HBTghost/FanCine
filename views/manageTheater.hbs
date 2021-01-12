@@ -1,0 +1,87 @@
+<div id="mntheater-body">
+  <div class="mntheater-container">
+    <div id="mntheater-title">
+      <a href="manageTheater">QUẢN LÝ RẠP PHIM</a>
+    </div>
+
+    <div id="mntheater-header">
+      <div id="mntheater-display">
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-name" checked>
+          <label for="mmntheater-display-item-name">Tên rạp</label>
+        </div>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-city" checked>
+          <label for="mmntheater-display-item-city">Thành phố</label>
+        </div>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-address" checked>
+          <label for="mmntheater-display-item-address">Địa chỉ</label>
+        </div>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-phonenum" checked>
+          <label for="mmntheater-display-item-phonenum">Số điện thoại</label>
+        </div>
+        <div class="mmntheater-display-item">
+          <input type="checkbox" id="mmntheater-display-item-rooms">
+          <label for="mmntheater-display-item-rooms">Phòng</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mntheater-container mntheater-scrollable-container">
+    <table id="mntheater-table">
+      <thead>
+        <tr>
+          <th class="mntheater-cell mntheater-number">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">STT</div>
+            </div>
+          </th>
+          <th class="mntheater-cell mntheater-name">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Tên rạp</div>
+            </div>
+          </th>
+          <th class="mntheater-cell mntheater-city">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Thành phố</div>
+            </div>
+          </th>
+          <th class="mntheater-cell mntheater-address">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Địa chỉ</div>
+            </div>
+          </th>
+          <th class="mntheater-cell mntheater-phonenum">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Số điện thoại</div>
+            </div>
+          </th>
+          <th class="mntheater-cell mntheater-rooms">
+            <div class="mntheater-cell-wrapper">
+              <div class="mntheater-cell-header">Phòng</div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each theaters}}
+        <tr>
+          <td class="mntheater-cell mntheater-number"></td>
+          <td class="mntheater-cell mntheater-name">{{name}}</td>
+          <td class="mntheater-cell mntheater-city">{{city}}</td>
+          <td class="mntheater-cell mntheater-address">{{address}}</td>
+          <td class="mntheater-cell mntheater-phonenum">{{phone}}</td>
+          <td class="mntheater-cell mntheater-rooms">{{rooms}}</td>
+          <td class="mntheater-cell mntheater-id">{{_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{> inforTheater}}
+</div>
+

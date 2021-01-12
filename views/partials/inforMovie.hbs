@@ -1,0 +1,76 @@
+
+<div class="modal fade show modal-container" id="myModal" tabindex="-1" data-keyboard="true" role="dialog" style="overflow-y:auto;">
+    <div class="modal-box">
+        <div class="modal-content">
+            <div class="header">
+                <h2></h2>
+            </div>
+            <div class="table">
+                <div class="tbody">
+                    <form class="tr">
+                        <div class="title">ID</div>
+                        <div class="td idField"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Tên gốc</div>
+                        <div class="td originalNameField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Tên Việt Nam</div>
+                        <div class="td vietnameseNameField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Đánh giá</div>
+                        <div class="td ratingField"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Lượt xem</div>
+                        <div class="td ratesField"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Nhãn</div>
+                        <div class="td labelField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Thời lượng</div>
+                        <div class="td timeField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Nhà sản xuất</div>
+                        <div class="td producerField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Thể loại</div>
+                        <div class="td categoryField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Diễn viên</div>
+                        <div class="td castField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Quốc gia</div>
+                        <div class="td nationField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Đạo diễn</div>
+                        <div class="td directorField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Ngày khởi chiếu</div>
+                        <div class="td dateField edit"></div>
+                    </form>
+                    <form class="tr">
+                        <div class="title">Mô tả</div>
+                        <div class="td descriptionField edit"></div>
+                    </form>  
+                </div>
+            </div>
+            <div class="button">
+                <button id="edit" onclick="editModal();">Edit</button>
+                <button id="button-submit" onclick="submitModal();">Submit</button>
+                <button id="close" onclick="closeModal();">Close</button>
+            </div>
+            <div id="hidden_form_container" style="display:none;"></div>
+        </div>
+    </div> 
+</div>

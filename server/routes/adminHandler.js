@@ -1,6 +1,6 @@
 import express from 'express';
-import { getAllMovies } from '../middleware/movie.js';
-import { getAllTheaters } from '../middleware/theater.js';
+import { getAllMovies, updateMovieInfor } from '../middleware/movie.js';
+import { getAllTheaters, updateTheaterInfor } from '../middleware/theater.js';
 import { getAllSessions } from '../middleware/session.js';
 import { getAllUsers, getAllUsersBySorting } from '../middleware/user.js';
 
@@ -9,11 +9,7 @@ import { Movie } from '../models/index.js';
 import { c, arr } from '../../public/njs/pages/provinces.js';
 
 import ImageMiddleware from '../middleware/image.js';
-import {
-  getReview,
-  getAllReview,
-  createReviewByForm,
-} from '../middleware/review.js';
+import { getReview, getAllReview, createReviewByForm } from '../middleware/review.js';
 
 const adminRouter = express.Router();
 
@@ -89,6 +85,38 @@ adminRouter.get('/manageReview', (req, res) => {
     showReview: true,
     menuItem: 'manageReview',
   });
+});
+
+adminRouter.post('/manageMovie/update', updateMovieInfor, (req, res) => {
+  res.redirect('/admin/manageMovie');
+});
+
+// ===== Manage theaters =====
+adminRouter.get('/postTheater', (req, res) => {
+  res.render('postTheater', {
+    layout: 'admin',
+    style: 'postMovie',
+    script: 'postTheater',
+    page: 'theater',
+    show: false,
+    menuItem: 'postTheater',
+  });
+});
+
+adminRouter.get('/manageTheater', getAllTheaters, (req, res) => {
+  res.render('manageTheater', {
+    theaters: res.allTheaters,
+    layout: 'admin',
+    style: 'manageTheater',
+    script: 'manageTheater',
+    page: 'theater',
+    show: false,
+    menuItem: 'manageTheater',
+  });
+});
+
+adminRouter.post('/manageTheater/update', updateTheaterInfor, (req, res) => {
+  res.redirect('/admin/manageTheater');
 });
 
 // ===== Manage users =====

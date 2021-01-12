@@ -559,6 +559,31 @@ async function postSampleMovies(req, res, next) {
   return next();
 }
 
+async function updateMovieInfor(req, res, next) {
+  try {
+    await Movie.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        originalName: req.body.originalName,
+        vietnameseName: req.body.vietnameseName,
+        label: req.body.label,
+        time: req.body.time,
+        producer: req.body.producer,
+        category: req.body.category.trim().split(','),
+        cast: req.body.cast.trim().split(','),
+        nation: req.body.nation,
+        director: req.body.director,
+        date: req.body.date,
+        description: req.body.description.trim().split('\n'),
+      },
+    );
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
 export {
   getMovieFutureOnShowUnlimt,
   getMovieFutureOnShow,
@@ -572,4 +597,5 @@ export {
   getMoviesByTheaterID,
   createMovieByForm,
   postSampleMovies,
+  updateMovieInfor,
 };
