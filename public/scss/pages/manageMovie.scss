@@ -332,6 +332,17 @@ $bg-icon-sort-desc: #ffa18e;
   margin: 30px auto;
 }
 
+#trailerembedidfield {
+  width: 100%;
+}
+
+#video-trailer {
+  height: 380px;
+  width: 83%;
+  display: block;
+  margin: auto;
+}
+
 
 @media only screen and (max-width: 580px) {
   #mnmovie-body {

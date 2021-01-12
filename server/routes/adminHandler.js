@@ -168,23 +168,14 @@ adminRouter.get('/manageUser', getAllUsers, (req, res) => {
 });
 
 adminRouter.get(
-  '/manageTicket',
-  getAllUsers,
-  getAllMovies,
-  getAllTheaters,
-  getAllSessions,
-  (req, res) => {
+  '/manageTicket', getAllSessions, (req, res) => {
     res.render('manageTicket', {
+      allSessions: res.allSessions,
       layout: 'admin',
       page: 'home',
-      userQuantity: res.allUsers.length,
-      userHistogram: res.userHistogram,
-      movieQuantity: res.allMovies.length,
-      movieHistogram: res.movieHistogram,
-      movieLabels: res.movieLabels,
-      theaterQuantity: res.allTheaters.length,
-      sessionQuantity: res.allSessions.length,
-      sessionHistogram: res.sessionHistogram,
+      style: 'manageTicket',
+      script: 'manageTicket',
+
     });
   },
 );

@@ -575,6 +575,7 @@ async function updateMovieInfor(req, res, next) {
         director: req.body.director,
         date: req.body.date,
         description: req.body.description.trim().split('\n'),
+        trailerEmbedID: req.body.trailerEmbedID,
       },
     );
   } catch (err) {

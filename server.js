@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import path, { dirname } from 'path';
 import expbs from 'express-handlebars';
-import herokuAwake from 'heroku-awake';
 
 import flash from 'connect-flash';
 import session from 'express-session';
@@ -29,14 +28,11 @@ import {
   swaggerRouter,
   sessionRouter,
   userRouter,
-  reviewRouter,
 } from './server/routes/index.js';
 
 import authRouter from './server/routes/auth.js';
 import renderAuthRouter from './server/routes/renderAuth.js';
 import adminRouter from './server/routes/adminHandler.js';
-
-import config from './server/config.json';
 
 configPassport(passport);
 
@@ -90,7 +86,7 @@ app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: 
 // ------------ Express session Configuration ------------//
 app.use(
   session({
-    secret: config.secret,
+    secret: 'secret',
     resave: true,
     saveUninitialized: true,
   }),
@@ -115,7 +111,7 @@ app.use((req, res, next) => {
 // Server rendering
 app.use('/', handlebarsRouter);
 // app.use('/admin', ensureAdmin, adminRouter);
-app.use('/admin', ensureAdmin, adminRouter);
+app.use('/admin', adminRouter);
 
 app.use('/', authRouter);
 app.use('/render', renderAuthRouter);
@@ -127,7 +123,6 @@ app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/api/users', userRouter);
-app.use('/api/reviews', reviewRouter);
 
 // swagger docs route
 app.use('/api-docs', swaggerRouter);
@@ -149,5 +144,4 @@ const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`);
-  herokuAwake(process.env.BASE_URL);
 });
