@@ -101,6 +101,15 @@ new Chart(
         pointBackgroundColor: 'rgb(255, 205, 86)',
         borderWidth: 1
       }]
+    },
+    options: {
+      tooltips: {
+          callbacks: {
+              label: function(tooltipItem, data) {
+                  return tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+              }
+          }
+      }
     }
   }
 );
