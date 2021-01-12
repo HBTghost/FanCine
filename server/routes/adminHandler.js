@@ -9,7 +9,7 @@ import { Movie } from '../models/index.js';
 import { c, arr } from '../../public/njs/pages/provinces.js';
 
 import ImageMiddleware from '../middleware/image.js';
-import { getReview, getAllReview, createReviewByForm } from '../middleware/review.js';
+import { getReview, getAllReview, getAllReviewNoContent, deletedByFlagReviewID, createReviewByForm } from '../middleware/review.js';
 
 const adminRouter = express.Router();
 
@@ -75,16 +75,22 @@ adminRouter.get('/postReview', (req, res) => {
 //   },
 // );
 
-adminRouter.get('/manageReview', (req, res) => {
-  res.render('manageMovie', {
+adminRouter.get('/manageReview', getAllReviewNoContent, async (req, res) => {
+  res.render('mangeReview', {
     // movies: res.allMovies,
     layout: 'admin',
     style: 'manageMovie',
-    script: 'manageMovie',
+    script: 'manageReview',
     page: 'review',
     showReview: true,
     menuItem: 'manageReview',
+
+    review: res.allReviews,
   });
+});
+
+adminRouter.get('/manageReview/delete/:id', deletedByFlagReviewID, async (req, res) => {
+  res.status(200).json({ message: 'successfull' });
 });
 
 adminRouter.post('/manageMovie/update', updateMovieInfor, (req, res) => {

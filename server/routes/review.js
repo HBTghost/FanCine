@@ -2,7 +2,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { Review } from '../models/index.js';
 import { ensureAdminApi } from '../config/checkAuth.js';
-import { getReview, getAllReview, createReviewByForm } from '../middleware/review.js';
+import {
+  getReview,
+  getAllReview,
+  getAllReviewNoContent,
+  getLimitedReview,
+  deletedByFlagReviewID,
+  createReviewByForm,
+} from '../middleware/review.js';
 import ImageMiddleware from '../middleware/image.js';
 
 const reviewRouter = express.Router();
@@ -27,5 +34,15 @@ reviewRouter.post('/uploadImage', ImageMiddleware.upload, async (req, res) => {
     'url': req.uploadUrl.upload,
   });
 });
+
+reviewRouter.delete(
+  '/:id',
+  ensureAdminApi,
+  deletedByFlagReviewID,
+  async (req, res) => {
+    await res.doc;
+    res.status(200).json({});
+  },
+);
 
 export default reviewRouter;

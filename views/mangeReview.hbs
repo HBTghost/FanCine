@@ -1,4 +1,79 @@
-<div class="container">
-<i>Tính năng chưa khả dụng</i>
+<div id="mnmovie-body">
+  <div class="mnmovie-container">
+    <div id="mnmovie-title">
+      <a href="managemovie">QUẢN LÝ PHIM</a>
+    </div>
 
+    <div id="mnmovie-header">
+      <div id="mnmovie-display">
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-originalname" checked>
+          <label for="mmnmovie-display-item-originalname">Tên gốc</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-vietnamesename">
+          <label for="mmnmovie-display-item-vietnamesename">Tên Việt Nam</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-cast" checked>
+          <label for="mmnmovie-display-item-cast">Tiêu đề</label>
+        </div>
+        <div class="mmnmovie-display-item">
+          <input type="checkbox" id="mmnmovie-display-item-producer" checked>
+          <label for="mmnmovie-display-item-producer">Tác giả</label>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="mnmovie-container mnmovie-scrollable-container">
+    <table id="mnmovie-table">
+      <thead>
+        <tr>
+          <th class="mnmovie-cell mnmovie-number">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">STT</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-originalname">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Tên gốc</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-vietnamesename">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Tên Việt Nam</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-cast">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Tiêu đề</div>
+            </div>
+          </th>
+          <th class="mnmovie-cell mnmovie-producer">
+            <div class="mnmovie-cell-wrapper">
+              <div class="mnmovie-cell-header">Tác giả</div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each review}}
+        <tr>
+          <td class="mnmovie-cell mnmovie-number"></td>
+          <td class="mnmovie-cell mnmovie-originalname">{{originalName}}</td>
+          <td class="mnmovie-cell mnmovie-vietnamesename">{{vietnameseName}}</td>
+          <td class="mnmovie-cell mnmovie-cast">{{title}}</td>
+          <td class="mnmovie-cell mnmovie-producer">{{author}}</td>
+          
+          <td class="mnmovie-cell mnmovie-id">{{_id}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{> inforMovie}}
 </div>

@@ -13,7 +13,22 @@ async function getReview(req, res, next) {
 
 async function getAllReview(req, res, next) {
   try {
-    res.allReviews = await Review.find().lean();
+    res.allReviews = await Review.find(
+      { flag: { $ne: 'deleted' } },
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function getAllReviewNoContent(req, res, next) {
+  try {
+    res.allReviews = await Review.find(
+      { flag: { $ne: 'deleted' } },
+      { '_id': 1, 'originalName': 1, 'vietnameseName': 1, 'imageSource': 1, 'title': 1, 'author': 1, 'createdAtMili': 1, 'createdAt': 1 },
+    ).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -24,7 +39,28 @@ async function getAllReview(req, res, next) {
 async function getLimitedReview(req, res, next) {
   try {
     const limitReview = 6;
-    res.allReviews = await Review.find().limit(limitReview).lean();
+    res.allReviews = await Review.find(
+      { flag: { $ne: 'deleted' } },
+      { '_id': 1, 'originalName': 1, 'vietnameseName': 1, 'imageSource': 1, 'title': 1, 'createdAtMili': 1, 'createdAt': 1 },
+      { limit: limitReview },
+    ).lean();
+  } catch (err) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+
+  return next();
+}
+
+async function deletedByFlagReviewID(req, res, next) {
+  try {
+    const filter = { _id: req.params.id };
+    const update = { flag: 'deleted' };
+
+    // `doc` is the document _after_ `update` was applied because of
+    // `new: true`
+    res.doc = await Review.findOneAndUpdate(filter, update, {
+      new: true,
+    });
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -56,4 +92,11 @@ async function createReviewByForm(req, res, next) {
   return next();
 }
 
-export { getReview, getAllReview, getLimitedReview, createReviewByForm };
+export {
+  getReview,
+  getAllReview,
+  getAllReviewNoContent,
+  getLimitedReview,
+  deletedByFlagReviewID,
+  createReviewByForm,
+};
