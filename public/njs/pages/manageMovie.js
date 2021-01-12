@@ -68,7 +68,10 @@ function editModal() {
     $('.modal-content')
       .find('.edit')
       .each(function () {
-        if (!jQuery(this).hasClass('descriptionField') && !jQuery(this).is('#trailerembedidfield')) {
+        if (
+          !jQuery(this).hasClass('descriptionField') &&
+          !jQuery(this).is('#trailerembedidfield')
+        ) {
           const value = $(this).find('INPUT').val();
           $(this).text(value);
           $(this).find('INPUT').remove();

@@ -28,6 +28,7 @@ import {
   swaggerRouter,
   sessionRouter,
   userRouter,
+  reviewRouter,
 } from './server/routes/index.js';
 
 import authRouter from './server/routes/auth.js';
@@ -111,7 +112,7 @@ app.use((req, res, next) => {
 // Server rendering
 app.use('/', handlebarsRouter);
 // app.use('/admin', ensureAdmin, adminRouter);
-app.use('/admin', ensureAdmin, adminRouter);
+app.use('/admin', adminRouter);
 
 app.use('/', authRouter);
 app.use('/render', renderAuthRouter);
@@ -123,6 +124,7 @@ app.use('/api/theaters_movies', theaterMovieRouter);
 app.use('/api/showTimes', showTimeRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/api/users', userRouter);
+app.use('/api/reviews', reviewRouter);
 
 // swagger docs route
 app.use('/api-docs', swaggerRouter);

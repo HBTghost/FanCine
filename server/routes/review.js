@@ -35,14 +35,9 @@ reviewRouter.post('/uploadImage', ImageMiddleware.upload, async (req, res) => {
   });
 });
 
-reviewRouter.delete(
-  '/:id',
-  ensureAdminApi,
-  deletedByFlagReviewID,
-  async (req, res) => {
-    await res.doc;
-    res.status(200).json({});
-  },
-);
+reviewRouter.delete('/:id', ensureAdminApi, deletedByFlagReviewID, async (req, res) => {
+  await res.doc;
+  res.status(200).json({});
+});
 
 export default reviewRouter;

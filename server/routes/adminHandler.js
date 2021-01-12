@@ -9,7 +9,13 @@ import { Movie } from '../models/index.js';
 import { c, arr } from '../../public/njs/pages/provinces.js';
 
 import ImageMiddleware from '../middleware/image.js';
-import { getReview, getAllReview, getAllReviewNoContent, deletedByFlagReviewID, createReviewByForm } from '../middleware/review.js';
+import {
+  getReview,
+  getAllReview,
+  getAllReviewNoContent,
+  deletedByFlagReviewID,
+  createReviewByForm,
+} from '../middleware/review.js';
 
 const adminRouter = express.Router();
 
@@ -167,17 +173,14 @@ adminRouter.get('/manageUser', getAllUsers, (req, res) => {
   });
 });
 
-adminRouter.get(
-  '/manageTicket', getAllSessions, (req, res) => {
-    res.render('manageTicket', {
-      allSessions: res.allSessions,
-      layout: 'admin',
-      page: 'home',
-      style: 'manageTicket',
-      script: 'manageTicket',
-
-    });
-  },
-);
+adminRouter.get('/manageTicket', getAllSessions, (req, res) => {
+  res.render('manageTicket', {
+    allSessions: res.allSessions,
+    layout: 'admin',
+    page: 'home',
+    style: 'manageTicket',
+    script: 'manageTicket',
+  });
+});
 
 export default adminRouter;

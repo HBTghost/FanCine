@@ -13,9 +13,7 @@ async function getReview(req, res, next) {
 
 async function getAllReview(req, res, next) {
   try {
-    res.allReviews = await Review.find(
-      { flag: { $ne: 'deleted' } },
-    ).lean();
+    res.allReviews = await Review.find({ flag: { $ne: 'deleted' } }).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
@@ -27,7 +25,16 @@ async function getAllReviewNoContent(req, res, next) {
   try {
     res.allReviews = await Review.find(
       { flag: { $ne: 'deleted' } },
-      { '_id': 1, 'originalName': 1, 'vietnameseName': 1, 'imageSource': 1, 'title': 1, 'author': 1, 'createdAtMili': 1, 'createdAt': 1 },
+      {
+        '_id': 1,
+        'originalName': 1,
+        'vietnameseName': 1,
+        'imageSource': 1,
+        'title': 1,
+        'author': 1,
+        'createdAtMili': 1,
+        'createdAt': 1,
+      },
     ).lean();
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
@@ -41,7 +48,15 @@ async function getLimitedReview(req, res, next) {
     const limitReview = 6;
     res.allReviews = await Review.find(
       { flag: { $ne: 'deleted' } },
-      { '_id': 1, 'originalName': 1, 'vietnameseName': 1, 'imageSource': 1, 'title': 1, 'createdAtMili': 1, 'createdAt': 1 },
+      {
+        '_id': 1,
+        'originalName': 1,
+        'vietnameseName': 1,
+        'imageSource': 1,
+        'title': 1,
+        'createdAtMili': 1,
+        'createdAt': 1,
+      },
       { limit: limitReview },
     ).lean();
   } catch (err) {

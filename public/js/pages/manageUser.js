@@ -180,32 +180,31 @@ function eventSorting() {
   });
 }
 
-function eventRowUsers() {
-  userRowElements.forEach(function (row) {
-    row.addEventListener('click', function () {
-      if (row.children[COL.ROLE].innerHTML === 'user') {
-        Swal.fire({
-          icon: 'info',
-          title: 'Cảnh báo',
-          html: 'Mọi thay đổi của bạn không thể khôi phục lại!',
-          confirmButtonText: 'Xóa',
-          showCancelButton: true,
-          cancelButtonText: 'Trở lại'
-        }).then(function (result) {
-          if (result.isConfirmed) {
-            removeAUser(row);
-          }
-        });
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Cảnh báo',
-          html: 'Loại tài khoản này không thể truy cập!',
-          confirmedButtonText: 'Trở lại'
-        });
-      }
-    });
-  });
+function eventRowUsers() {// userRowElements.forEach((row) => {
+  //   row.addEventListener('click', () => {
+  //     if (row.children[COL.ROLE].innerHTML === 'user') {
+  //       Swal.fire({
+  //         icon: 'info',
+  //         title: 'Cảnh báo',
+  //         html: 'Mọi thay đổi của bạn không thể khôi phục lại!',
+  //         confirmButtonText: 'Xóa',
+  //         showCancelButton: true,
+  //         cancelButtonText: 'Trở lại',
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           removeAUser(row);
+  //         }
+  //       });
+  //     } else {
+  //       Swal.fire({
+  //         icon: 'warning',
+  //         title: 'Cảnh báo',
+  //         html: 'Loại tài khoản này không thể truy cập!',
+  //         confirmedButtonText: 'Trở lại',
+  //       });
+  //     }
+  //   });
+  // });
 }
 
 function handleEvents() {

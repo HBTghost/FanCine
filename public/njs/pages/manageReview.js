@@ -77,7 +77,10 @@ function removeAReview(row) {
   Swal.fire({
     title: 'Cảnh báo',
     icon: 'warning',
-    html: 'Ba&#803;n co&#769; ch&#259;&#769;c xo&#769;a ba&#768;i vi&ecirc;&#769;t <b>'.concat(row.children[COL.TITLE].innerHTML, '</b> kh\xF4ng?'),
+    html: 'Ba&#803;n co&#769; ch&#259;&#769;c xo&#769;a ba&#768;i vi&ecirc;&#769;t <b>'.concat(
+      row.children[COL.TITLE].innerHTML,
+      '</b> kh\xF4ng?',
+    ),
     confirmButtonColor: '#E74C3C',
     confirmButtonText: 'Chắc chắn',
     showCancelButton: true,

@@ -11,7 +11,7 @@ userRouter.delete('/:id', ensureAdminApi, async (req, res) => {
     if (req.params.id === adminID) {
       res.status(403).json({ message: 'Forbidden' });
     } else {
-      await User.findByIdAndDelete(mongoose.Types.ObjectId(req.params.id));
+      // await User.findByIdAndDelete(mongoose.Types.ObjectId(req.params.id));
       res.json({});
     }
   } catch (err) {
