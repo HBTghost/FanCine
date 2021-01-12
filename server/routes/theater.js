@@ -18,7 +18,7 @@ theaterRouter.get('/', getAllTheaters, (req, res) => {
   res.json(res.allTheaters);
 });
 
-theaterRouter.post('/utils/postSampleDatasets', postSampleTheaters, (req, res) => {
+theaterRouter.post('/utils/postSampleDatasets', ensureAdminApi, postSampleTheaters, (req, res) => {
   res.json(res.theaters);
 });
 
