@@ -205,10 +205,11 @@ function eventRowMovies() {
 
           for (var _i2 = 1; _i2 < data.description.length; _i2 += 1) {
             $('.descriptionField').append("<br>".concat(data.description[_i2]));
-          } // $('.trailerEmbedIDField').html(data.trailerEmbedID);
-          // $('.imageSourceField').html(data.imageSource);
-          // $('.horizontalImageSourceField').html(data.horizontalImageSource);
+          }
 
+          $('#trailerEmbedIDField').html("https://www.youtube.com/embed/".concat(data.trailerEmbedID));
+          $('#video-trailer').attr('src', "https://www.youtube.com/embed/".concat(data.trailerEmbedID)); // $('.imageSourceField').html(data.imageSource);
+          // $('.horizontalImageSourceField').html(data.horizontalImageSource);
 
           openModal();
         });

@@ -208,7 +208,8 @@ function eventRowMovies() {
           for (let i = 1; i < data.description.length; i += 1) {
             $('.descriptionField').append(`<br>${data.description[i]}`);
           }
-          // $('.trailerEmbedIDField').html(data.trailerEmbedID);
+          $('#trailerEmbedIDField').html(`https://www.youtube.com/embed/${data.trailerEmbedID}`);
+          $('#video-trailer').attr('src', `https://www.youtube.com/embed/${data.trailerEmbedID}`);
           // $('.imageSourceField').html(data.imageSource);
           // $('.horizontalImageSourceField').html(data.horizontalImageSource);
           openModal();
