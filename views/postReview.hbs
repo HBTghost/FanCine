@@ -1,0 +1,59 @@
+<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+
+<div class="container py-3 w-100">
+    <h1 class="text-center">Đăng tải Đánh giá (Bình luận) phim</h1>
+    <form action="/api/reviews/" method="POST" enctype="multipart/form-data">
+        <label for="review_head_originalName">Tên phim gốc</label>
+        <input type="text" name="review_head_originalName" id="review_head_originalName" class="form-control" placeholder="Tên phim gốc" required>
+        <label for="review_head_vietnameseName">Tên phim tiếng Việt</label>
+        <input type="text" name="review_head_vietnameseName" id="review_head_vietnameseName" class="form-control" placeholder="Tên phim tiếng Việt">
+        {{!-- background --}}
+        <label for="vertical-file-upload">Hình nền bài viết</label>
+        <div class="upload-preview w-100">
+        <div id="vertical-file-upload-form" class="uploader">
+        <input id="vertical-file-upload" type="file" name="verticalImage" accept="image/*" required/>
+
+        <label for="vertical-file-upload" id="vertical-file-drag">
+            <img id="vertical-file-image" src="#" alt="Preview" class="hidden file-image">
+            <div id="vertical-start" class="start">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <div>Chọn một ảnh hoặc thả vào đây</div>
+            <div id="vertical-notimage" class="hidden notimage">Vui lòng chọn ảnh</div>
+            <span id="vertical-file-upload-btn" class="btn btn-primary">Chọn ảnh</span>
+            </div>
+            <div id="vertical-response" class="hidden response">
+            <div id="vertical-messages" class="messages"></div>
+            </div>
+        </label>
+        </div>
+        </div>
+
+        <label for="review_title" required>Tiêu đề bài viết</label>
+        <input type="text" name="review_title" id="review_title" class="form-control" placeholder="Tiêu đề bài viết" required>
+        <label class="mt-2" for="review_content">Nội dung bài viết</label>
+        <textarea name="review_content" id="review_content" required>
+        </textarea>
+
+        <input type="hidden" name="review_author" id="review_author" value="admin">
+
+        <div class="row justify-content-center mt-4">
+            <button type="submit" class="btn btn-success w-50">Đăng!</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+ClassicEditor
+    .create( document.querySelector( '#review_content' ), {
+    ckfinder: {
+        uploadUrl: '/api/reviews/uploadImage'
+    }
+    } )
+    .then( editor => {
+        window.editor = editor;
+    } )
+    .catch( err => {
+        console.error( err.stack );
+    } );
+</script>

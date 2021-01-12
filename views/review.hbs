@@ -1,14 +1,14 @@
 
 <div class="container mt-3">
     <!-- select type nav -->
-    <div class="row">
+    {{!-- <div class="row">
         <div class="col-12 col-md-6 col-lg-3">
             <select class="form-control" id="select" onchange="myname()">
                 <option value="newest">Mới nhất</option>
                 <option value="bestRate">Đánh giá cao</option>
             </select>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Content -->
     <div class="review-title-container">
@@ -16,40 +16,61 @@
     </div>
     <div class="row">
         <div class="col-12 col-lg-8" style="background-color:;">
+            {{#each reviews}}
             <div class="container-fuild">
                 <article class="review-list">
                     <div class="review-item">
-                        <a href="/review/reviewContentSample" class="review-item-img">
-                            <img src="/images/reviewContentSample/kid.jpg" alt="">
+                        <a href="/review/{{_id}}" class="review-item-img">
+                            <img src="{{imageSource}}" alt="">
                         </a>
                         <div>
-                            <a href="/review/reviewContentSample">
+                            <a href="/review/{{_id}}">
                                 <div class="review-item-title">
-                                    <h4>Tổ chức và các chức năng của một bài đánh giá</h4>
+                                    <h4>{{originalName}}</h4>
                                 </div>
                             </a>
-                            <div class="review-item-content">Đây là bài viết trình bày các chức năng hiện tại của một bài đánh giá phim.</div>
+                            <div class="review-item-content">{{title}}</div>
                         </div>
                     </div>
                 </article>
             </div>
+            {{/each}}
             
-            <div class="row mt-3">
+            {{!-- <div class="row mt-3">
                 <div class="col"></div>
                 <div class="col-12 col-lg-8">
                     <button type="button" class="btn btn-outline-secondary d-flex container d-flex justify-content-center">Xem Thêm</button>
                 </div>
                 <div class="col"></div>
-            </div>
+            </div> --}}
             <!-- Show more button -->
             
         </div>
 
-        <div class="col col-md-4 ">
-            <div class="container">
-                <img src="https://via.placeholder.com/768x1024" alt="" class="img-thumbnail">
+        {{!-- <div class="col mb-5">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {{#each reviews}}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{@index}}" class="active"></li>
+                {{/each}}
+            </ol>
+            <div class="carousel-inner">
+                {{#each reviews}}
+                <div class="carousel-item {{#if @first}}active{{/if}}">
+                    <img src="{{ imageSource }}" class="rounded w-100" alt="">
+                </div>
+                {{/each}}
             </div>
-        </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div> --}}
+    </div>
     </div>
 
 </div>

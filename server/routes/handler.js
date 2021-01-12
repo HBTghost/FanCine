@@ -50,12 +50,20 @@ import updateUserInfor from '../middleware/updateInfor.js';
 import { getSessionByID, getFilteredSessionsFromUser } from '../middleware/session.js';
 
 import { c, arr } from '../../public/njs/pages/provinces.js';
+import ImageMiddleware from '../middleware/image.js';
+import {
+  getReview,
+  getAllReview,
+  getLimitedReview,
+  createReviewByForm,
+} from '../middleware/review.js';
 
 const handlebarsRouter = express.Router();
 
-handlebarsRouter.get('/', getMovieFutureOnShow, async (req, res) => {
+handlebarsRouter.get('/', getMovieFutureOnShow, getLimitedReview, async (req, res) => {
   res.render('home', {
     style: 'home',
+    reviews: await res.allReviews,
     movies: await res.movies,
   });
 });
@@ -75,13 +83,30 @@ handlebarsRouter.get('/movie-on-show', getMovieFutureOnShowUnlimt, async (req, r
   });
 });
 
-handlebarsRouter.get('/review', (req, res) => {
+handlebarsRouter.get('/review', getAllReview, async (req, res) => {
   res.render('review', {
+    reviews: res.allReviews,
     style: 'review',
   });
 });
 
-handlebarsRouter.get('/review/reviewContentSample', (req, res) => {
+handlebarsRouter.get('/review/:id', getReview, async (req, res) => {
+  // const d1 = new Date(await res.review.createdAtMili);
+  // const d = d1.getDate();
+  // const m = d1.getMonth();
+  // const y = d1.getFullYear();
+
+  // const dateString = `${d}/${m}/${y}`;
+  // console.log(res.review);
+
+  res.render('reviewContent', {
+    style: 'reviewContent',
+    date: new Date(res.review.createdAtMili).toDateString(),
+    review: res.review,
+  });
+});
+
+handlebarsRouter.get('/reviewContentSample', (req, res) => {
   res.render('partials/reviewContentSample', {
     style: 'reviewContent',
   });
@@ -451,5 +476,20 @@ handlebarsRouter.get('/updatePassword', ensureAuthenticatedOrRedirect, (req, res
   });
 });
 handlebarsRouter.get('/updatePassword/checkAuth', ensureAuthenticated);
+
+// handlebarsRouter.get('/hoangckeditor', (req, res) => {
+//   res.render('hoangedit');
+// });
+
+// handlebarsRouter.post('/hoangupload', ImageMiddleware.upload, async (req, res) => {
+//   console.log(req.body);
+//   console.log(req.files);
+//   console.log(res);
+//   console.log(req.uploadUrl.upload);
+//   res.status(200).json({
+//     'uploaded': true,
+//     'url': req.uploadUrl.upload,
+//   });
+// });
 
 export default handlebarsRouter;

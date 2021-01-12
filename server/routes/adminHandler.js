@@ -8,6 +8,13 @@ import { Movie } from '../models/index.js';
 
 import { c, arr } from '../../public/njs/pages/provinces.js';
 
+import ImageMiddleware from '../middleware/image.js';
+import {
+  getReview,
+  getAllReview,
+  createReviewByForm,
+} from '../middleware/review.js';
+
 const adminRouter = express.Router();
 
 adminRouter.get('/', getAllUsers, getAllMovies, getAllTheaters, getAllSessions, (req, res) => {
@@ -48,6 +55,39 @@ adminRouter.get('/manageMovie', getAllMovies, (req, res) => {
     page: 'movie',
     show: true,
     menuItem: 'manageMovie',
+  });
+});
+
+// ===== Review =====
+adminRouter.get('/postReview', (req, res) => {
+  res.render('postReview', {
+    layout: 'admin',
+    style: 'postMovie',
+    script: 'postMovie',
+    page: 'review',
+    showReview: true,
+    menuItem: 'postReview',
+  });
+});
+
+// adminRouter.post(
+//   '/postReview/uploadReview',
+//   ImageMiddleware.upload,
+//   createReviewByForm,
+//   async (req, res) => {
+//     res.redirect(`/review/${res._id}`);
+//   },
+// );
+
+adminRouter.get('/manageReview', (req, res) => {
+  res.render('manageMovie', {
+    // movies: res.allMovies,
+    layout: 'admin',
+    style: 'manageMovie',
+    script: 'manageMovie',
+    page: 'review',
+    showReview: true,
+    menuItem: 'manageReview',
   });
 });
 

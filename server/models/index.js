@@ -7,9 +7,10 @@ import TypeShow from './typeShow.js';
 import ShowTime from './showTime.js';
 import Session from './session.js';
 import User from './user.js';
+import Review from './review.js';
 
 function isValidId(id) {
   return mongoose.Types.ObjectId.isValid(id);
 }
 
-export { Movie, Theater, TheaterMovie, DateShow, TypeShow, ShowTime, Session, User, isValidId };
+export { Movie, Theater, TheaterMovie, DateShow, TypeShow, ShowTime, Session, User, Review, isValidId };

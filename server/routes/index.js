@@ -6,6 +6,7 @@ import showTimeRouter from './showTime.js';
 import swaggerRouter from './swagger.js';
 import sessionRouter from './session.js';
 import userRouter from './user.js';
+import reviewRouter from './review.js';
 
 export {
   handlebarsRouter,
@@ -16,4 +17,5 @@ export {
   swaggerRouter,
   sessionRouter,
   userRouter,
+  reviewRouter,
 };
