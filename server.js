@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import path, { dirname } from 'path';
 import expbs from 'express-handlebars';
+import herokuAwake from 'heroku-awake';
 
 import flash from 'connect-flash';
 import session from 'express-session';
@@ -145,4 +146,5 @@ const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`);
+  herokuAwake(process.env.BASE_URL);
 });
